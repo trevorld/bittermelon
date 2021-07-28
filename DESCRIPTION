@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome bitmap font tools
-Version: 0.0.0
+Version: 0.0.0-1
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
              person("Rob", "Hagemans", role = "aut",
@@ -12,6 +12,9 @@ BugReports: https://github.com/trevorld/bittermelon/issues
 License: MIT + file LICENSE
 Imports:
     findpython
+Suggests:
+    testthat,
+    vdiffr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
