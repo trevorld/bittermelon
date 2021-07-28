@@ -1,0 +1,83 @@
+<h1 id="bittermelon">bittermelon</h1>
+<p><a href="https://cran.r-project.org/package=bittermelon"><img src="https://www.r-pkg.org/badges/version/bittermelon" alt="CRAN Status Badge" /></a> <a href="https://github.com/trevorld/bittermelon/actions"><img src="https://github.com/trevorld/bittermelon/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a> <a href="https://codecov.io/github/trevorld/bittermelon?branch=main"><img src="https://img.shields.io/codecov/c/github/trevorld/bittermelon.svg" alt="Coverage Status" /></a> <a href="https://www.repostatus.org/#concept"><img src="https://www.repostatus.org/badges/latest/concept.svg" alt="Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept." /></a></p>
+<h3 id="table-of-contents">Table of Contents</h3>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#similar">Related Software</a></li>
+</ul>
+<h2 id="overview"><a name="overview">Overview</a></h2>
+<p><strong>This project is currently at the ‘Concept’ level and is not currently usable.</strong> Check out the awesome <a href="https://github.com/coolbutuseless/bdftools">{bdftools}</a> package if you currently need bitmap font support in R. <code>{bdftools}</code> will probably always provide cooler bitmap font graphical output support than <code>{bittermelon}</code>. The primary goal of <code>{bittermelon}</code> will be to make it easier for me to create new bitmap fonts using R.</p>
+<p><code>{bittermelon}</code> Design Goals:</p>
+<ul>
+<li><p>Provide functions for creating and modifying bitmap font glyphs.</p>
+<ul>
+<li><p>Font glyphs will simply be integer matrices with special methods</p>
+<ul>
+<li><code>print()</code> method so can see glyphs in terminal</li>
+<li><code>as.raster()</code> method so can generate some (crude) graphics</li>
+<li>crop, trim, pad, expand methods</li>
+<li>merge and difference methods (perhaps use <code>+</code> and <code>-</code>)</li>
+<li>generate glyph by capturing results of drawing to an R graphics device</li>
+<li>perhaps bold, shadow, glow effects?</li>
+<li>rotate?</li>
+</ul></li>
+</ul></li>
+<li><p>Provide native read/write support for the ‘hex’ and ‘yaff’ bitmap font formats</p>
+<ul>
+<li><p>I’m not smart enough to fully grok the ‘bdf’ font format but the ‘hex’ and ‘yaff’ font formats are simpler alternatives I can understand: basically each Unicode glyph is simply associated with an encoding of a matrix of ones and zeroes.</p></li>
+<li><p>Fonts will simply be named lists of font glyphs with special methods.</p>
+<ul>
+<li>Names should be of the form “U+HEX” where “HEX” is the Unicode hexadecimal number for the character. This format is understood well by the <code>{Unicode}</code> package. Note <code>Unicode::as.u_char()</code> does not seem to support any string format that is reliably a “syntactic name” identifier.</li>
+<li>Font metadata will be stored as an attribute. Note “hex” font format has <strong>zero</strong> font metadata so this should be optional.</li>
+</ul></li>
+</ul></li>
+<li><p>If ‘Python’ is installed will also read/write several more bitmap font formats using an embedded version of ‘monobit’.</p></li>
+</ul>
+<p>Personal Project Goals:</p>
+<ul>
+<li><p>Generate enough bitmap manipulation capabilities in order to create a specialized monoscale font to support a <a href="https://trevorldavis.com/piecepackr/unicode-piecepack-diagrams.html#piecepack-font-wishlist">boardgame diagram use case no existing Unicode font seems to support well</a>.</p>
+<ul>
+<li>A 16x16 “hex” font could be a good initial prototype target.</li>
+</ul></li>
+<li><p>Enable people to render such board game diagrams using the font in R (and perhaps XeLaTeX or HTML) even if the user doesn’t have the above font installed. Ideally the rendering support must support Unicode “combining” characters, ideally <code>{crayon}</code> coloring, and ideally “compression” using “Block characters”.</p></li>
+<li><p>Generate ability to efficiently store and use a few bitmap icons in <code>{piecepackr}</code> to provide a “configuration” users could use to generate certain game icons if they don’t have the right fonts installed on their system for more “natural” font based approaches.</p>
+<ul>
+<li>As an alternative don’t want to bundle a bunch of large images with <code>{piecepackr}</code></li>
+<li>In particular “sans” lacks Chess symbols and certain Piecepack symbols. Additionally “Dejavu Sans” lacks good Xiangqi and Shogi symbols. Certain games (we might never support) such as Arimaa and Hive could be straightforwardly implemented with various Emoji animal glyphs.</li>
+<li><code>{bittermelon}</code> must eventually be made available on CRAN for a builtin configuration to be usable by <code>{piecepackr}</code>.</li>
+</ul></li>
+</ul>
+<h2 id="installation"><a name="installation">Installation</a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;trevorld/bittermelon&quot;</span>)</span></code></pre></div>
+<h2 id="examples"><a name="examples">Examples</a></h2>
+<p>To be completed…</p>
+<h2 id="related-software"><a name="similar">Related Software</a></h2>
+<p>R packages:</p>
+<ul>
+<li><a href="https://github.com/coolbutuseless/bdftools">bdftools</a> provides some tools for reading, manipulating, and outputting BDF bitmap fonts. In particular provides much richer graphical output capabilities than <code>{bittermelon}</code> will likely support including a specialized <code>{ggplot2}</code> geom. It also contains the <code>Cozette</code>, <code>Creep2</code>, and <code>Spleen</code> bitmap fonts.</li>
+<li><a href="https://github.com/yixuan/fontr">fontr</a> allows one to extract character glyphs from a specific font (which itself may not be a bitmap font) as a bitmap.</li>
+</ul>
+<p>Python:</p>
+<ul>
+<li><a href="https://github.com/tomchen/bdfparser">BDF Parser Python library</a></li>
+<li><a href="https://gitlab.com/Screwtapello/bdflib">bdflib</a></li>
+<li><a href="https://github.com/robhagemans/monobit">monobit</a> lets one modify bitmap fonts and convert between several formats. Embedded within <code>{bittermelon}</code>.</li>
+</ul>
+<p>Other:</p>
+<ul>
+<li><a href="https://github.com/kreativekorp/bitsnpicas">Bits’n’Picas</a></li>
+<li><a href="http://fontforge.github.io/en-US/">FontForge</a></li>
+</ul>
+<p>Fonts:</p>
+<ul>
+<li><p><a href="https://www.unifoundry.com/unifont/index.html">GNU Unifont</a></p></li>
+<li><p>Rob Hagerman’s <a href="https://github.com/robhagemans/hoard-of-bitfonts">Hoard of Bitfonts</a></p></li>
+<li><p>Embedded in <code>{bdftools}</code> package:</p>
+<ul>
+<li><a href="https://github.com/slavfox/Cozette">Cozette</a></li>
+<li><a href="https://github.com/raymond-w-ko/creep2">Creep2</a></li>
+<li><a href="https://github.com/fcambus/spleen">Spleen</a></li>
+</ul></li>
+</ul>
