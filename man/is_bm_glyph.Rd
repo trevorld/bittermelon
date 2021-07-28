@@ -18,9 +18,9 @@ and \code{FALSE} for all other objects.
 }
 \examples{
  space_matrix <- matrix(0, nrow = 16, ncol = 16)
+ is_bm_glyph(space_matrix)
  space_glyph <- bm_glyph(space_matrix)
  is_bm_glyph(space_glyph)
- is_bm_glyph(space_matrix)
 }
 \seealso{
 \code{\link[=bm_glyph]{bm_glyph()}}

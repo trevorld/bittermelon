@@ -1,6 +1,6 @@
 #' Bitmap glyph object
 #'
-#' `bm_glyph()` creates an S3 object representing (monochrome) bitmap (font) glyphs.
+#' `bm_glyph()` creates an S3 object representing bitmap glyphs.
 #'
 #' Bitmap glyphs are represented as integer matrices.
 #' The bottom left pixel is represented by the first row and first column.
@@ -13,16 +13,13 @@
 #' @examples
 #'  space <- bm_glyph(matrix(0, nrow = 16, ncol = 16))
 #'  print(space)
-#' @seealso [is_bm_glyph()]
+#' @seealso [as_bm_glyph()], [is_bm_glyph()]
 #' @export
 bm_glyph <- function(x) {
     if (is_bm_glyph(x))
-        return(x)
-    if (is.matrix(x)) {
-        bm_glyph_matrix(x)
-    } else {
-        stop("Don't know how create 'bm_glyph' from this object")
-    }
+        x
+    else
+        as_bm_glyph(x)
 }
 
 #' Test if the object is a bitmap glyph object
@@ -33,16 +30,43 @@ bm_glyph <- function(x) {
 #' @return `TRUE` or `FALSE`
 #' @examples
 #'  space_matrix <- matrix(0, nrow = 16, ncol = 16)
+#'  is_bm_glyph(space_matrix)
 #'  space_glyph <- bm_glyph(space_matrix)
 #'  is_bm_glyph(space_glyph)
-#'  is_bm_glyph(space_matrix)
 #' @seealso [bm_glyph()]
 #' @export
 is_bm_glyph <- function(x) inherits(x, "bm_glyph")
 
-bm_glyph_matrix <- function(x) {
-    if (!is.integer(x))
-        x[, ] <- as.integer(x)
+#' Coerce to bitmap glyph objects
+#'
+#' `as_bm_glyph()` turns an existing object into a `bm_glyph()` object.
+#'
+#' @param x An object that can reasonably be coerced to a `bm_glyph()` object.
+#' @param ... Further arguments passed to or from other methods.
+#' @return A `bm_glyph()` object.
+#' @examples
+#'  space_matrix <- matrix(0, nrow = 16, ncol = 16)
+#'  space_glyph <- as_bm_glyph(space_matrix)
+#'  is_bm_glyph(space_glyph)
+#' @seealso [bm_glyph()]
+#' @export
+as_bm_glyph <- function(x, ...) {
+    UseMethod("as_bm_glyph")
+}
+
+#' @rdname as_bm_glyph
+#' @export
+as_bm_glyph.matrix <- function(x, ...) {
+    if (!is.integer(x)) {
+        x[, ] <- suppressWarnings(as.integer(x))
+    }
+    stopifnot(!any(is.na(x)))
     class(x) <- c("bm_glyph", class(x))
     x
+}
+
+#' @rdname as_bm_glyph
+#' @export
+as_bm_glyph.default <- function(x, ...) {
+    as_bm_glyph.matrix(as.matrix(x))
 }

@@ -14,7 +14,7 @@ If not already an integer matrix it will be cast to one.}
 An integer matrix with a \dQuote{bm_glyph} subclass.
 }
 \description{
-\code{bm_glyph()} creates an S3 object representing (monochrome) bitmap (font) glyphs.
+\code{bm_glyph()} creates an S3 object representing bitmap glyphs.
 }
 \details{
 Bitmap glyphs are represented as integer matrices.
@@ -28,5 +28,5 @@ The top right pixel is represented by the last row and last column.
  print(space)
 }
 \seealso{
-\code{\link[=is_bm_glyph]{is_bm_glyph()}}
+\code{\link[=as_bm_glyph]{as_bm_glyph()}}, \code{\link[=is_bm_glyph]{is_bm_glyph()}}
 }
