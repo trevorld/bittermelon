@@ -19,9 +19,9 @@
 #'               The first character for integer `0L`,
 #'               the second character for integer `1L`, and so on.
 #' @return A character vector of the string representation.
-#' @usage \method{as.character}{bm_glyph}(x, ..., labels = c(" ", "\u2588", "\u2592"))
+#' @usage \method{as.character}{bm_glyph}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
 #' @export
-as.character.bm_glyph <- function(x, ..., labels = c(" ", "\u2588", "\u2592")) {
+as.character.bm_glyph <- function(x, ..., labels = c("\u2591", "\u2588", "\u2592")) {
     x <- as_bm_glyph(x)
     stopifnot(max(x) <= length(labels))
     l <- sapply(seq_len(nrow(x)),

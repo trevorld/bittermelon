@@ -4,7 +4,7 @@
 \alias{print.bm_glyph}
 \title{Print bitmap glyph objects}
 \usage{
-\method{print}{bm_glyph}(x, ..., labels = c(" ", "\u2588", "\u2592"))
+\method{print}{bm_glyph}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
 }
 \arguments{
 \item{x}{A \code{bm_glyph()} object}
