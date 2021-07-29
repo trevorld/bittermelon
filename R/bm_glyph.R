@@ -7,13 +7,23 @@
 #' The bottom right pixel is represented by the first row and last column.
 #' The top left pixel is represented by the last row and first column.
 #' The top right pixel is represented by the last row and last column.
+#'
+#' @section Supported S3 methods:
+#'
+#' * [as.character.bm_glyph()]
+#' * [as.matrix.bm_glyph()]
+#' * [as.raster.bm_glyph()]
+#' * [plot.bm_glyph()]
+#' * [print.bm_glyph()]
+#'
 #' @param x Object to be converted to `bm_glyph()`.
-#'   If not already an integer matrix it will be cast to one.
+#'   If not already an integer matrix it will be cast to one
+#'   by [as_bm_glyph()].
 #' @return An integer matrix with a \dQuote{bm_glyph} subclass.
 #' @examples
 #'  space <- bm_glyph(matrix(0, nrow = 16, ncol = 16))
 #'  print(space, labels = ".")
-#' @seealso [as_bm_glyph()], [is_bm_glyph(), [as.character.bm_glyph()], [print.bm_glyph()]
+#' @seealso [as_bm_glyph()], [is_bm_glyph()]
 #' @export
 bm_glyph <- function(x) {
     if (is_bm_glyph(x))

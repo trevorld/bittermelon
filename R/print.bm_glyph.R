@@ -14,6 +14,7 @@
 #' @seealso [bm_glyph()]
 #' @inheritParams as.character.bm_glyph
 #' @return A character vector of the string representation invisibly.
+#' @usage \method{print}{bm_glyph}(x, ..., labels = c(" ", "\u2588", "\u2592"))
 #' @export
 print.bm_glyph <- function(x, ..., labels = c(" ", "\u2588", "\u2592")) {
     x <- as_bm_glyph(x)

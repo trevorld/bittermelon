@@ -82,7 +82,7 @@ Python:
 Other:
 
 * [Bits'n'Picas](https://github.com/kreativekorp/bitsnpicas)
-* [FontForge](http://fontforge.github.io/en-US/)
+* [FontForge](http://fontforge.org/en-US/)
 
 Fonts:
 

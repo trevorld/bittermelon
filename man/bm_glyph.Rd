@@ -8,7 +8,8 @@ bm_glyph(x)
 }
 \arguments{
 \item{x}{Object to be converted to \code{bm_glyph()}.
-If not already an integer matrix it will be cast to one.}
+If not already an integer matrix it will be cast to one
+by \code{\link[=as_bm_glyph]{as_bm_glyph()}}.}
 }
 \value{
 An integer matrix with a \dQuote{bm_glyph} subclass.
@@ -23,10 +24,21 @@ The bottom right pixel is represented by the first row and last column.
 The top left pixel is represented by the last row and first column.
 The top right pixel is represented by the last row and last column.
 }
+\section{Supported S3 methods}{
+
+\itemize{
+\item \code{\link[=as.character.bm_glyph]{as.character.bm_glyph()}}
+\item \code{\link[=as.matrix.bm_glyph]{as.matrix.bm_glyph()}}
+\item \code{\link[=as.raster.bm_glyph]{as.raster.bm_glyph()}}
+\item \code{\link[=plot.bm_glyph]{plot.bm_glyph()}}
+\item \code{\link[=print.bm_glyph]{print.bm_glyph()}}
+}
+}
+
 \examples{
  space <- bm_glyph(matrix(0, nrow = 16, ncol = 16))
  print(space, labels = ".")
 }
 \seealso{
-\code{\link[=as_bm_glyph]{as_bm_glyph()}}, [is_bm_glyph(), \code{\link[=as.character.bm_glyph]{as.character.bm_glyph()}}, \code{\link[=print.bm_glyph]{print.bm_glyph()}}
+\code{\link[=as_bm_glyph]{as_bm_glyph()}}, \code{\link[=is_bm_glyph]{is_bm_glyph()}}
 }

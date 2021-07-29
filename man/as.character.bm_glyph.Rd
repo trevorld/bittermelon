@@ -4,7 +4,7 @@
 \alias{as.character.bm_glyph}
 \title{Coerce bitmap glyph objects to character vector}
 \usage{
-\method{as.character}{bm_glyph}(x, ..., labels = c(" ", "█", "▒"))
+\method{as.character}{bm_glyph}(x, ..., labels = c(" ", "\u2588", "\u2592"))
 }
 \arguments{
 \item{x}{A \code{bm_glyph()} object}
