@@ -4,8 +4,10 @@ Title: Monochrome bitmap font tools
 Version: 0.0.0-4
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
-             person("Rob", "Hagemans", role = "aut",
-                    comment = "We embed a version of 'monobit'"))
+             person("Rob", "Hagemans", role = "cph",
+                    comment = "Author of included 'monobit' library"),
+             person("Frederic", "Cambus", role = "cph",
+                    comment = "Author of included 'Spleen' font"))
 Description: Provides functions for creating and modifying monochrome bitmap font glyphs.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
 URL: https://github.com/trevorld/bittermelon
 BugReports: https://github.com/trevorld/bittermelon/issues
