@@ -24,7 +24,7 @@ A \code{bm_glyph()} object.
 \code{as_bm_glyph()} turns an existing object into a \code{bm_glyph()} object.
 }
 \examples{
- space_matrix <- matrix(0, nrow = 16, ncol = 16)
+ space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
  space_glyph <- as_bm_glyph(space_matrix)
  is_bm_glyph(space_glyph)
 }

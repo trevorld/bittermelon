@@ -17,7 +17,7 @@ is_bm_glyph(x)
 and \code{FALSE} for all other objects.
 }
 \examples{
- space_matrix <- matrix(0, nrow = 16, ncol = 16)
+ space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
  is_bm_glyph(space_matrix)
  space_glyph <- bm_glyph(space_matrix)
  is_bm_glyph(space_glyph)

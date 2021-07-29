@@ -12,8 +12,8 @@
 #' @return An integer matrix with a \dQuote{bm_glyph} subclass.
 #' @examples
 #'  space <- bm_glyph(matrix(0, nrow = 16, ncol = 16))
-#'  print(space)
-#' @seealso [as_bm_glyph()], [is_bm_glyph()]
+#'  print(space, labels = ".")
+#' @seealso [as_bm_glyph()], [is_bm_glyph(), [as.character.bm_glyph()], [print.bm_glyph()]
 #' @export
 bm_glyph <- function(x) {
     if (is_bm_glyph(x))
@@ -29,7 +29,7 @@ bm_glyph <- function(x) {
 #' @param x An object
 #' @return `TRUE` or `FALSE`
 #' @examples
-#'  space_matrix <- matrix(0, nrow = 16, ncol = 16)
+#'  space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
 #'  is_bm_glyph(space_matrix)
 #'  space_glyph <- bm_glyph(space_matrix)
 #'  is_bm_glyph(space_glyph)
@@ -45,7 +45,7 @@ is_bm_glyph <- function(x) inherits(x, "bm_glyph")
 #' @param ... Further arguments passed to or from other methods.
 #' @return A `bm_glyph()` object.
 #' @examples
-#'  space_matrix <- matrix(0, nrow = 16, ncol = 16)
+#'  space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
 #'  space_glyph <- as_bm_glyph(space_matrix)
 #'  is_bm_glyph(space_glyph)
 #' @seealso [bm_glyph()]

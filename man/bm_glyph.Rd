@@ -25,8 +25,8 @@ The top right pixel is represented by the last row and last column.
 }
 \examples{
  space <- bm_glyph(matrix(0, nrow = 16, ncol = 16))
- print(space)
+ print(space, labels = ".")
 }
 \seealso{
-\code{\link[=as_bm_glyph]{as_bm_glyph()}}, \code{\link[=is_bm_glyph]{is_bm_glyph()}}
+\code{\link[=as_bm_glyph]{as_bm_glyph()}}, [is_bm_glyph(), \code{\link[=as.character.bm_glyph]{as.character.bm_glyph()}}, \code{\link[=print.bm_glyph]{print.bm_glyph()}}
 }
