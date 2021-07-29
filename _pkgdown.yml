@@ -1,0 +1,23 @@
+destination: "../../websites/R/bittermelon/"
+url: "https://trevorldavis.com/R/bittermelon"
+development:
+    mode: auto
+reference:
+    - title: "Bitmap glyph objects"
+      desc: "Bitmap glyph objects and methods"
+      contents:
+          - starts_with("bm_glyph")
+          - ends_with("bm_glyph")
+    - title: "Bitmap font objects"
+      desc: "Bitmap font objects and methods"
+      contents:
+          - starts_with("bm_font")
+          - ends_with("bm_font")
+    - title: "Read/write bitmap fonts"
+      desc: "Functions to read/write bitmap fonts"
+      contents:
+          - read_hex
+    - title: "Unicode utilities"
+      desc: "Unicode utility functions"
+      contents:
+          - code_point

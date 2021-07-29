@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome bitmap font tools
-Version: 0.0.0-4
+Version: 0.1.0-5
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
              person("Rob", "Hagemans", role = "cph",
@@ -15,7 +15,8 @@ License: MIT + file LICENSE
 Imports:
     findpython,
     grDevices,
-    grid
+    grid,
+    Unicode
 Suggests:
     testthat,
     vdiffr
