@@ -1,20 +1,31 @@
-#' Read hex format bitmap font files
+#' Read and write hex bitmap font files
 #'
 #' `read_hex()` reads in hex format bitmap font files
-#' as a [bm_font()] object.
-#' @param con A connection object or a character string.
-#'            This can be a compressed file.
-#'            See [base::readLines()] for more info.
+#' as a [bm_font()] object while `write_hex()` writes a [bm_font()] object
+#' as a hex format bitmap font file.
+#' @param con A connection object or a character string of a filename.
+#'            See [base::readLines()] or [base::writeLines()] for more info.
+#'            If it is a connection it will be explicitly closed.
+#'
+#' @param font A [bm_font()] object.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
 #'  capital_r <- font[[code_point_from_name("LATIN CAPITAL LETTER R")]]
 #'  print(capital_r, labels = c(".", "#"))
+#'
+#'  filename <- tempfile(fileext = ".hex.gz")
+#'  write_hex(font, gzfile(filename))
 #' @export
+#' @rdname hex_font
 #' @seealso [bm_font()]
 read_hex <- function(con) {
+    if (inherits(con, "connection"))
+        on.exit(close(con))
+
     contents <- readLines(con)
-    contents <- grep("^[0-9]+:[A-Fa-f0-9]+$", contents, value = TRUE)
+
+    contents <- grep("^[A-Fa-f0-9]+:[A-Fa-f0-9]+$", contents, value = TRUE)
     contents <- strsplit(contents, ":")
 
     code_points <- sapply(contents, function(x) x[1])
@@ -26,15 +37,31 @@ read_hex <- function(con) {
     bm_font(glyphs)
 }
 
-#' Write hex format bitmap font files
-#'
-#' `write_hex()` writes hex format bitmap font files
-#' @param font A [bm_font()] object.
-#' @param con A connection object or a character string.
-#'            See [base::writeLines()] for more info.
-#' @noRd
-write_hex <- function(font, con) {
-    NULL # To be completed
+#' @rdname hex_font
+#' @export
+write_hex <- function(font, con = stdout()) {
+    if (inherits(con, "connection"))
+        on.exit(close(con))
+
+    validate_bm_font(font)
+    # hex fonts only support 8x16 and 16x16 glyphs
+    heights <- sapply(font, nrow)
+    stopifnot(all(heights == 16L))
+    widths <- sapply(font, ncol)
+    stopifnot(all(widths == 8L | widths == 16L))
+    code_points <- code_point(names(font))
+    code_points <- substr(code_points, 3L, nchar(code_points))
+
+    if (any(sapply(font, function(x) max(x) > 1L))) {
+        message("Multi-colored glyphs detected, casting to black-and-white.")
+        font <- bm_clamp(font)
+    }
+    glyphs <- sapply(font, as_hex)
+
+    hex <- paste0(code_points, ":", glyphs)
+
+    writeLines(hex, con)
+    invisible(hex)
 }
 
 as_bm_glyph_hex <- function(hex_string) {
@@ -56,6 +83,20 @@ as_bm_glyph_hex <- function(hex_string) {
         m[i, ] <- unlist(lapply(hexes, hex_to_binary))
     }
     bm_glyph(m)
+}
+
+as_hex <- function(glyph) {
+    val <- ""
+    # we're going to work from bottom-to-top, right-to-left
+    for (i in seq_len(nrow(glyph))) {
+        for (j in rev(seq_len(ncol(glyph) / 4L))) {
+            j_indices <- seq.int(4L * (j - 1L) + 1L, length.out = 4L)
+            binary <- paste(as.character(glyph[i, j_indices]), collapse = "")
+            hex <- binary_to_hex(binary)
+            val <- paste0(hex, val)
+        }
+    }
+    val
 }
 
 hex_to_binary <- function(hex) {

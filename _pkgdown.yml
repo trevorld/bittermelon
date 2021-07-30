@@ -8,6 +8,11 @@ reference:
       contents:
           - starts_with("bm_glyph")
           - ends_with("bm_glyph")
+    - title: "Bitmap glyph list objects"
+      desc: "Bitmap glyph list objects and methods"
+      contents:
+          - starts_with("bm_list")
+          - ends_with("bm_list")
     - title: "Bitmap font objects"
       desc: "Bitmap font objects and methods"
       contents:
@@ -17,6 +22,10 @@ reference:
       desc: "Functions to read/write bitmap fonts"
       contents:
           - read_hex
+    - title: "Modify bitmap glyphs"
+      desc: "Functions to modify bitmap glyphs and lists"
+      contents:
+          - bm_clamp
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:
