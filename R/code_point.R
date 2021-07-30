@@ -17,7 +17,9 @@
 #'   code_point_from_name("LATIN CAPITAL LETTER R")
 #' @export
 code_point <- function(x) {
-    as.character(Unicode::as.u_char(x))
+    x <- as.character(Unicode::as.u_char(x))
+    x <- ifelse(x == "<NA>", NA_character_, x)
+    x
 }
 
 #' @rdname code_point

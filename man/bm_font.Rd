@@ -17,8 +17,10 @@ A named list with a \dQuote{bm_font} subclass.
 \code{bm_font()} creates a bitmap font object.
 }
 \details{
-\code{bm_font()} is a named list.  The names are of the form \dQuote{U+HHHH} or \dQuote{UHHHHH}.
-where the \code{H} are appropriate hexadecimal Unicode codes.
+\code{bm_font()} is a named list.
+The names are of the form \dQuote{U+HHHH} or \dQuote{U+HHHHH}.
+where the \code{H} are appropriate hexadecimal Unicode code points.
+It is a subclass of \code{\link[=bm_list]{bm_list()}}.
 }
 \examples{
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -33,5 +35,5 @@ where the \code{H} are appropriate hexadecimal Unicode codes.
  print(font[[R_code_point]], labels = c(".", "#"))
 }
 \seealso{
-\code{\link[=is_bm_font]{is_bm_font()}}, \code{\link[=as_bm_font]{as_bm_font()}}
+\code{\link[=is_bm_font]{is_bm_font()}}, [as_bm_font(), \code{\link[=code_point]{code_point()}}]
 }

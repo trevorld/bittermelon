@@ -2,8 +2,10 @@
 #'
 #' `bm_font()` creates a bitmap font object.
 #'
-#' `bm_font()` is a named list.  The names are of the form \dQuote{U+HHHH} or \dQuote{UHHHHH}.
-#' where the `H` are appropriate hexadecimal Unicode codes.
+#' `bm_font()` is a named list.
+#' The names are of the form \dQuote{U+HHHH} or \dQuote{U+HHHHH}.
+#' where the `H` are appropriate hexadecimal Unicode code points.
+#' It is a subclass of [bm_list()].
 #' @param x Named list of [bm_glyph()] objects.
 #'          Names must be coercible by [Unicode::as.u_char()].
 #' @examples
@@ -18,7 +20,7 @@
 #'  R_code_point <- code_point_from_name("LATIN CAPITAL LETTER R") # U+0052
 #'  print(font[[R_code_point]], labels = c(".", "#"))
 #' @return A named list with a \dQuote{bm_font} subclass.
-#' @seealso [is_bm_font()], [as_bm_font()]
+#' @seealso [is_bm_font()], [as_bm_font(), [code_point()]]
 #' @export
 bm_font <- function(x) {
     if (is_bm_font(x))
@@ -74,21 +76,28 @@ as_bm_font <- function(x, ...) {
 
 #' @rdname as_bm_font
 #' @export
-as_bm_font.list <- function(x, ...) {
-    if (!all(sapply(x, is_bm_glyph)))
-        stop("Some elements were not `bm_glyph()` objects")
-    if (is.null(names(x)) || any(names(x) == ""))
-        stop("'x' must be a **named** list (with Unicode code point names)")
-    codepoints <- code_point(names(x))
-    if (any(codepoints == "<NA>"))
-        stop("Some names were not coercible by `Unicode::as_u_char()`")
-    names(x) <- codepoints
-    class(x) <- c("bm_font", class(x))
-    x
+as_bm_font.default <- function(x, ...) {
+    if (is_bm_font(x)) return(x)
+    as_bm_font.list(as.list(x))
 }
 
 #' @rdname as_bm_font
 #' @export
-as_bm_font.default <- function(x, ...) {
-    as_bm_font.list(as.list(x))
+as_bm_font.list <- function(x, ...) {
+    if (is_bm_font(x)) return(x)
+    validate_bm_font(x)
+    x <- as_bm_list(x)
+    names(x) <- code_point(names(x))
+    class(x) <- c("bm_font", class(x))
+    x
+}
+
+validate_bm_font <- function(x) {
+    validate_bm_list(x)
+    if (is.null(names(x)) || any(names(x) == ""))
+        stop("'x' must be a **named** list (with Unicode code point names)")
+    codepoints <- code_point(names(x))
+    if (any(is.na(codepoints)))
+        stop("Some names were not coercible by `Unicode::as_u_char()`")
+    invisible(NULL)
 }

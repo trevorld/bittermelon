@@ -13,5 +13,7 @@ test_that("bm_font()", {
     l[[space_code_point]] <- space_glyph
     font <- as_bm_font(l)
     expect_true(is_bm_font(font))
+    expect_equal(font, bm_font(font))
+    expect_equal(font, as_bm_font(font))
 
 })
