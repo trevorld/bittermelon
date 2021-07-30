@@ -12,5 +12,6 @@
 #' @export
 as.matrix.bm_bitmap <- function(x, ...) {
     x <- as_bm_bitmap(x)
-    class(x) <- matrix(as.integer(x), nrow = nrow(x), ncol = ncol(x))
+    class(x) <- NULL
+    x
 }

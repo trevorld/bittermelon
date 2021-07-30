@@ -26,6 +26,7 @@ reference:
       desc: "Functions to modify bitmaps and bitmap lists"
       contents:
           - bm_clamp
+          - bm_extend
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:

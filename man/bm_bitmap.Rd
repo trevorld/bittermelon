@@ -33,8 +33,10 @@ Color bitmaps can be cast to black-and-white bitmaps via \code{\link[=bm_clamp]{
 \item \code{\link[=as.character.bm_bitmap]{as.character.bm_bitmap()}}
 \item \code{\link[=as.matrix.bm_bitmap]{as.matrix.bm_bitmap()}}
 \item \code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}}
+\item \code{\link[=cbind.bm_bitmap]{cbind.bm_bitmap()}}
 \item \code{\link[=plot.bm_bitmap]{plot.bm_bitmap()}}
 \item \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}
+\item \code{\link[=rbind.bm_bitmap]{rbind.bm_bitmap()}}
 }
 }
 

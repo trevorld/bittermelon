@@ -16,8 +16,10 @@
 #' * [as.character.bm_bitmap()]
 #' * [as.matrix.bm_bitmap()]
 #' * [as.raster.bm_bitmap()]
+#' * [cbind.bm_bitmap()]
 #' * [plot.bm_bitmap()]
 #' * [print.bm_bitmap()]
+#' * [rbind.bm_bitmap()]
 #'
 #' @param x Object to be converted to `bm_bitmap()`.
 #'   If not already an integer matrix it will be cast to one

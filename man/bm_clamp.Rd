@@ -13,8 +13,21 @@ bm_clamp(bm_object, lower = 0L, upper = 1L)
 
 \item{upper}{Integer value.  Any value above \code{upper} will be clamped to \code{upper}.}
 }
+\value{
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).
+}
 \description{
 \code{bm_clamp()} \dQuote{clamps} bitmap integers to lie between a lower and upper value.
 The default lower and upper values coerce the bitmap
 into a binary bitmap (as expected by most bitmap font formats).
+}
+\examples{
+ plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
+ plus_sign[5L, 3:7] <- 2L
+ plus_sign[3:7, 5L] <- 2L
+ plus_sign_glyph <- bm_bitmap(plus_sign)
+ print(plus_sign_glyph, labels = c(".", "#", "@"))
+
+ plus_sign_clamped <- bm_clamp(plus_sign_glyph)
+ print(plus_sign_clamped, labels = c(".", "#", "@"))
 }

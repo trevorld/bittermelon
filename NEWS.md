@@ -11,8 +11,10 @@ bittermelon 0.1.0
   * `as.character.bm_bitmap()`
   * `as.matrix.bm_bitmap()`
   * `as.raster.bm_bitmap()` (#3)
+  * `cbind.bm_bitmap()`
   * `plot.bm_bitmap()` (#4)
   * `print.bm_bitmap()` (#2)
+  * `rbind.bm_bitmap()`
 
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
@@ -45,10 +47,11 @@ bittermelon 0.1.0
     and `FALSE` for all other objects.
 
 * The following functions can modify `bm_bitmap()` objects 
-  as well as all the glyphs in `bm_list()` objects (including `bm_font()`):
+  as well as all the bitmaps in `bm_list()` objects (including `bm_font()`):
 
   * `bm_clamp()` clamps integer values between a lower and upper value.
-    By default coerces the glyph to binary values.
+    By default coerces the bitmap to binary values.
+  * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
 
 * Support for reading and writing bitmap fonts
 

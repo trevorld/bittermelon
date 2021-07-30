@@ -10,3 +10,5 @@ modify_bm_bitmaps <- function(bm_object, fn, ...) {
         fn(bm_object, ...)
     }
 }
+
+`%||%` <- function(x, y) if (is.null(x)) y else x # nolint

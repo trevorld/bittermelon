@@ -17,9 +17,8 @@
 \code{as.raster.bm_bitmap()} converts a bitmap glyph object to a raster object.
 }
 \examples{
-  plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
-  plus_sign[5L, 3:7] <- 1L
-  plus_sign[3:7, 5L] <- 1L
-  plus_sign <- bm_bitmap(plus_sign)
-  grDevices::as.raster(plus_sign)
+  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+  font <- read_hex(font_file)
+  capital_r <- font[[str2ucp("R")]]
+  grDevices::as.raster(capital_r)
 }
