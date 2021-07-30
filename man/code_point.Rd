@@ -28,7 +28,8 @@ A character vector of Unicode code points.
 \code{code_point()} is a wrapper for \code{as.character(Unicode::as.u_char())}.
 \code{code_point_from_char()} is a wrapper for \code{as.character(Unicode::as.u_char(utf8ToInt()))}.
 \code{code_point_from_name()} is a wrapper for \code{as.character(Unicode::u_char_from_name())}.
-Note the names of \code{bm_font()} objects must be character vectors as returned by these functions and not \code{u_char} objects.
+Note the names of \code{bm_font()} objects must be character vectors as returned
+by these functions and not \code{u_char} objects.
 }
 \examples{
   # These are all different ways to get the 'R' code point

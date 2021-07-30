@@ -1,8 +1,8 @@
 is_bm_object <- function(bm_object) {
-    is_bm_glyph(bm_object) || is_bm_list(bm_object)
+    is_bm_bitmap(bm_object) || is_bm_list(bm_object)
 }
 
-modify_bm_glyphs <- function(bm_object, fn, ...) {
+modify_bm_bitmaps <- function(bm_object, fn, ...) {
     stopifnot(is_bm_object(bm_object))
     if (is_bm_list(bm_object)) {
         lapply_bm_list(bm_object, fn, ...)

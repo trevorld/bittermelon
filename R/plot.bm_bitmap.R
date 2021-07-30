@@ -1,10 +1,10 @@
-#' Plot bitmap glyph object
+#' Plot bitmap object
 #'
-#' `plot.bm_glyph()` plots a bitmap glyph object to the graphics device.
+#' `plot.bm_bitmap()` plots a bitmap object to the graphics device.
 #'
-#' @inheritParams as.character.bm_glyph
+#' @inheritParams as.character.bm_bitmap
 #' @param ... Passed to [grid::grid.raster()].
-#' @param col Character vector of R color specifications. Passed to [as.raster.bm_glyph()].
+#' @param col Character vector of R color specifications. Passed to [as.raster.bm_bitmap()].
 #' @param interpolate Passed to [grid::grid.raster()].
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -18,9 +18,9 @@
 #' @export
 #' @return A `grid` rastergrob grob object silently.
 #'         As a side effect will draw to graphics device.
-#' @seealso [bm_glyph()], [as.raster.bm_glyph()]
-plot.bm_glyph <- function(x, ..., col = c("grey80", "black", "grey40"),
+#' @seealso [bm_bitmap()], [as.raster.bm_bitmap()]
+plot.bm_bitmap <- function(x, ..., col = c("grey80", "black", "grey40"),
                           interpolate = FALSE) {
-    grid::grid.raster(as.raster.bm_glyph(x, col = col),
+    grid::grid.raster(as.raster.bm_bitmap(x, col = col),
                       ..., interpolate = interpolate)
 }

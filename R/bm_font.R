@@ -6,7 +6,7 @@
 #' The names are of the form \dQuote{U+HHHH} or \dQuote{U+HHHHH}.
 #' where the `H` are appropriate hexadecimal Unicode code points.
 #' It is a subclass of [bm_list()].
-#' @param x Named list of [bm_glyph()] objects.
+#' @param x Named list of [bm_bitmap()] objects.
 #'          Names must be coercible by [Unicode::as.u_char()].
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -56,10 +56,10 @@ is_bm_font <- function(x) {
 #'   plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
 #'   plus_sign[5L, 3:7] <- 1L
 #'   plus_sign[3:7, 5L] <- 1L
-#'   plus_sign_glyph <- bm_glyph(plus_sign)
+#'   plus_sign_glyph <- bm_bitmap(plus_sign)
 #'   plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B"
 #'
-#'   space_glyph <- bm_glyph(matrix(0L, nrow = 9L, ncol = 9L))
+#'   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
 #'   space_code_point <- code_point_from_name("SPACE") # "U+0020"
 #'
 #'   l <- list()

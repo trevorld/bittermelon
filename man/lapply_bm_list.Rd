@@ -2,15 +2,15 @@
 % Please edit documentation in R/lapply_bm_list.R
 \name{lapply_bm_list}
 \alias{lapply_bm_list}
-\title{Apply a function over a bitmap glyph list}
+\title{Apply a function over a bitmap list}
 \usage{
 lapply_bm_list(X, FUN, ...)
 }
 \arguments{
 \item{X}{A bitmap glyph list object such as \code{\link[=bm_list]{bm_list()}} or \code{\link[=bm_font]{bm_font()}}.}
 
-\item{FUN}{A function that takes a \code{\link[=bm_glyph]{bm_glyph()}} object as its first argument
-and returns a \code{\link[=bm_glyph]{bm_glyph()}} object.}
+\item{FUN}{A function that takes a \code{\link[=bm_bitmap]{bm_bitmap()}} object as its first argument
+and returns a \code{\link[=bm_bitmap]{bm_bitmap()}} object.}
 
 \item{...}{Additional arguments to pass to \code{FUN}.}
 }
@@ -26,5 +26,5 @@ and returns a modified bitmap glyph list.
 preserves the classes and metadata of the original bitmap glyph list.
 }
 \seealso{
-\code{\link[base:lapply]{base::lapply()}}, \code{\link[=bm_list]{bm_list()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_glyph]{bm_glyph()}}
+\code{\link[base:lapply]{base::lapply()}}, \code{\link[=bm_list]{bm_list()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_bitmap]{bm_bitmap()}}
 }

@@ -1,10 +1,10 @@
-#' Bitmap glyph list object
+#' Bitmap list object
 #'
 #' `bm_list()` creates a bitmap glyph list object.
 #'
-#' `bm_list()` is a list of [bm_glyph()] objects with class \dQuote{bm_list}.
+#' `bm_list()` is a list of [bm_bitmap()] objects with class \dQuote{bm_list}.
 #' It is superclass of [bm_font()].
-#' @param x List of [bm_glyph()] objects.
+#' @param x List of [bm_bitmap()] objects.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
@@ -50,10 +50,10 @@ is_bm_list <- function(x) {
 #'   plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
 #'   plus_sign[5L, 3:7] <- 1L
 #'   plus_sign[3:7, 5L] <- 1L
-#'   plus_sign_glyph <- bm_glyph(plus_sign)
+#'   plus_sign_glyph <- bm_bitmap(plus_sign)
 #'   plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B"
 #'
-#'   space_glyph <- bm_glyph(matrix(0L, nrow = 9L, ncol = 9L))
+#'   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
 #'   space_code_point <- code_point_from_name("SPACE") # "U+0020"
 #'
 #'   l <- list()
@@ -85,7 +85,7 @@ as_bm_list.list <- function(x, ...) {
 }
 
 validate_bm_list <- function(x) {
-    if (!all(sapply(x, is_bm_glyph)))
-        stop("Some elements were not `bm_glyph()` objects")
+    if (!all(sapply(x, is_bm_bitmap)))
+        stop("Some elements were not `bm_bitmap()` objects")
     invisible(NULL)
 }

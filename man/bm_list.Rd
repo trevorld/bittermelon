@@ -2,12 +2,12 @@
 % Please edit documentation in R/bm_list.R
 \name{bm_list}
 \alias{bm_list}
-\title{Bitmap glyph list object}
+\title{Bitmap list object}
 \usage{
 bm_list(x)
 }
 \arguments{
-\item{x}{List of \code{\link[=bm_glyph]{bm_glyph()}} objects.}
+\item{x}{List of \code{\link[=bm_bitmap]{bm_bitmap()}} objects.}
 }
 \value{
 A named list with a \dQuote{bm_font} subclass.
@@ -16,7 +16,7 @@ A named list with a \dQuote{bm_font} subclass.
 \code{bm_list()} creates a bitmap glyph list object.
 }
 \details{
-\code{bm_list()} is a list of \code{\link[=bm_glyph]{bm_glyph()}} objects with class \dQuote{bm_list}.
+\code{bm_list()} is a list of \code{\link[=bm_bitmap]{bm_bitmap()}} objects with class \dQuote{bm_list}.
 It is superclass of \code{\link[=bm_font]{bm_font()}}.
 }
 \examples{

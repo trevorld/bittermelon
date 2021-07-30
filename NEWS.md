@@ -1,24 +1,28 @@
 bittermelon 0.1.0
 =================
 
-* `bm_glyph()` creates a S3 object representing bitmap (font) glyphs (#1). 
+* `bm_bitmap()` creates a S3 object representing bitmaps (#1). 
+   Intended to represent bitmap font glyphs but can be used
+   to represent more complicated bitmaps.
+   Non-binary bitmaps are allowed 
+   (but we are unlikely to ever support exporting color bitmap fonts).
    It supports the following methods:
 
-  * `as.character.bm_glyph()`
-  * `as.matrix.bm_glyph()`
-  * `as.raster.bm_glyph()` (#3)
-  * `plot.bm_glyph()` (#4)
-  * `print.bm_glyph()` (#2)
+  * `as.character.bm_bitmap()`
+  * `as.matrix.bm_bitmap()`
+  * `as.raster.bm_bitmap()` (#3)
+  * `plot.bm_bitmap()` (#4)
+  * `print.bm_bitmap()` (#2)
 
-  * `as_bm_glyph()` is a S3 method that coerces objects to `bm_glyph()` objects
+  * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
-    * `as_bm_glyph.default()`
-    * `as_bm_glyph.matrix()`
+    * `as_bm_bitmap.default()`
+    * `as_bm_bitmap.matrix()`
 
-  * `is_bm_glyph()`  returns `TRUE` for `bm_glyph()` objects (or subclasses)
+  * `is_bm_bitmap()`  returns `TRUE` for `bm_bitmap()` objects (or subclasses)
     and `FALSE` for all other objects.
 
-* `bm_list()` creates a S3 object representing a list of `bm_glyph()` objects.
+* `bm_list()` creates a S3 object representing a list of `bm_bitmap()` objects.
 
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 
@@ -40,7 +44,7 @@ bittermelon 0.1.0
   * `is_bm_font()` returns `TRUE` for `bm_font()` objects (or subclasses)
     and `FALSE` for all other objects.
 
-* The following functions can modify `bm_glyph()` objects 
+* The following functions can modify `bm_bitmap()` objects 
   as well as all the glyphs in `bm_list()` objects (including `bm_font()`):
 
   * `bm_clamp()` clamps integer values between a lower and upper value.

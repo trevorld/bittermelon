@@ -31,7 +31,7 @@ read_hex <- function(con) {
     code_points <- sapply(contents, function(x) x[1])
     code_points <- code_point(code_points)
 
-    glyphs <- lapply(contents, function(x) as_bm_glyph_hex(x[2]))
+    glyphs <- lapply(contents, function(x) as_bm_bitmap_hex(x[2]))
 
     names(glyphs) <- code_points
     bm_font(glyphs)
@@ -64,7 +64,7 @@ write_hex <- function(font, con = stdout()) {
     invisible(hex)
 }
 
-as_bm_glyph_hex <- function(hex_string) {
+as_bm_bitmap_hex <- function(hex_string) {
     n_hex <- nchar(hex_string)
     stopifnot(n_hex == 32L || n_hex == 64L)
     if (n_hex == 32L) {
@@ -82,7 +82,7 @@ as_bm_glyph_hex <- function(hex_string) {
         hexes <- strsplit(hex_substring, "")[[1]]
         m[i, ] <- unlist(lapply(hexes, hex_to_binary))
     }
-    bm_glyph(m)
+    bm_bitmap(m)
 }
 
 as_hex <- function(glyph) {

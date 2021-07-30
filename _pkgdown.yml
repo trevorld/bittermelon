@@ -3,13 +3,13 @@ url: "https://trevorldavis.com/R/bittermelon"
 development:
     mode: auto
 reference:
-    - title: "Bitmap glyph objects"
-      desc: "Bitmap glyph objects and methods"
+    - title: "Bitmap objects"
+      desc: "Bitmap objects and methods"
       contents:
-          - starts_with("bm_glyph")
-          - ends_with("bm_glyph")
-    - title: "Bitmap glyph list objects"
-      desc: "Bitmap glyph list objects and methods"
+          - starts_with("bm_bitmap")
+          - ends_with("bm_bitmap")
+    - title: "Bitmap list objects"
+      desc: "Bitmap list objects and methods"
       contents:
           - starts_with("bm_list")
           - ends_with("bm_list")
@@ -22,8 +22,8 @@ reference:
       desc: "Functions to read/write bitmap fonts"
       contents:
           - read_hex
-    - title: "Modify bitmap glyphs"
-      desc: "Functions to modify bitmap glyphs and lists"
+    - title: "Modify bitmaps"
+      desc: "Functions to modify bitmaps and bitmap lists"
       contents:
           - bm_clamp
     - title: "Unicode utilities"
