@@ -17,10 +17,10 @@
 #'  length(font)
 #'
 #'  # print out "R"
-#'  R_code_point <- code_point_from_name("LATIN CAPITAL LETTER R") # U+0052
-#'  print(font[[R_code_point]], labels = c(".", "#"))
+#'  R_glyph <- font[[str2ucp("R")]]
+#'  print(R_glyph, labels = c(".", "#"))
 #' @return A named list with a \dQuote{bm_font} subclass.
-#' @seealso [is_bm_font()], [as_bm_font(), [code_point()]]
+#' @seealso [is_bm_font()], [as_bm_font(), [hex2ucp()]]
 #' @export
 bm_font <- function(x) {
     if (is_bm_font(x))
@@ -57,14 +57,12 @@ is_bm_font <- function(x) {
 #'   plus_sign[5L, 3:7] <- 1L
 #'   plus_sign[3:7, 5L] <- 1L
 #'   plus_sign_glyph <- bm_bitmap(plus_sign)
-#'   plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B"
 #'
 #'   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-#'   space_code_point <- code_point_from_name("SPACE") # "U+0020"
 #'
 #'   l <- list()
-#'   l[[plus_sign_code_point]] <- plus_sign_glyph
-#'   l[[space_code_point]] <- space_glyph
+#'   l[[str2ucp("+")]] <- plus_sign_glyph
+#'   l[[str2ucp(" ")]] <- space_glyph
 #'   font <- as_bm_font(l)
 #'   is_bm_font(font)
 #'
@@ -87,7 +85,7 @@ as_bm_font.list <- function(x, ...) {
     if (is_bm_font(x)) return(x)
     validate_bm_font(x)
     x <- as_bm_list(x)
-    names(x) <- code_point(names(x))
+    names(x) <- hex2ucp(names(x))
     class(x) <- c("bm_font", class(x))
     x
 }
@@ -96,7 +94,7 @@ validate_bm_font <- function(x) {
     validate_bm_list(x)
     if (is.null(names(x)) || any(names(x) == ""))
         stop("'x' must be a **named** list (with Unicode code point names)")
-    codepoints <- code_point(names(x))
+    codepoints <- hex2ucp(names(x))
     if (any(is.na(codepoints)))
         stop("Some names were not coercible by `Unicode::as_u_char()`")
     invisible(NULL)

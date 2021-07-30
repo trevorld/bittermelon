@@ -11,7 +11,7 @@
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
-#'  capital_r <- font[[code_point_from_name("LATIN CAPITAL LETTER R")]]
+#'  capital_r <- font[[str2ucp("R")]]
 #'  print(capital_r, labels = c(".", "#"))
 #'
 #'  filename <- tempfile(fileext = ".hex.gz")
@@ -29,7 +29,7 @@ read_hex <- function(con) {
     contents <- strsplit(contents, ":")
 
     code_points <- sapply(contents, function(x) x[1])
-    code_points <- code_point(code_points)
+    code_points <- hex2ucp(code_points)
 
     glyphs <- lapply(contents, function(x) as_bm_bitmap_hex(x[2]))
 
@@ -49,7 +49,7 @@ write_hex <- function(font, con = stdout()) {
     stopifnot(all(heights == 16L))
     widths <- sapply(font, ncol)
     stopifnot(all(widths == 8L | widths == 16L))
-    code_points <- code_point(names(font))
+    code_points <- hex2ucp(names(font))
     code_points <- substr(code_points, 3L, nchar(code_points))
 
     if (any(sapply(font, function(x) max(x) > 1L))) {

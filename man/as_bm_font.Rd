@@ -28,14 +28,12 @@ A \code{bm_font()} object.
   plus_sign[5L, 3:7] <- 1L
   plus_sign[3:7, 5L] <- 1L
   plus_sign_glyph <- bm_bitmap(plus_sign)
-  plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B"
 
   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-  space_code_point <- code_point_from_name("SPACE") # "U+0020"
 
   l <- list()
-  l[[plus_sign_code_point]] <- plus_sign_glyph
-  l[[space_code_point]] <- space_glyph
+  l[[str2ucp("+")]] <- plus_sign_glyph
+  l[[str2ucp(" ")]] <- space_glyph
   font <- as_bm_font(l)
   is_bm_font(font)
 

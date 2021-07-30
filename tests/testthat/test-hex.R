@@ -8,7 +8,7 @@ test_that("read_hex() and write_hex()", {
     font2 <- read_hex(f)
     unlink(f)
 
-    plus_sign_code_point <- code_point_from_name("PLUS SIGN") # code point U+002B
+    plus_sign_code_point <- name2ucp("PLUS SIGN") # code point U+002B
     expect_equal(font[[plus_sign_code_point]], font2[[plus_sign_code_point]])
 
     # 16x16 hex glyph with a 9 in it

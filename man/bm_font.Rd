@@ -31,9 +31,9 @@ It is a subclass of \code{\link[=bm_list]{bm_list()}}.
  length(font)
 
  # print out "R"
- R_code_point <- code_point_from_name("LATIN CAPITAL LETTER R") # U+0052
- print(font[[R_code_point]], labels = c(".", "#"))
+ R_glyph <- font[[str2ucp("R")]]
+ print(R_glyph, labels = c(".", "#"))
 }
 \seealso{
-\code{\link[=is_bm_font]{is_bm_font()}}, [as_bm_font(), \code{\link[=code_point]{code_point()}}]
+\code{\link[=is_bm_font]{is_bm_font()}}, [as_bm_font(), \code{\link[=hex2ucp]{hex2ucp()}}]
 }

@@ -29,4 +29,4 @@ reference:
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:
-          - code_point
+          - hex2ucp

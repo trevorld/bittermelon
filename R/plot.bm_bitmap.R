@@ -9,7 +9,7 @@
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
-#'   capital_r <- font[[code_point_from_char("R")]]
+#'   capital_r <- font[[str2ucp("R")]]
 #'
 #'   plot(capital_r)
 #'

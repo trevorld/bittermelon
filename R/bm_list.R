@@ -51,14 +51,12 @@ is_bm_list <- function(x) {
 #'   plus_sign[5L, 3:7] <- 1L
 #'   plus_sign[3:7, 5L] <- 1L
 #'   plus_sign_glyph <- bm_bitmap(plus_sign)
-#'   plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B"
 #'
 #'   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-#'   space_code_point <- code_point_from_name("SPACE") # "U+0020"
 #'
 #'   l <- list()
-#'   l[[plus_sign_code_point]] <- plus_sign_glyph
-#'   l[[space_code_point]] <- space_glyph
+#'   l[[str2ucp("+")]] <- plus_sign_glyph
+#'   l[[str2ucp(" ")]] <- space_glyph
 #'   bl <- as_bm_list(l)
 #'   is_bm_list(bl)
 #'
@@ -88,4 +86,25 @@ validate_bm_list <- function(x) {
     if (!all(sapply(x, is_bm_bitmap)))
         stop("Some elements were not `bm_bitmap()` objects")
     invisible(NULL)
+}
+
+#' Apply a function over a bitmap list
+#'
+#' `lapply_bm_list()` applies a function over a bitmap glyph list
+#' and returns a modified bitmap glyph list.
+#'
+#' `lapply_bm_list()` is a wrapper around `base::lapply()` that
+#' preserves the classes and metadata of the original bitmap glyph list.
+#' @param X A bitmap glyph list object such as [bm_list()] or [bm_font()].
+#' @param FUN A function that takes a [bm_bitmap()] object as its first argument
+#'            and returns a [bm_bitmap()] object.
+#' @param ... Additional arguments to pass to `FUN`.
+#' @return A modified bitmap glyph list.
+#' @seealso [base::lapply()], [bm_list()], [bm_font()], [bm_bitmap()]
+#' @export
+lapply_bm_list <- function(X, FUN, ...) { # nolint
+    l2 <- lapply(X, FUN, ...)
+    class(l2) <- class(X)
+    attr(l2, "metadata") <- attr(X, "metadata")
+    l2
 }

@@ -1,0 +1,60 @@
+#' Get Unicode code points
+#'
+#' `hex2ucp()`, `int2ucp()`, `name2ucp()`, and `str2ucp()` return
+#' Unicode code points as character vectors.
+#'
+#' `hex2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(x))`.
+#' `int2ucp` is a wrapper for `as.character(Unicode::as.u_char(as.integer(x)))`.
+#' `str2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(utf8ToInt(x)))`.
+#' `name2ucp(x)` is a wrapper for `as.character(Unicode::u_char_from_name(x))`.
+#' However missing values are coerced to `NA_character_` instead of `"<NA>"`.
+#' Note the names of `bm_font()` objects must be character vectors as returned
+#' by these functions and not `Unicode::u_char` objects.
+#' @param x R objects coercible to the respective Unicode character data types.
+#'          See [Unicode::as.u_char()] for `hex2ucp()` and `int2ucp()`,
+#'          [base::utf8ToInt()] for `str2ucp()`, and
+#'          [Unicode::u_char_from_name()] for `name2ucp()`.
+#' @return A character vector of Unicode code points.
+#' @examples
+#'   # These are all different ways to get the same 'R' code point
+#'   hex2ucp("52")
+#'   hex2ucp(as.hexmode("52"))
+#'   hex2ucp("0052")
+#'   hex2ucp("U+0052")
+#'   hex2ucp("0x0052")
+#'   int2ucp(82) # 82 == as.hexmode("52")
+#'   int2ucp("82") # 82 == as.hexmode("52")
+#'   int2ucp(utf8ToInt("R"))
+#'   name2ucp("LATIN CAPITAL LETTER R")
+#'   str2ucp("R")
+#'
+#'   # Potential gotcha as as.hexmode("52") == as.integer("82") == 52L
+#'   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
+#'   all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
+#'   all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
+#' @rdname unicode_code_points
+#' @export
+hex2ucp <- function(x) {
+    x <- as.character(Unicode::as.u_char(x))
+    x <- ifelse(x == "<NA>", NA_character_, x)
+    x
+}
+
+#' @rdname unicode_code_points
+#' @export
+int2ucp <- function(x) {
+    x <- as.integer(x)
+    hex2ucp(x)
+}
+
+#' @rdname unicode_code_points
+#' @export
+str2ucp <- function(x) {
+    int2ucp(utf8ToInt(x))
+}
+
+#' @rdname unicode_code_points
+#' @export
+name2ucp <- function(x) {
+    as.character(Unicode::u_char_from_name(x))
+}

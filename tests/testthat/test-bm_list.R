@@ -3,10 +3,10 @@ test_that("bm_list()", {
     plus_sign[5L, 3:7] <- 1L
     plus_sign[3:7, 5L] <- 1L
     plus_sign_glyph <- bm_bitmap(plus_sign)
-    plus_sign_code_point <- code_point_from_name("PLUS SIGN") # "U+002B" code point
+    plus_sign_code_point <- name2ucp("PLUS SIGN") # "U+002B" code point
 
     space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-    space_code_point <- code_point_from_name("SPACE") # "U+0020" code point
+    space_code_point <- name2ucp("SPACE") # "U+0020" code point
 
     l <- list()
     l[[plus_sign_code_point]] <- plus_sign_glyph
