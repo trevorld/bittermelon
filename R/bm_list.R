@@ -39,49 +39,6 @@ is_bm_list <- function(x) {
     inherits(x, "bm_list")
 }
 
-#' Coerce to bitmap glyph list objects
-#'
-#' `as_bm_list()` turns an existing object into a [bm_list()] object.
-#'
-#' @param x An object that can reasonably be coerced to a [bm_list()] object.
-#' @param ... Further arguments passed to or from other methods.
-#' @return A [bm_list()] object.
-#' @examples
-#'   plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
-#'   plus_sign[5L, 3:7] <- 1L
-#'   plus_sign[3:7, 5L] <- 1L
-#'   plus_sign_glyph <- bm_bitmap(plus_sign)
-#'
-#'   space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-#'
-#'   l <- list()
-#'   l[[str2ucp("+")]] <- plus_sign_glyph
-#'   l[[str2ucp(" ")]] <- space_glyph
-#'   bl <- as_bm_list(l)
-#'   is_bm_list(bl)
-#'
-#' @seealso [bm_list()]
-#' @export
-as_bm_list <- function(x, ...) {
-    UseMethod("as_bm_list")
-}
-
-#' @rdname as_bm_list
-#' @export
-as_bm_list.default <- function(x, ...) {
-    if (is_bm_list(x)) return(x)
-    as_bm_list.list(as.list(x))
-}
-
-#' @rdname as_bm_list
-#' @export
-as_bm_list.list <- function(x, ...) {
-    if (is_bm_list(x)) return(x)
-    validate_bm_list(x)
-    class(x) <- c("bm_list", class(x))
-    x
-}
-
 validate_bm_list <- function(x) {
     if (!all(sapply(x, is_bm_bitmap)))
         stop("Some elements were not `bm_bitmap()` objects")

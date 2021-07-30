@@ -1,0 +1,47 @@
+#' Coerce to bitmap list objects
+#'
+#' `as_bm_list()` turns an existing object into a [bm_list()] object.
+#' In particular `as_bm_list.character()` turns a string into a bitmap list.
+#'
+#' @param x An object that can reasonably be coerced to a [bm_list()] object.
+#' @param ... Further arguments passed to or from other methods.
+#' @param font A [bm_font()] object that contains all the characters within `x`.
+#' @return A [bm_list()] object.
+#' @examples
+#'   # as_bm_list.character()
+#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#'   font <- read_hex(font_file)
+#'   bml <- as_bm_list("RSTATS", font = font)
+#'   bml <- bm_extend(bml, padding = 1L, value = 0L)
+#'   bml <- bm_extend(bml, padding = c(2L, 1L), value = 2L)
+#'   bm <- do.call(cbind, bml)
+#'   print(bm, labels = c(" ", "#", "X"))
+#' @seealso [bm_list()]
+#' @export
+as_bm_list <- function(x, ...) {
+    UseMethod("as_bm_list")
+}
+
+#' @rdname as_bm_list
+#' @export
+as_bm_list.default <- function(x, ...) {
+    if (is_bm_list(x)) return(x)
+    as_bm_list.list(as.list(x))
+}
+
+#' @rdname as_bm_list
+#' @export
+as_bm_list.list <- function(x, ...) {
+    if (is_bm_list(x)) return(x)
+    validate_bm_list(x)
+    class(x) <- c("bm_list", class(x))
+    x
+}
+
+#' @rdname as_bm_list
+#' @export
+as_bm_list.character <- function(x, ..., font = bm_font()) {
+    x <- paste(x, collapse = "")
+    ucp <- str2ucp(x)
+    as_bm_list(font[ucp])
+}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/print.bm_bitmap.R
 \name{print.bm_bitmap}
 \alias{print.bm_bitmap}
+\alias{as.character.bm_bitmap}
 \title{Print bitmap objects}
 \usage{
 \method{print}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
+
+\method{as.character}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
 }
 \arguments{
 \item{x}{A \code{bm_bitmap()} object}
@@ -16,20 +19,25 @@ The first character for integer \code{0L},
 the second character for integer \code{1L}, and so on.}
 }
 \value{
-A character vector of the string representation invisibly.
+A character vector of the string representation (\code{print.bm_bitmap()} does this invisibly).
+As a side effect \code{print.bm_bitmap()} prints out the string representation to the terminal.
 }
 \description{
-\code{print.bm_bitmap()} prints a representation of bitmap objects to the terminal
+\code{print.bm_bitmap()} prints a representation of bitmap objects to the terminal.
+It is a wrapper around \code{as.character.bm_bitmap()} which converts bitmap objects
+to a character vector.
 }
 \examples{
-  plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
-  plus_sign[5L, 3:7] <- 1L
-  plus_sign[3:7, 5L] <- 1L
-  plus_sign <- bm_bitmap(plus_sign)
-  print(plus_sign, labels = c(" ", "#"))
+  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+  font <- read_hex(font_file)
+  bm_R <- font[[str2ucp("R")]]
+  print(bm_R, labels = c(" ", "#"))
 
-  space_glyph <- bm_bitmap(matrix(0L, nrow = 8L, ncol = 8L))
-  print(space_glyph, labels = ".")
+  bm_8 <- font[[str2ucp("8")]]
+  bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
+                                padding = 1L, value = 2L)
+  print(bm_8_with_border, labels = c(".", "@", "X"))
+
 }
 \seealso{
 \code{\link[=bm_bitmap]{bm_bitmap()}}

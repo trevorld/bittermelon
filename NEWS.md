@@ -28,6 +28,7 @@ bittermelon 0.1.0
 
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 
+    * `as_bm_list.character()` (#28)
     * `as_bm_list.default()` 
     * `as_bm_list.list()` 
 
