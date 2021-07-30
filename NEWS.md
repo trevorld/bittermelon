@@ -51,5 +51,5 @@ bittermelon 0.1.0
     * `read_hex()` reads in a "hex" font as a `bm_font()` object (#8)
     * `write_hex()` writes out a "hex" font of a `bm_font()` object (#9)
 
-* `code_point()` and `code_point_from_name()` return Unicode code points
-  as character vectors.
+* `code_point()`, `code_point_from_char()`, and `code_point_from_name()` 
+  return Unicode code points as character vectors.

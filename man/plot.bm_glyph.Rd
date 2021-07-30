@@ -23,11 +23,14 @@ As a side effect will draw to graphics device.
 \code{plot.bm_glyph()} plots a bitmap glyph object to the graphics device.
 }
 \examples{
-  plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
-  plus_sign[5L, 3:7] <- 1L
-  plus_sign[3:7, 5L] <- 1L
-  plus_sign <- bm_glyph(plus_sign)
-  plot(plus_sign)
+  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+  font <- read_hex(font_file)
+  capital_r <- font[[code_point_from_char("R")]]
+
+  plot(capital_r)
+
+  grid::grid.newpage()
+  plot(capital_r, col = c("yellow", "blue"))
 }
 \seealso{
 \code{\link[=bm_glyph]{bm_glyph()}}, \code{\link[=as.raster.bm_glyph]{as.raster.bm_glyph()}}
