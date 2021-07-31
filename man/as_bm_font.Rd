@@ -6,16 +6,20 @@
 \alias{as_bm_font.list}
 \title{Coerce to bitmap font objects}
 \usage{
-as_bm_font(x, ...)
+as_bm_font(x, ..., comments = NULL, properties = NULL)
 
-\method{as_bm_font}{default}(x, ...)
+\method{as_bm_font}{default}(x, ..., comments = NULL, properties = NULL)
 
-\method{as_bm_font}{list}(x, ...)
+\method{as_bm_font}{list}(x, ..., comments = NULL, properties = NULL)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_font()} object.}
 
 \item{...}{Further arguments passed to or from other methods.}
+
+\item{comments}{An optional character vector of (global) font comments.}
+
+\item{properties}{An optional named list of font metadata.}
 }
 \value{
 A \code{bm_font()} object.

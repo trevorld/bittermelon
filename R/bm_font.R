@@ -8,6 +8,8 @@
 #' It is a subclass of [bm_list()].
 #' @param x Named list of [bm_bitmap()] objects.
 #'          Names must be coercible by [Unicode::as.u_char()].
+#' @param comments An optional character vector of (global) font comments.
+#' @param properties An optional named list of font metadata.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
@@ -22,11 +24,11 @@
 #' @return A named list with a \dQuote{bm_font} subclass.
 #' @seealso [is_bm_font()], [as_bm_font(), [hex2ucp()]]
 #' @export
-bm_font <- function(x) {
+bm_font <- function(x, comments = NULL, properties = NULL) {
     if (is_bm_font(x))
         x
     else
-        as_bm_font(x)
+        as_bm_font(x, comments = comments, properties = properties)
 }
 
 #' Test if the object is a bitmap font object
@@ -51,6 +53,7 @@ is_bm_font <- function(x) {
 #'
 #' @param x An object that can reasonably be coerced to a `bm_font()` object.
 #' @param ... Further arguments passed to or from other methods.
+#' @inheritParams bm_font
 #' @return A `bm_font()` object.
 #' @examples
 #'   plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
@@ -68,30 +71,33 @@ is_bm_font <- function(x) {
 #'
 #' @seealso [bm_font()]
 #' @export
-as_bm_font <- function(x, ...) {
+as_bm_font <- function(x, ..., comments = NULL, properties = NULL) {
     UseMethod("as_bm_font")
 }
 
 #' @rdname as_bm_font
 #' @export
-as_bm_font.default <- function(x, ...) {
+as_bm_font.default <- function(x, ..., comments = NULL, properties = NULL) {
     if (is_bm_font(x)) return(x)
-    as_bm_font.list(as.list(x))
+    as_bm_font.list(as.list(x), comments = comments, properties = properties)
 }
 
 #' @rdname as_bm_font
 #' @export
-as_bm_font.list <- function(x, ...) {
+as_bm_font.list <- function(x, ..., comments = NULL, properties = NULL) {
     if (is_bm_font(x)) return(x)
-    validate_bm_font(x)
     x <- as_bm_list(x)
+    if (length(x) == 0L)
+        names(x) <- character(0)
+    validate_bm_font(x)
     names(x) <- hex2ucp(names(x))
+    attr(x, "comments") <- comments
+    attr(x, "properties") <- properties
     class(x) <- c("bm_font", class(x))
     x
 }
 
 validate_bm_font <- function(x) {
-    validate_bm_list(x)
     if (is.null(names(x)) || any(names(x) == ""))
         stop("'x' must be a **named** list (with Unicode code point names)")
     codepoints <- hex2ucp(names(x))
