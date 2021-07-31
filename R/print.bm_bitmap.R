@@ -27,8 +27,9 @@
 #' @export
 print.bm_bitmap <- function(x, ..., labels = c("\u2591", "\u2588", "\u2592")) {
     x <- as_bm_bitmap(x)
-    cat(as.character(x, ..., labels = labels), sep = "\n")
-    invisible(x)
+    s <- as.character(x, ..., labels = labels)
+    cat(s, sep = "\n")
+    invisible(s)
 }
 
 #' @usage \method{as.character}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
@@ -36,6 +37,7 @@ print.bm_bitmap <- function(x, ..., labels = c("\u2591", "\u2588", "\u2592")) {
 #' @export
 as.character.bm_bitmap <- function(x, ..., labels = c("\u2591", "\u2588", "\u2592")) {
     x <- as_bm_bitmap(x)
+    if (nrow(x) == 0L) return(character(0))
     stopifnot(max(x) <= length(labels))
     l <- sapply(seq_len(nrow(x)),
                 function(i) bm_bitmap_row_to_string(x[i, ], labels))
