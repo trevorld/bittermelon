@@ -4,16 +4,16 @@
 \alias{bm_list}
 \title{Bitmap list object}
 \usage{
-bm_list(x)
+bm_list(...)
 }
 \arguments{
-\item{x}{List of \code{\link[=bm_bitmap]{bm_bitmap()}} objects.}
+\item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} objects, possibly named.}
 }
 \value{
 A named list with a \dQuote{bm_font} subclass.
 }
 \description{
-\code{bm_list()} creates a bitmap glyph list object.
+\code{bm_list()} creates a bitmap list object.
 }
 \details{
 \code{bm_list()} is a list of \code{\link[=bm_bitmap]{bm_bitmap()}} objects with class \dQuote{bm_list}.
@@ -24,7 +24,7 @@ It is superclass of \code{\link[=bm_font]{bm_font()}}.
  font <- read_hex(font_file)
 
  gl <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
- gl <- bm_list(gl)
+ gl <- as_bm_list(gl)
  is_bm_list(gl)
 
 }

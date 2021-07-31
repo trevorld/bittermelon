@@ -14,13 +14,13 @@ test_that("bm_list()", {
     l <- list()
     l[[plus_sign_code_point]] <- plus_sign_glyph
     l[[space_code_point]] <- space_glyph
-    glyph_list <- bm_list(l)
+    glyph_list <- as_bm_list(l)
     expect_true(is_bm_list(glyph_list))
 
     glyph_list <- bm_clamp(glyph_list)
     expect_true(is_bm_list(glyph_list))
 
-    expect_equal(glyph_list, bm_list(glyph_list))
+    expect_equal(glyph_list, do.call(bm_list, glyph_list))
     expect_equal(glyph_list, as_bm_list(glyph_list))
 })
 

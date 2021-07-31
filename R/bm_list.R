@@ -1,26 +1,23 @@
 #' Bitmap list object
 #'
-#' `bm_list()` creates a bitmap glyph list object.
+#' `bm_list()` creates a bitmap list object.
 #'
 #' `bm_list()` is a list of [bm_bitmap()] objects with class \dQuote{bm_list}.
 #' It is superclass of [bm_font()].
-#' @param x List of [bm_bitmap()] objects.
+#' @param ... [bm_bitmap()] objects, possibly named.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
 #'
 #'  gl <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
-#'  gl <- bm_list(gl)
+#'  gl <- as_bm_list(gl)
 #'  is_bm_list(gl)
 #'
 #' @return A named list with a \dQuote{bm_font} subclass.
 #' @seealso [is_bm_list()], [as_bm_list()]
 #' @export
-bm_list <- function(x) {
-    if (is_bm_list(x))
-        x
-    else
-        as_bm_list(x)
+bm_list <- function(...) {
+    as_bm_list(list(...))
 }
 
 #' Test if the object is a bitmap glyph list object
@@ -62,6 +59,7 @@ validate_bm_list <- function(x) {
 lapply_bm_list <- function(X, FUN, ...) { # nolint
     l2 <- lapply(X, FUN, ...)
     class(l2) <- class(X)
-    attr(l2, "metadata") <- attr(X, "metadata")
+    attr(l2, "comments") <- attr(X, "comments")
+    attr(l2, "properties") <- attr(X, "properties")
     l2
 }
