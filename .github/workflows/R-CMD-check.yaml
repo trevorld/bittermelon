@@ -67,6 +67,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          system2("git", c("submodule", "update", "--init"))
         shell: Rscript {0}
 
       - name: Check

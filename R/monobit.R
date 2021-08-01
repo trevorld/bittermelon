@@ -34,7 +34,7 @@
 read_monobit <- function(file) {
     stopifnot(!missing(file))
     python <- findpython::find_python_cmd(minimum_version = "3.6")
-    convert <- system.file("monobit/convert.py", package = "bittermelon")
+    convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
     tfile <- tempfile(fileext = ".yaff")
     on.exit(unlink(tfile))
@@ -48,7 +48,7 @@ read_monobit <- function(file) {
 write_monobit <- function(font, file) {
     stopifnot(!missing(font), !missing(file))
     python <- findpython::find_python_cmd(minimum_version = "3.6")
-    convert <- system.file("monobit/convert.py", package = "bittermelon")
+    convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
     tfile <- tempfile(fileext = ".yaff")
     on.exit(unlink(tfile))
