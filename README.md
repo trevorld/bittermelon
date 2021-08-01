@@ -3,44 +3,108 @@
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/bittermelon)](https://cran.r-project.org/package=bittermelon)
 [![R-CMD-check](https://github.com/trevorld/bittermelon/workflows/R-CMD-check/badge.svg)](https://github.com/trevorld/bittermelon/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/trevorld/bittermelon.svg)](https://codecov.io/github/trevorld/bittermelon?branch=main)
-[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 ### Table of Contents
 
 * [Overview](#overview)
 * [Installation](#installation)
 * [Examples](#examples)
+* [Future Goals](#future)
 * [Related Software](#similar)
 
 ## <a name="overview">Overview</a>
 
-**This project is currently at the 'Concept' level and is not currently usable.**  Check out the awesome [{bdftools}](https://github.com/coolbutuseless/bdftools) package if you currently need bitmap font support in R.  `{bdftools}` will probably always provide cooler bitmap font graphical output support than `{bittermelon}`.  The primary goal of `{bittermelon}` will be to make it easier for me to create new bitmap fonts using R.
+`{bittermelon}` provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of [monobit](https://github.com/robhagemans/monobit).
 
-`{bittermelon}` Design Goals:
+**This project is currently a 'Work-in-Progress'.  Features are being implemented and the API is not yet stable.**  Check out the awesome [{bdftools}](https://github.com/coolbutuseless/bdftools) package if you currently need bitmap font support in R.  `{bdftools}` will probably always provide cooler bitmap font graphical output support than `{bittermelon}`.  The primary goal of `{bittermelon}` is to make it easier for me to create new bitmap fonts using R.
 
-* Provide functions for creating and modifying bitmap font glyphs.  
+## <a name="installation">Installation</a>
 
-  * Font glyphs will simply be integer matrices with special methods
 
-    * `print()` method so can see glyphs in terminal
-    * `as.raster()` method so can generate some (crude) graphics
-    * crop, trim, pad, expand methods
-    * merge and difference methods (perhaps use `+` and `-`)
-    * generate glyph by capturing results of drawing to an R graphics device
-    * perhaps bold, shadow, glow effects?
-    * rotate?
+```r
+remotes::install_github("trevorld/bittermelon")
+```
 
-* Provide native read/write support for the 'hex' and 'yaff' bitmap font formats 
-  
-  * I'm not smart enough to fully grok the 'bdf' font format but the 'hex' and 'yaff' font formats are simpler alternatives I can understand: basically each Unicode glyph is simply associated with an encoding of a matrix of ones and zeroes.
-  * Fonts will simply be named lists of font glyphs with special methods.  
+The functions `read_monobit()` and `write_monobit()` that use on the embedded version of [monobit](https://github.com/robhagemans/monobit) require that Python is available on the system.  A couple of the bitmap font output formats supported by `write_monobit()` also require that the "Pillow" or "reportlab" Python packages are installed (installable via `pip3`).
 
-    * Names should be of the form "U+HEX" where "HEX" is the Unicode hexadecimal number for the character.  This format is understood well by the `{Unicode}` package.  Note `Unicode::as.u_char()` does not seem to support any string format that is reliably a "syntactic name" identifier.
-    * Font metadata will be stored as an attribute.  Note "hex" font format has **zero** font metadata so this should be optional.
+## <a name="examples">Examples</a>
 
-* If 'Python' is installed will also read/write several more bitmap font formats using an embedded version of [monobit](https://github.com/robhagemans/monobit).
 
-Personal Project Goals:
+
+
+```r
+library("bittermelon")
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+bml <- as_bm_list("RSTATS", font = font) |>
+           bm_extend(sides = 1L, value = 0L) |>
+           bm_extend(sides = c(2L, 1L), value = 2L)
+bm <- do.call(cbind, bml) |> bm_extend(sides = c(0L, 1L), value = 2L)
+print(bm, labels = c(" ", "#", "X"))
+```
+
+```{.bitmap}
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XX ######   XX  ######  XX ######## XX  #####   XX ######## XX  ######  XX
+XX ##   ##  XX ##       XX    ##    XX ##   ##  XX    ##    XX ##       XX
+XX ##   ##  XX ##       XX    ##    XX ##   ##  XX    ##    XX ##       XX
+XX ##   ##  XX ##       XX    ##    XX ##   ##  XX    ##    XX ##       XX
+XX ######   XX  #####   XX    ##    XX #######  XX    ##    XX  #####   XX
+XX ##   ##  XX      ##  XX    ##    XX ##   ##  XX    ##    XX      ##  XX
+XX ##   ##  XX      ##  XX    ##    XX ##   ##  XX    ##    XX      ##  XX
+XX ##   ##  XX      ##  XX    ##    XX ##   ##  XX    ##    XX      ##  XX
+XX ##   ##  XX      ##  XX    ##    XX ##   ##  XX    ##    XX      ##  XX
+XX ##   ##  XX ######   XX    ##    XX ##   ##  XX    ##    XX ######   XX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XX          XX          XX          XX          XX          XX          XX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+```r
+print(bm, labels = c("\u2591", "\u2588", "\u2592"))
+```
+
+```{.bitmap}
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░██████░░░▒▒░░██████░░▒▒░████████░▒▒░░█████░░░▒▒░████████░▒▒░░██████░░▒▒
+▒▒░██░░░██░░▒▒░██░░░░░░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░██░░░░░░░▒▒
+▒▒░██░░░██░░▒▒░██░░░░░░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░██░░░░░░░▒▒
+▒▒░██░░░██░░▒▒░██░░░░░░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░██░░░░░░░▒▒
+▒▒░██████░░░▒▒░░█████░░░▒▒░░░░██░░░░▒▒░███████░░▒▒░░░░██░░░░▒▒░░█████░░░▒▒
+▒▒░██░░░██░░▒▒░░░░░░██░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░░░░░░██░░▒▒
+▒▒░██░░░██░░▒▒░░░░░░██░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░░░░░░██░░▒▒
+▒▒░██░░░██░░▒▒░░░░░░██░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░░░░░░██░░▒▒
+▒▒░██░░░██░░▒▒░░░░░░██░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░░░░░░██░░▒▒
+▒▒░██░░░██░░▒▒░██████░░░▒▒░░░░██░░░░▒▒░██░░░██░░▒▒░░░░██░░░░▒▒░██████░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒░░░░░░░░░░▒▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+```
+
+```r
+plot(bm, col = c("white", "blue", "black"))
+```
+
+![](man/figures/README-plot-1.png)
+
+## <a name="future">Future Goals</a>
 
 * Generate enough bitmap manipulation capabilities in order to create a specialized monoscale font to support a [boardgame diagram use case no existing Unicode font seems to support well](https://trevorldavis.com/piecepackr/unicode-piecepack-diagrams.html#piecepack-font-wishlist).
 
@@ -53,42 +117,30 @@ Personal Project Goals:
   * In particular "sans" lacks Chess symbols and certain Piecepack symbols.  Additionally "Dejavu Sans" lacks good Xiangqi and Shogi symbols.  Certain games (we might never support) such as Arimaa and Hive could be straightforwardly implemented with various Emoji animal glyphs.
   * `{bittermelon}` must eventually be made available on CRAN for a builtin configuration to be usable by `{piecepackr}`.
 
-## <a name="installation">Installation</a>
-
-
-```r
-remotes::install_github("trevorld/bittermelon")
-```
-
-## <a name="examples">Examples</a>
-
-
-
-To be completed...
-
 ## <a name="similar">Related Software</a>
 
-R packages:
+### R packages
 
-* [bdftools](https://github.com/coolbutuseless/bdftools) provides some tools for reading, manipulating, and outputting BDF bitmap fonts.  In particular provides much richer graphical output capabilities than `{bittermelon}` will likely support including a specialized `{ggplot2}` geom.  It also contains the `Cozette`, `Creep2`, and `Spleen` bitmap fonts. 
+* [bdftools](https://github.com/coolbutuseless/bdftools) provides some tools for reading, manipulating, and outputting BDF bitmap fonts.  In particular provides much richer graphical output capabilities than `{bittermelon}` will likely support including a specialized `{ggplot2}` geom. 
 * [fontr](https://github.com/yixuan/fontr) allows one to extract character glyphs from a specific font (which itself may not be a bitmap font) as a bitmap.
+* [raster](https://rspatial.org/raster/pkg/index.html) has tools for manipulating "raster" objects with a focus on spatial applications.
 
-Python:
+### Python
 
 * [BDF Parser Python library](https://github.com/tomchen/bdfparser)
 * [bdflib](https://gitlab.com/Screwtapello/bdflib)
 * [monobit](https://github.com/robhagemans/monobit) lets one modify bitmap fonts and convert between several formats.  Embedded within `{bittermelon}`.
 
-Other:
+### Other
 
 * [Bits'n'Picas](https://github.com/kreativekorp/bitsnpicas)
 * [FontForge](http://fontforge.org/en-US/)
 
-Fonts:
+### Fonts
 
 * [GNU Unifont](https://www.unifoundry.com/unifont/index.html)
-* Rob Hagerman's [Hoard of Bitfonts](https://github.com/robhagemans/hoard-of-bitfonts)
-* Jacob Large's [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)
+* [Hoard of Bitfonts](https://github.com/robhagemans/hoard-of-bitfonts)
+* [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)
 * Embedded in `{bdftools}` package:
 
   * [Cozette](https://github.com/slavfox/Cozette)

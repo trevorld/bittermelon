@@ -3,6 +3,7 @@
 ^\.github$
 ^\.lintr$
 ^_pkgdown.yml$
+^pkgdown$
 ^codecov.yml$
 ^LICENSE.md$
 ^Rakefile$
