@@ -34,6 +34,10 @@ test_that("bm_extend()", {
     expect_equal(ncol(bm_extend(plus_sign, left = 2L)), 11L)
 
     skip_on_os("windows")
+    verify_output("txt/plus_sign_left_and_width.txt",
+                  bm_extend(plus_sign, value = 2L, width = 12L, left = 2L))
+    verify_output("txt/plus_sign_right_and_width.txt",
+                  bm_extend(plus_sign, value = 2L, width = 12L, right = 2L))
     verify_output("txt/plus_sign_left.txt",
                   bm_extend(plus_sign, value = 2L, width = 12L, hjust = "left"))
     verify_output("txt/plus_sign_center_left.txt",
@@ -44,6 +48,10 @@ test_that("bm_extend()", {
                   bm_extend(plus_sign, value = 2L, width = 12L, hjust = "right"))
     verify_output("txt/plus_sign_top.txt",
                   bm_extend(plus_sign, value = 2L, height = 12L, vjust = "top"))
+    verify_output("txt/plus_sign_top_and_height.txt",
+                  bm_extend(plus_sign, value = 2L, height = 12L, top = 2L))
+    verify_output("txt/plus_sign_bottom_and_height.txt",
+                  bm_extend(plus_sign, value = 2L, height = 12L, bottom = 2L))
     verify_output("txt/plus_sign_center_top.txt",
                   bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-top"))
     verify_output("txt/plus_sign_center_bottom.txt",

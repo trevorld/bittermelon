@@ -40,10 +40,10 @@ This is the same scheme as used by the CSS padding and margin properties.}
 \item{left}{How many pixels to pad the left.}
 
 \item{width}{How many pixels wide should the new bitmap be.
-Use with the \code{hjust} argument.}
+Use with the \code{hjust} argument or just one of either the \code{left} or \code{right} arguments.}
 
 \item{height}{How many pixels tall should the new bitmap be.
-Use with the \code{vjust} argument.}
+Use with the \code{vjust} argument or just one of either the \code{top} or \code{bottom} arguments.}
 
 \item{hjust}{One of "left", "center-left", "center-right", "right".
 "center-left" and "center-right" will attempt to

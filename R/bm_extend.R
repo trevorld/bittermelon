@@ -19,9 +19,9 @@
 #' @param bottom How many pixels to pad the bottom.
 #' @param left How many pixels to pad the left.
 #' @param width How many pixels wide should the new bitmap be.
-#'              Use with the `hjust` argument.
+#'              Use with the `hjust` argument or just one of either the `left` or `right` arguments.
 #' @param height How many pixels tall should the new bitmap be.
-#'              Use with the `vjust` argument.
+#'              Use with the `vjust` argument or just one of either the `top` or `bottom` arguments.
 #' @param hjust One of "left", "center-left", "center-right", "right".
 #'              "center-left" and "center-right" will attempt to
 #'              place in "center" if possible but if not possible will bias
@@ -43,10 +43,21 @@
 #'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
 #'  print(capital_r, labels = c(" ", "#", ".", "@"))
 #' @export
-bm_extend <- function(bm_object, value = 0L, sides = NULL,
+bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
                    hjust = "center-left", vjust = "center-top") {
+    stopifnot(missing(sides) || missing(top))
+    stopifnot(missing(sides) || missing(right))
+    stopifnot(missing(sides) || missing(bottom))
+    stopifnot(missing(sides) || missing(left))
+    stopifnot(missing(sides) || missing(width))
+    stopifnot(missing(sides) || missing(height))
+    stopifnot(missing(height) || (missing(top)) || missing(bottom))
+    stopifnot(missing(width) || (missing(left)) || missing(right))
+    stopifnot(missing(hjust) || (missing(left) && missing(right)))
+    stopifnot(missing(vjust) || (missing(left) && missing(right)))
+
     modify_bm_bitmaps(bm_object, bm_extend_bitmap,
                       sides = sides, value = value,
                       top = top, right = right, bottom = bottom, left = left,
@@ -58,16 +69,6 @@ bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
                    hjust = "center-left", vjust = "center-top") {
-    stopifnot(is.null(sides) || is.null(top))
-    stopifnot(is.null(sides) || is.null(right))
-    stopifnot(is.null(sides) || is.null(bottom))
-    stopifnot(is.null(sides) || is.null(left))
-    stopifnot(is.null(sides) || is.null(width))
-    stopifnot(is.null(sides) || is.null(height))
-    stopifnot(is.null(height) || is.null(top))
-    stopifnot(is.null(height) || is.null(bottom))
-    stopifnot(is.null(width) || is.null(left))
-    stopifnot(is.null(width) || is.null(right))
 
     d <- list(top = top %||% 0L, right = right %||% 0L,
               bottom = bottom %||% 0L, left = left %||% 0L)
@@ -75,9 +76,10 @@ bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
     if (!is.null(sides))
         d <- adjust_d_sides(sides, d)
     if (!is.null(width))
-        d <- adjust_d_width(bitmap, width, hjust, d)
+        d <- adjust_d_width(bitmap, width, hjust, d, left, right)
     if (!is.null(height))
-        d <- adjust_d_height(bitmap, height, vjust, d)
+        d <- adjust_d_height(bitmap, height, vjust, d, top, bottom)
+    stopifnot(min(unlist(d)) >= 0L)
 
     bitmap <- bm_extend_top(bitmap, d$top, value)
     bitmap <- bm_extend_right(bitmap, d$right, value)
@@ -106,7 +108,7 @@ adjust_d_sides <- function(sides, d) {
     d
 }
 
-adjust_d_width <- function(bitmap, width, hjust, d) {
+adjust_d_width <- function(bitmap, width, hjust, d, left, right) {
     stopifnot(ncol(bitmap) <= width)
     if (hjust %in% c("center", "centre", "centre-left"))
         hjust <- "center-left"
@@ -114,21 +116,29 @@ adjust_d_width <- function(bitmap, width, hjust, d) {
         hjust <- "center-right"
     stopifnot(hjust %in% c("left", "center-left", "center-right", "right"))
     remainder <- width - ncol(bitmap)
-    if (hjust == "left") {
-        d$right <- remainder
-    } else if (hjust == "right") {
-        d$left <- remainder
-    } else if (hjust == "center-left") {
-        d$left <- remainder %/% 2
-        d$right <- remainder - d$left
-    } else { # center-right
-        d$right <- remainder %/% 2
+    if (is.null(left) && is.null(right)) {
+        if (hjust == "left") {
+            d$right <- remainder
+        } else if (hjust == "right") {
+            d$left <- remainder
+        } else if (hjust == "center-left") {
+            d$left <- remainder %/% 2
+            d$right <- remainder - d$left
+        } else { # center-right
+            d$right <- remainder %/% 2
+            d$left <- remainder - d$right
+        }
+    } else if (is.null(left)) {
+        d$right <- right
         d$left <- remainder - d$right
+    } else { # is.null(right) is true
+        d$left <- left
+        d$right <- remainder - d$left
     }
     d
 }
 
-adjust_d_height <- function(bitmap, height, vjust, d) {
+adjust_d_height <- function(bitmap, height, vjust, d, top, bottom) {
     stopifnot(nrow(bitmap) <= height)
     if (vjust %in% c("center", "centre", "centre-top"))
         vjust <- "center-top"
@@ -136,16 +146,24 @@ adjust_d_height <- function(bitmap, height, vjust, d) {
         vjust <- "center-bottom"
     stopifnot(vjust %in% c("top", "center-top", "center-bottom", "bottom"))
     remainder <- height - ncol(bitmap)
-    if (vjust == "top") {
-        d$bottom <- remainder
-    } else if (vjust == "bottom") {
-        d$top <- remainder
-    } else if (vjust == "center-top") {
-        d$top <- remainder %/% 2
-        d$bottom <- remainder - d$top
-    } else { # center-bottom
-        d$bottom <- remainder %/% 2
+    if (is.null(top) && is.null(bottom)) {
+        if (vjust == "top") {
+            d$bottom <- remainder
+        } else if (vjust == "bottom") {
+            d$top <- remainder
+        } else if (vjust == "center-top") {
+            d$top <- remainder %/% 2
+            d$bottom <- remainder - d$top
+        } else { # center-bottom
+            d$bottom <- remainder %/% 2
+            d$top <- remainder - d$bottom
+        }
+    } else if (is.null(top)) {
+        d$bottom <- bottom
         d$top <- remainder - d$bottom
+    } else { # is.null(bottom) is true
+        d$top <- top
+        d$bottom <- remainder - d$top
     }
     d
 }
