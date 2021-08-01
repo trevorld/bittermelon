@@ -7,7 +7,7 @@
 bm_extend(
   bm_object,
   value = 0L,
-  padding = NULL,
+  sides = NULL,
   top = NULL,
   right = NULL,
   bottom = NULL,
@@ -23,13 +23,13 @@ bm_extend(
 
 \item{value}{Integer value for the new pixels.}
 
-\item{padding}{If not \code{NULL} then an integer vector indicating how
-many pixels to pad each side.
-If length one indicates the number for all sides.
-If length two the number for the vertical and then horizontal sides.
-If length three the number for top, horizontal, and bottom sides.
-If length four the number for top, right, bottom, and left.
-This is the same scheme as used by the CSS padding property.}
+\item{sides}{If not \code{NULL} then an integer vector indicating how
+many pixels to pad on all four sides.
+If the integer vector is of length one it indicates the number of pixels for all four sides.
+If of length two gives first the number for the vertical sides and then the horizontal sides.
+If of length three gives the number of pixels for top, the horizontal sides, and then bottom sides.
+If of length four gives the number of pixels for top, right, bottom, and then left sides.
+This is the same scheme as used by the CSS padding and margin properties.}
 
 \item{top}{How many pixels to pad the top.}
 
@@ -72,7 +72,7 @@ The directions and the integer value of the extra pixels are settable
  font <- read_hex(font_file)
  # add a border to an "R"
  capital_r <- font[[str2ucp("R")]]
- capital_r <- bm_extend(capital_r, value = 2L, padding = 1L)
- capital_r <- bm_extend(capital_r, value = 3L, padding = 1L)
+ capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
+ capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
  print(capital_r, labels = c(" ", "#", ".", "@"))
 }

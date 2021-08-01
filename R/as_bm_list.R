@@ -12,8 +12,8 @@
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
 #'   bml <- as_bm_list("RSTATS", font = font)
-#'   bml <- bm_extend(bml, padding = 1L, value = 0L)
-#'   bml <- bm_extend(bml, padding = c(2L, 1L), value = 2L)
+#'   bml <- bm_extend(bml, sides = 1L, value = 0L)
+#'   bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
 #'   bm <- do.call(cbind, bml)
 #'   print(bm, labels = c(" ", "#", "X"))
 #' @seealso [bm_list()]

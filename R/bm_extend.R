@@ -7,13 +7,13 @@
 #' @inheritParams bm_clamp
 #' @inherit bm_clamp return
 #' @param value Integer value for the new pixels.
-#' @param padding If not `NULL` then an integer vector indicating how
-#'                many pixels to pad each side.
-#'                If length one indicates the number for all sides.
-#'                If length two the number for the vertical and then horizontal sides.
-#'                If length three the number for top, horizontal, and bottom sides.
-#'                If length four the number for top, right, bottom, and left.
-#'                This is the same scheme as used by the CSS padding property.
+#' @param sides If not `NULL` then an integer vector indicating how
+#'              many pixels to pad on all four sides.
+#'              If the integer vector is of length one it indicates the number of pixels for all four sides.
+#'              If of length two gives first the number for the vertical sides and then the horizontal sides.
+#'              If of length three gives the number of pixels for top, the horizontal sides, and then bottom sides.
+#'              If of length four gives the number of pixels for top, right, bottom, and then left sides.
+#'              This is the same scheme as used by the CSS padding and margin properties.
 #' @param top How many pixels to pad the top.
 #' @param right How many pixels to pad the right.
 #' @param bottom How many pixels to pad the bottom.
@@ -39,31 +39,31 @@
 #'  font <- read_hex(font_file)
 #'  # add a border to an "R"
 #'  capital_r <- font[[str2ucp("R")]]
-#'  capital_r <- bm_extend(capital_r, value = 2L, padding = 1L)
-#'  capital_r <- bm_extend(capital_r, value = 3L, padding = 1L)
+#'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
+#'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
 #'  print(capital_r, labels = c(" ", "#", ".", "@"))
 #' @export
-bm_extend <- function(bm_object, value = 0L, padding = NULL,
+bm_extend <- function(bm_object, value = 0L, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
                    hjust = "center-left", vjust = "center-up") {
     modify_bm_bitmaps(bm_object, bm_extend_bitmap,
-                      padding = padding, value = value,
+                      sides = sides, value = value,
                       top = top, right = right, bottom = bottom, left = left,
                       width = width, height = height,
                       hjust = hjust, vjust = vjust)
 }
 
-bm_extend_bitmap <- function(bitmap, value = 0L, padding = NULL,
+bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
                    hjust = "center-left", vjust = "center-up") {
-    stopifnot(is.null(padding) || is.null(top))
-    stopifnot(is.null(padding) || is.null(right))
-    stopifnot(is.null(padding) || is.null(bottom))
-    stopifnot(is.null(padding) || is.null(left))
-    stopifnot(is.null(padding) || is.null(width))
-    stopifnot(is.null(padding) || is.null(height))
+    stopifnot(is.null(sides) || is.null(top))
+    stopifnot(is.null(sides) || is.null(right))
+    stopifnot(is.null(sides) || is.null(bottom))
+    stopifnot(is.null(sides) || is.null(left))
+    stopifnot(is.null(sides) || is.null(width))
+    stopifnot(is.null(sides) || is.null(height))
     stopifnot(is.null(height) || is.null(top))
     stopifnot(is.null(height) || is.null(bottom))
     stopifnot(is.null(width) || is.null(left))
@@ -72,8 +72,8 @@ bm_extend_bitmap <- function(bitmap, value = 0L, padding = NULL,
     d <- list(top = top %||% 0L, right = right %||% 0L,
               bottom = bottom %||% 0L, left = left %||% 0L)
 
-    if (!is.null(padding))
-        d <- adjust_d_padding(padding, d)
+    if (!is.null(sides))
+        d <- adjust_d_sides(sides, d)
     if (!is.null(width))
         d <- adjust_d_width(bitmap, width, hjust, d)
     if (!is.null(height))
@@ -86,22 +86,22 @@ bm_extend_bitmap <- function(bitmap, value = 0L, padding = NULL,
     bitmap
 }
 
-adjust_d_padding <- function(padding, d) {
-    stopifnot(length(padding) < 5L)
-    if (length(padding) == 1L) {
-        d$top <- d$right <- d$bottom <- d$left <- padding
-    } else if (length(padding) == 2L) {
-        d$top <- d$bottom <- padding[1L]
-        d$left <- d$right <- padding[2L]
-    } else if (length(padding) == 3L) {
-        d$top <- padding[1L]
-        d$left <- d$right <- padding[2L]
-        d$bottom <- padding[3L]
+adjust_d_sides <- function(sides, d) {
+    stopifnot(length(sides) < 5L)
+    if (length(sides) == 1L) {
+        d$top <- d$right <- d$bottom <- d$left <- sides
+    } else if (length(sides) == 2L) {
+        d$top <- d$bottom <- sides[1L]
+        d$left <- d$right <- sides[2L]
+    } else if (length(sides) == 3L) {
+        d$top <- sides[1L]
+        d$left <- d$right <- sides[2L]
+        d$bottom <- sides[3L]
     } else {
-        d$top <- padding[1L]
-        d$right <- padding[2L]
-        d$bottom <- padding[3L]
-        d$left <- padding[4L]
+        d$top <- sides[1L]
+        d$right <- sides[2L]
+        d$bottom <- sides[3L]
+        d$left <- sides[4L]
     }
     d
 }

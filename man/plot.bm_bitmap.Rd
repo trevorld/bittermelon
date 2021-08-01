@@ -31,7 +31,7 @@ which converts a bitmap glyph object to a raster object.
   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
   font <- read_hex(font_file)
   capital_r <- bm_extend(font[[str2ucp("R")]], left = 1L)
-  capital_r <- bm_extend(capital_r, padding = 1L, value = 2L)  # add a border effect
+  capital_r <- bm_extend(capital_r, sides = 1L, value = 2L)  # add a border effect
 
   plot(capital_r)
 

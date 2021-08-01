@@ -7,20 +7,20 @@ test_that("bm_extend()", {
     expect_equal(nrow(plus_sign), 9L)
     expect_equal(ncol(plus_sign), 9L)
 
-    plus_sign_p1 <- bm_extend(plus_sign, padding = 1L)
+    plus_sign_p1 <- bm_extend(plus_sign, sides = 1L)
     expect_true(is_bm_bitmap(plus_sign_p1))
     expect_equal(nrow(plus_sign_p1), 11L)
     expect_equal(ncol(plus_sign_p1), 11L)
 
-    plus_sign_p12 <- bm_extend(plus_sign, padding = 1:2)
+    plus_sign_p12 <- bm_extend(plus_sign, sides = 1:2)
     expect_equal(nrow(plus_sign_p12), 11L)
     expect_equal(ncol(plus_sign_p12), 13L)
 
-    plus_sign_p123 <- bm_extend(plus_sign, padding = 1:3)
+    plus_sign_p123 <- bm_extend(plus_sign, sides = 1:3)
     expect_equal(nrow(plus_sign_p123), 13L)
     expect_equal(ncol(plus_sign_p123), 13L)
 
-    plus_sign_p1234 <- bm_extend(plus_sign, padding = 1:4)
+    plus_sign_p1234 <- bm_extend(plus_sign, sides = 1:4)
     expect_equal(nrow(plus_sign_p1234), 13L)
     expect_equal(ncol(plus_sign_p1234), 15L)
 

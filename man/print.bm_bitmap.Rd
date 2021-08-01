@@ -35,7 +35,7 @@ to a character vector.
 
   bm_8 <- font[[str2ucp("8")]]
   bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
-                                padding = 1L, value = 2L)
+                                sides = 1L, value = 2L)
   print(bm_8_with_border, labels = c(".", "@", "X"))
 
 }
