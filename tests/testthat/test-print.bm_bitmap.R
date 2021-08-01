@@ -7,7 +7,7 @@ test_that("print.bm_bitmap()", {
         print(bm_bitmap(plus_sign), labels = c(".", "#"))
     })
 
-    space_glyph <- bm_bitmap(matrix(0L, nrow = 8L, ncol = 8L))
+    space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
     verify_output("txt/space.txt", {
         print(space_glyph, labels = c("."))
     })
@@ -17,4 +17,13 @@ test_that("print.bm_bitmap()", {
         print(bm_bitmap(plus_sign))
     })
 
+    plus_space_bt <- rbind(plus_sign, space_glyph, direction = "bottom-to-top")
+    verify_output("txt/plus_space_bt.txt", {
+        print(bm_bitmap(plus_space_bt))
+    })
+
+    plus_space_rl <- cbind(plus_sign, space_glyph, direction = "right-to-left")
+    verify_output("txt/plus_space_rl.txt", {
+        print(bm_bitmap(plus_space_rl))
+    })
 })

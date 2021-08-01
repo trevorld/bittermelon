@@ -5,12 +5,17 @@
 \alias{rbind.bm_bitmap}
 \title{Combine bitmaps by rows or columns}
 \usage{
-\method{cbind}{bm_bitmap}(...)
+\method{cbind}{bm_bitmap}(..., direction = "left-to-right")
 
-\method{rbind}{bm_bitmap}(...)
+\method{rbind}{bm_bitmap}(..., direction = "top-to-bottom")
 }
 \arguments{
 \item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} objects.}
+
+\item{direction}{For \verb{cbind().bm_bitmap} either "left-to-right" (default) or its alias "lr"
+OR "right-to-left" or its alias "rl".
+For \verb{rbind().bm_bitmap} either "top-to-bottom" (default) or its alias "tb"
+OR "bottom-to-top" or its alias "bt".}
 }
 \value{
 A \code{\link[=bm_bitmap]{bm_bitmap()}} object.
@@ -26,6 +31,10 @@ by columns or rows respectively.
   capital_m <- font[[str2ucp("M")]]
   cbm <- cbind(capital_b, capital_m)
   print(cbm, labels = c(".", "#"))
+  cbm_rl <- cbind(capital_b, capital_m, direction = "right-to-left")
+  print(cbm_rl, labels = c(".", "#"))
   rbm <- rbind(capital_b, capital_m)
   print(rbm, labels = c(".", "#"))
+  rbm_bt <- rbind(capital_b, capital_m, direction = "bottom-to-top")
+  print(rbm_bt, labels = c(".", "#"))
 }
