@@ -42,12 +42,12 @@ validate_bm_list <- function(x) {
     invisible(NULL)
 }
 
-#' Apply a function over a bitmap list
+#' Modify bitmap lists
 #'
-#' `lapply_bm_list()` applies a function over a bitmap glyph list
+#' `bm_lapply()` applies a function over a bitmap glyph list
 #' and returns a modified bitmap glyph list.
 #'
-#' `lapply_bm_list()` is a wrapper around `base::lapply()` that
+#' `bm_lapply()` is a wrapper around `base::lapply()` that
 #' preserves the classes and metadata of the original bitmap glyph list.
 #' @param X A bitmap glyph list object such as [bm_list()] or [bm_font()].
 #' @param FUN A function that takes a [bm_bitmap()] object as its first argument
@@ -56,7 +56,8 @@ validate_bm_list <- function(x) {
 #' @return A modified bitmap glyph list.
 #' @seealso [base::lapply()], [bm_list()], [bm_font()], [bm_bitmap()]
 #' @export
-lapply_bm_list <- function(X, FUN, ...) { # nolint
+bm_lapply <- function(X, FUN, ...) { # nolint
+    stopifnot(is_bm_list(X))
     l2 <- lapply(X, FUN, ...)
     class(l2) <- class(X)
     attr(l2, "comments") <- attr(X, "comments")
