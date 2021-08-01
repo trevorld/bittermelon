@@ -58,6 +58,12 @@ bittermelon 0.1.0
 
     * `read_hex()` reads in a "hex" font as a `bm_font()` object (#8)
     * `write_hex()` writes out a "hex" font of a `bm_font()` object (#9)
+    * `read_yaff()` reads in a "yaff" font as a `bm_font()` object (#6)
+    * `write_yaff()` writes out a "yaff" font of a `bm_font()` object (#7)
+    * `read_monobit()` reads in a bitmap font as a `bm_font()` object using `monobit`.
+      Supports multiple bitmap font formats.  Requires Python to be available. (#26)
+    * `write_monobit()` writes out a bitmap font of a `bm_font()` object using `monobit`.
+      Supports multiple bitmap font formats.  Requires Python to be available. (#27)
 
 * `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
   return Unicode code points as character vectors.

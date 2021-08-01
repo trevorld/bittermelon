@@ -22,6 +22,8 @@ reference:
       desc: "Functions to read/write bitmap fonts"
       contents:
           - read_hex
+          - read_yaff
+          - read_monobit
     - title: "Modify bitmaps"
       desc: "Functions to modify bitmaps and bitmap lists"
       contents:

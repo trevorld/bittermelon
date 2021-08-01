@@ -8,6 +8,7 @@ test_that("read_yaff() and write_yaff()", {
 
     expect_true(any(grepl(" * Spleen is released under the BSD 2-Clause",
                           attr(yaff, "comments"))))
+
     expect_equal(attr(yaff, "properties")$name,
                  "Spleen Medium 16")
     expect_equal(attr(yaff, "properties")[["source-name"]],

@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome bitmap font tools
-Version: 0.1.0-10
+Version: 0.1.0-11
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
              person("Rob", "Hagemans", role = "cph",

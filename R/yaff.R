@@ -27,7 +27,7 @@ read_yaff <- function(con) {
     contents <- readLines(con)
 
     # capture global comments (comments top of file)
-    comments <- capture_yaff_comments(contents)
+    comments <- capture_comments(contents)
     contents <- grep("^#", contents, value = TRUE, invert = TRUE)
 
     # capture glyphs
@@ -41,7 +41,7 @@ read_yaff <- function(con) {
     bm_font(gl, comments = comments, properties = properties)
 }
 
-capture_yaff_comments <- function(contents) {
+capture_comments <- function(contents) {
     non_comments <- which(grepl("^[^#]", contents))
     if (length(non_comments)) {
         first_non_comment <- min(non_comments)

@@ -25,16 +25,22 @@ read_hex <- function(con) {
 
     contents <- readLines(con)
 
-    contents <- grep("^[A-Fa-f0-9]+:[A-Fa-f0-9]+$", contents, value = TRUE)
-    contents <- strsplit(contents, ":")
+    comments <- capture_comments(contents)
 
-    code_points <- sapply(contents, function(x) x[1])
-    code_points <- hex2ucp(code_points)
+    glyphs <- grep("^[A-Fa-f0-9]+:[A-Fa-f0-9]+$", contents, value = TRUE)
+    if (length(glyphs) == 0L) {
+        glyphs <- bm_list()
+    } else {
+        glyphs <- strsplit(glyphs, ":")
 
-    glyphs <- lapply(contents, function(x) as_bm_bitmap_hex(x[2]))
+        code_points <- sapply(glyphs, function(x) x[1])
+        code_points <- hex2ucp(code_points)
 
-    names(glyphs) <- code_points
-    bm_font(glyphs)
+        glyphs <- lapply(glyphs, function(x) as_bm_bitmap_hex(x[2]))
+        names(glyphs) <- code_points
+    }
+
+    bm_font(glyphs, comments = comments)
 }
 
 #' @rdname hex_font
@@ -44,6 +50,21 @@ write_hex <- function(font, con = stdout()) {
         on.exit(close(con))
 
     validate_bm_font(font)
+
+    # hex fonts only support black-and-white glyphs
+    if (any(sapply(font, function(x) max(x) > 1L))) {
+        message("Multi-colored glyphs detected, casting to black-and-white.")
+        font <- bm_clamp(font)
+    }
+
+    contents <- c()
+
+    comments <- attr(font, "comments")
+    if (length(comments)) {
+        comments <- paste0("# ", comments)
+        contents <- c(contents, comments)
+    }
+
     # hex fonts only support 8x16 and 16x16 glyphs
     heights <- sapply(font, nrow)
     stopifnot(all(heights == 16L))
@@ -52,13 +73,9 @@ write_hex <- function(font, con = stdout()) {
     code_points <- hex2ucp(names(font))
     code_points <- substr(code_points, 3L, nchar(code_points))
 
-    if (any(sapply(font, function(x) max(x) > 1L))) {
-        message("Multi-colored glyphs detected, casting to black-and-white.")
-        font <- bm_clamp(font)
-    }
     glyphs <- sapply(font, as_hex)
-
     hex <- paste0(code_points, ":", glyphs)
+    contents <- c(contents, hex)
 
     writeLines(hex, con)
     invisible(hex)

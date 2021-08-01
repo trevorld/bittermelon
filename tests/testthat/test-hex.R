@@ -3,6 +3,9 @@ test_that("read_hex() and write_hex()", {
     font <- read_hex(font_file)
     expect_true(is_bm_font(font))
 
+    expect_true(any(grepl(" * Spleen is released under the BSD 2-Clause",
+                          attr(font, "comments"))))
+
     f <- tempfile(fileext = ".hex.gz")
     write_hex(font, gzfile(f))
     font2 <- read_hex(f)
@@ -24,5 +27,7 @@ test_that("read_hex() and write_hex()", {
     unlink(f)
 
     expect_equal(f32[[c32]], f32_2[[c32]])
+
+    expect_equal(length(read_hex(textConnection(""))), 0L)
 
 })
