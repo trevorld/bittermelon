@@ -15,7 +15,7 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-up"
+  vjust = "center-top"
 )
 }
 \arguments{
@@ -53,11 +53,11 @@ it one pixel left or right respectively.
 "centre-right" is an alias for "center-right".}
 
 \item{vjust}{One of "bottom", "center-bottom", "center-top", "top".
-"center-down" and "center-up" will attempt to
+"center-bottom" and "center-top" will attempt to
 place in "center" if possible but if not possible will bias
 it one pixel down or up respectively.
-"centre", "center", and "centre-up" are aliases for "center-up".
-"centre-down" is an alias for "center-down".}
+"centre", "center", and "centre-top" are aliases for "center-top".
+"centre-bottom" is an alias for "center-bottom".}
 }
 \value{
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).

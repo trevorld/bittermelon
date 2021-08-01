@@ -44,10 +44,10 @@ test_that("bm_extend()", {
                   bm_extend(plus_sign, value = 2L, width = 12L, hjust = "right"))
     verify_output("txt/plus_sign_top.txt",
                   bm_extend(plus_sign, value = 2L, height = 12L, vjust = "top"))
-    verify_output("txt/plus_sign_center_up.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-up"))
-    verify_output("txt/plus_sign_center_down.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-down"))
+    verify_output("txt/plus_sign_center_top.txt",
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-top"))
+    verify_output("txt/plus_sign_center_bottom.txt",
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-bottom"))
     verify_output("txt/plus_sign_bottom.txt",
                   bm_extend(plus_sign, value = 2L, height = 12L, vjust = "bottom"))
 })

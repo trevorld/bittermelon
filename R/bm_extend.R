@@ -29,11 +29,11 @@
 #'              "centre", "center", and "centre-left" are aliases for "center-left".
 #'              "centre-right" is an alias for "center-right".
 #' @param vjust One of "bottom", "center-bottom", "center-top", "top".
-#'              "center-down" and "center-up" will attempt to
+#'              "center-bottom" and "center-top" will attempt to
 #'              place in "center" if possible but if not possible will bias
 #'              it one pixel down or up respectively.
-#'              "centre", "center", and "centre-up" are aliases for "center-up".
-#'              "centre-down" is an alias for "center-down".
+#'              "centre", "center", and "centre-top" are aliases for "center-top".
+#'              "centre-bottom" is an alias for "center-bottom".
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
@@ -46,7 +46,7 @@
 bm_extend <- function(bm_object, value = 0L, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
-                   hjust = "center-left", vjust = "center-up") {
+                   hjust = "center-left", vjust = "center-top") {
     modify_bm_bitmaps(bm_object, bm_extend_bitmap,
                       sides = sides, value = value,
                       top = top, right = right, bottom = bottom, left = left,
@@ -57,7 +57,7 @@ bm_extend <- function(bm_object, value = 0L, sides = NULL,
 bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
                    width = NULL, height = NULL,
-                   hjust = "center-left", vjust = "center-up") {
+                   hjust = "center-left", vjust = "center-top") {
     stopifnot(is.null(sides) || is.null(top))
     stopifnot(is.null(sides) || is.null(right))
     stopifnot(is.null(sides) || is.null(bottom))
@@ -130,20 +130,20 @@ adjust_d_width <- function(bitmap, width, hjust, d) {
 
 adjust_d_height <- function(bitmap, height, vjust, d) {
     stopifnot(nrow(bitmap) <= height)
-    if (vjust %in% c("center", "centre", "centre-up"))
-        vjust <- "center-up"
-    if (vjust == "centre-down")
-        vjust <- "center-down"
-    stopifnot(vjust %in% c("top", "center-up", "center-down", "bottom"))
+    if (vjust %in% c("center", "centre", "centre-top"))
+        vjust <- "center-top"
+    if (vjust %in% c("centre-bottom"))
+        vjust <- "center-bottom"
+    stopifnot(vjust %in% c("top", "center-top", "center-bottom", "bottom"))
     remainder <- height - ncol(bitmap)
     if (vjust == "top") {
         d$bottom <- remainder
     } else if (vjust == "bottom") {
         d$top <- remainder
-    } else if (vjust == "center-up") {
+    } else if (vjust == "center-top") {
         d$top <- remainder %/% 2
         d$bottom <- remainder - d$top
-    } else { # center-down
+    } else { # center-bottom
         d$bottom <- remainder %/% 2
         d$top <- remainder - d$bottom
     }

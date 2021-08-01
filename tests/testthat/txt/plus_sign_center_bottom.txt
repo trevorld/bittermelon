@@ -1,4 +1,5 @@
-> bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-up")
+> bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-bottom")
+▒▒▒▒▒▒▒▒▒
 ▒▒▒▒▒▒▒▒▒
 ░░░░░░░░░
 ░░░░░░░░░
@@ -9,6 +10,5 @@
 ░░░░█░░░░
 ░░░░░░░░░
 ░░░░░░░░░
-▒▒▒▒▒▒▒▒▒
 ▒▒▒▒▒▒▒▒▒
 
