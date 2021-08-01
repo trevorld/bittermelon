@@ -4,21 +4,29 @@
 \alias{bm_clamp}
 \title{Clamp bitmap integer values.}
 \usage{
-bm_clamp(bm_object, lower = 0L, upper = 1L)
+bm_clamp(bm_object, lower = 0L, upper = 1L, value = upper)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).}
+\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
-\item{lower}{Integer value.  Any value below \code{lower} will be clamped to \code{lower}.}
+\item{lower}{Integer value.  Any value below \code{lower} will be clamped.}
 
-\item{upper}{Integer value.  Any value above \code{upper} will be clamped to \code{upper}.}
+\item{upper}{Integer value.  Any value above \code{upper} will be clamped.}
+
+\item{value}{Integer vector of length one or two of replacement value(s).
+If \code{value} is length one
+any values above \code{upper} are replaced by \code{value}
+while those below \code{lower} are replaced by \code{lower}.
+If \code{value} is length two any values above \code{upper}
+are replaced by \code{value[2]} and any values below \code{lower}
+are replaced by \code{value[1]}.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
 }
 \description{
-\code{bm_clamp()} \dQuote{clamps} bitmap integers to lie between a lower and upper value.
-The default lower and upper values coerce the bitmap
+\code{bm_clamp()} \dQuote{clamps} bitmap integers that lie outside an interval.
+The default coerces a multiple-integer-valued bitmap
 into a binary bitmap (as expected by most bitmap font formats).
 }
 \examples{

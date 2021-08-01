@@ -19,7 +19,7 @@ bm_extend(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).}
+\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{value}{Integer value for the new pixels.}
 
@@ -60,7 +60,7 @@ it one pixel down or up respectively.
 "centre-bottom" is an alias for "center-bottom".}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_list]{bm_list()}} object (including \code{\link[=bm_font]{bm_font()}}).
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
 }
 \description{
 \code{bm_extend()} extends \code{\link[=bm_bitmap]{bm_bitmap()}} objects with extra pixels.
