@@ -27,16 +27,18 @@ Note \code{monobit} is alpha level software which may not always work
 (in particular font export may be buggy).
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
- tempfile <- tempfile(fileext = ".yaff")
- writeLines(readLines(font_file), tempfile)
+ if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
+   font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
+   tempfile <- tempfile(fileext = ".yaff")
+   writeLines(readLines(font_file), tempfile)
 
- font <- read_monobit(tempfile)
- capital_r <- font[[str2ucp("R")]]
- print(capital_r, labels = c(".", "#"))
+   font <- read_monobit(tempfile)
+   capital_r <- font[[str2ucp("R")]]
+   print(capital_r, labels = c(".", "#"))
 
- filename <- tempfile(fileext = ".yaff")
- write_monobit(font, filename)
+   filename <- tempfile(fileext = ".yaff")
+   write_monobit(font, filename)
+ }
 }
 \seealso{
 \code{\link[=bm_font]{bm_font()}} for more information about bitmap font objects.

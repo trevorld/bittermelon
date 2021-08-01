@@ -38,7 +38,7 @@
     * Names should be of the form "U+HEX" where "HEX" is the Unicode hexadecimal number for the character.  This format is understood well by the `{Unicode}` package.  Note `Unicode::as.u_char()` does not seem to support any string format that is reliably a "syntactic name" identifier.
     * Font metadata will be stored as an attribute.  Note "hex" font format has **zero** font metadata so this should be optional.
 
-* If 'Python' is installed will also read/write several more bitmap font formats using an embedded version of 'monobit'.
+* If 'Python' is installed will also read/write several more bitmap font formats using an embedded version of [monobit](https://github.com/robhagemans/monobit).
 
 Personal Project Goals:
 
@@ -89,6 +89,7 @@ Fonts:
 
 * [GNU Unifont](https://www.unifoundry.com/unifont/index.html)
 * Rob Hagerman's [Hoard of Bitfonts](https://github.com/robhagemans/hoard-of-bitfonts)
+* Jacob Large's [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)
 * Embedded in `{bdftools}` package:
 
   * [Cozette](https://github.com/slavfox/Cozette)

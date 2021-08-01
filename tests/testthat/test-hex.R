@@ -18,8 +18,6 @@ test_that("read_hex() and write_hex()", {
     h32 <- "06DC:0000012809F80900060000000000000000000000000000000000000000000000"
     c32 <- "U+06DC"
     f32 <- read_hex(textConnection(h32))
-    verify_output("txt/glyph32_with_9.txt",
-                  print(f32[[c32]]))
 
     f <- tempfile(fileext = ".hex")
     write_hex(f32, f)
@@ -30,4 +28,7 @@ test_that("read_hex() and write_hex()", {
 
     expect_equal(length(read_hex(textConnection(""))), 0L)
 
+    skip_on_os("windows")
+    verify_output("txt/glyph32_with_9.txt",
+                  print(f32[[c32]]))
 })
