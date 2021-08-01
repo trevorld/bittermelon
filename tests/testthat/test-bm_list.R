@@ -34,4 +34,10 @@ test_that("as_bm_list()", {
     bm <- do.call(cbind, bml)
 
     verify_output("txt/RSTATS.txt", print(bm, labels = c(" ", "#", "X")))
+
+    expect_equal(bm_widths(font), 8L)
+    expect_equal(bm_heights(font), 16L)
+
+    expect_equal(length(font), length(bm_widths(font, unique = FALSE)))
+    expect_equal(length(font), length(bm_heights(font, unique = FALSE)))
 })

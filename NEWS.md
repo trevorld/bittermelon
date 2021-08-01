@@ -35,8 +35,6 @@ bittermelon 0.1.0
   * `is_bm_list()`  returns `TRUE` for `bm_list()` objects (or subclasses)
     and `FALSE` for all other objects.
 
-  * `lapply_bm_list()` applies a function to each element in a `bm_list()` object.
-
 * `bm_font()` creates a S3 object representing bitmap fonts (#5).
 
   * `as_bm_font()` is a S3 method that coerces objects to `bm_font()` objects
@@ -65,5 +63,13 @@ bittermelon 0.1.0
     * `write_monobit()` writes out a bitmap font of a `bm_font()` object using `monobit`.
       Supports multiple bitmap font formats.  Requires Python to be available. (#27)
 
-* `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
+* Other utility functions
+
+  * `bm_lapply()` applies a function to each element in a `bm_list()` or `bm_font()` object.
+    It returns another `bm_list()` or `bm_font()` object with the same metadata as
+    the original object.
+  * `bm_widths()` and `bm_heights()` calculates the widths and heights of the bitmaps
+    in `bm_list()` or `bm_font()` objects.
+
+  * `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
   return Unicode code points as character vectors.

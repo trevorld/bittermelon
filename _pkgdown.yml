@@ -29,6 +29,11 @@ reference:
       contents:
           - bm_clamp
           - bm_extend
+    - title: "Other bitmap list/font utilities"
+      desc: "Other bitmap list/font utility functions"
+      contents:
+          - bm_lapply
+          - bm_widths
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:
