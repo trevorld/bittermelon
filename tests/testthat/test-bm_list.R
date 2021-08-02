@@ -12,6 +12,8 @@ test_that("bm_list()", {
     plus_sign[3:7, 5L] <- 1L
     plus_sign_glyph <- bm_bitmap(plus_sign)
     plus_sign_code_point <- name2ucp("PLUS SIGN") # "U+002B" code point
+    expect_equal(ncol(plus_sign_glyph), bm_widths(plus_sign_glyph))
+    expect_equal(nrow(plus_sign_glyph), bm_heights(plus_sign_glyph))
 
     space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
     space_code_point <- name2ucp("SPACE") # "U+0020" code point

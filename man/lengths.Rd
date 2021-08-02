@@ -3,14 +3,14 @@
 \name{bm_widths}
 \alias{bm_widths}
 \alias{bm_heights}
-\title{Widths or heights of bitmaps in bitmap lists}
+\title{Widths or heights of bitmaps}
 \usage{
-bm_widths(x, unique = TRUE)
+bm_widths(bm_object, unique = TRUE)
 
-bm_heights(x, unique = TRUE)
+bm_heights(bm_object, unique = TRUE)
 }
 \arguments{
-\item{x}{A \code{bm_list()} object including a \code{bm_font()} object.}
+\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{unique}{Apply \code{\link[base:unique]{base::unique()}} to the returned integer vector.}
 }
@@ -20,7 +20,7 @@ of the \code{bm_bitmap()} objects in \code{x}.
 If \code{unique} is \code{TRUE} then any duplicates will have been removed.
 }
 \description{
-\code{bm_widths()} returns the widths of the bitmaps in a \code{bm_list()} while
+\code{bm_widths()} returns the widths of the bitmaps while
 \code{bm_heights()} returns the heights of the bitmaps.
 }
 \examples{

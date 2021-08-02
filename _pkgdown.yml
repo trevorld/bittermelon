@@ -29,8 +29,8 @@ reference:
       contents:
           - bm_clamp
           - bm_extend
-    - title: "Other bitmap list/font utilities"
-      desc: "Other bitmap list/font utility functions"
+    - title: "Other bitmap object utilities"
+      desc: "Other bitmap object utility functions"
       contents:
           - bm_lapply
           - bm_padding_lengths
