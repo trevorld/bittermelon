@@ -51,6 +51,7 @@ bittermelon 0.1.0
   * `bm_clamp()` clamps integer values between a lower and upper value.
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
+  * `bm_trim()` trims the bitmap in specified directions (#12).
 
 * Support for reading and writing bitmap fonts
 

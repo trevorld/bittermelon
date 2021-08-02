@@ -66,9 +66,9 @@ bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
 }
 
 bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
-                   top = NULL, right = NULL, bottom = NULL, left = NULL,
-                   width = NULL, height = NULL,
-                   hjust = "center-left", vjust = "center-top") {
+                             top = NULL, right = NULL, bottom = NULL, left = NULL,
+                             width = NULL, height = NULL,
+                             hjust = "center-left", vjust = "center-top") {
 
     d <- list(top = top %||% 0L, right = right %||% 0L,
               bottom = bottom %||% 0L, left = left %||% 0L)
@@ -76,9 +76,9 @@ bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
     if (!is.null(sides))
         d <- adjust_d_sides(sides, d)
     if (!is.null(width))
-        d <- adjust_d_width(bitmap, width, hjust, d, left, right)
+        d <- adjust_d_width_extend(bitmap, width, hjust, d, left, right)
     if (!is.null(height))
-        d <- adjust_d_height(bitmap, height, vjust, d, top, bottom)
+        d <- adjust_d_height_extend(bitmap, height, vjust, d, top, bottom)
     stopifnot(min(unlist(d)) >= 0L)
 
     bitmap <- bm_extend_top(bitmap, d$top, value)
@@ -108,14 +108,18 @@ adjust_d_sides <- function(sides, d) {
     d
 }
 
-adjust_d_width <- function(bitmap, width, hjust, d, left, right) {
+adjust_d_width_extend <- function(bitmap, width, hjust, d, left, right) {
     stopifnot(ncol(bitmap) <= width)
+    remainder <- width - ncol(bitmap)
+    adjust_d_width(remainder, width, hjust, d, left, right)
+}
+
+adjust_d_width <- function(remainder, width, hjust, d, left, right) {
     if (hjust %in% c("center", "centre", "centre-left"))
         hjust <- "center-left"
     if (hjust == "centre-right")
         hjust <- "center-right"
     stopifnot(hjust %in% c("left", "center-left", "center-right", "right"))
-    remainder <- width - ncol(bitmap)
     if (is.null(left) && is.null(right)) {
         if (hjust == "left") {
             d$right <- remainder
@@ -138,14 +142,18 @@ adjust_d_width <- function(bitmap, width, hjust, d, left, right) {
     d
 }
 
-adjust_d_height <- function(bitmap, height, vjust, d, top, bottom) {
+adjust_d_height_extend <- function(bitmap, height, vjust, d, top, bottom) {
     stopifnot(nrow(bitmap) <= height)
+    remainder <- height - ncol(bitmap)
+    adjust_d_height(remainder, height, vjust, d, top, bottom)
+}
+
+adjust_d_height <- function(remainder, height, vjust, d, top, bottom) {
     if (vjust %in% c("center", "centre", "centre-top"))
         vjust <- "center-top"
     if (vjust %in% c("centre-bottom"))
         vjust <- "center-bottom"
     stopifnot(vjust %in% c("top", "center-top", "center-bottom", "bottom"))
-    remainder <- height - ncol(bitmap)
     if (is.null(top) && is.null(bottom)) {
         if (vjust == "top") {
             d$bottom <- remainder
