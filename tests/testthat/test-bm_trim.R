@@ -20,4 +20,16 @@ test_that("bm_trim()", {
     verify_output("txt/capital_r_trimmed_right.txt",
                   print(bm_trim(capital_r, width = 6, hjust = "right"),
                         labels = c("-", "#")))
+
+    capital_r_resized <- bm_resize(capital_r, width = 10, height = 14, vjust = "top")
+    verify_output("txt/capital_r_resized.txt",
+                  print(capital_r_resized, labels = c("-", "#")))
+    expect_equal(ncol(capital_r_resized), 10L)
+    expect_equal(nrow(capital_r_resized), 14L)
+
+    capital_r_resized2 <- bm_resize(capital_r, width = 7, height = 18, hjust = "left")
+    verify_output("txt/capital_r_resized2.txt",
+                  print(capital_r_resized2, labels = c("-", "#")))
+    expect_equal(ncol(capital_r_resized2), 7L)
+    expect_equal(nrow(capital_r_resized2), 18L)
 })

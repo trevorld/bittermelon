@@ -29,6 +29,7 @@ reference:
       contents:
           - bm_clamp
           - bm_extend
+          - bm_resize
           - bm_trim
     - title: "Other bitmap object utilities"
       desc: "Other bitmap object utility functions"

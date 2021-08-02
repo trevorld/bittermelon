@@ -42,6 +42,7 @@
 #'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
 #'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
 #'  print(capital_r, labels = c(" ", "#", ".", "@"))
+#' @seealso [bm_trim()] and [bm_resize()]
 #' @export
 bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
                    top = NULL, right = NULL, bottom = NULL, left = NULL,
@@ -144,7 +145,7 @@ adjust_d_width <- function(remainder, width, hjust, d, left, right) {
 
 adjust_d_height_extend <- function(bitmap, height, vjust, d, top, bottom) {
     stopifnot(nrow(bitmap) <= height)
-    remainder <- height - ncol(bitmap)
+    remainder <- height - nrow(bitmap)
     adjust_d_height(remainder, height, vjust, d, top, bottom)
 }
 
