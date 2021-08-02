@@ -33,6 +33,7 @@ reference:
       desc: "Other bitmap list/font utility functions"
       contents:
           - bm_lapply
+          - bm_padding_lengths
           - bm_widths
     - title: "Unicode utilities"
       desc: "Unicode utility functions"

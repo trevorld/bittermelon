@@ -16,6 +16,7 @@
 #' @rdname lengths
 #' @export
 bm_widths <- function(x, unique = TRUE) {
+    x <- as_bm_list(x)
     nc <- sapply(x, ncol)
     if (unique)
         base::unique(nc)
@@ -26,6 +27,7 @@ bm_widths <- function(x, unique = TRUE) {
 #' @rdname lengths
 #' @export
 bm_heights <- function(x, unique = TRUE) {
+    x <- as_bm_list(x)
     nr <- sapply(x, nrow)
     if (unique)
         base::unique(nr)

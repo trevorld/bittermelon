@@ -70,6 +70,7 @@ bittermelon 0.1.0
     the original object.
   * `bm_widths()` and `bm_heights()` calculates the widths and heights of the bitmaps
     in `bm_list()` or `bm_font()` objects.
-
+  * `bm_padding_lengths()` computes the padding lengths of a
+    target value for the top, right, bottom, and left sides of the bitmap.
   * `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
   return Unicode code points as character vectors.

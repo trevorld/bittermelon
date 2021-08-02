@@ -1,3 +1,8 @@
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+space <- font[[str2ucp(" ")]]
+
 test_that("bm_list()", {
 
     expect_error(bm_list(2), "Some elements were not")
@@ -22,22 +27,52 @@ test_that("bm_list()", {
 
     expect_equal(glyph_list, do.call(bm_list, glyph_list))
     expect_equal(glyph_list, as_bm_list(glyph_list))
+
+    padding_lengths <- bm_padding_lengths(glyph_list)
+    expect_equal(length(padding_lengths), 2L)
+    expect_equal(length(unlist(padding_lengths)), 8L)
 })
 
 test_that("as_bm_list()", {
     # Test 'as_bm_list.character()'
-    font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-    font <- read_hex(font_file)
     bml <- as_bm_list("RSTATS", font = font)
     bml <- bm_extend(bml, sides = 1L, value = 0L)
     bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
     bm <- do.call(cbind, bml)
 
     verify_output("txt/RSTATS.txt", print(bm, labels = c(" ", "#", "X")))
+})
 
+test_that("bm_widths() and bm_heights()", {
     expect_equal(bm_widths(font), 8L)
     expect_equal(bm_heights(font), 16L)
 
     expect_equal(length(font), length(bm_widths(font, unique = FALSE)))
     expect_equal(length(font), length(bm_heights(font, unique = FALSE)))
+})
+
+test_that("bm_padding_lengths()", {
+
+    plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
+    plus_sign[5L, 3:7] <- 1L
+    plus_sign[3:7, 5L] <- 1L
+    plus_sign_glyph <- bm_bitmap(plus_sign)
+    bpl <- bm_padding_lengths(plus_sign_glyph)
+    expect_equal(bpl[1], 2L)
+    expect_equal(bpl[2], 2L)
+    expect_equal(bpl[3], 2L)
+    expect_equal(bpl[4], 2L)
+
+    space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
+    bpl <- bm_padding_lengths(space_glyph)
+    expect_equal(bpl[1], 4L)
+    expect_equal(bpl[2], 4L)
+    expect_equal(bpl[3], 5L)
+    expect_equal(bpl[4], 5L)
+
+    bpl <- bm_padding_lengths(capital_r)
+    expect_equal(bpl[1], 2L)
+    expect_equal(bpl[2], 1L)
+    expect_equal(bpl[3], 4L)
+    expect_equal(bpl[4], 0L)
 })
