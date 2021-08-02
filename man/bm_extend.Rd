@@ -77,5 +77,5 @@ The directions and the integer value of the extra pixels are settable
  print(capital_r, labels = c(" ", "#", ".", "@"))
 }
 \seealso{
-\code{\link[=bm_trim]{bm_trim()}} and \code{\link[=bm_resize]{bm_resize()}}
+\code{\link[=bm_pad]{bm_pad()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}.
 }

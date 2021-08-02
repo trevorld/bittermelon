@@ -13,7 +13,7 @@
 #'  print(capital_r, labels = c("-", "#"))
 #'  capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
 #'  print(capital_r, labels = c("-", "#"))
-#' @seealso [bm_trim()] and [bm_extend()]
+#' @seealso [bm_extend()], [bm_pad()], and [bm_trim()].
 #' @export
 bm_resize <- function(bm_object, value = 0L, # nolint
                       width = NULL, height = NULL,

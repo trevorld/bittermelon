@@ -29,6 +29,7 @@ reference:
       contents:
           - bm_clamp
           - bm_extend
+          - bm_pad
           - bm_resize
           - bm_shift
           - bm_trim

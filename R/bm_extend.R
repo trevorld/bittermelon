@@ -42,7 +42,7 @@
 #'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
 #'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
 #'  print(capital_r, labels = c(" ", "#", ".", "@"))
-#' @seealso [bm_trim()] and [bm_resize()]
+#' @seealso [bm_pad()], [bm_resize()], and [bm_trim()].
 #' @export
 bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
                    top = NULL, right = NULL, bottom = NULL, left = NULL,

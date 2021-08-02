@@ -42,3 +42,11 @@ test_that("bm_shift()", {
     expect_equal(nrow(capital_r_shifted), 16L)
     expect_equal(ncol(capital_r_shifted), 8L)
 })
+
+test_that("bm_pad()", {
+    capital_r_padded <- bm_pad(capital_r, sides = 2L)
+    verify_output("txt/capital_r_padded.txt",
+                  print(capital_r_padded, labels = c(".", "#")))
+    expect_equal(nrow(capital_r_padded), 14L)
+    expect_equal(ncol(capital_r_padded), 11L)
+})

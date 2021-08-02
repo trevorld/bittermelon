@@ -54,5 +54,5 @@ This function is a convenience wrapper around \code{\link[=bm_trim]{bm_trim()}} 
  print(capital_r, labels = c("-", "#"))
 }
 \seealso{
-\code{\link[=bm_trim]{bm_trim()}} and \code{\link[=bm_extend]{bm_extend()}}
+\code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_trim]{bm_trim()}}.
 }

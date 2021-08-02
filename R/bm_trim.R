@@ -42,6 +42,7 @@
 #'  print(capital_r, labels = c("-", "#"))
 #'  capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
 #'  print(capital_r_trimmed, labels = c("-", "#"))
+#' @seealso [bm_extend()], [bm_pad()], and [bm_resize()].
 #' @export
 bm_trim <- function(bm_object, sides = NULL,
                     top = NULL, right = NULL, bottom = NULL, left = NULL,

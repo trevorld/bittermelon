@@ -74,3 +74,6 @@ The directions and amount of removed pixels are settable
  capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
  print(capital_r_trimmed, labels = c("-", "#"))
 }
+\seealso{
+\code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_resize]{bm_resize()}}.
+}
