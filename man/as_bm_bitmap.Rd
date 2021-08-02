@@ -13,7 +13,14 @@ as_bm_bitmap(x, ...)
 
 \method{as_bm_bitmap}{default}(x, ...)
 
-\method{as_bm_bitmap}{grob}(x, ..., width = 8L, height = 16L)
+\method{as_bm_bitmap}{grob}(
+  x,
+  ...,
+  width = 8L,
+  height = 16L,
+  png_device = NULL,
+  threshold = 0.25
+)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}
@@ -23,6 +30,16 @@ as_bm_bitmap(x, ...)
 \item{width}{Desired width of bitmap}
 
 \item{height}{Desired height of bitmap}
+
+\item{png_device}{A function taking arguments \code{filename}, \code{width}, and \code{height}
+that starts a graphics device that saves a png image
+with a transparent background.  By default will use \code{\link[ragg:agg_png]{ragg::agg_png()}}
+if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
+if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
+
+\item{threshold}{If any png channel weakly exceeds this threshold
+(on an interval from zero to one)
+then the pixel is determined to be \dQuote{black}.}
 }
 \value{
 A \code{bm_bitmap()} object.

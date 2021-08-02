@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome Bitmap Font Tools
-Version: 0.1.0-19
+Version: 0.1.0-20
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
              person("Rob", "Hagemans", role = "cph",
@@ -19,6 +19,7 @@ Imports:
     png,
     Unicode
 Suggests:
+    ragg,
     testthat,
     vdiffr
 Encoding: UTF-8
