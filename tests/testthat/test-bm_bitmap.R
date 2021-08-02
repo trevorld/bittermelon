@@ -19,3 +19,8 @@ test_that("bm_bitmap()", {
     space_matrix2 <- as.matrix(space_glyph)
     expect_equal(space_matrix, space_matrix2)
 })
+
+test_that("as_bm_bitmap()", {
+    circle <- as_bm_bitmap(grid::circleGrob(r = 0.25), width = 16L, height = 16L)
+    verify_output("txt/circle_grob.txt", print(circle, labels = c(".", "@")))
+})

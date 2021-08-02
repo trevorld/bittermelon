@@ -19,6 +19,7 @@ bittermelon 0.1.0
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
     * `as_bm_bitmap.default()`
+    * `as_bm_bitmap.grob()` (#10)
     * `as_bm_bitmap.matrix()`
 
   * `is_bm_bitmap()`  returns `TRUE` for `bm_bitmap()` objects (or subclasses)

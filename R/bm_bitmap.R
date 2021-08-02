@@ -51,37 +51,3 @@ bm_bitmap <- function(x) {
 #' @seealso [bm_bitmap()]
 #' @export
 is_bm_bitmap <- function(x) inherits(x, "bm_bitmap")
-
-#' Coerce to bitmap glyph objects
-#'
-#' `as_bm_bitmap()` turns an existing object into a `bm_bitmap()` object.
-#'
-#' @param x An object that can reasonably be coerced to a `bm_bitmap()` object.
-#' @param ... Further arguments passed to or from other methods.
-#' @return A `bm_bitmap()` object.
-#' @examples
-#'  space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
-#'  space_glyph <- as_bm_bitmap(space_matrix)
-#'  is_bm_bitmap(space_glyph)
-#' @seealso [bm_bitmap()]
-#' @export
-as_bm_bitmap <- function(x, ...) {
-    UseMethod("as_bm_bitmap")
-}
-
-#' @rdname as_bm_bitmap
-#' @export
-as_bm_bitmap.matrix <- function(x, ...) {
-    if (!is.integer(x)) {
-        x[, ] <- suppressWarnings(as.integer(x))
-    }
-    stopifnot(!any(is.na(x)))
-    class(x) <- c("bm_bitmap", class(x))
-    x
-}
-
-#' @rdname as_bm_bitmap
-#' @export
-as_bm_bitmap.default <- function(x, ...) {
-    as_bm_bitmap.matrix(as.matrix(x))
-}
