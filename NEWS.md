@@ -52,6 +52,8 @@ bittermelon 0.1.0
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
   * `bm_resize()` resized the bitmap to a desired width and/or height.
+  * `bm_shift()` shifts elements within a bitmap in a specified direction
+     while preserving original width and height (#13).
   * `bm_trim()` trims the bitmap in specified directions (#12).
 
 * Support for reading and writing bitmap fonts
