@@ -53,7 +53,7 @@ bittermelon 0.1.0
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
   * `bm_pad()` adjusts bitmap padding lengths (#40).
-  * `bm_resize()` resized the bitmap to a desired width and/or height.
+  * `bm_resize()` resized the bitmap to a desired width and/or height (#34).
   * `bm_shift()` shifts elements within a bitmap in a specified direction
      while preserving original width and height (#13).
   * `bm_trim()` trims the bitmap in specified directions (#12).
@@ -80,3 +80,4 @@ bittermelon 0.1.0
     target value for the top, right, bottom, and left sides of the bitmap.
   * `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
   return Unicode code points as character vectors.
+  * `ucp2label()` returns Unicode code labels as character vectors.

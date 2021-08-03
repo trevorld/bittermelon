@@ -42,7 +42,7 @@ read_yaff <- function(con) {
 }
 
 capture_comments <- function(contents) {
-    non_comments <- which(grepl("^[^#]", contents))
+    non_comments <- which(grepl("^[^#]|^$", contents))
     if (length(non_comments)) {
         first_non_comment <- min(non_comments)
         if (first_non_comment > 1L) {
@@ -193,7 +193,7 @@ write_yaff <- function(font, con = stdout()) {
     comments <-  attr(font, "comments")
     if (length(comments)) {
         comments <- paste0("# ", comments)
-        contents <- append(contents, comments)
+        contents <- c(contents, c(comments, ""))
     }
 
     # properties
@@ -203,7 +203,7 @@ write_yaff <- function(font, con = stdout()) {
         properties <- lapply(seq_along(keys),
                              function(i) as_yaff_property(keys[i], properties[[i]]))
         properties <- unlist(properties, use.names = FALSE)
-        contents <- append(contents, properties)
+        contents <- c(contents, properties, "")
     }
 
     # glyphs
@@ -228,6 +228,9 @@ as_yaff_property <- function(key, value) {
 as_yaff_bm_bitmap <- function(code_point, font) {
     glyph <- font[[code_point]]
     glyph <- bm_extend(glyph, left = 4L, value = 2L)
+    label <- ucp2label(code_point)
     c(paste0(code_point, ":"),
-      as.character(glyph, px = c(".", "@", " ")))
+      paste0(label, ":"),
+      as.character(glyph, px = c(".", "@", " ")),
+      "")
 }

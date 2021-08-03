@@ -2,6 +2,7 @@
 #'
 #' `hex2ucp()`, `int2ucp()`, `name2ucp()`, and `str2ucp()` return
 #' Unicode code points as character vectors.
+#' `ucp2label` returns Unicode code point \dQuote{labels} as a character vector.
 #'
 #' `hex2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(x))`.
 #' `int2ucp` is a wrapper for `as.character(Unicode::as.u_char(as.integer(x)))`.
@@ -12,9 +13,12 @@
 #' by these functions and not `Unicode::u_char` objects.
 #' @param x R objects coercible to the respective Unicode character data types.
 #'          See [Unicode::as.u_char()] for `hex2ucp()` and `int2ucp()`,
-#'          [base::utf8ToInt()] for `str2ucp()`, and
-#'          [Unicode::u_char_from_name()] for `name2ucp()`.
-#' @return A character vector of Unicode code points.
+#'          [base::utf8ToInt()] for `str2ucp()`,
+#'          [Unicode::u_char_from_name()] for `name2ucp()`,
+#'          and [Unicode::u_char_label()] for `ucp2name()`.
+#' @inheritParams Unicode::u_char_from_name
+#' @return A character vector of Unicode code points except for
+#'         `ucp2name` which returns a character vector of Unicode labels.
 #' @examples
 #'   # These are all different ways to get the same 'R' code point
 #'   hex2ucp("52")
@@ -27,6 +31,9 @@
 #'   int2ucp(utf8ToInt("R"))
 #'   name2ucp("LATIN CAPITAL LETTER R")
 #'   str2ucp("R")
+#'
+#'   # Get the Unicode Code Point "label"
+#'   ucp2label("U+0052")
 #'
 #'   # Potential gotcha as as.hexmode("52") == as.integer("82") == 52L
 #'   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
@@ -55,6 +62,12 @@ str2ucp <- function(x) {
 
 #' @rdname unicode_code_points
 #' @export
-name2ucp <- function(x) {
-    as.character(Unicode::u_char_from_name(x))
+name2ucp <- function(x, type = c("exact", "grep")) {
+    as.character(Unicode::u_char_from_name(x, type = type))
+}
+
+#' @rdname unicode_code_points
+#' @export
+ucp2label <- function(x) {
+    Unicode::u_char_label(x)
 }
