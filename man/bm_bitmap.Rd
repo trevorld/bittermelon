@@ -18,7 +18,7 @@ An integer matrix with a \dQuote{bm_bitmap} subclass.
 \code{bm_bitmap()} creates an S3 object representing bitmap.
 }
 \details{
-Bitmaps are represented as integer matrices.
+Bitmaps are represented as integer matrices with special class methods.
 The bottom left pixel is represented by the first row and first column.
 The bottom right pixel is represented by the first row and last column.
 The top left pixel is represented by the last row and first column.
@@ -30,7 +30,7 @@ Color bitmaps can be cast to black-and-white bitmaps via \code{\link[=bm_clamp]{
 \section{Supported S3 methods}{
 
 \itemize{
-\item \code{\link{[.bm_bitmap}} and \code{\link{[<-.bm_bitmp}}
+\item \code{\link{[.bm_bitmap}} and \code{\link{[<-.bm_bitmap}}
 \item \code{\link[=as.matrix.bm_bitmap]{as.matrix.bm_bitmap()}}
 \item \code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}} and \code{\link[=plot.bm_bitmap]{plot.bm_bitmap()}}
 \item \code{\link[=cbind.bm_bitmap]{cbind.bm_bitmap()}} and \code{\link[=rbind.bm_bitmap]{rbind.bm_bitmap()}}
