@@ -231,6 +231,6 @@ as_yaff_bm_bitmap <- function(code_point, font) {
     label <- ucp2label(code_point)
     c(paste0(code_point, ":"),
       paste0(label, ":"),
-      as.character(glyph, px = c(".", "@", " ")),
+      format(glyph, px = c(".", "@", " ")),
       "")
 }

@@ -1,7 +1,7 @@
 #' Print bitmap objects
 #'
 #' `print.bm_bitmap()` prints a representation of bitmap objects to the terminal.
-#' It is a wrapper around `as.character.bm_bitmap()` which converts bitmap objects
+#' It is a wrapper around `format.bm_bitmap()` which converts bitmap objects
 #' to a character vector.
 #' `px_unicode` and `px_ascii` are builtin character vectors intended for use with the `px`
 #' argument (the former contains Unicode \dQuote{Block Elements} while the latter is purely ASCII).
@@ -29,12 +29,12 @@
 #' @export
 print.bm_bitmap <- function(x, ..., px = px_unicode, fg = FALSE, bg = FALSE) {
     x <- as_bm_bitmap(x)
-    s <- as.character(x, ..., px = px, fg = fg, bg = bg)
+    s <- format(x, ..., px = px, fg = fg, bg = bg)
     cat(s, sep = "\n")
     invisible(s)
 }
 
-#' @usage \method{as.character}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
+#' @usage \method{format}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
 #' @rdname print.bm_bitmap
 #' @param px Character vector of the pixel to use for each integer value i.e.
 #'              The first character for integer `0L`,
@@ -49,7 +49,7 @@ print.bm_bitmap <- function(x, ..., px = px_unicode, fg = FALSE, bg = FALSE) {
 #'           `FALSE` (default) for no background colors.
 #'           Will be recycled.
 #' @export
-as.character.bm_bitmap <- function(x, ...,
+format.bm_bitmap <- function(x, ...,
                                    px = px_unicode,
                                    fg = FALSE, bg = FALSE) {
     x <- as_bm_bitmap(x)

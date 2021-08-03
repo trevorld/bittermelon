@@ -3,7 +3,7 @@
 \docType{data}
 \name{print.bm_bitmap}
 \alias{print.bm_bitmap}
-\alias{as.character.bm_bitmap}
+\alias{format.bm_bitmap}
 \alias{px_unicode}
 \alias{px_ascii}
 \title{Print bitmap objects}
@@ -15,7 +15,7 @@ An object of class \code{character} of length 20.
 \usage{
 \method{print}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
 
-\method{as.character}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
+\method{format}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
 
 px_unicode
 
@@ -47,7 +47,7 @@ As a side effect \code{print.bm_bitmap()} prints out the string representation t
 }
 \description{
 \code{print.bm_bitmap()} prints a representation of bitmap objects to the terminal.
-It is a wrapper around \code{as.character.bm_bitmap()} which converts bitmap objects
+It is a wrapper around \code{format.bm_bitmap()} which converts bitmap objects
 to a character vector.
 \code{px_unicode} and \code{px_ascii} are builtin character vectors intended for use with the \code{px}
 argument (the former contains Unicode \dQuote{Block Elements} while the latter is purely ASCII).

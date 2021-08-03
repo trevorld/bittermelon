@@ -32,5 +32,5 @@ test_that("print.bm_bitmap()", {
         print(bm_bitmap(plus_sign), fg = "blue", bg = "red")
     }, crayon = TRUE)
 
-    expect_length(as.character(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
+    expect_length(format(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
 })

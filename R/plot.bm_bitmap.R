@@ -4,7 +4,7 @@
 #' It is a wrapper around `grid::grid.raster()` and `as.raster.bm_bitmap()`
 #' which converts a bitmap glyph object to a raster object.
 #'
-#' @inheritParams as.character.bm_bitmap
+#' @inheritParams format.bm_bitmap
 #' @param ... Passed to [grid::grid.raster()].
 #' @param col Character vector of R color specifications.
 #' @param interpolate Passed to [grid::grid.raster()].

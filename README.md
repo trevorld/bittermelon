@@ -65,7 +65,7 @@ print(bm)
 bml <- bml |> bm_pad(sides = 2L) |>
     bm_extend(sides = c(2L, 1L), value = 2L)
 bm <- do.call(cbind, bml) |> bm_pad(sides = 2L, value = 2L)
-print(bm, labels = c(" ", "#", "X"))
+print(bm, px = c(" ", "#", "X"))
 ```
 
 ```{.bitmap}
@@ -90,7 +90,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 ```r
-print(bm, labels = c("\u2591", "\u2588", "\u2592"))
+print(bm, px = c("\u2591", "\u2588", "\u2592"))
 ```
 
 ```{.bitmap}
@@ -116,7 +116,7 @@ print(bm, labels = c("\u2591", "\u2588", "\u2592"))
 
 ```r
 # Can also print colored terminal output via suggested package {crayon}
-# print(bm, labels = " ", bg = c("white", "blue", "red"))
+# print(bm, px = " ", bg = c("white", "blue", "red"))
 ```
 
 ```r

@@ -8,13 +8,16 @@ bittermelon 0.1.0
    (but we are unlikely to ever support exporting color bitmap fonts).
    It supports the following methods:
 
-  * `as.character.bm_bitmap()`
+  * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
   * `as.matrix.bm_bitmap()`
   * `as.raster.bm_bitmap()` (#3)
   * `cbind.bm_bitmap()`
+  * `format.character.bm_bitmap()`
+  * `Ops.bm_bitmap()`
   * `plot.bm_bitmap()` (#4)
   * `print.bm_bitmap()` (#2)
   * `rbind.bm_bitmap()`
+  * `which.bm_bitmap()` (with `which()` redefined as a generic that defaults to `base::which()`)
 
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   

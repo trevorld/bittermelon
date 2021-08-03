@@ -30,13 +30,13 @@ Color bitmaps can be cast to black-and-white bitmaps via \code{\link[=bm_clamp]{
 \section{Supported S3 methods}{
 
 \itemize{
-\item \code{\link[=as.character.bm_bitmap]{as.character.bm_bitmap()}}
+\item \code{\link{[.bm_bitmap}} and \code{\link{[<-.bm_bitmp}}
 \item \code{\link[=as.matrix.bm_bitmap]{as.matrix.bm_bitmap()}}
-\item \code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}}
-\item \code{\link[=cbind.bm_bitmap]{cbind.bm_bitmap()}}
-\item \code{\link[=plot.bm_bitmap]{plot.bm_bitmap()}}
-\item \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}
-\item \code{\link[=rbind.bm_bitmap]{rbind.bm_bitmap()}}
+\item \code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}} and \code{\link[=plot.bm_bitmap]{plot.bm_bitmap()}}
+\item \code{\link[=cbind.bm_bitmap]{cbind.bm_bitmap()}} and \code{\link[=rbind.bm_bitmap]{rbind.bm_bitmap()}}
+\item \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}
+\item \code{\link[=Ops.bm_bitmap]{Ops.bm_bitmap()}} for all the S3 \dQuote{Ops} Group generic functions
+\item \code{\link[=which.bm_bitmap]{which.bm_bitmap()}} (with \code{which()} re-defined as a generic)
 }
 }
 

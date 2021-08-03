@@ -108,7 +108,7 @@ as_hex <- function(glyph) {
     for (i in seq_len(nrow(glyph))) {
         for (j in rev(seq_len(ncol(glyph) / 4L))) {
             j_indices <- seq.int(4L * (j - 1L) + 1L, length.out = 4L)
-            binary <- paste(as.character(glyph[i, j_indices]), collapse = "")
+            binary <- paste(format(glyph[i, j_indices]), collapse = "")
             hex <- binary_to_hex(binary)
             val <- paste0(hex, val)
         }

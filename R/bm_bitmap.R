@@ -2,7 +2,7 @@
 #'
 #' `bm_bitmap()` creates an S3 object representing bitmap.
 #'
-#' Bitmaps are represented as integer matrices.
+#' Bitmaps are represented as integer matrices with special class methods.
 #' The bottom left pixel is represented by the first row and first column.
 #' The bottom right pixel is represented by the first row and last column.
 #' The top left pixel is represented by the last row and first column.
@@ -13,13 +13,13 @@
 #'
 #' @section Supported S3 methods:
 #'
-#' * [as.character.bm_bitmap()]
+#' * \code{\link{[.bm_bitmap}} and \code{\link{[<-.bm_bitmap}}
 #' * [as.matrix.bm_bitmap()]
-#' * [as.raster.bm_bitmap()]
-#' * [cbind.bm_bitmap()]
-#' * [plot.bm_bitmap()]
-#' * [print.bm_bitmap()]
-#' * [rbind.bm_bitmap()]
+#' * [as.raster.bm_bitmap()] and [plot.bm_bitmap()]
+#' * [cbind.bm_bitmap()] and [rbind.bm_bitmap()]
+#' * [format.bm_bitmap()] and [print.bm_bitmap()]
+#' * [Ops.bm_bitmap()] for all the S3 \dQuote{Ops} Group generic functions
+#' * [which.bm_bitmap()] (with `which()` re-defined as a generic)
 #'
 #' @param x Object to be converted to `bm_bitmap()`.
 #'   If not already an integer matrix it will be cast to one
