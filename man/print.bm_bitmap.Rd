@@ -5,9 +5,9 @@
 \alias{as.character.bm_bitmap}
 \title{Print bitmap objects}
 \usage{
-\method{print}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
+\method{print}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"), fg = FALSE, bg = FALSE)
 
-\method{as.character}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"))
+\method{as.character}{bm_bitmap}(x, ..., labels = c("\u2591", "\u2588", "\u2592"), fg = FALSE, bg = FALSE)
 }
 \arguments{
 \item{x}{A \code{bm_bitmap()} object}
@@ -17,6 +17,14 @@
 \item{labels}{Character vector of the labels to use for each integer value i.e.
 The first character for integer \code{0L},
 the second character for integer \code{1L}, and so on.}
+
+\item{fg}{R color strings of foreground colors to use.
+Requires suggested package \code{crayon}.
+\code{FALSE} (default) for no foreground colors.}
+
+\item{bg}{R color strings of background colors to use.
+Requires suggested package \code{crayon}.
+\code{FALSE} (default) for no background colors.}
 }
 \value{
 A character vector of the string representation (\code{print.bm_bitmap()} does this invisibly).
@@ -38,6 +46,9 @@ to a character vector.
                                 sides = 1L, value = 2L)
   print(bm_8_with_border, labels = c(".", "@", "X"))
 
+  if (require("crayon")) {
+    print(bm_8_with_border, labels = " ", bg = c("white", "blue", "red"))
+  }
 }
 \seealso{
 \code{\link[=bm_bitmap]{bm_bitmap()}}

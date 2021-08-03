@@ -115,6 +115,11 @@ print(bm, labels = c("\u2591", "\u2588", "\u2592"))
 ```
 
 ```r
+# Can also print colored terminal output via suggested package {crayon}
+# print(bm, labels = " ", bg = c("white", "blue", "red"))
+```
+
+```r
 plot(bm, col = c("white", "blue", "black"))
 ```
 

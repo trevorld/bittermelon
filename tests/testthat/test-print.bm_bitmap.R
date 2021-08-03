@@ -26,4 +26,11 @@ test_that("print.bm_bitmap()", {
     verify_output("txt/plus_space_rl.txt", {
         print(bm_bitmap(plus_space_rl))
     })
+
+    skip_if_not_installed("crayon")
+    verify_output("txt/plus_unicode_color_char.txt", {
+        print(bm_bitmap(plus_sign), fg = "blue", bg = "red")
+    }, crayon = TRUE)
+
+    expect_length(as.character(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
 })
