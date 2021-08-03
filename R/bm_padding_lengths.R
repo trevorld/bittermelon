@@ -15,7 +15,7 @@
 #'  font <- read_hex(font_file)
 #'  # add a border to an "R"
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r, labels = c(".", "@"))
+#'  print(capital_r, px = c(".", "@"))
 #'  print(bm_padding_lengths(capital_r))
 #' @export
 bm_padding_lengths <- function(bm_object, value = 0L) {

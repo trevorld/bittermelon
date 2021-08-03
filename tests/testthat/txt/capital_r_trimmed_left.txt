@@ -1,4 +1,4 @@
-> print(bm_trim(capital_r, width = 6, hjust = "left"), labels = c("-", "#"))
+> print(bm_trim(capital_r, width = 6, hjust = "left"), px = c("-", "#"))
 ------
 ------
 ######

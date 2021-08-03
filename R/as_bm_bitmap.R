@@ -47,11 +47,11 @@ as_bm_bitmap.default <- function(x, ...) {
 #'
 #'  if (require("grid") && capabilities("png")) {
 #'    circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
-#'    print(circle, labels = c(".", "@"))
+#'    print(circle, px = c(".", "@"))
 #'
 #'    inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
 #'                                         width = 8L, height = 16L)
-#'    print(inverted_exclamation, labels = c(".", "@"))
+#'    print(inverted_exclamation, px = c(".", "@"))
 #'  }
 #' @importFrom grid gpar grob grid.draw pushViewport popViewport viewport
 #' @export

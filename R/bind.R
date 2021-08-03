@@ -15,13 +15,13 @@
 #'   capital_b <- font[[str2ucp("B")]]
 #'   capital_m <- font[[str2ucp("M")]]
 #'   cbm <- cbind(capital_b, capital_m)
-#'   print(cbm, labels = c(".", "#"))
+#'   print(cbm, px = c(".", "#"))
 #'   cbm_rl <- cbind(capital_b, capital_m, direction = "right-to-left")
-#'   print(cbm_rl, labels = c(".", "#"))
+#'   print(cbm_rl, px = c(".", "#"))
 #'   rbm <- rbind(capital_b, capital_m)
-#'   print(rbm, labels = c(".", "#"))
+#'   print(rbm, px = c(".", "#"))
 #'   rbm_bt <- rbind(capital_b, capital_m, direction = "bottom-to-top")
-#'   print(rbm_bt, labels = c(".", "#"))
+#'   print(rbm_bt, px = c(".", "#"))
 #' @export
 cbind.bm_bitmap <- function(..., direction = "left-to-right") {
     direction <- match.arg(direction, c("left-to-right", "lr", "right-to-left", "rl"))

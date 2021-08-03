@@ -27,7 +27,7 @@
 #' @return An integer matrix with a \dQuote{bm_bitmap} subclass.
 #' @examples
 #'  space <- bm_bitmap(matrix(0, nrow = 16, ncol = 16))
-#'  print(space, labels = ".")
+#'  print(space, px = ".")
 #' @seealso [as_bm_bitmap()], [is_bm_bitmap()]
 #' @export
 bm_bitmap <- function(x) {

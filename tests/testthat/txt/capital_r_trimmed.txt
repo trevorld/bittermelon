@@ -1,4 +1,4 @@
-> print(capital_r_trimmed, labels = c("-", "#"))
+> print(capital_r_trimmed, px = c("-", "#"))
 -------
 ######-
 ##---##

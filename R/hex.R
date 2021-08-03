@@ -12,7 +12,7 @@
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r, labels = c(".", "#"))
+#'  print(capital_r, px = c(".", "#"))
 #'
 #'  filename <- tempfile(fileext = ".hex.gz")
 #'  write_hex(font, gzfile(filename))

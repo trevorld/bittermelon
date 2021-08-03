@@ -21,7 +21,7 @@
 #'
 #'    font <- read_monobit(tempfile)
 #'    capital_r <- font[[str2ucp("R")]]
-#'    print(capital_r, labels = c(".", "#"))
+#'    print(capital_r, px = c(".", "#"))
 #'
 #'    filename <- tempfile(fileext = ".yaff")
 #'    write_monobit(font, filename)

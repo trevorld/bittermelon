@@ -41,7 +41,7 @@
 #'  capital_r <- font[[str2ucp("R")]]
 #'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
 #'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
-#'  print(capital_r, labels = c(" ", "#", ".", "@"))
+#'  print(capital_r, px = c(" ", "#", ".", "@"))
 #' @seealso [bm_pad()], [bm_resize()], and [bm_trim()].
 #' @export
 bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint

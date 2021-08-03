@@ -42,7 +42,7 @@ Color bitmaps can be cast to black-and-white bitmaps via \code{\link[=bm_clamp]{
 
 \examples{
  space <- bm_bitmap(matrix(0, nrow = 16, ncol = 16))
- print(space, labels = ".")
+ print(space, px = ".")
 }
 \seealso{
 \code{\link[=as_bm_bitmap]{as_bm_bitmap()}}, \code{\link[=is_bm_bitmap]{is_bm_bitmap()}}

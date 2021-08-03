@@ -15,7 +15,7 @@
 #'   bml <- bm_extend(bml, sides = 1L, value = 0L)
 #'   bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
 #'   bm <- do.call(cbind, bml)
-#'   print(bm, labels = c(" ", "#", "X"))
+#'   print(bm, px = c(" ", "#", "X"))
 #' @seealso [bm_list()]
 #' @export
 as_bm_list <- function(x, ...) {

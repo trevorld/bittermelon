@@ -74,7 +74,7 @@ The directions and the integer value of the extra pixels are settable
  capital_r <- font[[str2ucp("R")]]
  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
- print(capital_r, labels = c(" ", "#", ".", "@"))
+ print(capital_r, px = c(" ", "#", ".", "@"))
 }
 \seealso{
 \code{\link[=bm_pad]{bm_pad()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}.

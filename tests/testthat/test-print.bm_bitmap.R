@@ -4,12 +4,12 @@ test_that("print.bm_bitmap()", {
     plus_sign[3:7, 5L] <- 1L
     plus_sign <- bm_bitmap(plus_sign)
     verify_output("txt/plus.txt", {
-        print(bm_bitmap(plus_sign), labels = c(".", "#"))
+        print(bm_bitmap(plus_sign), px = c(".", "#"))
     })
 
     space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
     verify_output("txt/space.txt", {
-        print(space_glyph, labels = c("."))
+        print(space_glyph, px = c("."))
     })
 
     skip_on_os("windows")

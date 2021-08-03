@@ -36,7 +36,7 @@ It is a subclass of \code{\link[=bm_list]{bm_list()}}.
 
  # print out "R"
  R_glyph <- font[[str2ucp("R")]]
- print(R_glyph, labels = c(".", "#"))
+ print(R_glyph, px = c(".", "#"))
 }
 \seealso{
 \code{\link[=is_bm_font]{is_bm_font()}}, [as_bm_font(), \code{\link[=hex2ucp]{hex2ucp()}}]

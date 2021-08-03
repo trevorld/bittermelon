@@ -37,7 +37,7 @@ In particular \code{as_bm_list.character()} turns a string into a bitmap list.
   bml <- bm_extend(bml, sides = 1L, value = 0L)
   bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
   bm <- do.call(cbind, bml)
-  print(bm, labels = c(" ", "#", "X"))
+  print(bm, px = c(" ", "#", "X"))
 }
 \seealso{
 \code{\link[=bm_list]{bm_list()}}

@@ -12,7 +12,7 @@
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
 #'  font <- read_yaff(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r, labels = c(".", "#"))
+#'  print(capital_r, px = c(".", "#"))
 #'
 #'  filename <- tempfile(fileext = ".yaff.gz")
 #'  write_yaff(font, gzfile(filename))
@@ -229,5 +229,5 @@ as_yaff_bm_bitmap <- function(code_point, font) {
     glyph <- font[[code_point]]
     glyph <- bm_extend(glyph, left = 4L, value = 2L)
     c(paste0(code_point, ":"),
-      as.character(glyph, labels = c(".", "@", " ")))
+      as.character(glyph, px = c(".", "@", " ")))
 }

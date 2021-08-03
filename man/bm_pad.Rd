@@ -51,9 +51,9 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, labels = c(".", "#"))
+ print(capital_r, px = c(".", "#"))
  capital_r_padded <- bm_pad(capital_r, sides = 2L)
- print(capital_r_padded, labels = c(".", "#"))
+ print(capital_r_padded, px = c(".", "#"))
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}

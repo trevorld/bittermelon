@@ -42,7 +42,7 @@ test_that("as_bm_list()", {
     bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
     bm <- do.call(cbind, bml)
 
-    verify_output("txt/RSTATS.txt", print(bm, labels = c(" ", "#", "X")))
+    verify_output("txt/RSTATS.txt", print(bm, px = c(" ", "#", "X")))
 })
 
 test_that("bm_widths() and bm_heights()", {
