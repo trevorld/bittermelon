@@ -17,11 +17,11 @@ bm_overlay(
 
 \item{over}{A 'bm_bitmap()' object to overlay
 over the \code{bm_object} bitmap(s).
-Only one of \code{over} or \code{under} may be defined.}
+Only one of \code{over} or \code{under} may be set.}
 
 \item{under}{A 'bm_bitmap()' object which will be overlaid
 by the \code{bm_object} bitmap(s).
-Only one of \code{over} or \code{under} may be defined.}
+Only one of \code{over} or \code{under} may be set.}
 
 \item{hjust}{One of "left", "center-left", "center-right", "right".
 "center-left" and "center-right" will attempt to

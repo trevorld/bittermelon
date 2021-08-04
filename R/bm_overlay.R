@@ -9,10 +9,10 @@
 #' @inheritParams bm_extend
 #' @param over A 'bm_bitmap()' object to overlay
 #'             over the `bm_object` bitmap(s).
-#'             Only one of `over` or `under` may be defined.
+#'             Only one of `over` or `under` may be set.
 #' @param under A 'bm_bitmap()' object which will be overlaid
 #'             by the `bm_object` bitmap(s).
-#'             Only one of `over` or `under` may be defined.
+#'             Only one of `over` or `under` may be set.
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
