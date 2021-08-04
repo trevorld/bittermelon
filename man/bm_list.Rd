@@ -10,7 +10,7 @@ bm_list(...)
 \item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} objects, possibly named.}
 }
 \value{
-A named list with a \dQuote{bm_font} subclass.
+A named list with a \dQuote{bm_list} subclass.
 }
 \description{
 \code{bm_list()} creates a bitmap list object.

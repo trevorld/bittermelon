@@ -6,18 +6,14 @@ bittermelon 0.1.0
    to represent more complicated bitmaps.
    Non-binary bitmaps are allowed 
    (but we are unlikely to ever support exporting color bitmap fonts).
-   It supports the following methods:
+   It supports the following S3 methods:
 
   * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
   * `as.matrix.bm_bitmap()`
-  * `as.raster.bm_bitmap()` (#3)
-  * `cbind.bm_bitmap()`
-  * `format.character.bm_bitmap()`
-  * `Ops.bm_bitmap()`
-  * `plot.bm_bitmap()` (#4)
-  * `print.bm_bitmap()` (#2)
-  * `rbind.bm_bitmap()`
-  * `which.bm_bitmap()` (with `which()` redefined as a generic that defaults to `base::which()`)
+  * `as.raster.bm_bitmap()` (#3) and `plot.bm_bitmap()` (#4)
+  * `cbind.bm_bitmap()` and `rbind.bm_bitmap()`
+  * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
+  * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
 
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
@@ -29,6 +25,9 @@ bittermelon 0.1.0
     and `FALSE` for all other objects.
 
 * `bm_list()` creates a S3 object representing a list of `bm_bitmap()` objects.
+  It supports the following S3 methods:
+
+  * The "min()", "max()", and "range()" functions from the "Summary" group generic methods
 
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 
@@ -40,6 +39,7 @@ bittermelon 0.1.0
     and `FALSE` for all other objects.
 
 * `bm_font()` creates a S3 object representing bitmap fonts (#5).
+  it is a subclass of the `bm_list()` class.
 
   * `as_bm_font()` is a S3 method that coerces objects to `bm_font()` objects
 
@@ -52,6 +52,7 @@ bittermelon 0.1.0
 * The following functions can modify `bm_bitmap()` objects 
   as well as all the bitmaps in `bm_list()` objects (including `bm_font()`):
 
+  * All the "Ops" group generic operators in particular `!`
   * `bm_clamp()` clamps integer values between a lower and upper value.
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).

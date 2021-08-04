@@ -13,7 +13,7 @@
 #'  gl <- as_bm_list(gl)
 #'  is_bm_list(gl)
 #'
-#' @return A named list with a \dQuote{bm_font} subclass.
+#' @return A named list with a \dQuote{bm_list} subclass.
 #' @seealso [is_bm_list()], [as_bm_list()]
 #' @export
 bm_list <- function(...) {

@@ -3,6 +3,7 @@ font <- read_hex(font_file)
 capital_r <- font[[str2ucp("R")]]
 space <- font[[str2ucp(" ")]]
 
+
 test_that("bm_list()", {
 
     expect_error(bm_list(2), "Some elements were not")
@@ -43,6 +44,10 @@ test_that("as_bm_list()", {
     bm <- do.call(cbind, bml)
 
     verify_output("txt/RSTATS.txt", print(bm, px = c(" ", "#", "X")))
+
+    bml <- !as_bm_list("RSTATS", font = font)
+    bm <- do.call(cbind, bml)
+    verify_output("txt/RSTATS_inverted.txt", print(bm, px = c(" ", "#", "X")))
 })
 
 test_that("bm_widths() and bm_heights()", {
@@ -77,4 +82,15 @@ test_that("bm_padding_lengths()", {
     expect_equal(bpl[2], 1L)
     expect_equal(bpl[3], 4L)
     expect_equal(bpl[4], 0L)
+})
+
+test_that("Summary.bm_list()", {
+    bml <- bm_list(capital_r, space)
+    expect_equal(min(!bml), 0L)
+    expect_equal(max(+bml), 1L)
+    expect_equal(max((4L * bml) / 2L), 2L)
+    expect_equal(max(2L + bml - 2L), 1L)
+    expect_equal(min(bml ^ 2L %/% 1L %% 1L & 1L | 1L == 1L), 1L)
+    expect_equal(range(bml), c(0L, 1L))
+    expect_error(prod(bml), "Summary function 'prod' not defined")
 })

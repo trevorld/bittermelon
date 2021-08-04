@@ -8,11 +8,14 @@ reference:
       contents:
           - starts_with("bm_bitmap")
           - ends_with("bm_bitmap")
+          - -Ops.bm_bitmap
     - title: "Bitmap list objects"
       desc: "Bitmap list objects and methods"
       contents:
           - starts_with("bm_list")
           - ends_with("bm_list")
+          - -Ops.bm_list
+          - -Summary.bm_list
     - title: "Bitmap font objects"
       desc: "Bitmap font objects and methods"
       contents:
@@ -27,6 +30,7 @@ reference:
     - title: "Modify bitmaps"
       desc: "Functions to modify bitmaps and bitmap lists"
       contents:
+          - Ops.bm_list
           - bm_clamp
           - bm_extend
           - bm_pad
@@ -36,6 +40,7 @@ reference:
     - title: "Other bitmap object utilities"
       desc: "Other bitmap object utility functions"
       contents:
+          - Summary.bm_list
           - bm_lapply
           - bm_padding_lengths
           - bm_widths
