@@ -1,6 +1,7 @@
 ^docs$
 \.git$
 ^\.github$
+^unifont-13.0.06.hex.gz$
 ^\.lintr$
 ^_pkgdown.yml$
 ^pkgdown$

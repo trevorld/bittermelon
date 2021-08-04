@@ -56,6 +56,7 @@ bittermelon 0.1.0
   * `bm_clamp()` clamps integer values between a lower and upper value.
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
+  * `bm_overlay()` merges bitmaps by overlaying one over another (#18)
   * `bm_pad()` adjusts bitmap padding lengths (#40).
   * `bm_resize()` resized the bitmap to a desired width and/or height (#34).
   * `bm_shift()` shifts elements within a bitmap in a specified direction

@@ -33,6 +33,7 @@ reference:
           - Ops.bm_list
           - bm_clamp
           - bm_extend
+          - bm_overlay
           - bm_pad
           - bm_resize
           - bm_shift

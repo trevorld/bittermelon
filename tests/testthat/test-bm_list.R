@@ -94,3 +94,11 @@ test_that("Summary.bm_list()", {
     expect_equal(range(bml), c(0L, 1L))
     expect_error(prod(bml), "Summary function 'prod' not defined")
 })
+
+test_that("bm_overlay()", {
+    grave <- font[[str2ucp("`")]]
+    a <- font[[str2ucp("a")]]
+    a_grave <- bm_overlay(a, over = grave)
+    verify_output("txt/a_grave_overlay.txt",
+        print(a_grave, px = px_ascii))
+})
