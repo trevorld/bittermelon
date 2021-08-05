@@ -50,3 +50,4 @@ reference:
       desc: "Unicode utility functions"
       contents:
           - hex2ucp
+          - ucp2label

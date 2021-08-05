@@ -27,3 +27,8 @@ test_that("read_yaff() and write_yaff()", {
 
     expect_equal(yaff[[plus_cp]], yaff2[[plus_cp]])
 })
+
+test_that("is_combining_character()", {
+    expect_false(is_combining_character(str2ucp("a")))
+    expect_true(is_combining_character("U+0300"))
+})

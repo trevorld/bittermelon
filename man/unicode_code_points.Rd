@@ -5,7 +5,6 @@
 \alias{int2ucp}
 \alias{str2ucp}
 \alias{name2ucp}
-\alias{ucp2label}
 \title{Get Unicode code points}
 \usage{
 hex2ucp(x)
@@ -14,29 +13,28 @@ int2ucp(x)
 
 str2ucp(x)
 
-name2ucp(x, type = c("exact", "grep"))
-
-ucp2label(x)
+name2ucp(x, type = c("exact", "grep"), ...)
 }
 \arguments{
 \item{x}{R objects coercible to the respective Unicode character data types.
 See \code{\link[Unicode:u_char_basics]{Unicode::as.u_char()}} for \code{hex2ucp()} and \code{int2ucp()},
-\code{\link[base:utf8Conversion]{base::utf8ToInt()}} for \code{str2ucp()},
-\code{\link[Unicode:u_char_names]{Unicode::u_char_from_name()}} for \code{name2ucp()},
-and \code{\link[Unicode:u_char_names]{Unicode::u_char_label()}} for \code{ucp2name()}.}
+\code{\link[base:utf8Conversion]{base::utf8ToInt()}} for \code{str2ucp()}, and
+\code{\link[Unicode:u_char_names]{Unicode::u_char_from_name()}} for \code{name2ucp()}.}
 
 \item{type}{one of \code{"exact"} or \code{"grep"}, or an abbreviation
     thereof.
   }
+
+\item{...}{arguments to be passed to \code{\link{grepl}} when using
+    this for pattern matching.
+  }
 }
 \value{
-A character vector of Unicode code points except for
-\code{ucp2name} which returns a character vector of Unicode labels.
+A character vector of Unicode code points.
 }
 \description{
 \code{hex2ucp()}, \code{int2ucp()}, \code{name2ucp()}, and \code{str2ucp()} return
 Unicode code points as character vectors.
-\code{ucp2label} returns Unicode code point \dQuote{labels} as a character vector.
 }
 \details{
 \code{hex2ucp(x)} is a wrapper for \code{as.character(Unicode::as.u_char(x))}.
@@ -57,14 +55,15 @@ by these functions and not \code{Unicode::u_char} objects.
   int2ucp(82) # 82 == as.hexmode("52")
   int2ucp("82") # 82 == as.hexmode("52")
   int2ucp(utf8ToInt("R"))
+  ucp2label("U+0052")
   name2ucp("LATIN CAPITAL LETTER R")
   str2ucp("R")
-
-  # Get the Unicode Code Point "label"
-  ucp2label("U+0052")
 
   # Potential gotcha as as.hexmode("52") == as.integer("82") == 52L
   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
   all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
   all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
+}
+\seealso{
+\code{\link[=ucp2label]{ucp2label()}} and \code{\link[=is_combining_character]{is_combining_character()}}.
 }
