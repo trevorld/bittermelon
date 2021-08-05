@@ -5,17 +5,21 @@
 \alias{rbind.bm_bitmap}
 \title{Combine bitmaps by rows or columns}
 \usage{
-\method{cbind}{bm_bitmap}(..., direction = "left-to-right")
+\method{cbind}{bm_bitmap}(..., direction = "left-to-right", vjust = "center-top")
 
-\method{rbind}{bm_bitmap}(..., direction = "top-to-bottom")
+\method{rbind}{bm_bitmap}(..., direction = "top-to-bottom", hjust = "center-left")
 }
 \arguments{
 \item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} objects.}
 
-\item{direction}{For \verb{cbind().bm_bitmap} either "left-to-right" (default) or its alias "lr"
-OR "right-to-left" or its alias "rl".
-For \verb{rbind().bm_bitmap} either "top-to-bottom" (default) or its alias "tb"
-OR "bottom-to-top" or its alias "bt".}
+\item{direction}{For \verb{cbind().bm_bitmap} either "left-to-right" (default) or its aliases "ltr" and "lr"
+OR "right-to-left" or its aliases "rtl" and "rl".
+For \verb{rbind().bm_bitmap} either "top-to-bottom" (default) or its aliases "ttb" and "tb"
+OR "bottom-to-top" or its aliases "btt" and "bt".}
+
+\item{vjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap heights are different.}
+
+\item{hjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap widths are different.}
 }
 \value{
 A \code{\link[=bm_bitmap]{bm_bitmap()}} object.

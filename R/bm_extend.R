@@ -179,21 +179,21 @@ adjust_d_height <- function(remainder, height, vjust, d, top, bottom) {
 
 bm_extend_top <- function(bitmap, n = 1L, value = 0L) {
     if (n == 0L) return(bitmap)
-    new <- matrix(value, nrow = n, ncol = ncol(bitmap))
+    new <- bm_bitmap(matrix(value, nrow = n, ncol = ncol(bitmap)))
     rbind.bm_bitmap(new, bitmap)
 }
 bm_extend_right <- function(bitmap, n = 1L, value = 0L) {
     if (n == 0L) return(bitmap)
-    new <- matrix(value, nrow = nrow(bitmap), ncol = n)
+    new <- bm_bitmap(matrix(value, nrow = nrow(bitmap), ncol = n))
     cbind.bm_bitmap(bitmap, new)
 }
 bm_extend_bottom <- function(bitmap, n = 1L, value = 0L) {
     if (n == 0L) return(bitmap)
-    new <- matrix(value, nrow = n, ncol = ncol(bitmap))
+    new <- bm_bitmap(matrix(value, nrow = n, ncol = ncol(bitmap)))
     rbind.bm_bitmap(bitmap, new)
 }
 bm_extend_left <- function(bitmap, n = 1L, value = 0L) {
     if (n == 0L) return(bitmap)
-    new <- matrix(value, nrow = nrow(bitmap), ncol = n)
+    new <- bm_bitmap(matrix(value, nrow = nrow(bitmap), ncol = n))
     cbind.bm_bitmap(new, bitmap)
 }
