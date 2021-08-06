@@ -24,7 +24,7 @@ is_combining_character(x)
   ucp2label(str2ucp("R"))
 
   is_combining_character(str2ucp("a"))
-  is_combining_character(str2ucp("\u0300")) # COMBINING GRAVE ACCENT
+  is_combining_character("U+0300") # COMBINING GRAVE ACCENT
 }
 \seealso{
 \code{\link[=hex2ucp]{hex2ucp()}}, \code{\link[=int2ucp]{int2ucp()}}, \code{\link[=name2ucp]{name2ucp()}}, and \code{\link[=str2ucp]{str2ucp()}} all return Unicode code points.

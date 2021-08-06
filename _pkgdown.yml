@@ -37,6 +37,7 @@ reference:
           - bm_overlay
           - bm_pad
           - bm_resize
+          - bm_shadow
           - bm_shift
           - bm_trim
     - title: "Other bitmap object utilities"

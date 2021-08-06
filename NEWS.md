@@ -53,13 +53,16 @@ bittermelon 0.1.0
   as well as all the bitmaps in `bm_list()` objects (including `bm_font()`):
 
   * All the "Ops" group generic operators such as `!`.
+  * `bm_bold()` creates a basic "bold" effect (#16)
   * `bm_clamp()` clamps integer values between a lower and upper value.
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
+  * `bm_glow()` adds a basic "glow" effect (#17)
   * `bm_mask()` uses a `mask` bitmap to set certain pixels in a `base` bitmap to zero (#21).
   * `bm_overlay()` merges bitmaps by overlaying one over another (#18).
   * `bm_pad()` adjusts bitmap padding lengths (#40).
   * `bm_resize()` resized the bitmap to a desired width and/or height (#34).
+  * `bm_shadow()` adds a "shadow effect" (#17)
   * `bm_shift()` shifts elements within a bitmap in a specified direction
      while preserving original width and height (#13).
   * `bm_trim()` trims the bitmap in specified directions (#12).

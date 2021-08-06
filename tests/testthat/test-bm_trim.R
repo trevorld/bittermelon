@@ -50,3 +50,14 @@ test_that("bm_pad()", {
     expect_equal(nrow(capital_r_padded), 14L)
     expect_equal(ncol(capital_r_padded), 11L)
 })
+
+test_that("bm_shadow", {
+    verify_output("txt/capital_r_shadow.txt",
+                  print(bm_shadow(capital_r), px = px_ascii))
+    verify_output("txt/capital_r_bold.txt",
+                  print(bm_bold(capital_r), px = px_ascii))
+    verify_output("txt/capital_r_glow.txt",
+                  print(bm_glow(capital_r), px = px_ascii))
+    verify_output("txt/capital_r_glow_corner.txt",
+                  print(bm_glow(capital_r, corner = TRUE), px = px_ascii))
+})
