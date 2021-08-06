@@ -1,5 +1,6 @@
 *.swp
 codecov.yml
 docs/
+pkgdown/favicon
 README.html
 unifont-13.0.06.hex.gz

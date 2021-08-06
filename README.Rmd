@@ -1,4 +1,4 @@
-# bittermelon
+# bittermelon <img src="man/figures/logo.png" align="right" width="200px" alt="bittermelon hex sticker">
 
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/bittermelon)](https://cran.r-project.org/package=bittermelon)
 [![R-CMD-check](https://github.com/trevorld/bittermelon/workflows/R-CMD-check/badge.svg)](https://github.com/trevorld/bittermelon/actions)
