@@ -57,6 +57,8 @@ bittermelon 0.1.0
   * `bm_clamp()` clamps integer values between a lower and upper value.
     By default coerces the bitmap to binary values.
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
+  * `bm_flip()` flips (reflects) bitmaps (or just their glyphs in place) 
+    vertically, horizontally, or both.
   * `bm_glow()` adds a basic "glow" effect (#17)
   * `bm_mask()` uses a `mask` bitmap to set certain pixels in a `base` bitmap to zero (#21).
   * `bm_overlay()` merges bitmaps by overlaying one over another (#18).

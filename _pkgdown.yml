@@ -33,6 +33,7 @@ reference:
           - Ops.bm_list
           - bm_clamp
           - bm_extend
+          - bm_flip
           - bm_mask
           - bm_overlay
           - bm_pad

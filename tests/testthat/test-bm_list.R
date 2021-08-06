@@ -3,7 +3,6 @@ font <- read_hex(font_file)
 capital_r <- font[[str2ucp("R")]]
 space <- font[[str2ucp(" ")]]
 
-
 test_that("bm_list()", {
 
     expect_error(bm_list(2), "Some elements were not")
@@ -123,4 +122,21 @@ test_that("bm_mask()", {
     circle_minus_lower_left <- bm_mask(circle_large, square_minus_lower_left, mode = "alpha")
     verify_output("txt/circle_minus_lower_left.txt",
         print(circle_minus_lower_left, px = px_ascii))
+})
+
+test_that("bm_flip()", {
+    verify_output("txt/capital_r_flip.txt",
+        print(bm_flip(capital_r), px = px_ascii))
+
+    verify_output("txt/capital_r_hflip.txt",
+        print(bm_flip(capital_r, "h"), px = px_ascii))
+
+    verify_output("txt/capital_r_bflip.txt",
+        print(bm_flip(capital_r, "b"), px = px_ascii))
+
+    verify_output("txt/capital_r_flip_ip.txt",
+        print(bm_flip(capital_r, "v", TRUE), px = px_ascii))
+
+    verify_output("txt/capital_r_hflip_ip.txt",
+        print(bm_flip(capital_r, "h", TRUE), px = px_ascii))
 })

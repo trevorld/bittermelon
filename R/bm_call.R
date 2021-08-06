@@ -11,6 +11,7 @@
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
 #'   bml <- as_bm_list("RSTATS", font = font)
+#'   bml <- bm_flip(bml, "both")
 #'   bm <- bm_call(bml, cbind, direction = "RTL")
 #'   print(bm, px = px_ascii)
 #' @export

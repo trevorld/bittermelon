@@ -41,11 +41,14 @@ font <- read_hex(font_file)
 bml <- as_bm_list("RSTATS", font = font)
 bm <- do.call(cbind, bml)
 print(bm)
-bml <- bml |> bm_pad(sides = 2L) |>
-    bm_shadow() |>
-    bm_extend(sides = c(2L, 1L), value = 3L)
-bm <- do.call(cbind, bml) |> bm_pad(sides = 2L, value = 3L)
+bm <- bml |> bm_flip("both") |> bm_call(cbind, direction = "RTL")
 print(bm, px = px_ascii)
+bm <- bml |> 
+    bm_pad(sides = 2L) |>
+    bm_shadow() |>
+    bm_extend(sides = c(2L, 1L), value = 3L) |>
+    bm_call(cbind) |> 
+    bm_pad(sides = 2L, value = 3L)
 print(bm)
 
 # Can also print colored terminal output via suggested package {crayon}
