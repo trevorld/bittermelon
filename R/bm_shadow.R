@@ -18,7 +18,6 @@
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
-#'  # add a border to an "R"
 #'  capital_r <- font[[str2ucp("R")]]
 #'  print(capital_r, px = px_ascii)
 #'  print(bm_shadow(capital_r), px = px_ascii)

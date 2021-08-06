@@ -15,7 +15,8 @@
 \item{direction}{For \verb{cbind().bm_bitmap} either "left-to-right" (default) or its aliases "ltr" and "lr"
 OR "right-to-left" or its aliases "rtl" and "rl".
 For \verb{rbind().bm_bitmap} either "top-to-bottom" (default) or its aliases "ttb" and "tb"
-OR "bottom-to-top" or its aliases "btt" and "bt".}
+OR "bottom-to-top" or its aliases "btt" and "bt".
+The \code{direction} argument is not case-sensitive.}
 
 \item{vjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap heights are different.}
 

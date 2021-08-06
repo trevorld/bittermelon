@@ -80,6 +80,9 @@ bittermelon 0.1.0
 
 * Other utility functions
 
+  * `bm_call()` executes a function on bitmap objects.  It places the bitmap object
+    as the first argument so it is a bit friendlier to use in pipes than `base::do.call()`
+    and allows specifying additional arguments to the function.
   * `bm_lapply()` applies a function to each element in a `bm_list()` or `bm_font()` object.
     It returns another `bm_list()` or `bm_font()` object with the same metadata as
     the original object.

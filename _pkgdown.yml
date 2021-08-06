@@ -44,6 +44,7 @@ reference:
       desc: "Other bitmap object utility functions"
       contents:
           - Summary.bm_list
+          - bm_call
           - bm_lapply
           - bm_padding_lengths
           - bm_widths

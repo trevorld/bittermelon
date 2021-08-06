@@ -7,6 +7,7 @@
 #'                  OR "right-to-left" or its aliases "rtl" and "rl".
 #'                  For `rbind().bm_bitmap` either "top-to-bottom" (default) or its aliases "ttb" and "tb"
 #'                  OR "bottom-to-top" or its aliases "btt" and "bt".
+#'                  The `direction` argument is not case-sensitive.
 #' @param vjust Used by [bm_extend()] if bitmap heights are different.
 #' @param hjust Used by [bm_extend()] if bitmap widths are different.
 #' @return A [bm_bitmap()] object.

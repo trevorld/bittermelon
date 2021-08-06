@@ -41,7 +41,7 @@ test_that("as_bm_list()", {
     bml <- as_bm_list("RSTATS", font = font)
     bml <- bm_extend(bml, sides = 1L, value = 0L)
     bml <- bm_extend(bml, sides = c(2L, 1L), value = 2L)
-    bm <- do.call(cbind, bml)
+    bm <- bm_call(bml, cbind)
 
     verify_output("txt/RSTATS.txt", print(bm, px = c(" ", "#", "X")))
 
@@ -63,7 +63,7 @@ test_that("bm_padding_lengths()", {
     plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
     plus_sign[5L, 3:7] <- 1L
     plus_sign[3:7, 5L] <- 1L
-    plus_sign_glyph <- bm_bitmap(plus_sign)
+    plus_sign_glyph <- bm_call(plus_sign, bm_bitmap)
     bpl <- bm_padding_lengths(plus_sign_glyph)
     expect_equal(bpl[1], 2L)
     expect_equal(bpl[2], 2L)
