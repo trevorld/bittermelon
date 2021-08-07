@@ -61,3 +61,10 @@ test_that("bm_shadow", {
     verify_output("txt/capital_r_glow_corner.txt",
                   print(bm_glow(capital_r, corner = TRUE), px = px_ascii))
 })
+
+
+test_that("bm_distort()", {
+    skip_if_not(capabilities("png"))
+    verify_output("txt/capital_r_distorted.txt",
+                  print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii))
+})
