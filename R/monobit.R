@@ -11,12 +11,12 @@
 #' (in particular font export may be buggy).
 #'
 #' @param file A character string of a filename.
-#'
 #' @param font A [bm_font()] object.
+#' @param quietly If `TRUE` suppress any standard output/error from `monobit`.
 #' @examples
 #'  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
-#'    font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
-#'    tempfile <- tempfile(fileext = ".yaff")
+#'    font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#'    tempfile <- tempfile(fileext = ".hex")
 #'    writeLines(readLines(font_file), tempfile)
 #'
 #'    font <- read_monobit(tempfile)
@@ -31,22 +31,30 @@
 #'    For more information about `monobit` see <https://github.com/robhagemans/monobit>.
 #' @rdname monobit
 #' @export
-read_monobit <- function(file) {
+read_monobit <- function(file, quietly = FALSE) {
     stopifnot(!missing(file))
+    if (quietly)
+        stdout <- stderr <- FALSE
+    else
+        stdout <- stderr <- ""
     python <- findpython::find_python_cmd(minimum_version = "3.6")
     convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
     tfile <- tempfile(fileext = ".yaff")
     on.exit(unlink(tfile))
 
-    system2(python, c(convert, file, tfile))
+    system2(python, c(convert, file, tfile), stdout = stdout, stderr = stderr)
     read_yaff(tfile)
 }
 
 #' @rdname monobit
 #' @export
-write_monobit <- function(font, file) {
+write_monobit <- function(font, file, quietly = FALSE) {
     stopifnot(!missing(font), !missing(file))
+    if (quietly)
+        stdout <- stderr <- FALSE
+    else
+        stdout <- stderr <- ""
     python <- findpython::find_python_cmd(minimum_version = "3.6")
     convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
@@ -54,6 +62,6 @@ write_monobit <- function(font, file) {
     on.exit(unlink(tfile))
 
     write_yaff(font, tfile)
-    system2(python, c(convert, tfile, file))
+    system2(python, c(convert, tfile, file), stdout = stdout, stderr = stderr)
     invisible(invisible(NULL))
 }

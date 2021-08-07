@@ -5,12 +5,14 @@
 \alias{write_monobit}
 \title{Read and write bitmap font files using monobit}
 \usage{
-read_monobit(file)
+read_monobit(file, quietly = FALSE)
 
-write_monobit(font, file)
+write_monobit(font, file, quietly = FALSE)
 }
 \arguments{
 \item{file}{A character string of a filename.}
+
+\item{quietly}{If \code{TRUE} suppress any standard output/error from \code{monobit}.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }
@@ -28,8 +30,8 @@ Note \code{monobit} is alpha level software which may not always work
 }
 \examples{
  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
-   font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
-   tempfile <- tempfile(fileext = ".yaff")
+   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+   tempfile <- tempfile(fileext = ".hex")
    writeLines(readLines(font_file), tempfile)
 
    font <- read_monobit(tempfile)
