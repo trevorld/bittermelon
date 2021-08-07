@@ -1,4 +1,4 @@
-#' Extend bitmaps
+#' Extend bitmaps on the sides with extra pixels
 #'
 #' `bm_extend()` extends [bm_bitmap()] objects with extra pixels.
 #' The directions and the integer value of the extra pixels are settable
@@ -42,7 +42,7 @@
 #'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
 #'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
 #'  print(capital_r, px = c(" ", "#", ".", "@"))
-#' @seealso [bm_pad()], [bm_resize()], and [bm_trim()].
+#' @seealso [bm_expand()], [bm_pad()], [bm_resize()], and [bm_trim()].
 #' @export
 bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
                    top = NULL, right = NULL, bottom = NULL, left = NULL,

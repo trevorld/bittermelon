@@ -2,7 +2,7 @@
 % Please edit documentation in R/bm_resize.R
 \name{bm_resize}
 \alias{bm_resize}
-\title{Resize bitmaps}
+\title{Resize bitmaps by trimming and/or extending}
 \usage{
 bm_resize(
   bm_object,

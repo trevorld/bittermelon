@@ -2,7 +2,7 @@
 % Please edit documentation in R/bm_extend.R
 \name{bm_extend}
 \alias{bm_extend}
-\title{Extend bitmaps}
+\title{Extend bitmaps on the sides with extra pixels}
 \usage{
 bm_extend(
   bm_object,
@@ -77,5 +77,5 @@ The directions and the integer value of the extra pixels are settable
  print(capital_r, px = c(" ", "#", ".", "@"))
 }
 \seealso{
-\code{\link[=bm_pad]{bm_pad()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}.
+\code{\link[=bm_expand]{bm_expand()}}, \code{\link[=bm_pad]{bm_pad()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}.
 }

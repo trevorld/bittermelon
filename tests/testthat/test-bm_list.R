@@ -140,3 +140,14 @@ test_that("bm_flip()", {
     verify_output("txt/capital_r_hflip_ip.txt",
         print(bm_flip(capital_r, "h", TRUE), px = px_ascii))
 })
+
+test_that("bm_expand()", {
+    verify_output("txt/capital_r_expand_2w.txt",
+        print(bm_expand(capital_r, width = 2L), px = px_ascii))
+
+    verify_output("txt/capital_r_expand_2v.txt",
+        print(bm_expand(capital_r, height = 2L), px = px_ascii))
+
+    verify_output("txt/capital_r_expand_2vw.txt",
+        print(bm_expand(capital_r, width = 2L, height = 2L), px = px_ascii))
+})

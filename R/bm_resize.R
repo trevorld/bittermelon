@@ -1,4 +1,4 @@
-#' Resize bitmaps
+#' Resize bitmaps by trimming and/or extending
 #'
 #' Trim and/or extend bitmaps to a desired height and/or width.
 #'

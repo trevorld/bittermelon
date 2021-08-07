@@ -5,6 +5,7 @@
 ^\.lintr$
 ^_pkgdown.yml$
 ^pkgdown$
+^raw-data$
 ^codecov.yml$
 ^LICENSE.md$
 ^Rakefile$
