@@ -9,13 +9,13 @@
 #'
 #' @param font A [bm_font()] object.
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
+#'  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
 #'  font <- read_yaff(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
 #'  print(capital_r, px = c(".", "#"))
 #'
-#'  filename <- tempfile(fileext = ".yaff.gz")
-#'  write_yaff(font, gzfile(filename))
+#'  filename <- tempfile(fileext = ".yaff")
+#'  write_yaff(font, filename)
 #' @export
 #' @rdname yaff_font
 #' @seealso [bm_font()] for information about bitmap font objects.
@@ -140,8 +140,11 @@ label2ucp <- function(labels) {
 }
 
 ucp_sort <- function(x) {
-    uplus <- which(toupper(substr(x, 1, 2)) == "U+")
-    c(x[uplus], x[-uplus])
+    uplus <- base::which(toupper(substr(x, 1, 2)) == "U+")
+    if (length(uplus))
+        c(x[uplus], x[-uplus])
+    else
+        x
 }
 
 yaff2ucp_helper <- function(label) {

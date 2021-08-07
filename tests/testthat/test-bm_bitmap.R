@@ -21,6 +21,7 @@ test_that("bm_bitmap()", {
 })
 
 test_that("as_bm_bitmap()", {
+    skip_if_not(capabilities("png"))
     circle <- as_bm_bitmap(grid::circleGrob(r = 0.25), width = 16L, height = 16L)
     verify_output("txt/circle_grob.txt", print(circle, px = c(".", "@")))
 })

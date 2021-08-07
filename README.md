@@ -10,6 +10,7 @@
 * [Overview](#overview)
 * [Installation](#installation)
 * [Examples](#examples)
+* [Builtin Fonts](#fonts)
 * [Future Goals](#future)
 * [Related Software](#similar)
 
@@ -26,7 +27,7 @@
 remotes::install_github("trevorld/bittermelon")
 ```
 
-The functions `read_monobit()` and `write_monobit()` that use on the embedded version of [monobit](https://github.com/robhagemans/monobit) require that Python is available on the system.  A couple of the bitmap font output formats supported by `write_monobit()` also require that the "Pillow" or "reportlab" Python packages are installed (installable via `pip3`).
+The functions `read_monobit()` and `write_monobit()` that use the embedded version of [monobit](https://github.com/robhagemans/monobit) require that Python is available on the system.  A couple of the bitmap font output formats supported by `write_monobit()` also require that the "Pillow" or "reportlab" Python packages are installed (installable via `pip3`).
 
 ## <a name="examples">Examples</a>
 
@@ -56,7 +57,7 @@ bm <- do.call(cbind, bml)
 print(bm)
 ```
 
-```{.bitmap}
+```{.short}
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ██████░░░██████░████████░█████░░████████░██████░
@@ -80,7 +81,7 @@ bm <- bml |> bm_flip("both") |> bm_call(cbind, direction = "RTL")
 print(bm, px = px_ascii)
 ```
 
-```{.bitmap}
+```{.short}
 ------------------------------------------------
 ------------------------------------------------
 ------------------------------------------------
@@ -109,7 +110,7 @@ bm <- bml |>
 print(bm)
 ```
 
-```{.bitmap}
+```{.short}
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓
@@ -142,6 +143,70 @@ plot(bm, col = c("white", "darkblue", "lightblue", "black"))
 ```
 
 ![](man/figures/README-plot-1.png)
+
+## <a name="fonts">Builtin Fonts</a>
+
+`{bittermelon}` has a builtin versions of the 8x16 [Spleen](https://github.com/fcambus/spleen) font as well as 4x6 and 6x13 [Fixed](https://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html) fonts.
+
+
+```r
+spleen_8x16 <- read_hex(system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon"))
+fixed_4x6 <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon"))
+fixed_6x13 <- read_yaff(system.file("fonts/fixed/6x13.yaff.gz", package = "bittermelon"))
+as_bm_list("RSTATS", font = spleen_8x16) |> bm_call(cbind) |> print()
+```
+
+```{.short}
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+██████░░░██████░████████░█████░░████████░██████░
+██░░░██░██░░░░░░░░░██░░░██░░░██░░░░██░░░██░░░░░░
+██░░░██░██░░░░░░░░░██░░░██░░░██░░░░██░░░██░░░░░░
+██░░░██░██░░░░░░░░░██░░░██░░░██░░░░██░░░██░░░░░░
+██████░░░█████░░░░░██░░░███████░░░░██░░░░█████░░
+██░░░██░░░░░░██░░░░██░░░██░░░██░░░░██░░░░░░░░██░
+██░░░██░░░░░░██░░░░██░░░██░░░██░░░░██░░░░░░░░██░
+██░░░██░░░░░░██░░░░██░░░██░░░██░░░░██░░░░░░░░██░
+██░░░██░░░░░░██░░░░██░░░██░░░██░░░░██░░░░░░░░██░
+██░░░██░██████░░░░░██░░░██░░░██░░░░██░░░██████░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+```
+
+```r
+as_bm_list("RSTATS", font = fixed_4x6) |> bm_call(cbind) |> print()
+```
+
+```{.short}
+██░░░██░███░░█░░███░░██░
+█░█░█░░░░█░░█░█░░█░░█░░░
+██░░░█░░░█░░███░░█░░░█░░
+█░█░░░█░░█░░█░█░░█░░░░█░
+█░█░██░░░█░░█░█░░█░░██░░
+░░░░░░░░░░░░░░░░░░░░░░░░
+```
+
+```r
+as_bm_list("RSTATS", font = fixed_6x13) |> bm_call(cbind) |> print()
+```
+
+```{.short}
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+████░░░███░░█████░░░█░░░█████░░███░░
+█░░░█░█░░░█░░░█░░░░█░█░░░░█░░░█░░░█░
+█░░░█░█░░░░░░░█░░░█░░░█░░░█░░░█░░░░░
+█░░░█░█░░░░░░░█░░░█░░░█░░░█░░░█░░░░░
+████░░░███░░░░█░░░█░░░█░░░█░░░░███░░
+█░█░░░░░░░█░░░█░░░█████░░░█░░░░░░░█░
+█░░█░░░░░░█░░░█░░░█░░░█░░░█░░░░░░░█░
+█░░░█░█░░░█░░░█░░░█░░░█░░░█░░░█░░░█░
+█░░░█░░███░░░░█░░░█░░░█░░░█░░░░███░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+```
 
 ## <a name="future">Future Goals</a>
 
@@ -177,6 +242,7 @@ plot(bm, col = c("white", "darkblue", "lightblue", "black"))
 
 ### Fonts
 
+* [Fixed](https://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html) aka "Unicode fonts and tools for X11"
 * [GNU Unifont](https://www.unifoundry.com/unifont/index.html)
 * [Hoard of Bitfonts](https://github.com/robhagemans/hoard-of-bitfonts)
 * [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)

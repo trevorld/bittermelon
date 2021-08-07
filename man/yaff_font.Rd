@@ -22,13 +22,13 @@ as a \code{\link[=bm_font]{bm_font()}} object while \code{write_yaff()} writes a
 as a yaff format bitmap font file.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
+ font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
  font <- read_yaff(font_file)
  capital_r <- font[[str2ucp("R")]]
  print(capital_r, px = c(".", "#"))
 
- filename <- tempfile(fileext = ".yaff.gz")
- write_yaff(font, gzfile(filename))
+ filename <- tempfile(fileext = ".yaff")
+ write_yaff(font, filename)
 }
 \seealso{
 \code{\link[=bm_font]{bm_font()}} for information about bitmap font objects.

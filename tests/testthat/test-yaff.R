@@ -1,23 +1,17 @@
 test_that("read_yaff() and write_yaff()", {
-    hex_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-    hex <- read_hex(hex_file)
-
-    yaff_file <- system.file("fonts/spleen/spleen-8x16.yaff.gz", package = "bittermelon")
+    yaff_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
     yaff <- read_yaff(yaff_file)
     expect_true(is_bm_font(yaff))
 
-    expect_true(any(grepl(" * Spleen is released under the BSD 2-Clause",
+    expect_true(any(grepl("Send bug reports to Markus Kuhn",
                           attr(yaff, "comments"))))
 
     expect_equal(attr(yaff, "properties")$name,
-                 "Spleen Medium 16")
+                 "Fixed Medium 6")
     expect_equal(attr(yaff, "properties")[["source-name"]],
-                 "spleen-8x16.bdf")
+                 "4x6.bdf")
 
     plus_cp <- name2ucp("PLUS SIGN") # code point U+002B
-
-    expect_equal(hex[[plus_cp]], yaff[[plus_cp]])
-
     expect_equal(length(read_yaff(textConnection(""))), 0L)
 
     f <- tempfile(fileext = ".yaff.gz")
