@@ -68,3 +68,14 @@ test_that("bm_distort()", {
     verify_output("txt/capital_r_distorted.txt",
                   print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii))
 })
+
+test_that("bm_rotate()", {
+    verify_output("txt/capital_r_rotated90.txt",
+                  print(bm_rotate(capital_r, 90), px = px_ascii))
+    verify_output("txt/capital_r_rotated180.txt",
+                  print(bm_rotate(capital_r, 180), px = px_ascii))
+    verify_output("txt/capital_r_rotated270.txt",
+                  print(bm_rotate(capital_r, 270), px = px_ascii))
+    verify_output("txt/capital_r_rotatedm90.txt",
+                  print(bm_rotate(capital_r, 90, clockwise = FALSE), px = px_ascii))
+})

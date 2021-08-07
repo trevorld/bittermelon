@@ -1,5 +1,6 @@
 The bittermelon package as a whole is distributed under MIT.
 It includes other open source software components:
 
+* fixed: public domain
 * monobit: MIT
 * spleen: BSD

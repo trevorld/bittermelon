@@ -66,6 +66,7 @@ bittermelon 0.1.0
   * `bm_overlay()` merges bitmaps by overlaying one over another (#18).
   * `bm_pad()` adjusts bitmap padding lengths (#40).
   * `bm_resize()` resizes the bitmap to a desired width and/or height via extending/trimming (#34).
+  * `bm_rotate()` losslessly rotates bitmaps 0, 90, 180, or 270 degrees (#15).
   * `bm_shadow()` adds a "shadow effect" (#17)
   * `bm_shift()` shifts elements within a bitmap in a specified direction
      while preserving original width and height (#13).
