@@ -19,6 +19,13 @@ A named list with a \dQuote{bm_list} subclass.
 \code{bm_list()} is a list of \code{\link[=bm_bitmap]{bm_bitmap()}} objects with class \dQuote{bm_list}.
 It is superclass of \code{\link[=bm_font]{bm_font()}}.
 }
+\section{Supported S3 methods}{
+
+\itemize{
+\item \code{as.list.bm_list()}
+}
+}
+
 \examples{
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)

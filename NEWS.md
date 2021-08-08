@@ -2,18 +2,18 @@ bittermelon 0.1.0
 =================
 
 * `bm_bitmap()` creates a S3 object representing bitmaps (#1). 
-   Intended to represent bitmap font glyphs but can be used
-   to represent more complicated bitmaps.
-   Non-binary bitmaps are allowed 
-   (but we are unlikely to ever support exporting color bitmap fonts).
-   It supports the following S3 methods:
+  Intended to represent bitmap font glyphs but can be used
+  to represent more complicated bitmaps.
+  Non-binary bitmaps are allowed 
+  (but we are unlikely to ever support exporting color bitmap fonts).
+  It supports the following S3 methods:
 
-  * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
-  * `as.matrix.bm_bitmap()`
-  * `as.raster.bm_bitmap()` (#3) and `plot.bm_bitmap()` (#4)
-  * `cbind.bm_bitmap()` and `rbind.bm_bitmap()`
-  * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
-  * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
+    * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
+    * `as.matrix.bm_bitmap()`
+    * `as.raster.bm_bitmap()` (#3) and `plot.bm_bitmap()` (#4)
+    * `cbind.bm_bitmap()` and `rbind.bm_bitmap()`
+    * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
+    * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
 
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
@@ -27,7 +27,8 @@ bittermelon 0.1.0
 * `bm_list()` creates a S3 object representing a list of `bm_bitmap()` objects.
   It supports the following S3 methods:
 
-  * The "min()", "max()", and "range()" functions from the "Summary" group generic methods
+    * The "min()", "max()", and "range()" functions from the "Summary" group generic methods
+    * `as.list.bm_list()`
 
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 
@@ -85,6 +86,7 @@ bittermelon 0.1.0
 
 * Other utility functions
 
+  * `c()` S3 methods combine bitmap objects.  In particular when using it to combine fonts the later fonts "update" the glyphs in the earlier fonts.
   * `bm_call()` executes a function on bitmap objects.  It places the bitmap object
     as the first argument so it is a bit friendlier to use in pipes than `base::do.call()`
     and allows specifying additional arguments to the function.

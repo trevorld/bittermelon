@@ -1,7 +1,8 @@
 #' Get Unicode code points
 #'
 #' `hex2ucp()`, `int2ucp()`, `name2ucp()`, and `str2ucp()` return
-#' Unicode code points as character vectors.
+#' Unicode code points as character vectors. `is_ucp()` returns
+#' `TRUE` if a valid Unicode code point.
 #'
 #' `hex2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(x))`.
 #' `int2ucp` is a wrapper for `as.character(Unicode::as.u_char(as.integer(x)))`.
@@ -60,4 +61,10 @@ str2ucp <- function(x) {
 #' @export
 name2ucp <- function(x, type = c("exact", "grep"), ...) {
     as.character(Unicode::u_char_from_name(toupper(x), type = type, ...))
+}
+
+#' @rdname unicode_code_points
+#' @export
+is_ucp <- function(x) {
+    grepl("^U\\+[1-9A-F]*[0-9A-F]{4}$", x)
 }

@@ -4,7 +4,7 @@
 \alias{bm_font}
 \title{Bitmap font object}
 \usage{
-bm_font(x, comments = NULL, properties = NULL)
+bm_font(x = bm_list(), comments = NULL, properties = NULL)
 }
 \arguments{
 \item{x}{Named list of \code{\link[=bm_bitmap]{bm_bitmap()}} objects.

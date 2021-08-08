@@ -79,3 +79,51 @@ test_that("bm_rotate()", {
     verify_output("txt/capital_r_rotatedm90.txt",
                   print(bm_rotate(capital_r, 90, clockwise = FALSE), px = px_ascii))
 })
+
+test_that("c()", {
+    stats <- as_bm_list("STATS", font = font)
+
+    expect_equal(c(capital_r), bm_list(capital_r))
+    expect_equal(stats, c(stats))
+    expect_equal(font, c(font))
+
+    bbb <- c(capital_r, capital_r, capital_r)
+    expect_false(is_bm_font(bbb))
+    expect_true(is_bm_list(bbb))
+    expect_length(bbb, 3L)
+
+    bl <- c(capital_r, stats)
+    expect_false(is_bm_font(bl))
+    expect_true(is_bm_list(bl))
+    expect_length(bl, 6L)
+
+    bf <- c(`U+E000` = capital_r, font)
+    expect_true(is_bm_font(bf))
+    expect_length(bf, 838L)
+
+    fbb <- c(font, `U+E000` = capital_r, `U+E001` = capital_r)
+    expect_true(is_bm_font(fbb))
+    expect_length(fbb, 839L)
+
+    ff <- c(font, font)
+    expect_true(is_bm_font(ff))
+    expect_length(ff, 837L)
+
+    fl <- c(font, stats)
+    expect_true(is_bm_font(fl))
+    expect_length(fl, 837L)
+
+    lbb <- c(stats, capital_r, capital_r)
+    expect_false(is_bm_font(lbb))
+    expect_true(is_bm_list(lbb))
+    expect_length(lbb, 7L)
+
+    ll <- c(stats, stats)
+    expect_false(is_bm_font(ll))
+    expect_true(is_bm_list(ll))
+    expect_length(ll, 10L)
+
+    lf <- c(stats, font)
+    expect_true(is_bm_font(lf))
+    expect_length(lf, 837L)
+})

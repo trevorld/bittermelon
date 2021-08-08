@@ -5,6 +5,7 @@
 \alias{int2ucp}
 \alias{str2ucp}
 \alias{name2ucp}
+\alias{is_ucp}
 \title{Get Unicode code points}
 \usage{
 hex2ucp(x)
@@ -14,6 +15,8 @@ int2ucp(x)
 str2ucp(x)
 
 name2ucp(x, type = c("exact", "grep"), ...)
+
+is_ucp(x)
 }
 \arguments{
 \item{x}{R objects coercible to the respective Unicode character data types.
@@ -34,7 +37,8 @@ A character vector of Unicode code points.
 }
 \description{
 \code{hex2ucp()}, \code{int2ucp()}, \code{name2ucp()}, and \code{str2ucp()} return
-Unicode code points as character vectors.
+Unicode code points as character vectors. \code{is_ucp()} returns
+\code{TRUE} if a valid Unicode code point.
 }
 \details{
 \code{hex2ucp(x)} is a wrapper for \code{as.character(Unicode::as.u_char(x))}.

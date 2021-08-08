@@ -4,6 +4,10 @@
 #'
 #' `bm_list()` is a list of [bm_bitmap()] objects with class \dQuote{bm_list}.
 #' It is superclass of [bm_font()].
+#' @section Supported S3 methods:
+#'
+#' * `as.list.bm_list()`
+#'
 #' @param ... [bm_bitmap()] objects, possibly named.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -63,4 +67,12 @@ bm_lapply <- function(X, FUN, ...) { # nolint
     attr(l2, "comments") <- attr(X, "comments")
     attr(l2, "properties") <- attr(X, "properties")
     l2
+}
+
+#' @export
+as.list.bm_list <- function(x, ...) {
+    n <- names(x)
+    attributes(x) <- NULL
+    names(x) <- n
+    x
 }

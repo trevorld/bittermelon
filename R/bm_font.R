@@ -24,7 +24,7 @@
 #' @return A named list with a \dQuote{bm_font} subclass.
 #' @seealso [is_bm_font()], [as_bm_font(), [hex2ucp()]]
 #' @export
-bm_font <- function(x, comments = NULL, properties = NULL) {
+bm_font <- function(x = bm_list(), comments = NULL, properties = NULL) {
     if (is_bm_font(x))
         x
     else

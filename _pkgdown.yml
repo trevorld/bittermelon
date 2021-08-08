@@ -47,6 +47,7 @@ reference:
     - title: "Other bitmap object utilities"
       desc: "Other bitmap object utility functions"
       contents:
+          - c.bm_list
           - Summary.bm_list
           - bm_call
           - bm_lapply
