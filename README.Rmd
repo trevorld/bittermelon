@@ -15,6 +15,8 @@
 * [Future Goals](#future)
 * [Related Software](#similar)
 
+**Please note this README is best [viewed elsewhere](https://trevorldavis.com/R/bittermelon/dev) than `github.com`**. `github.com`'s default `line-height` setting causes distracting extraneous horizontal lines to appear when "printing" bitmaps and `github.com` [does not allow using CSS](https://gist.github.com/kivikakk/622b5dcf395e26c49e2334f0eb19e6f9) to set a more reasonable `line-height` value.
+
 ## <a name="overview">Overview</a>
 
 `{bittermelon}` provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of [monobit](https://github.com/robhagemans/monobit).  It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#section-modify-bitmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".  `{bittermelon}` can also pretty print bitmaps to the terminal and has a basic plot method.
