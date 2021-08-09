@@ -11,7 +11,7 @@
 * [Installation](#installation)
 * [Examples](#examples)
 * [Builtin Fonts](#fonts)
-* [Unifont via {hexfont}](#hexfont)
+* [GNU Unifont via {hexfont}](#hexfont)
 * [Future Goals](#future)
 * [Related Software](#similar)
 
@@ -209,7 +209,7 @@ as_bm_list("RSTATS", font = fixed_6x13) |> bm_call(cbind) |> print()
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ```
 
-## <a name="hexfont">Unifont via {hexfont}</a>
+## <a name="hexfont">GNU Unifont via {hexfont}</a>
 
 The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper function `unifont()` which loads several GNU Unifont hex fonts as a single `{bittermelon}` `bm_font()` object.  [GNU Unifont](http://unifoundry.com/unifont/index.html) is a monoscale bitmap font (8x16 and 16x16 glyphs) that pretty much covers all of the official Unicode glyphs plus several of the artificial scripts in the [(Under-)ConScript Unicode Registry](http://www.kreativekorp.com/ucsur/).
 
@@ -223,7 +223,7 @@ system.time(font <- unifont())
 
 ```{.short}
    user  system elapsed 
- 48.317   0.100  48.420 
+ 56.661   0.056  56.719 
 ```
 
 ```r
@@ -325,7 +325,10 @@ as_bm_list("🐭🐲🐵", font = font) |> bm_call(cbind) |> print()
 ### Fonts
 
 * [Fixed](https://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html) aka "Unicode fonts and tools for X11"
-* [GNU Unifont](https://www.unifoundry.com/unifont/index.html)
+* Embedded in `{hexfont}` package:
+
+  * [GNU Unifont](https://www.unifoundry.com/unifont/index.html)
+
 * [Hoard of Bitfonts](https://github.com/robhagemans/hoard-of-bitfonts)
 * [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)
 * Embedded in `{bdftools}` package:
