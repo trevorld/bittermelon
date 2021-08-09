@@ -39,7 +39,7 @@ knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.cap = '',
 ```
 
 ```{r print, class.output = "short"}
-library("bittermelon")
+library("bittermelon") # remotes::install_github("trevorld/bittermelon")
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 font <- read_hex(font_file)
 bml <- as_bm_list("RSTATS", font = font)
@@ -97,10 +97,9 @@ The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper f
 
 ```{r unifont, class.output = "short"}
 library("hexfont") # remotes::install_github("trevorld/hexfont")
-# Note Unifont is a **big** font
-system.time(font <- unifont())
-length(font)
-object.size(font)
+system.time(font <- unifont()) # Unifont is a **big** font
+length(font) |> prettyNum(big.mark = ",") # number of glyphs
+object.size(font) |> format(units = "MB") # memory used
 
 # Mandarin Chinese
 as_bm_list("Ｒ很棒！", font = font) |>

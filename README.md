@@ -208,29 +208,28 @@ The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper f
 
 ```r
 library("hexfont") # remotes::install_github("trevorld/hexfont")
-# Note Unifont is a **big** font
-system.time(font <- unifont())
+system.time(font <- unifont()) # Unifont is a **big** font
 ```
 
 ```{.short}
    user  system elapsed 
- 50.620   0.123  50.749 
+ 50.699   0.104  50.806 
 ```
 
 ```r
-length(font)
+length(font) |> prettyNum(big.mark = ",") # number of glyphs
 ```
 
 ```{.short}
-[1] 77418
+[1] "77,418"
 ```
 
 ```r
-object.size(font)
+object.size(font) |> format(units = "MB") # memory used
 ```
 
 ```{.short}
-121681880 bytes
+[1] "116 Mb"
 ```
 
 ```r
