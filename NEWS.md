@@ -57,6 +57,7 @@ bittermelon 0.1.0
   * `bm_bold()` creates a basic "bold" effect (#16)
   * `bm_clamp()` clamps integer values between a lower and upper value.
      By default coerces the bitmap to binary values.
+  * `bm_compress()` shrinks bitmaps by a factor of two using a "block elements" scheme (#31).
   * `bm_distort()` resizes bitmaps via distortion.
   * `bm_expand()` expands bitmap(s) by repeating each row and/or column (#19).
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).

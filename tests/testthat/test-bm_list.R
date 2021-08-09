@@ -151,3 +151,14 @@ test_that("bm_expand()", {
     verify_output("txt/capital_r_expand_2vw.txt",
         print(bm_expand(capital_r, width = 2L, height = 2L), px = px_ascii))
 })
+
+test_that("bm_compress()", {
+    verify_output("txt/capital_r_compress_v.txt",
+        print(bm_compress(capital_r, direction = "vertical"), px = px_ascii))
+
+    verify_output("txt/capital_r_compress_h.txt",
+        print(bm_compress(capital_r, direction = "horizontal"), px = px_ascii))
+
+    verify_output("txt/capital_r_compress_b.txt",
+        print(bm_compress(capital_r, direction = "both"), px = px_ascii))
+})

@@ -1,0 +1,10 @@
+> print(bm_compress(capital_r, direction = "vertical"), px = px_ascii)
+        
+@@^^^@_ 
+@@   @@ 
+@@^^^@_ 
+@@   @@ 
+@@   @@ 
+        
+        
+

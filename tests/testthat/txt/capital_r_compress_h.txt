@@ -1,0 +1,18 @@
+> print(bm_compress(capital_r, direction = "horizontal"), px = px_ascii)
+    
+    
+@@@ 
+@ []
+@ []
+@ []
+@@@ 
+@ []
+@ []
+@ []
+@ []
+@ []
+    
+    
+    
+    
+

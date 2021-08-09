@@ -1,0 +1,10 @@
+> print(bm_compress(capital_r, direction = "both"), px = px_ascii)
+    
+@^?,
+@ []
+@^?,
+@ []
+@ []
+    
+    
+

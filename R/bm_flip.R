@@ -24,14 +24,14 @@
 #' @inherit bm_clamp return
 #' @export
 bm_flip <- function(bm_object, direction = "vertical", in_place = FALSE) {
+    direction <- match.arg(tolower(direction),
+                           c("vertical", "v", "horizontal", "h", "both", "b"))
+    direction <- substr(direction, 1L, 1L)
     modify_bm_bitmaps(bm_object, bm_flip_bitmap,
                       direction = direction, in_place = in_place)
 }
 
-bm_flip_bitmap <- function(bitmap, direction = "vertical", in_place = in_place) {
-    direction <- match.arg(tolower(direction),
-                           c("vertical", "v", "horizontal", "h", "both", "b"))
-    direction <- substr(direction, 1L, 1L)
+bm_flip_bitmap <- function(bitmap, direction = "v", in_place = in_place) {
     if (in_place) {
         bmpl <- bm_padding_lengths(bitmap)
         bitmap <- bm_trim(bitmap, sides = bmpl)

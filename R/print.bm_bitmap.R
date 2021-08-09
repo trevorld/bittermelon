@@ -61,13 +61,21 @@ format.bm_bitmap <- function(x, ...,
         stopifnot(requireNamespace("crayon", quietly = TRUE))
         fgl <- lapply(fgl, function(col) crayon::make_style(col))
     }
-    fgl <- rep_len(fgl, n)
+    if (length(fgl) == 1) {
+        fgl <- rep_len(fgl, n)
+    } else if (length(fgl) < n) {
+        fgl <- rep(fgl, each = 20L, length.out = n)
+    }
     bgl <- as.list(bg)
     if (is.character(bg)) {
         stopifnot(requireNamespace("crayon", quietly = TRUE))
         bgl <- lapply(bgl, function(col) crayon::make_style(col, bg = TRUE))
     }
-    bgl <- rep_len(bgl, n)
+    if (length(bgl) == 1) {
+        bgl <- rep_len(bgl, n)
+    } else if (length(bgl) < n) {
+        bgl <- rep(bgl, each = 20L, length.out = n)
+    }
     l <- sapply(seq_len(nrow(x)),
                 function(i) bm_bitmap_row_to_string(x[i, ], px, fgl, bgl))
     rev(l)
@@ -102,7 +110,7 @@ px_unicode <- c("\u2591", "\u2588", "\u2592", "\u2593",
 #' @rdname print.bm_bitmap
 #' @export
 px_ascii <- c("-", "@", "+", "#",
-              " ", "q", ",", "_",
+              " ", ".", ",", "_",
               "'", "[", "/", "d",
               "`", "\\", "]", "L",
               "^", "?", "P", "!")
