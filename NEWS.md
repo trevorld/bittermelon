@@ -91,6 +91,8 @@ bittermelon 0.1.0
   * `bm_call()` executes a function on bitmap objects.  It places the bitmap object
     as the first argument so it is a bit friendlier to use in pipes than `base::do.call()`
     and allows specifying additional arguments to the function.
+  * `bm_edit()` allows editing a `bm_bitmap()` object via text editor
+    indicating zeroes with a `.` and ones with a `@` (as in `yaff` font format).
   * `bm_lapply()` applies a function to each element in a `bm_list()` or `bm_font()` object.
     It returns another `bm_list()` or `bm_font()` object with the same metadata as
     the original object.

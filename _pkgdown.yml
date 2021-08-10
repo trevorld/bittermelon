@@ -51,6 +51,7 @@ reference:
           - c.bm_list
           - Summary.bm_list
           - bm_call
+          - bm_edit
           - bm_lapply
           - bm_padding_lengths
           - bm_widths
