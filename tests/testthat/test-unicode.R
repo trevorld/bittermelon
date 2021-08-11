@@ -12,4 +12,8 @@ test_that("ucp_range()", {
 
     x <- range2ucp("U+0020..U+003F", omit_unnamed = FALSE)
     expect_length(x, 32L)
+
+    x <- ucp_sort(x)
+    expect_equal(x[1], "U+0020")
+    expect_equal(x[length(x)], "U+003F")
 })

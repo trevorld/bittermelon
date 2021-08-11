@@ -131,7 +131,7 @@ get_yaff_labels <- function(contents, starting_index) {
 }
 
 label2ucp <- function(labels) {
-        labels <- ucp_sort(labels)
+        labels <- yaff_ucp_sort(labels)
         ucp <- sapply(labels, yaff2ucp_helper)
         ucp <- Filter(Negate(is.na), ucp)[1]
         if (is.na(ucp))
@@ -139,7 +139,7 @@ label2ucp <- function(labels) {
         ucp
 }
 
-ucp_sort <- function(x) {
+yaff_ucp_sort <- function(x) {
     uplus <- base::which(toupper(substr(x, 1, 2)) == "U+")
     if (length(uplus))
         c(x[uplus], x[-uplus])

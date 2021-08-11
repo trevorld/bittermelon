@@ -106,3 +106,4 @@ bittermelon 0.1.0
   * `ucp2label()` returns Unicode code labels as character vectors.
   * `is_combining_character()` returns `TRUE` or `FALSE` if Unicode 
      code point refers to a combining character.
+  * `ucp_sort()` sorts Unicode code points

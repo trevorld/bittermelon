@@ -2,22 +2,29 @@
 % Please edit documentation in R/utils-unicode.R
 \name{ucp2label}
 \alias{ucp2label}
+\alias{ucp_sort}
 \alias{is_combining_character}
 \title{Other Unicode utilities}
 \usage{
 ucp2label(x)
 
+ucp_sort(x, decreasing = FALSE)
+
 is_combining_character(x)
 }
 \arguments{
 \item{x}{A character vector of Unicode code points.}
+
+\item{decreasing}{If \code{TRUE} do a decreasing sort.}
 }
 \value{
 \code{ucp2label()} returns a character vector of Unicode labels.
+\code{ucp_sort()} returns a character vector of Unicode code points.
 \code{is_combining_character()} returns a logical vector.
 }
 \description{
 \code{ucp2label()} returns Unicode code point \dQuote{labels} as a character vector.
+\code{ucp_sort()} sorts Unicode code points.
 \code{is_combining_character()} returns \code{TRUE} if the character is a \dQuote{combining} character.
 }
 \examples{
@@ -28,5 +35,6 @@ is_combining_character(x)
   is_combining_character("U+0300") # COMBINING GRAVE ACCENT
 }
 \seealso{
-\code{\link[=hex2ucp]{hex2ucp()}}, \code{\link[=int2ucp]{int2ucp()}}, \code{\link[=name2ucp]{name2ucp()}}, and \code{\link[=str2ucp]{str2ucp()}} all return Unicode code points.
+\code{\link[=block2ucp]{block2ucp()}}, \code{\link[=hex2ucp]{hex2ucp()}}, \code{\link[=int2ucp]{int2ucp()}}, \code{\link[=name2ucp]{name2ucp()}}, \code{\link[=range2ucp]{range2ucp()}}, and \code{\link[=str2ucp]{str2ucp()}}
+all return Unicode code points.
 }
