@@ -23,6 +23,9 @@ It is superclass of \code{\link[=bm_font]{bm_font()}}.
 
 \itemize{
 \item \code{as.list.bm_list()}
+\item Slicing with \verb{[]} returns \code{bm_list()} objects.
+\item The \code{min()}, \code{max()}, and \code{range()} functions from the \dQuote{Summary}
+group of generic methods.
 }
 }
 

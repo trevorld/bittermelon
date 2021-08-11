@@ -27,6 +27,8 @@ test_that("bm_list()", {
     glyph_list <- bm_clamp(glyph_list)
     expect_true(is_bm_list(glyph_list))
 
+    expect_true(is_bm_list(glyph_list[1]))
+
     expect_equal(glyph_list, do.call(bm_list, glyph_list))
     expect_equal(glyph_list, as_bm_list(glyph_list))
 

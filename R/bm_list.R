@@ -7,6 +7,9 @@
 #' @section Supported S3 methods:
 #'
 #' * `as.list.bm_list()`
+#' * Slicing with `[]` returns `bm_list()` objects.
+#' * The `min()`, `max()`, and `range()` functions from the \dQuote{Summary}
+#'   group of generic methods.
 #'
 #' @param ... [bm_bitmap()] objects, possibly named.
 #' @examples
@@ -75,4 +78,11 @@ as.list.bm_list <- function(x, ...) {
     attributes(x) <- NULL
     names(x) <- n
     x
+}
+
+#' @export
+`[.bm_list` <- function(x, i) {
+    l <- NextMethod()
+    class(l) <- c("bm_list", class(l))
+    l
 }

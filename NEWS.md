@@ -29,6 +29,7 @@ bittermelon 0.1.0
 
     * The "min()", "max()", and "range()" functions from the "Summary" group generic methods
     * `as.list.bm_list()`
+    * "slicing" with `[]` returns `bm_list()` objects.
 
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 

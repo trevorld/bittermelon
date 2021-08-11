@@ -2,7 +2,7 @@ test_that("ucp_range()", {
     x <- block2ucp("Basic Latin")
     expect_equal(min(x), "U+0020")
 
-    x <- block2ucp( "Basic Latin", omit_unnamed = FALSE)
+    x <- block2ucp("Basic Latin", omit_unnamed = FALSE)
     expect_equal(min(x), "U+0000")
 
     x <- range2ucp("U+0020..U+003F")

@@ -9,6 +9,7 @@ reference:
           - starts_with("bm_bitmap")
           - ends_with("bm_bitmap")
           - -Ops.bm_bitmap
+          - -c.bm_bitmap
     - title: "Bitmap list objects"
       desc: "Bitmap list objects and methods"
       contents:
@@ -16,11 +17,13 @@ reference:
           - ends_with("bm_list")
           - -Ops.bm_list
           - -Summary.bm_list
+          - -c.bm_list
     - title: "Bitmap font objects"
       desc: "Bitmap font objects and methods"
       contents:
           - starts_with("bm_font")
           - ends_with("bm_font")
+          - -c.bm_font
     - title: "Read/write bitmap fonts"
       desc: "Functions to read/write bitmap fonts"
       contents:

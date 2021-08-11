@@ -38,7 +38,7 @@ The functions `read_monobit()` and `write_monobit()` that use the embedded versi
 
 
 ```r
-library("bittermelon")
+library("bittermelon") # remotes::install_github("trevorld/bittermelon")
 ```
 
 ```
@@ -213,7 +213,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ```{.short}
    user  system elapsed 
- 50.699   0.104  50.806 
+ 53.769   0.083  53.855 
 ```
 
 ```r
@@ -270,7 +270,7 @@ as_bm_list("🐭🐲🐵", font = font) |>
 
 ## <a name="future">Future Goals</a>
 
-* Generate enough bitmap manipulation capabilities in order to create a specialized monoscale font to support a [boardgame diagram use case no existing Unicode font seems to support well](https://trevorldavis.com/piecepackr/unicode-piecepack-diagrams.html#piecepack-font-wishlist).
+* Generate enough bitmap manipulation capabilities in order to [create a specialized monoscale font](https://github.com/trevorld/game-bit-mono) to support a [boardgame diagram use case no existing Unicode font seems to support well](https://trevorldavis.com/piecepackr/unicode-piecepack-diagrams.html#piecepack-font-wishlist).
 
   * A 16x16 "hex" font could be a good initial prototype target.
 
