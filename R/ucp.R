@@ -13,8 +13,11 @@
 #' by these functions and not `Unicode::u_char` objects.
 #' @param x R objects coercible to the respective Unicode character data types.
 #'          See [Unicode::as.u_char()] for `hex2ucp()` and `int2ucp()`,
-#'          [base::utf8ToInt()] for `str2ucp()`, and
-#'          [Unicode::u_char_from_name()] for `name2ucp()`.
+#'          [base::utf8ToInt()] for `str2ucp()`,
+#'          [Unicode::u_char_from_name()] for `name2ucp()`,
+#'          [Unicode::as.u_char_range()] for `range2ucp()`,
+#'          and [Unicode::u_blocks()] for `block2ucp()`.
+#' @param omit_unnamed Omit control codes or unassigned code points
 #' @inheritParams Unicode::u_char_from_name
 #' @return A character vector of Unicode code points.
 #' @examples
@@ -35,6 +38,11 @@
 #'   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
 #'   all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
 #'   all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
+#'
+#'   block2ucp("Basic Latin")
+#'   block2ucp("Basic Latin", omit_unnamed = FALSE)
+#'   range2ucp("U+0020..U+0030")
+#'
 #' @seealso [ucp2label()] and [is_combining_character()].
 #' @rdname unicode_code_points
 #' @export
@@ -67,4 +75,29 @@ name2ucp <- function(x, type = c("exact", "grep"), ...) {
 #' @export
 is_ucp <- function(x) {
     grepl("^U\\+[1-9A-F]*[0-9A-F]{4}$", x)
+}
+
+#' @rdname unicode_code_points
+#' @export
+block2ucp <- function(x, omit_unnamed = TRUE) {
+    stopifnot(length(x) == 1L)
+    r <- Unicode::u_blocks(x)[[1]]
+    ucp <- as.character(Unicode::as.u_char(r))
+    if (omit_unnamed) {
+        n <- Unicode::u_char_name(ucp)
+        ucp <- ucp[which(!is.na(n) & n != "")]
+    }
+    ucp
+}
+
+#' @rdname unicode_code_points
+#' @export
+range2ucp <- function(x, omit_unnamed = TRUE) {
+    r <- Unicode::as.u_char_range(x)
+    ucp <- as.character(Unicode::as.u_char(r))
+    if (omit_unnamed) {
+        n <- Unicode::u_char_name(ucp)
+        ucp <- ucp[which(!is.na(n) & n != "")]
+    }
+    ucp
 }

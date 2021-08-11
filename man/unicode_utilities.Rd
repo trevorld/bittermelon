@@ -13,7 +13,8 @@ is_combining_character(x)
 \item{x}{A character vector of Unicode code points.}
 }
 \value{
-\code{ucp2name()} returns a character vector of Unicode labels.
+\code{ucp2label()} returns a character vector of Unicode labels.
+\code{is_combining_character()} returns a logical vector.
 }
 \description{
 \code{ucp2label()} returns Unicode code point \dQuote{labels} as a character vector.

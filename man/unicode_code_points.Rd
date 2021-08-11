@@ -6,6 +6,8 @@
 \alias{str2ucp}
 \alias{name2ucp}
 \alias{is_ucp}
+\alias{block2ucp}
+\alias{range2ucp}
 \title{Get Unicode code points}
 \usage{
 hex2ucp(x)
@@ -17,12 +19,18 @@ str2ucp(x)
 name2ucp(x, type = c("exact", "grep"), ...)
 
 is_ucp(x)
+
+block2ucp(x, omit_unnamed = TRUE)
+
+range2ucp(x, omit_unnamed = TRUE)
 }
 \arguments{
 \item{x}{R objects coercible to the respective Unicode character data types.
 See \code{\link[Unicode:u_char_basics]{Unicode::as.u_char()}} for \code{hex2ucp()} and \code{int2ucp()},
-\code{\link[base:utf8Conversion]{base::utf8ToInt()}} for \code{str2ucp()}, and
-\code{\link[Unicode:u_char_names]{Unicode::u_char_from_name()}} for \code{name2ucp()}.}
+\code{\link[base:utf8Conversion]{base::utf8ToInt()}} for \code{str2ucp()},
+\code{\link[Unicode:u_char_names]{Unicode::u_char_from_name()}} for \code{name2ucp()},
+\code{\link[Unicode:u_char_basics]{Unicode::as.u_char_range()}} for \code{range2ucp()},
+and \code{\link[Unicode:u_blocks]{Unicode::u_blocks()}} for \code{block2ucp()}.}
 
 \item{type}{one of \code{"exact"} or \code{"grep"}, or an abbreviation
     thereof.
@@ -31,6 +39,8 @@ See \code{\link[Unicode:u_char_basics]{Unicode::as.u_char()}} for \code{hex2ucp(
 \item{...}{arguments to be passed to \code{\link{grepl}} when using
     this for pattern matching.
   }
+
+\item{omit_unnamed}{Omit control codes or unassigned code points}
 }
 \value{
 A character vector of Unicode code points.
@@ -67,6 +77,11 @@ by these functions and not \code{Unicode::u_char} objects.
   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
   all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
   all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
+
+  block2ucp("Basic Latin")
+  block2ucp("Basic Latin", omit_unnamed = FALSE)
+  range2ucp("U+0020..U+0030")
+
 }
 \seealso{
 \code{\link[=ucp2label]{ucp2label()}} and \code{\link[=is_combining_character]{is_combining_character()}}.

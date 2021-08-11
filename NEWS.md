@@ -100,6 +100,8 @@ bittermelon 0.1.0
     in `bm_list()` or `bm_font()` objects.
   * `bm_padding_lengths()` computes the padding lengths of a
     target value for the top, right, bottom, and left sides of the bitmap.
-  * `hex2ucp()`, `int2ucp()`, `name2ucp()` and  `str2ucp()`
-  return Unicode code points as character vectors.
+  * `block2ucp()`, `hex2ucp()`, `int2ucp()`, `name2ucp()`, `range2ucp()`, and `str2ucp()`
+    return Unicode code points as character vectors.
   * `ucp2label()` returns Unicode code labels as character vectors.
+  * `is_combining_character()` returns `TRUE` or `FALSE` if Unicode 
+     code point refers to a combining character.

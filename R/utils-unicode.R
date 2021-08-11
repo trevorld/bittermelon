@@ -4,7 +4,8 @@
 #' `is_combining_character()` returns `TRUE` if the character is a \dQuote{combining} character.
 #'
 #' @param x A character vector of Unicode code points.
-#' @return `ucp2name()` returns a character vector of Unicode labels.
+#' @return `ucp2label()` returns a character vector of Unicode labels.
+#'         `is_combining_character()` returns a logical vector.
 #' @examples
 #'   # Get the Unicode Code Point "label" for "R"
 #'   ucp2label(str2ucp("R"))
