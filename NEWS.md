@@ -66,6 +66,7 @@ bittermelon 0.1.0
     vertically, horizontally, or both.
   * `bm_glow()` adds a basic "glow" effect (#17)
   * `bm_mask()` uses a `mask` bitmap to set certain pixels in a `base` bitmap to zero (#21).
+  * `bm_outline()` computes a "outline" bitmap from a bitmap.
   * `bm_overlay()` merges bitmaps by overlaying one over another (#18).
   * `bm_pad()` adjusts bitmap padding lengths (#40).
   * `bm_resize()` resizes the bitmap to a desired width and/or height via extending/trimming (#34).

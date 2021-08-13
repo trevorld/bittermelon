@@ -24,4 +24,8 @@ test_that("as_bm_bitmap()", {
     skip_if_not(capabilities("png"))
     circle <- as_bm_bitmap(grid::circleGrob(r = 0.25), width = 16L, height = 16L)
     verify_output("txt/circle_grob.txt", print(circle, px = c(".", "@")))
+
+    circle_outline <- bm_outline(circle)
+    verify_output("txt/circle_bm_outline.txt",
+                  print(circle_outline, px = px_ascii))
 })
