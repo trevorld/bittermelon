@@ -13,9 +13,15 @@ An object of class \code{character} of length 20.
 An object of class \code{character} of length 20.
 }
 \usage{
-\method{print}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
+\method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
+                                 fg = getOption("bittermelon.fg", FALSE),
+                                 bg = getOption("bittermelon.bg", FALSE),
+                                 compress = getOption("bittermelon.compress", FALSE))
 
-\method{format}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
+\method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
+                                 fg = getOption("bittermelon.fg", FALSE),
+                                 bg = getOption("bittermelon.bg", FALSE),
+                                 compress = getOption("bittermelon.compress", FALSE))
 
 px_unicode
 
@@ -40,6 +46,12 @@ Will be recycled.}
 Requires suggested package \code{crayon}.
 \code{FALSE} (default) for no background colors.
 Will be recycled.}
+
+\item{compress}{If \code{none} (default) don't compress first with \code{\link[=bm_compress]{bm_compress()}}.
+Otherwise compress first with \code{\link[=bm_compress]{bm_compress()}} passing
+the value of \code{compress} as its \code{direction} argument
+(i.e. either "vertical" or "v", "horizontal" or "h",
+OR "both" or "b").}
 }
 \value{
 A character vector of the string representation (\code{print.bm_bitmap()} does this invisibly).

@@ -64,3 +64,7 @@ reference:
       contents:
           - hex2ucp
           - ucp2label
+    - title: "Package options"
+      desc: "Package global options"
+      contents:
+          - bittermelon

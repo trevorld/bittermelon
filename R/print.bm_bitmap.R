@@ -25,16 +25,22 @@
 #' @seealso [bm_bitmap()]
 #' @return A character vector of the string representation (`print.bm_bitmap()` does this invisibly).
 #'         As a side effect `print.bm_bitmap()` prints out the string representation to the terminal.
-#' @usage \method{print}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
+#' @usage \method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
+#'                                  fg = getOption("bittermelon.fg", FALSE),
+#'                                  bg = getOption("bittermelon.bg", FALSE),
+#'                                  compress = getOption("bittermelon.compress", FALSE))
 #' @export
-print.bm_bitmap <- function(x, ..., px = px_unicode, fg = FALSE, bg = FALSE) {
+print.bm_bitmap <- function(x, ...,
+                            px = getOption("bittermelon.px", px_unicode),
+                            fg = getOption("bittermelon.fg", FALSE),
+                            bg = getOption("bittermelon.bg", FALSE),
+                            compress = getOption("bittermelon.compress", "none")) {
     x <- as_bm_bitmap(x)
     s <- format(x, ..., px = px, fg = fg, bg = bg)
     cat(s, sep = "\n")
     invisible(s)
 }
 
-#' @usage \method{format}{bm_bitmap}(x, ..., px = px_unicode, fg = FALSE, bg = FALSE)
 #' @rdname print.bm_bitmap
 #' @param px Character vector of the pixel to use for each integer value i.e.
 #'              The first character for integer `0L`,
@@ -48,12 +54,28 @@ print.bm_bitmap <- function(x, ..., px = px_unicode, fg = FALSE, bg = FALSE) {
 #'           Requires suggested package `crayon`.
 #'           `FALSE` (default) for no background colors.
 #'           Will be recycled.
+#' @param compress If `none` (default) don't compress first with [bm_compress()].
+#'                 Otherwise compress first with [bm_compress()] passing
+#'                 the value of `compress` as its `direction` argument
+#'                 (i.e. either "vertical" or "v", "horizontal" or "h",
+#'                  OR "both" or "b").
+#' @usage \method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
+#'                                  fg = getOption("bittermelon.fg", FALSE),
+#'                                  bg = getOption("bittermelon.bg", FALSE),
+#'                                  compress = getOption("bittermelon.compress", FALSE))
 #' @export
 format.bm_bitmap <- function(x, ...,
-                                   px = px_unicode,
-                                   fg = FALSE, bg = FALSE) {
+                             px = getOption("bittermelon.px", px_unicode),
+                             fg = getOption("bittermelon.fg", FALSE),
+                             bg = getOption("bittermelon.bg", FALSE),
+                             compress = getOption("bittermelon.compress", "none")) {
     x <- as_bm_bitmap(x)
     if (nrow(x) == 0L) return(character(0))
+    if (compress != "none") {
+        direction <- match.arg(tolower(compress),
+                               c("vertical", "v", "horizontal", "h", "both", "b"))
+        x <- bm_compress(x, direction = direction)
+    }
     n <- max(x) + 1L
     px <- rep_len(px, n)
     fgl <- as.list(fg)

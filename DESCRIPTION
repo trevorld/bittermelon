@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome Bitmap Font Tools
-Version: 0.1.0-40
+Version: 0.1.0-41
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com"),
              person("Rob", "Hagemans", role = "cph",
@@ -23,7 +23,8 @@ Suggests:
     crayon,
     ragg,
     testthat,
-    vdiffr
+    vdiffr,
+    withr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

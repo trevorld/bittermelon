@@ -3,7 +3,6 @@
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version/bittermelon)](https://cran.r-project.org/package=bittermelon)
 [![R-CMD-check](https://github.com/trevorld/bittermelon/workflows/R-CMD-check/badge.svg)](https://github.com/trevorld/bittermelon/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/trevorld/bittermelon.svg)](https://codecov.io/github/trevorld/bittermelon?branch=main)
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 ### Table of Contents
 
@@ -12,7 +11,7 @@
 * [Examples](#examples)
 * [Builtin Fonts](#fonts)
 * [GNU Unifont via {hexfont}](#hexfont)
-* [Future Goals](#future)
+* [Game Bit](#gamebit)
 * [Related Software](#similar)
 
 **Please note this README is best [viewed elsewhere](https://trevorldavis.com/R/bittermelon/dev) than `github.com`**. `github.com`'s default `line-height` setting causes distracting extraneous horizontal lines to appear when "printing" bitmaps and `github.com` [does not allow using CSS](https://gist.github.com/kivikakk/622b5dcf395e26c49e2334f0eb19e6f9) to set a more reasonable `line-height` value.
@@ -20,8 +19,6 @@
 ## <a name="overview">Overview</a>
 
 `{bittermelon}` provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of [monobit](https://github.com/robhagemans/monobit).  It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#section-modify-bitmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".  `{bittermelon}` can also pretty print bitmaps to the terminal and has a basic plot method.
-
-**This project is currently a 'Work-in-Progress'.  Features are being implemented and the API is not yet stable.**  Check out the awesome [{bdftools}](https://github.com/coolbutuseless/bdftools) package if you currently need bitmap font support in R.  `{bdftools}` will probably always provide cooler bitmap font graphical output support than `{bittermelon}`.  The primary goal of `{bittermelon}` is to make it easier for me to create new bitmap fonts using R.
 
 ## <a name="installation">Installation</a>
 
@@ -61,7 +58,7 @@ bm <- bml |> bm_call(cbind) |> bm_compress("vertical")
 print(bm)
 ```
 
-```{.short}
+```{.bitmap}
                                                 
 ██▀▀▀█▄ ▄█▀▀▀▀▀ ▀▀▀██▀▀▀▄█▀▀▀█▄ ▀▀▀██▀▀▀▄█▀▀▀▀▀ 
 ██   ██ ██         ██   ██   ██    ██   ██      
@@ -80,7 +77,7 @@ bm <- bml |>
 print(bm, px = px_ascii)
 ```
 
-```{.short}
+```{.bitmap}
 ------------------------------------------------
 ------------------------------------------------
 ------------------------------------------------
@@ -110,7 +107,7 @@ bm <- bml |>
 print(bm)
 ```
 
-```{.short}
+```{.bitmap}
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓
@@ -161,7 +158,7 @@ as_bm_list("RSTATS", font = spleen_8x16) |>
     bm_compress("v")
 ```
 
-```{.short}
+```{.bitmap}
                                                 
 ██▀▀▀█▄ ▄█▀▀▀▀▀ ▀▀▀██▀▀▀▄█▀▀▀█▄ ▀▀▀██▀▀▀▄█▀▀▀▀▀ 
 ██   ██ ██         ██   ██   ██    ██   ██      
@@ -178,7 +175,7 @@ as_bm_list("RSTATS", font = fixed_4x6) |>
     bm_compress("v")
 ```
 
-```{.short}
+```{.bitmap}
 █▀▄ ▄▀▀ ▀█▀ ▄▀▄ ▀█▀ ▄▀▀ 
 █▀▄  ▀▄  █  █▀█  █   ▀▄ 
 ▀ ▀ ▀▀   ▀  ▀ ▀  ▀  ▀▀  
@@ -190,7 +187,7 @@ as_bm_list("RSTATS", font = fixed_6x13) |>
     bm_compress("v")
 ```
 
-```{.short}
+```{.bitmap}
                                     
 █▀▀▀▄ ▄▀▀▀▄ ▀▀█▀▀  ▄▀▄  ▀▀█▀▀ ▄▀▀▀▄ 
 █   █ █       █   █   █   █   █     
@@ -211,16 +208,16 @@ library("hexfont") # remotes::install_github("trevorld/hexfont")
 system.time(font <- unifont()) # Unifont is a **big** font
 ```
 
-```{.short}
+```{.bitmap}
    user  system elapsed 
- 53.769   0.083  53.855 
+ 48.418   0.116  48.542 
 ```
 
 ```r
 length(font) |> prettyNum(big.mark = ",") # number of glyphs
 ```
 
-```{.short}
+```{.bitmap}
 [1] "77,418"
 ```
 
@@ -228,7 +225,7 @@ length(font) |> prettyNum(big.mark = ",") # number of glyphs
 object.size(font) |> format(units = "MB") # memory used
 ```
 
-```{.short}
+```{.bitmap}
 [1] "116 Mb"
 ```
 
@@ -239,7 +236,7 @@ as_bm_list("Ｒ很棒！", font = font) |>
     bm_compress("v")
 ```
 
-```{.short}
+```{.bitmap}
                     █ ▄▄▄▄▄▄▄      █      █                     
                   ▄▀  █     █      █  ▀▀▀▀█▀▀▀▀                 
   ██▀▀▀▀▀▀▀▀▄▄   ▀  █ █▀▀▀▀▀█   ▀▀▀█▀▀ ▀▀█▀▀▀▀         ██       
@@ -257,7 +254,7 @@ as_bm_list("🐭🐲🐵", font = font) |>
     bm_compress("v")
 ```
 
-```{.short}
+```{.bitmap}
   ▄▄       ▄▄           ▄▄▄            ▄▄       
 ▄▀  ▀▄▄▄▄▄▀  ▀▄       ▄█▀           ▄█▀██▀█▄    
 █    ▀   ▀    █      ▄████       ▄▀█ ▄▄  ▄▄ █▀▄ 
@@ -268,18 +265,9 @@ as_bm_list("🐭🐲🐵", font = font) |>
                   ▀▀▀     ▀▀▀                   
 ```
 
-## <a name="future">Future Goals</a>
+## <a name="gamebit">Game Bit</a>
 
-* Generate enough bitmap manipulation capabilities in order to [create a specialized monoscale font](https://github.com/trevorld/game-bit-mono) to support a [boardgame diagram use case no existing Unicode font seems to support well](https://trevorldavis.com/piecepackr/unicode-piecepack-diagrams.html#piecepack-font-wishlist).
-
-  * A 16x16 "hex" font could be a good initial prototype target.
-
-* Enable people to render such board game diagrams using the font in R (and perhaps XeLaTeX or HTML) even if the user doesn't have the above font installed.  Ideally the rendering support must support Unicode "combining" characters, ideally `{crayon}` coloring, and ideally "compression" using "Block characters".
-* Generate ability to efficiently store and use a few bitmap icons in `{piecepackr}` to provide a "configuration" users could use to generate certain game icons if they don't have the right fonts installed on their system for more "natural" font based approaches.
-
-  * As an alternative don't want to bundle a bunch of large images with `{piecepackr}`
-  * In particular "sans" lacks Chess symbols and certain Piecepack symbols.  Additionally "Dejavu Sans" lacks good Xiangqi and Shogi symbols.  Certain games (we might never support) such as Arimaa and Hive could be straightforwardly implemented with various Emoji animal glyphs.
-  * `{bittermelon}` must eventually be made available on CRAN for a builtin configuration to be usable by `{piecepackr}`.
+I wrote `{bittermelon}` in order to create [Game Bit](https://github.com/trevorld/game-bit-font), a fixed-width [bitmap](https://en.wikipedia.org/wiki/Computer_font#BITMAP) font specialized for making board game diagrams. The [duospaced](https://en.wikipedia.org/wiki/Duospaced_font) version is called **Game Bit Duo** while the square [monospaced](https://en.wikipedia.org/wiki/Monospaced_font) version is called **Game Bit Mono**.  Check out the [Game Bit Github repo](https://github.com/trevorld/game-bit-font) to see `{bittermelon}` in use making a new custom font (with some glyphs adopted/adapted from [GNU Unifont](http://unifoundry.com/unifont/index.html)).
 
 ## <a name="similar">Related Software</a>
 

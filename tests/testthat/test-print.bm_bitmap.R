@@ -32,5 +32,13 @@ test_that("print.bm_bitmap()", {
         print(bm_bitmap(plus_sign), fg = "blue", bg = "red")
     }, crayon = TRUE)
 
+    verify_output("txt/plus_unicode_color_options.txt", {
+        withr::with_options(list(bittermelon.px = px_ascii,
+                                 bittermelon.compress = "v",
+                                 bittermelon.fg = "blue",
+                                 bittermelon.bg = "white"),
+                            print(bm_bitmap(plus_sign)))
+        }, crayon = TRUE)
+
     expect_length(format(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
 })
