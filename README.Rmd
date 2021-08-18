@@ -117,7 +117,7 @@ I wrote `{bittermelon}` in order to create [Game Bit](https://github.com/trevorl
 
 ### R packages
 
-* [bdftools](https://github.com/coolbutuseless/bdftools) provides some tools for reading, manipulating, and outputting BDF bitmap fonts.  In particular provides much richer graphical output capabilities than `{bittermelon}` will likely support including a specialized `{ggplot2}` geom. 
+* [bdftools](https://github.com/coolbutuseless/bdftools) provides some tools for reading and manipulating BDF bitmap fonts.  In particular provides much richer graphical output capabilities than `{bittermelon}` will likely support including a specialized `{ggplot2}` geom. 
 * [fontr](https://github.com/yixuan/fontr) allows one to extract character glyphs from a specific font (which itself may not be a bitmap font) as a bitmap.
 * [raster](https://rspatial.org/raster/pkg/index.html) has tools for manipulating "raster" objects with a focus on spatial applications.
 
