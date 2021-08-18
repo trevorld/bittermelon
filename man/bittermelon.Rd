@@ -19,11 +19,11 @@ The following \code{bittermelon} option may be set globally via \code{\link[base
 If unset both functions default to \code{px_unicode} but
 some may prefer \code{px_ascii} which is an ASCII alternative.}
 \item{bittermelon.fg}{Set new default \code{fg} argument value for
-\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.
+\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.bg}{Set new default \code{bg} argument value for
-\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.
+\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.compress}{Set new default \code{compress} argument value for
-\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.
+\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 }
 The following \code{findpython} option may also be of interest:
 \describe{

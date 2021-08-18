@@ -16,12 +16,12 @@ An object of class \code{character} of length 20.
 \method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
                                  fg = getOption("bittermelon.fg", FALSE),
                                  bg = getOption("bittermelon.bg", FALSE),
-                                 compress = getOption("bittermelon.compress", FALSE))
+                                 compress = getOption("bittermelon.compress", "none"))
 
 \method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
                                  fg = getOption("bittermelon.fg", FALSE),
                                  bg = getOption("bittermelon.bg", FALSE),
-                                 compress = getOption("bittermelon.compress", FALSE))
+                                 compress = getOption("bittermelon.compress", "none"))
 
 px_unicode
 

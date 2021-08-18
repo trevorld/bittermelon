@@ -28,7 +28,7 @@
 #' @usage \method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
 #'                                  fg = getOption("bittermelon.fg", FALSE),
 #'                                  bg = getOption("bittermelon.bg", FALSE),
-#'                                  compress = getOption("bittermelon.compress", FALSE))
+#'                                  compress = getOption("bittermelon.compress", "none"))
 #' @export
 print.bm_bitmap <- function(x, ...,
                             px = getOption("bittermelon.px", px_unicode),
@@ -62,7 +62,7 @@ print.bm_bitmap <- function(x, ...,
 #' @usage \method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
 #'                                  fg = getOption("bittermelon.fg", FALSE),
 #'                                  bg = getOption("bittermelon.bg", FALSE),
-#'                                  compress = getOption("bittermelon.compress", FALSE))
+#'                                  compress = getOption("bittermelon.compress", "none"))
 #' @export
 format.bm_bitmap <- function(x, ...,
                              px = getOption("bittermelon.px", px_unicode),
