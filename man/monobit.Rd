@@ -34,12 +34,14 @@ Note \code{monobit} is alpha level software which may not always work
    tempfile <- tempfile(fileext = ".hex")
    writeLines(readLines(font_file), tempfile)
 
-   font <- read_monobit(tempfile)
-   capital_r <- font[[str2ucp("R")]]
-   print(capital_r, px = c(".", "#"))
+   try({ # `monobit` is alpha level software which may not always work
+     font <- read_monobit(tempfile)
+     capital_r <- font[[str2ucp("R")]]
+     print(capital_r, px = c(".", "#"))
 
-   filename <- tempfile(fileext = ".yaff")
-   write_monobit(font, filename)
+     filename <- tempfile(fileext = ".yaff")
+     write_monobit(font, filename)
+   })
  }
 }
 \seealso{

@@ -14,7 +14,7 @@
 * [Game Bit](#gamebit)
 * [Related Software](#similar)
 
-**Please note this README is best [viewed elsewhere](https://trevorldavis.com/R/bittermelon/dev) than `github.com`**. `github.com`'s default `line-height` setting causes distracting extraneous horizontal lines to appear when "printing" bitmaps and `github.com` [does not allow using CSS](https://gist.github.com/kivikakk/622b5dcf395e26c49e2334f0eb19e6f9) to set a more reasonable `line-height` value.
+**Please note this README is best [viewed elsewhere](https://trevorldavis.com/R/bittermelon/dev/) than `github.com`**. `github.com`'s default `line-height` setting causes distracting extraneous horizontal lines to appear when "printing" bitmaps and `github.com` [does not allow using CSS](https://gist.github.com/kivikakk/622b5dcf395e26c49e2334f0eb19e6f9) to set a more reasonable `line-height` value.
 
 ## <a name="overview">Overview</a>
 
@@ -89,7 +89,7 @@ as_bm_list("RSTATS", font = fixed_6x13) |>
 
 ## <a name="hexfont">GNU Unifont via {hexfont}</a>
 
-The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper function `unifont()` which loads several GNU Unifont hex fonts as a single `{bittermelon}` `bm_font()` object.  [GNU Unifont](http://unifoundry.com/unifont/index.html) is a monoscale bitmap font (8x16 and 16x16 glyphs) that pretty much covers all of the official Unicode glyphs plus several of the artificial scripts in the [(Under-)ConScript Unicode Registry](http://www.kreativekorp.com/ucsur/).
+The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper function `unifont()` which loads several GNU Unifont hex fonts as a single `{bittermelon}` `bm_font()` object.  [GNU Unifont](https://unifoundry.com/unifont/index.html) is a monoscale bitmap font (8x16 and 16x16 glyphs) that pretty much covers all of the official Unicode glyphs plus several of the artificial scripts in the [(Under-)ConScript Unicode Registry](https://www.kreativekorp.com/ucsur/).
 
 
 ```{r unifont}
@@ -111,7 +111,7 @@ as_bm_list("🐭🐲🐵", font = font) |>
 
 ## <a name="gamebit">Game Bit</a>
 
-I wrote `{bittermelon}` in order to help create [Game Bit](https://github.com/trevorld/game-bit-font), a fixed-width [bitmap](https://en.wikipedia.org/wiki/Computer_font#BITMAP) font specialized for making board game diagrams. The [duospaced](https://en.wikipedia.org/wiki/Duospaced_font) version is called **Game Bit Duo** while the square [monospaced](https://en.wikipedia.org/wiki/Monospaced_font) version is called **Game Bit Mono**.  Check out the [Game Bit Github repo](https://github.com/trevorld/game-bit-font) to see an extended example of using `{bittermelon}` to make a custom font (albeit with several glyphs adopted/adapted from [GNU Unifont](http://unifoundry.com/unifont/index.html)).
+I wrote `{bittermelon}` in order to help create [Game Bit](https://github.com/trevorld/game-bit-font), a fixed-width [bitmap](https://en.wikipedia.org/wiki/Computer_font#BITMAP) font specialized for making board game diagrams. The [duospaced](https://en.wikipedia.org/wiki/Duospaced_font) version is called **Game Bit Duo** while the square [monospaced](https://en.wikipedia.org/wiki/Monospaced_font) version is called **Game Bit Mono**.  Check out the [Game Bit Github repo](https://github.com/trevorld/game-bit-font) to see an extended example of using `{bittermelon}` to make a custom font (albeit with several glyphs adopted/adapted from [GNU Unifont](https://unifoundry.com/unifont/index.html)).
 
 ![Go diagram](man/figures/go_mono.png) ![Dominoes diagram](man/figures/dominoes_mono.png)
 
@@ -132,7 +132,7 @@ I wrote `{bittermelon}` in order to help create [Game Bit](https://github.com/tr
 ### Other
 
 * [Bits'n'Picas](https://github.com/kreativekorp/bitsnpicas)
-* [FontForge](http://fontforge.org/en-US/)
+* [FontForge](https://fontforge.org/en-US/)
 
 ### Fonts
 
