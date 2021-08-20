@@ -9,7 +9,7 @@ Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"),
              person("Frederic", "Cambus", role = "cph",
                     comment = "Author of included 'Spleen' font"))
 Description: Provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
-URL: https://github.com/trevorld/bittermelon
+URL: https://trevorldavis.com/R/bittermelon/
 BugReports: https://github.com/trevorld/bittermelon/issues
 License: MIT + file LICENSE
 Imports:
