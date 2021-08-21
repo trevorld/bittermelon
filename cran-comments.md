@@ -1,3 +1,5 @@
+* Re-submission.  As requested by Dr. Uwe Ligges I added a missing colon to the (MIT) LICENSE file.
+
 ## Test environments
 
 * github actions (windows, R release)
@@ -8,5 +10,5 @@
 
 ## R CMD check --as-cran results
 
-* NOTE: New submission with a MIT LICENSE file
+* NOTE: New submission
 * NOTE: Possibly misspelled word "glyphs" but it is not misspelled
