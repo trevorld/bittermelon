@@ -16,6 +16,10 @@ write_monobit(font, file, quietly = FALSE)
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }
+\value{
+\code{read_monobit()} returns a \code{\link[=bm_font]{bm_font()}} object.  \code{write_monobit()} returns \code{NULL} invisibly and
+as a side effect writes \code{file}.
+}
 \description{
 \code{read_monobit()} reads in bitmap font file as a \code{\link[=bm_font]{bm_font()}} object while \code{write_monobit()}
 writes a \code{\link[=bm_font]{bm_font()}} object as a bitmap font file.

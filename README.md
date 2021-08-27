@@ -210,7 +210,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ```{.bitmap}
    user  system elapsed 
- 46.712   0.127  46.841 
+ 48.736   0.080  48.816 
 ```
 
 ```r

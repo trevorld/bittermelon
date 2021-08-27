@@ -21,6 +21,10 @@ See [base::\verb{[()}] for more information.}
 
 \item{value}{Replacement value}
 }
+\value{
+\verb{[.bm_bitmap()} returns a \code{bm_bitmap()} object if the value is a matrix  and/or \code{drop} is \code{FALSE}
+otherwise it returns an integer matrix.
+}
 \description{
 \verb{[.bm_bitmap()} is defined so that it returns a \code{bm_bitmap()} object
 (if the value is a matrix) and \verb{[<-.bm_bitmap()} casts

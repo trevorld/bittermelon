@@ -17,6 +17,7 @@
 #' @param base A 'bm_bitmap()' object which will be \dQuote{masked} by `mask`.
 #'             Only one of `mask` or `base` may be set.
 #' @param mode Either "luminance"
+#' @inherit bm_clamp return
 #' @examples
 #'  if (require("grid") && capabilities("png")) {
 #'    font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

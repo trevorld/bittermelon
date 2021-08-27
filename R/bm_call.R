@@ -7,6 +7,7 @@
 #' @inheritParams bm_clamp
 #' @param .f A function to execute.
 #' @param ... Additional arguments to `.f`.
+#' @return The return value of `.f`.
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)

@@ -1,4 +1,5 @@
-* Re-submission.  As requested by Dr. Uwe Ligges I added a missing colon to the (MIT) LICENSE file.
+* Re-submission.  As requested by Julia Hader I've added `\value` to .Rd files
+  (that didn't already have them).
 
 ## Test environments
 

@@ -14,6 +14,7 @@
 #'  capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
 #'  print(capital_r, px = c("-", "#"))
 #' @seealso [bm_extend()], [bm_pad()], and [bm_trim()].
+#' @inherit bm_clamp return
 #' @export
 bm_resize <- function(bm_object, value = 0L, # nolint
                       width = NULL, height = NULL,

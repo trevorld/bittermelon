@@ -18,6 +18,9 @@
 #'  write_hex(font, gzfile(filename))
 #' @export
 #' @rdname hex_font
+#' @return `read_hex()` returns a [bm_font()] object.
+#'         `write_hex()` returns invisibly a character vector of the contents
+#'         of the hex font file it wrote to `con` as a side effect.
 #' @seealso [bm_font()]
 read_hex <- function(con) {
     if (inherits(con, "connection"))

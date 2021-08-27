@@ -16,6 +16,11 @@ If it is a connection it will be explicitly closed.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }
+\value{
+\code{read_yaff()} returns a \code{\link[=bm_font]{bm_font()}} object.
+\code{write_yaff()} returns invisibly a character vector of the contents
+of the yaff font file it wrote to \code{con} as a side effect.
+}
 \description{
 \code{read_yaff()} reads in yaff format bitmap font files
 as a \code{\link[=bm_font]{bm_font()}} object while \code{write_yaff()} writes a \code{\link[=bm_font]{bm_font()}} object

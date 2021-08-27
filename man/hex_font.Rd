@@ -16,6 +16,11 @@ If it is a connection it will be explicitly closed.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }
+\value{
+\code{read_hex()} returns a \code{\link[=bm_font]{bm_font()}} object.
+\code{write_hex()} returns invisibly a character vector of the contents
+of the hex font file it wrote to \code{con} as a side effect.
+}
 \description{
 \code{read_hex()} reads in hex format bitmap font files
 as a \code{\link[=bm_font]{bm_font()}} object while \code{write_hex()} writes a \code{\link[=bm_font]{bm_font()}} object

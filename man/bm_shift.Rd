@@ -26,6 +26,9 @@ bm_shift(
 
 \item{left}{Number of pixels to shift towards the left side.}
 }
+\value{
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+}
 \description{
 Shifts non-padding elements within bitmaps by trimming on a specified side and padding on the other
 while preserving the width and height of the original bitmap.

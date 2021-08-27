@@ -10,6 +10,7 @@
 #' @param right Number of pixels to shift towards the right side.
 #' @param bottom Number of pixels to shift towards the bottom side.
 #' @param left Number of pixels to shift towards the left side.
+#' @inherit bm_clamp return
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)

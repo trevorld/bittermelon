@@ -18,6 +18,9 @@
 #'  write_yaff(font, filename)
 #' @export
 #' @rdname yaff_font
+#' @return `read_yaff()` returns a [bm_font()] object.
+#'         `write_yaff()` returns invisibly a character vector of the contents
+#'         of the yaff font file it wrote to `con` as a side effect.
 #' @seealso [bm_font()] for information about bitmap font objects.
 #'     For more information about yaff font format see <https://github.com/robhagemans/monobit#the-yaff-format>.
 read_yaff <- function(con) {

@@ -36,7 +36,7 @@ for \code{\link[findpython:find_python_cmd]{findpython::find_python_cmd()}}.}
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/trevorld/bittermelon}
+  \item \url{https://trevorldavis.com/R/bittermelon/}
   \item Report bugs at \url{https://github.com/trevorld/bittermelon/issues}
 }
 

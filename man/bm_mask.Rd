@@ -38,6 +38,9 @@ it one pixel down or up respectively.
 "centre", "center", and "centre-top" are aliases for "center-top".
 "centre-bottom" is an alias for "center-bottom".}
 }
+\value{
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+}
 \description{
 \code{bm_mask()} modifies bitmaps by using a binary bitmap \dQuote{mask}
 to set certain elements to zero.

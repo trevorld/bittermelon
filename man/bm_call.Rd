@@ -13,6 +13,9 @@ bm_call(bm_object, .f, ...)
 
 \item{...}{Additional arguments to \code{.f}.}
 }
+\value{
+The return value of \code{.f}.
+}
 \description{
 \code{bm_call()} excutes a function call on bitmap objects.
 Since its first argument is the bitmap object it is more

@@ -42,6 +42,9 @@
 #'
 #' @inheritParams base::Ops
 #' @rdname Ops.bm_object
+#' @return `which.bm_bitmap()` returns a logical vector.
+#'         The various `Ops.bm_bitmap` methods return a [bm_bitmap()] object.
+#'         The various `Ops.bm_list` methods return a [bm_list()] object.
 #' @seealso [base::Ops]
 #' @export
 Ops.bm_bitmap <- function(e1, e2) {

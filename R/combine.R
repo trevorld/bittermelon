@@ -21,7 +21,8 @@
 #' share the same name we only keep the last one.
 #' Although names are preserved other attributes such as font
 #' comments and properties are not guaranteed to be preserved.
-#'
+#' @return Either a [bm_list()] or [bm_font()] object.
+#'         See Details for more info.
 #' @param ... [bm_bitmap()], [bm_list()], and/or [bm_font()] objects to combine.
 #' @examples
 #' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

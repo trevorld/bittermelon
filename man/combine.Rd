@@ -15,6 +15,10 @@
 \arguments{
 \item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, and/or \code{\link[=bm_font]{bm_font()}} objects to combine.}
 }
+\value{
+Either a \code{\link[=bm_list]{bm_list()}} or \code{\link[=bm_font]{bm_font()}} object.
+See Details for more info.
+}
 \description{
 \code{c()} combines bitmap objects into \code{bm_list()} or \code{bm_font()} objects.
 In particular when using it to combine fonts the later fonts

@@ -35,6 +35,9 @@ if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
 }
+\value{
+Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+}
 \description{
 \code{bm_distort()} resize images to arbitrary width and height value via distortion.
 }

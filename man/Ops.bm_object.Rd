@@ -31,6 +31,11 @@ which(x, arr.ind = FALSE, useNames = TRUE)
 \item{useNames}{logical indicating if the value of \code{arrayInd()}
    should have (non-null) dimnames at all.}
 }
+\value{
+\code{which.bm_bitmap()} returns a logical vector.
+The various \code{Ops.bm_bitmap} methods return a \code{\link[=bm_bitmap]{bm_bitmap()}} object.
+The various \code{Ops.bm_list} methods return a \code{\link[=bm_list]{bm_list()}} object.
+}
 \description{
 The S3 Ops group generic methods for \code{bm_bitmap()} objects
 are simply the result of the generic integer matrix method

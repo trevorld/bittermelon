@@ -31,6 +31,8 @@
 #' @seealso [bm_font()] for more information about bitmap font objects.
 #'    [read_hex()], [write_hex()], [read_yaff()], [write_yaff()] for pure R bitmap font readers and writers.
 #'    For more information about `monobit` see <https://github.com/robhagemans/monobit>.
+#' @return `read_monobit()` returns a [bm_font()] object.  `write_monobit()` returns `NULL` invisibly and
+#'          as a side effect writes `file`.
 #' @rdname monobit
 #' @export
 read_monobit <- function(file, quietly = FALSE) {

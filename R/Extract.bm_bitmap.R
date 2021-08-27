@@ -17,6 +17,8 @@
 #' @param drop If `TRUE` the result is coerced to a integer vector.
 #' @param value Replacement value
 #' @rdname Extract.bm_bitmap
+#' @return `[.bm_bitmap()` returns a `bm_bitmap()` object if the value is a matrix  and/or `drop` is `FALSE`
+#'         otherwise it returns an integer matrix.
 #' @export
 `[.bm_bitmap` <- function(x, i, j, ..., drop = TRUE) {
     v <- NextMethod()

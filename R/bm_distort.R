@@ -10,6 +10,7 @@
 #' @inheritParams as_bm_bitmap.grob
 #' @inheritParams bm_clamp
 #' @param vp A [grid::viewport()] object that could be used to further manipulate the image.
+#' @inherit bm_clamp return
 #'
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
