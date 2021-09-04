@@ -76,15 +76,9 @@ fixed_4x6 <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz",
                                    package = "bittermelon"))
 fixed_6x13 <- read_yaff(system.file("fonts/fixed/6x13.yaff.gz", 
                                     package = "bittermelon"))
-as_bm_list("RSTATS", font = spleen_8x16) |> 
-    bm_call(cbind) |> 
-    bm_compress("v")
-as_bm_list("RSTATS", font = fixed_4x6) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
-as_bm_list("RSTATS", font = fixed_6x13) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("RSTATS", font = spleen_8x16) |> bm_compress("v")
+as_bm_bitmap("RSTATS", font = fixed_4x6) |> bm_compress("v")
+as_bm_bitmap("RSTATS", font = fixed_6x13) |> bm_compress("v")
 ```
 
 ## <a name="hexfont">GNU Unifont via {hexfont}</a>
@@ -99,14 +93,10 @@ length(font) |> prettyNum(big.mark = ",") # number of glyphs
 object.size(font) |> format(units = "MB") # memory used
 
 # Mandarin Chinese
-as_bm_list("Ｒ很棒！", font = font) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("Ｒ很棒！", font = font) |> bm_compress("v")
 
 # Emoji
-as_bm_list("🐭🐲🐵", font = font) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("🐭🐲🐵", font = font) |> bm_compress("v")
 ```
 
 ## <a name="gamebit">Game Bit</a>

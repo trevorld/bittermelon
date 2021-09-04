@@ -153,9 +153,7 @@ fixed_4x6 <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz",
                                    package = "bittermelon"))
 fixed_6x13 <- read_yaff(system.file("fonts/fixed/6x13.yaff.gz", 
                                     package = "bittermelon"))
-as_bm_list("RSTATS", font = spleen_8x16) |> 
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("RSTATS", font = spleen_8x16) |> bm_compress("v")
 ```
 
 ```{.bitmap}
@@ -170,9 +168,7 @@ as_bm_list("RSTATS", font = spleen_8x16) |>
 ```
 
 ```r
-as_bm_list("RSTATS", font = fixed_4x6) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("RSTATS", font = fixed_4x6) |> bm_compress("v")
 ```
 
 ```{.bitmap}
@@ -182,9 +178,7 @@ as_bm_list("RSTATS", font = fixed_4x6) |>
 ```
 
 ```r
-as_bm_list("RSTATS", font = fixed_6x13) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("RSTATS", font = fixed_6x13) |> bm_compress("v")
 ```
 
 ```{.bitmap}
@@ -210,7 +204,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ```{.bitmap}
    user  system elapsed 
- 48.736   0.080  48.816 
+ 50.856   0.075  50.936 
 ```
 
 ```r
@@ -231,9 +225,7 @@ object.size(font) |> format(units = "MB") # memory used
 
 ```r
 # Mandarin Chinese
-as_bm_list("Ｒ很棒！", font = font) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("Ｒ很棒！", font = font) |> bm_compress("v")
 ```
 
 ```{.bitmap}
@@ -249,9 +241,7 @@ as_bm_list("Ｒ很棒！", font = font) |>
 
 ```r
 # Emoji
-as_bm_list("🐭🐲🐵", font = font) |>
-    bm_call(cbind) |> 
-    bm_compress("v")
+as_bm_bitmap("🐭🐲🐵", font = font) |> bm_compress("v")
 ```
 
 ```{.bitmap}

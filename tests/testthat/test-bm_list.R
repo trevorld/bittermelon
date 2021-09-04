@@ -164,3 +164,12 @@ test_that("bm_compress()", {
     verify_output("txt/capital_r_compress_b.txt",
         print(bm_compress(capital_r, direction = "both"), px = px_ascii))
 })
+
+test_that("as_bm_bitmap.character()", {
+    verify_output("txt/abbc.txt",
+        print(as_bm_bitmap("RSTATS", font = font), px = px_ascii))
+
+    verify_output("txt/abbc_v.txt",
+        print(as_bm_bitmap("RSTATS", font = font, direction = "ttb"), px = px_ascii))
+
+})

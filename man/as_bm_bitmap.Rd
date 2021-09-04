@@ -4,6 +4,7 @@
 \alias{as_bm_bitmap}
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.default}
+\alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.grob}
 \title{Coerce to bitmap glyph objects}
 \usage{
@@ -12,6 +13,8 @@ as_bm_bitmap(x, ...)
 \method{as_bm_bitmap}{matrix}(x, ...)
 
 \method{as_bm_bitmap}{default}(x, ...)
+
+\method{as_bm_bitmap}{character}(x, ..., direction = "left-to-right", font = bm_font())
 
 \method{as_bm_bitmap}{grob}(
   x,
@@ -26,6 +29,14 @@ as_bm_bitmap(x, ...)
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}
 
 \item{...}{Further arguments passed to or from other methods.}
+
+\item{direction}{For horizontal binding either "left-to-right" (default) or its aliases "ltr" and "lr"
+OR "right-to-left" or its aliases "rtl" and "rl".
+For vertical binding either "top-to-bottom" (default) or its aliases "ttb" and "tb"
+OR "bottom-to-top" or its aliases "btt" and "bt".
+The \code{direction} argument is not case-sensitive.}
+
+\item{font}{A \code{\link[=bm_font]{bm_font()}} object that contains all the characters within \code{x}.}
 
 \item{width}{Desired width of bitmap}
 
@@ -51,6 +62,12 @@ A \code{bm_bitmap()} object.
  space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
  space_glyph <- as_bm_bitmap(space_matrix)
  is_bm_bitmap(space_glyph)
+  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
+  font <- read_yaff(font_file)
+  bm <- as_bm_bitmap("RSTATS", font = font)
+  print(bm, px = px_ascii)
+  bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
+  print(bm, px = px_ascii)
 
  if (require("grid") && capabilities("png")) {
    circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)

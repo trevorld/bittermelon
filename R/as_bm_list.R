@@ -43,5 +43,7 @@ as_bm_list.list <- function(x, ...) {
 as_bm_list.character <- function(x, ..., font = bm_font()) {
     x <- paste(x, collapse = "")
     ucp <- str2ucp(x)
-    as_bm_list(font[ucp])
+    bml <- as_bm_list(font[ucp])
+    stopifnot(!any(sapply(bml, is.null)))
+    bml
 }

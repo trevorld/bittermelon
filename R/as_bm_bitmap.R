@@ -32,6 +32,38 @@ as_bm_bitmap.default <- function(x, ...) {
     as_bm_bitmap.matrix(as.matrix(x))
 }
 
+#' @inheritParams as_bm_list
+#' @rdname as_bm_bitmap
+#' @param direction For horizontal binding either "left-to-right" (default) or its aliases "ltr" and "lr"
+#'                  OR "right-to-left" or its aliases "rtl" and "rl".
+#'                  For vertical binding either "top-to-bottom" (default) or its aliases "ttb" and "tb"
+#'                  OR "bottom-to-top" or its aliases "btt" and "bt".
+#'                  The `direction` argument is not case-sensitive.
+#' @examples
+#'   font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
+#'   font <- read_yaff(font_file)
+#'   bm <- as_bm_bitmap("RSTATS", font = font)
+#'   print(bm, px = px_ascii)
+#'   bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
+#'   print(bm, px = px_ascii)
+#' @export
+as_bm_bitmap.character <- function(x, ...,
+                                   direction = "left-to-right",
+                                   font = bm_font()) {
+    bml <- as_bm_list(x, font = font)
+
+    is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))
+    is_rtl <- c(tolower(direction) %in% c("right-to-left", "rtl", "rl"))
+    is_ttb <- c(tolower(direction) %in% c("top-to-bottom", "ttb", "tb"))
+    is_bbt <- c(tolower(direction) %in% c("bottom-to-top", "bbt", "bt"))
+    stopifnot(is_ltr || is_rtl || is_ttb || is_bbt)
+    if (is_ltr || is_rtl)
+        bm <- bm_call(bml, cbind, direction = direction)
+    else
+        bm <- bm_call(bml, rbind, direction = direction)
+    bm
+}
+
 #' @rdname as_bm_bitmap
 #' @param width Desired width of bitmap
 #' @param height Desired height of bitmap
