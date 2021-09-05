@@ -12,3 +12,4 @@
 ^Rakefile$
 ^README.Rmd$
 ^README.html$
+inst/monobit/tests
