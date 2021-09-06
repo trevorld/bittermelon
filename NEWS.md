@@ -1,4 +1,4 @@
-bittermelon 0.1.2
+bittermelon 0.1.3
 =================
 
 * `bm_bitmap()` creates a S3 object representing bitmaps (#1). 
