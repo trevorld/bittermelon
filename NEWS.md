@@ -1,3 +1,9 @@
+bittermelon 0.2.0
+=================
+
+* Updates the embedded version of [monobit](https://github.com/robhagemans/monobit).
+  In particular `monobit` should now better handle [AngelCode BMFont](http://www.angelcode.com/products/bmfont/) bitmap fonts.
+
 bittermelon 0.1.3
 =================
 
