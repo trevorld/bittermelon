@@ -44,7 +44,7 @@ read_monobit <- function(file, quietly = FALSE) {
     python <- findpython::find_python_cmd(minimum_version = "3.6")
     convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
-    tfile <- tempfile(fileext = ".yaff")
+    tfile <- tempfile(fileext = ".yaff.gz")
     on.exit(unlink(tfile))
 
     system2(python, c(convert, file, tfile), stdout = stdout, stderr = stderr)
@@ -62,10 +62,10 @@ write_monobit <- function(font, file, quietly = FALSE) {
     python <- findpython::find_python_cmd(minimum_version = "3.6")
     convert <- system.file("monobit/convert.py", package = "bittermelon", mustWork = TRUE)
 
-    tfile <- tempfile(fileext = ".yaff")
+    tfile <- tempfile(fileext = ".yaff.gz")
     on.exit(unlink(tfile))
 
-    write_yaff(font, tfile)
+    write_yaff(font, gzfile(tfile))
     system2(python, c(convert, tfile, file), stdout = stdout, stderr = stderr)
     invisible(invisible(NULL))
 }
