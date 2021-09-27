@@ -3,7 +3,7 @@ bittermelon 0.2.0
 
 * Updates the embedded version of [monobit](https://github.com/robhagemans/monobit).
   In particular `monobit` should now better handle Amiga, [AngelCode BMFont](http://www.angelcode.com/products/bmfont/), X11/Adobe BDF, and C/C++ source code bitmap fonts and be able to natively read/write 
-  gzip compressed fonts.
+  bzip2, gzip, or lzma compressed fonts.
 * We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
 
 bittermelon 0.1.3
