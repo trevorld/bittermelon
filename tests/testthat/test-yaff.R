@@ -25,4 +25,5 @@ test_that("read_yaff() and write_yaff()", {
 test_that("is_combining_character()", {
     expect_false(is_combining_character(str2ucp("a")))
     expect_true(is_combining_character("U+0300"))
+    expect_true(is_combining_character("U+20DD"))
 })

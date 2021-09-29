@@ -32,5 +32,6 @@ ucp_sort <- function(x, decreasing = FALSE) {
 #' @rdname unicode_utilities
 #' @export
 is_combining_character <- function(x) {
-    Unicode::u_char_property(x, "Canonical_Combining_Class") > 0L
+    Unicode::u_char_property(x, "Canonical_Combining_Class") > 0L ||
+        Unicode::u_char_property(x, "General_Category") == "Me"
 }
