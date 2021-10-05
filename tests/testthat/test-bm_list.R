@@ -152,6 +152,10 @@ test_that("bm_expand()", {
 
     verify_output("txt/capital_r_expand_2vw.txt",
         print(bm_expand(capital_r, width = 2L, height = 2L), px = px_ascii))
+
+    zero <- bm_bitmap(matrix(integer(), nrow=0, ncol=0))
+    zero_expand <- bm_expand(zero, width = 2L, height = 2L)
+    expect_equal(dim(zero_expand), c(0, 0))
 })
 
 test_that("bm_compress()", {

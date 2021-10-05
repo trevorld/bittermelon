@@ -7,6 +7,7 @@ bittermelon 0.2.0
 * We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
 * Fixes bug in `is_combining_character()`.  
   Now "combining enclosing" characters are correctly classified as combining characters.
+* Fixes bug in `bm_expand()` for bitmaps with zero columns/rows.
 
 bittermelon 0.1.3
 =================

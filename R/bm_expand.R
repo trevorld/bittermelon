@@ -27,6 +27,11 @@ bm_expand <- function(bm_object, width = 1L, height = 1L) {
 }
 
 bm_expand_bitmap <- function(bitmap, width = 1L, height = 1L) {
+    if (nrow(bitmap) == 0L || ncol(bitmap) == 0L) {
+        nr <- height * nrow(bitmap)
+        nc <- width * ncol(bitmap)
+        return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
+    }
     if (width != 1L) {
         l <- lapply(seq_len(ncol(bitmap)),
                     function(j) bitmap[, j, drop = FALSE])
