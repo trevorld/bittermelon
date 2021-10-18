@@ -99,6 +99,7 @@ as_bm_bitmap.character <- function(x, ...,
         vdirection <- ifelse(is_lrtb || is_rltb, "top-to-bottom", "bottom-to-top")
         l <- lapply(x, as_bm_list, font = font)
         if (compose) l <- lapply(l, bm_compose, pua_combining)
+        l <- lapply(l, add_space, font = font)
         l <- lapply(l, function(x) bm_call(x, cbind, direction = hdirection, vjust = vjust))
         bm <- bm_call(l, rbind, direction = vdirection, hjust = hjust)
     } else {
@@ -106,10 +107,20 @@ as_bm_bitmap.character <- function(x, ...,
         vdirection <- ifelse(is_tblr || is_tbrl, "top-to-bottom", "bottom-to-top")
         l <- lapply(x, as_bm_list, font = font)
         if (compose) l <- lapply(l, bm_compose, pua_combining)
+        l <- lapply(l, add_space, font = font)
         l <- lapply(l, function(x) bm_call(x, rbind, direction = vdirection, hjust = hjust))
         bm <- bm_call(l, cbind, direction = hdirection, vjust = vjust)
     }
     bm
+}
+
+# If a line of text is empty fill it with "space" instead
+add_space <- function(bml, font) {
+    if (length(bml) > 0) {
+        bml
+    } else {
+        font["U+0020"]
+    }
 }
 
 #' @rdname as_bm_bitmap
