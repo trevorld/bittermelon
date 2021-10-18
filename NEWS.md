@@ -1,21 +1,28 @@
 bittermelon 0.2.0
 =================
 
+New features
+------------
+
+* New function `bm_compose()` simplifies `bm_list()` object
+  by applying combining marks to preceding glpyhs (composing new graphemes) (#42).
 * `as_bm_bitmap.character()` has new arguments `compose` and `pua_combining`
   to compose graphemes using combining characters.
 * `as_bm_bitmap.character()` direction argument now supports combining
   in combinations of horizontal/vertical directions such as
   `left-to-right, top-to-bottom` (#47).
-* `bm_compose()` simplifies `bm_list()` object
-  by applying combining marks to preceding glpyhs (composing new graphemes) (#42).
 * `is_combining_character()` has new argument `pua_combining`
   which is character vector of additional Unicode code points
   to be considered "combining" characters (such as those
   in the Private Use Area of a font).  Defaults to `character(0)`.
+* We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
+
+Bug fixes and minor improvements
+--------------------------------
+
 * Updates the embedded version of [monobit](https://github.com/robhagemans/monobit).
   In particular `monobit` should now better handle Amiga, [AngelCode BMFont](http://www.angelcode.com/products/bmfont/), X11/Adobe BDF, and C/C++ source code bitmap fonts and be able to natively read/write 
   bzip2, gzip, or lzma compressed fonts.
-* We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
 * Fixes bug in `is_combining_character()`.  
   Now "combining enclosing" characters are correctly classified as combining characters.
 * Fixes bug in `bm_expand()` for bitmaps with zero columns/rows.

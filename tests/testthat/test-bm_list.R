@@ -49,6 +49,8 @@ test_that("as_bm_list()", {
     bml <- !as_bm_list("RSTATS", font = font)
     bm <- do.call(cbind, bml)
     verify_output("txt/RSTATS_inverted.txt", print(bm, px = c(" ", "#", "X")))
+
+    expect_equal(as_bm_list("", font = font), bm_list())
 })
 
 test_that("bm_widths() and bm_heights()", {

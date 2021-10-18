@@ -41,5 +41,6 @@ bm_compose <- function(bml, pua_combining = character(0), ...) {
             names(bml_new)[i_new] <- names(bml)[i]
         }
     }
+    class(bml_new) <- c("bm_list", class(bml_new))
     bml_new
 }
