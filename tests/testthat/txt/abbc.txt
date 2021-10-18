@@ -1,4 +1,4 @@
-> print(as_bm_bitmap("RSTATS", font = font), px = px_ascii)
+> print(as_bm_bitmap("RSTATS", font = font, direction = "lr"), px = px_ascii)
 ------------------------------------------------
 ------------------------------------------------
 @@@@@@---@@@@@@-@@@@@@@@-@@@@@--@@@@@@@@-@@@@@@-
