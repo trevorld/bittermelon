@@ -10,12 +10,16 @@ ucp2label(x)
 
 ucp_sort(x, decreasing = FALSE)
 
-is_combining_character(x)
+is_combining_character(x, pua_combining = character(0))
 }
 \arguments{
 \item{x}{A character vector of Unicode code points.}
 
 \item{decreasing}{If \code{TRUE} do a decreasing sort.}
+
+\item{pua_combining}{Additional Unicode code points to be considered
+as a \dQuote{combining} character such as characters
+defined in the Private Use Area (PUA) of a font.}
 }
 \value{
 \code{ucp2label()} returns a character vector of Unicode labels.
