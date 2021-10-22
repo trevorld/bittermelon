@@ -11,6 +11,8 @@
 #'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
 #'     \item{bittermelon.compress}{Set new default `compress` argument value for
 #'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
+#'     \item{bittermelon.monobit_path}{Set new default `monobit_path` argument value
+#'                           for [read_monobit()] and [write_monobit()].}
 #'   }
 #'  The following `findpython` option may also be of interest:
 #'   \describe{

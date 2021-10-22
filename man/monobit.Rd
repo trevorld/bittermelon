@@ -3,18 +3,39 @@
 \name{read_monobit}
 \alias{read_monobit}
 \alias{write_monobit}
+\alias{update_monobit}
 \title{Read and write bitmap font files using monobit}
 \usage{
-read_monobit(file, quietly = FALSE)
+read_monobit(
+  file,
+  quietly = FALSE,
+  monobit_path = getOption("bittermelon.monobit_path", NULL)
+)
 
-write_monobit(font, file, quietly = FALSE)
+write_monobit(
+  font,
+  file,
+  quietly = FALSE,
+  monobit_path = getOption("bittermelon.monobit_path", NULL)
+)
+
+update_monobit(site = FALSE)
 }
 \arguments{
 \item{file}{A character string of a filename.}
 
 \item{quietly}{If \code{TRUE} suppress any standard output/error from \code{monobit}.}
 
+\item{monobit_path}{Which directory containing \code{monobit} to use.
+Default will be to look in \code{file.path(rappdirs::user_config_dir("bittermelon"), "monobit")},
+\code{file.path(rappdirs::site_config_dir("bittermelon"), "monobit")}, and
+\code{system.file("monobit", package = "bittermelon")} (in that order).}
+
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
+
+\item{site}{If \code{TRUE} try to install into \code{rappdirs::site_config_dir("bittermelon")}
+instead of \code{rappdirs::user_config_dir("bittermelon")}.
+Note this may require administrator privileges.}
 }
 \value{
 \code{read_monobit()} returns a \code{\link[=bm_font]{bm_font()}} object.  \code{write_monobit()} returns \code{NULL} invisibly and
@@ -24,13 +45,15 @@ as a side effect writes \code{file}.
 \code{read_monobit()} reads in bitmap font file as a \code{\link[=bm_font]{bm_font()}} object while \code{write_monobit()}
 writes a \code{\link[=bm_font]{bm_font()}} object as a bitmap font file.
 It uses the file extension to determine the appropriate bitmap font format to use.
+\code{update_monobit()} downloads an updated version of \code{monobit}.
 }
 \details{
 \code{read_monobit()} and \code{write_monobit()} require Python v3.6 or greater available on the system.
 \code{read_monobit()} and \code{write_monobit()} uses \code{monobit}'s \code{convert.py} script to convert to/from
 the yaff font format which this package can natively read/write from/to.
-Note \code{monobit} is alpha level software which may not always work
-(in particular font export may be buggy).
+This package embeds an older, smaller version of \code{monobit}.
+Use \code{update_monobit()} to download a newer, better version of \code{monobit}
+(which unfortunately is too large to embed within this package).
 }
 \examples{
  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
@@ -38,14 +61,12 @@ Note \code{monobit} is alpha level software which may not always work
    tempfile <- tempfile(fileext = ".hex")
    writeLines(readLines(font_file), tempfile)
 
-   try({ # `monobit` is alpha level software which may not always work
-     font <- read_monobit(tempfile)
-     capital_r <- font[[str2ucp("R")]]
-     print(capital_r, px = c(".", "#"))
+   font <- read_monobit(tempfile)
+   capital_r <- font[[str2ucp("R")]]
+   print(capital_r, px = c(".", "#"))
 
-     filename <- tempfile(fileext = ".yaff")
-     write_monobit(font, filename)
-   })
+   filename <- tempfile(fileext = ".yaff")
+   write_monobit(font, filename)
  }
 }
 \seealso{

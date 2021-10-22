@@ -24,6 +24,8 @@ some may prefer \code{px_ascii} which is an ASCII alternative.}
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.compress}{Set new default \code{compress} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
+\item{bittermelon.monobit_path}{Set new default \code{monobit_path} argument value
+for \code{\link[=read_monobit]{read_monobit()}} and \code{\link[=write_monobit]{write_monobit()}}.}
 }
 The following \code{findpython} option may also be of interest:
 \describe{

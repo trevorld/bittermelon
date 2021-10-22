@@ -16,6 +16,17 @@ New features
   to be considered "combining" characters (such as those
   in the Private Use Area of a font).  Defaults to `character(0)`.
 * We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
+* `read_monobit()` and `write_monobit()` take new argument `monobit_path` indicating
+  the directory path containing `monobit` to use.  
+  Default will be to look in `file.path(rappdirs::user_config_dir("bittermelon"), "monobit")`,
+  `file.path(rappdirs::site_config_dir("bittermelon"), "monobit")`, and
+  `system.file("monobit", package = "bittermelon")` (in that order).
+  New package option `bittermelon.monobit_path` can be used to set a new default. (#48)
+* New function `update_monobit()` which downloads the most up to date (upstream) version of 
+  [monobit](https://github.com/robhagemans/monobit).
+  Although we continue to embed an older, more compact version of `monobit` in this package
+  the newest versions of `monobit` are too large to embed within this package and
+  must be downloaded separately.
 
 Bug fixes and minor improvements
 --------------------------------
