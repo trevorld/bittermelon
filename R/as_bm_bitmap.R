@@ -40,7 +40,8 @@ as_bm_bitmap.default <- function(x, ...) {
 #'                  OR "right-to-left" or its aliases "rtl" and "rl".
 #'                  For purley vertical binding either "top-to-bottom" (default) or its aliases "ttb" and "tb"
 #'                  OR "bottom-to-top" or its aliases "btt" and "bt".
-#'                  For character vectors of length greater than one: for first horizontal binding within values in the vector
+#'                  For character vectors of length greater than one: for first horizontal binding within
+#'                  values in the vector
 #'                  and then vertical binding across values in the vector "left-to-right, top-to-bottom" (default)
 #'                  or its aliases "lrtb" and "lr-tb"; "left-to-right, bottom-to-top" or its aliases "lrbt" and "lr-bt";
 #'                  "right-to-left, top-to-bottom" or its aliases "rltb" and "rl-tb"; or
@@ -70,41 +71,27 @@ as_bm_bitmap.character <- function(x, ...,
                                    pua_combining = character(0)) {
 
     direction <- tolower(direction)
-
-    is_ltr <- direction %in% c("left-to-right", "ltr", "lr")
-    is_rtl <- direction %in% c("right-to-left", "rtl", "rl")
-    is_ttb <- direction %in% c("top-to-bottom", "ttb", "tb")
-    is_btt <- direction %in% c("bottom-to-top", "btt", "bt")
-    is_lrtb <- direction %in% c("left-to-right, top-to-bottom", "lrtb", "lr-tb")
-    is_lrbt <- direction %in% c("left-to-right, bottom-to-top", "lrbt", "lr-bt")
-    is_rltb <- direction %in% c("right-to-left, top-to-bottom", "rltb", "rl-tb")
-    is_rlbt <- direction %in% c("right-to-left, bottom-to-top", "rlbt", "rl-bt")
-    is_tblr <- direction %in% c("top-to-bottom, left-to-right", "tblr", "tb-lr")
-    is_tbrl <- direction %in% c("top-to-bottom, right-to-left", "tbrl", "tb-rl")
-    is_btlr <- direction %in% c("bottom-to-top, left-to-right", "btlr", "bt-lr")
-    is_btrl <- direction %in% c("bottom-to-top, right-to-left", "btrl", "bt-rl")
-    stopifnot(is_ltr || is_rtl || is_ttb || is_btt ||
-              is_lrtb || is_lrbt || is_rltb || is_rlbt ||
-              is_tblr || is_btlr || is_tbrl || is_btrl)
-    if (is_ltr || is_rtl) {
+    check_direction(direction)
+    direction_type <- get_direction_type(direction)
+    if (direction_type == "h") {
         bml <- as_bm_list(x, font = font)
         if (compose) bml <- bm_compose(bml, pua_combining)
         bm <- bm_call(bml, cbind, direction = direction, vjust = vjust)
-    } else if (is_ttb || is_btt) {
+    } else if (direction_type == "v") {
         bml <- as_bm_list(x, font = font)
         if (compose) bml <- bm_compose(bml, pua_combining)
         bm <- bm_call(bml, rbind, direction = direction, hjust = hjust)
-    } else if (is_lrtb || is_lrbt || is_rltb || is_rlbt) {
-        hdirection <- ifelse(is_lrtb || is_lrbt, "left-to-right", "right-to-left")
-        vdirection <- ifelse(is_lrtb || is_rltb, "top-to-bottom", "bottom-to-top")
+    } else if (direction_type == "hv") {
+        hdirection <- get_h_direction(direction)
+        vdirection <- get_v_direction(direction)
         l <- lapply(x, as_bm_list, font = font)
         if (compose) l <- lapply(l, bm_compose, pua_combining)
         l <- lapply(l, add_space, font = font)
         l <- lapply(l, function(x) bm_call(x, cbind, direction = hdirection, vjust = vjust))
         bm <- bm_call(l, rbind, direction = vdirection, hjust = hjust)
-    } else {
-        hdirection <- ifelse(is_tblr || is_btlr, "left-to-right", "right-to-left")
-        vdirection <- ifelse(is_tblr || is_tbrl, "top-to-bottom", "bottom-to-top")
+    } else { # vh
+        hdirection <- get_h_direction(direction)
+        vdirection <- get_v_direction(direction)
         l <- lapply(x, as_bm_list, font = font)
         if (compose) l <- lapply(l, bm_compose, pua_combining)
         l <- lapply(l, add_space, font = font)
@@ -112,6 +99,55 @@ as_bm_bitmap.character <- function(x, ...,
         bm <- bm_call(l, cbind, direction = hdirection, vjust = vjust)
     }
     bm
+}
+
+check_direction <- function(direction) {
+
+    stopifnot(direction %in% c("left-to-right", "ltr", "lr",
+                               "right-to-left", "rtl", "rl",
+                               "top-to-bottom", "ttb", "tb",
+                               "bottom-to-top", "btt", "bt",
+                               "left-to-right, top-to-bottom", "lrtb", "lr-tb",
+                               "left-to-right, bottom-to-top", "lrbt", "lr-bt",
+                               "right-to-left, top-to-bottom", "rltb", "rl-tb",
+                               "right-to-left, bottom-to-top", "rlbt", "rl-bt",
+                               "top-to-bottom, left-to-right", "tblr", "tb-lr",
+                               "top-to-bottom, right-to-left", "tbrl", "tb-rl",
+                               "bottom-to-top, left-to-right", "btlr", "bt-lr",
+                               "bottom-to-top, right-to-left", "btrl", "bt-rl"))
+}
+
+get_direction_type <- function(direction) {
+    is_h <- direction %in% c("left-to-right", "ltr", "lr", "right-to-left", "rtl", "rl")
+    is_v <- direction %in% c("top-to-bottom", "ttb", "tb", "bottom-to-top", "btt", "bt")
+    is_hv <- direction %in% c("left-to-right, top-to-bottom", "lrtb", "lr-tb",
+                              "left-to-right, bottom-to-top", "lrbt", "lr-bt",
+                              "right-to-left, top-to-bottom", "rltb", "rl-tb",
+                              "right-to-left, bottom-to-top", "rlbt", "rl-bt")
+
+    if (is_h) {
+        "h"
+    } else if (is_v) {
+       "v"
+    } else if (is_hv) {
+        "hv"
+    } else {
+        "vh"
+    }
+}
+
+get_h_direction <- function(direction) {
+    if (grepl("left-to-right|ltr|lr", direction))
+        "left-to-right"
+    else
+        "right-to-left"
+}
+
+get_v_direction <- function(direction) {
+    if (grepl("top-to-bottom|ttb|tb", direction))
+        "top-to-bottom"
+    else
+        "bottom-to-top"
 }
 
 # If a line of text is empty fill it with "space" instead

@@ -43,7 +43,8 @@ as_bm_bitmap(x, ...)
 OR "right-to-left" or its aliases "rtl" and "rl".
 For purley vertical binding either "top-to-bottom" (default) or its aliases "ttb" and "tb"
 OR "bottom-to-top" or its aliases "btt" and "bt".
-For character vectors of length greater than one: for first horizontal binding within values in the vector
+For character vectors of length greater than one: for first horizontal binding within
+values in the vector
 and then vertical binding across values in the vector "left-to-right, top-to-bottom" (default)
 or its aliases "lrtb" and "lr-tb"; "left-to-right, bottom-to-top" or its aliases "lrbt" and "lr-bt";
 "right-to-left, top-to-bottom" or its aliases "rltb" and "rl-tb"; or
