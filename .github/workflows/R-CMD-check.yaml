@@ -43,6 +43,11 @@ jobs:
         with:
           extra-packages: rcmdcheck
 
+      - name: Download git submodule
+        if: always()
+        run: git submodule update --init
+        shell: bash
+
       - uses: r-lib/actions/check-r-package@v1
 
       - name: Show testthat output
