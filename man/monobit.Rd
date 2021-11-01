@@ -57,16 +57,18 @@ Use \code{update_monobit()} to download a newer, better version of \code{monobit
 }
 \examples{
  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
-   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-   tempfile <- tempfile(fileext = ".hex")
-   writeLines(readLines(font_file), tempfile)
+   try({
+     font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+     tempfile <- tempfile(fileext = ".hex")
+     writeLines(readLines(font_file), tempfile)
 
-   font <- read_monobit(tempfile)
-   capital_r <- font[[str2ucp("R")]]
-   print(capital_r, px = c(".", "#"))
+     font <- read_monobit(tempfile)
+     capital_r <- font[[str2ucp("R")]]
+     print(capital_r, px = c(".", "#"))
 
-   filename <- tempfile(fileext = ".yaff")
-   write_monobit(font, filename)
+     filename <- tempfile(fileext = ".yaff")
+     write_monobit(font, filename)
+   })
  }
 }
 \seealso{
