@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
+Provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs. Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
 }
 \section{Package options}{
 
