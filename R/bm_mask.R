@@ -16,7 +16,7 @@
 #'             Only one of `mask` or `base` may be set.
 #' @param base A 'bm_bitmap()' object which will be \dQuote{masked} by `mask`.
 #'             Only one of `mask` or `base` may be set.
-#' @param mode Either "luminance"
+#' @param mode Either "luminance" (default) or "alpha".
 #' @inherit bm_clamp return
 #' @examples
 #'  if (require("grid") && capabilities("png")) {

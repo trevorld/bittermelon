@@ -22,7 +22,7 @@ Only one of \code{mask} or \code{base} may be set.}
 \item{base}{A 'bm_bitmap()' object which will be \dQuote{masked} by \code{mask}.
 Only one of \code{mask} or \code{base} may be set.}
 
-\item{mode}{Either "luminance"}
+\item{mode}{Either "luminance" (default) or "alpha".}
 
 \item{hjust}{One of "left", "center-left", "center-right", "right".
 "center-left" and "center-right" will attempt to
