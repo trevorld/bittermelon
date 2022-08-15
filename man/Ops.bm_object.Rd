@@ -19,14 +19,14 @@ which(x, arr.ind = FALSE, useNames = TRUE)
 \method{which}{bm_bitmap}(x, arr.ind = FALSE, useNames = TRUE)
 }
 \arguments{
-\item{e1}{objects.}
+\item{e1, e2}{objects.}
 
-\item{e2}{objects.}
-
-\item{x}{objects.}
+\item{x}{a \code{\link[base]{logical}} vector or array.  \code{\link[base]{NA}}s
+   are allowed and omitted (treated as if \code{FALSE}).}
 
 \item{arr.ind}{logical; should \bold{arr}ay \bold{ind}ices be returned
-   when \code{x} is an array?}
+   when \code{x} is an array?  Anything other than a single true value
+   is treated as false.}
 
 \item{useNames}{logical indicating if the value of \code{arrayInd()}
    should have (non-null) dimnames at all.}

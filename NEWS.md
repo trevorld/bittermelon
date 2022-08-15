@@ -1,3 +1,8 @@
+bittermelon 1.0.0
+=================
+
+This update has no user-facing changes (at the request of CRAN we re-built our package man pages with an updated version of the `{roxygen2}` package to avoid a deprecated html image alignment warning).
+
 bittermelon 0.2.1
 =================
 

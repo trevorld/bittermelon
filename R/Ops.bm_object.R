@@ -42,6 +42,7 @@
 #'
 #' @inheritParams base::Ops
 #' @rdname Ops.bm_object
+#' @param e1,e2 objects.
 #' @return `which.bm_bitmap()` returns a logical vector.
 #'         The various `Ops.bm_bitmap` methods return a [bm_bitmap()] object.
 #'         The various `Ops.bm_list` methods return a [bm_list()] object.

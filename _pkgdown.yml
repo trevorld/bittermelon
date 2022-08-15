@@ -4,26 +4,28 @@ development:
     mode: auto
 reference:
     - title: "Bitmap objects"
-      desc: "Bitmap objects and methods"
+      desc: 'Bitmap objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
-          - starts_with("bm_bitmap")
-          - ends_with("bm_bitmap")
-          - -Ops.bm_bitmap
-          - -c.bm_bitmap
+          - bm_bitmap
+          - as_bm_bitmap
+          - is_bm_bitmap
+          - starts_with("\\[")
+          - as.matrix.bm_bitmap
+          - cbind.bm_bitmap
+          - plot.bm_bitmap
+          - print.bm_bitmap
     - title: "Bitmap list objects"
-      desc: "Bitmap list objects and methods"
+      desc: 'Bitmap list objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
-          - starts_with("bm_list")
-          - ends_with("bm_list")
-          - -Ops.bm_list
-          - -Summary.bm_list
-          - -c.bm_list
+          - bm_list
+          - as_bm_list
+          - is_bm_list
     - title: "Bitmap font objects"
-      desc: "Bitmap font objects and methods"
+      desc: 'Bitmap font objects and methods.  See also "Modify bitmaps", "Other bitmap object utilities", and "Read/write bitmap fonts".'
       contents:
-          - starts_with("bm_font")
-          - ends_with("bm_font")
-          - -c.bm_font
+          - bm_font
+          - as_bm_font
+          - is_bm_font
     - title: "Read/write bitmap fonts"
       desc: "Functions to read/write bitmap fonts"
       contents:
