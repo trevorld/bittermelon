@@ -6,23 +6,29 @@
 #' @param con A connection object or a character string of a filename.
 #'            See [base::readLines()] or [base::writeLines()] for more info.
 #'            If it is a connection it will be explicitly closed.
-#'
+#' @param ucp Character vector of Unicode Code Points: glyphs not in this vector won't be read in.
+#'            If `NULL` (default) read every glyph in the font.
 #' @param font A [bm_font()] object.
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r, px = c(".", "#"))
+#'  print(capital_r, px = px_ascii)
 #'
 #'  filename <- tempfile(fileext = ".hex.gz")
 #'  write_hex(font, gzfile(filename))
+#'
+#'  font <- read_hex(font_file, ucp = block2ucp("Basic Latin"))
+#'  capital_r <- font[[str2ucp("R")]]
+#'  print(capital_r, px = px_ascii)
 #' @export
 #' @rdname hex_font
 #' @return `read_hex()` returns a [bm_font()] object.
 #'         `write_hex()` returns invisibly a character vector of the contents
 #'         of the hex font file it wrote to `con` as a side effect.
 #' @seealso [bm_font()]
-read_hex <- function(con) {
+read_hex <- function(con, ucp = NULL) {
+    stopifnot(is.null(ucp) || all(is_ucp(ucp)))
     if (inherits(con, "connection"))
         on.exit(close(con))
 
@@ -39,8 +45,14 @@ read_hex <- function(con) {
         code_points <- sapply(glyphs, function(x) x[1])
         code_points <- hex2ucp(code_points)
 
-        glyphs <- lapply(glyphs, function(x) as_bm_bitmap_hex(x[2]))
-        names(glyphs) <- code_points
+        if (is.null(ucp)) {
+            glyphs <- lapply(glyphs, function(x) as_bm_bitmap_hex(x[2]))
+            names(glyphs) <- code_points
+        } else {
+            indices <- which(code_points %in% ucp)
+            glyphs <- lapply(glyphs[indices], function(x) as_bm_bitmap_hex(x[2]))
+            names(glyphs) <- code_points[indices]
+        }
     }
 
     bm_font(glyphs, comments = comments)

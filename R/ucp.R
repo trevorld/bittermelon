@@ -62,7 +62,7 @@ int2ucp <- function(x) {
 #' @rdname unicode_code_points
 #' @export
 str2ucp <- function(x) {
-    sapply(x, function(s) int2ucp(utf8ToInt(s)), USE.NAMES = FALSE)
+    unlist(lapply(x, function(s) int2ucp(utf8ToInt(s))))
 }
 
 #' @rdname unicode_code_points
@@ -80,9 +80,10 @@ is_ucp <- function(x) {
 #' @rdname unicode_code_points
 #' @export
 block2ucp <- function(x, omit_unnamed = TRUE) {
-    stopifnot(length(x) == 1L)
-    r <- Unicode::u_blocks(x)[[1]]
-    ucp <- as.character(Unicode::as.u_char(r))
+    f <- function(x) as.character(Unicode::as.u_char(x))
+    ucp <- unlist(lapply(Unicode::u_blocks(x), f))
+    names(ucp) <- NULL
+
     if (omit_unnamed) {
         n <- Unicode::u_char_name(ucp)
         ucp <- ucp[which(!is.na(n) & n != "")]

@@ -1,3 +1,18 @@
+bittermelon 1.1.0
+=================
+
+New features
+------------
+
+* `read_hex()` has new argument `ucp`.  
+  Character vector of Unicode Code Points: glyphs not in this vector won't be read in.
+  If `NULL` (default) read every glyph in the font (#52).
+
+Bug fixes and minor improvements
+--------------------------------
+
+* `block2ucp()` and `str2ucp()` are now vectorized in their first argument.
+
 bittermelon 1.0.0
 =================
 

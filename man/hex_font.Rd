@@ -5,7 +5,7 @@
 \alias{write_hex}
 \title{Read and write hex bitmap font files}
 \usage{
-read_hex(con)
+read_hex(con, ucp = NULL)
 
 write_hex(font, con = stdout())
 }
@@ -13,6 +13,9 @@ write_hex(font, con = stdout())
 \item{con}{A connection object or a character string of a filename.
 See \code{\link[base:readLines]{base::readLines()}} or \code{\link[base:writeLines]{base::writeLines()}} for more info.
 If it is a connection it will be explicitly closed.}
+
+\item{ucp}{Character vector of Unicode Code Points: glyphs not in this vector won't be read in.
+If \code{NULL} (default) read every glyph in the font.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }
@@ -30,10 +33,14 @@ as a hex format bitmap font file.
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = c(".", "#"))
+ print(capital_r, px = px_ascii)
 
  filename <- tempfile(fileext = ".hex.gz")
  write_hex(font, gzfile(filename))
+
+ font <- read_hex(font_file, ucp = block2ucp("Basic Latin"))
+ capital_r <- font[[str2ucp("R")]]
+ print(capital_r, px = px_ascii)
 }
 \seealso{
 \code{\link[=bm_font]{bm_font()}}
