@@ -23,6 +23,7 @@
 #'             instead of `rappdirs::user_config_dir("bittermelon")`.
 #'             Note this may require administrator privileges.
 #' @examples
+#'  \donttest{
 #'  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
 #'    try({
 #'      font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -36,6 +37,7 @@
 #'      filename <- tempfile(fileext = ".yaff")
 #'      write_monobit(font, filename)
 #'    })
+#'  }
 #'  }
 #' @seealso [bm_font()] for more information about bitmap font objects.
 #'    [read_hex()], [write_hex()], [read_yaff()], [write_yaff()] for pure R bitmap font readers and writers.

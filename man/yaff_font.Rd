@@ -27,6 +27,7 @@ as a \code{\link[=bm_font]{bm_font()}} object while \code{write_yaff()} writes a
 as a yaff format bitmap font file.
 }
 \examples{
+ \donttest{
  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
  font <- read_yaff(font_file)
  capital_r <- font[[str2ucp("R")]]
@@ -34,6 +35,7 @@ as a yaff format bitmap font file.
 
  filename <- tempfile(fileext = ".yaff")
  write_yaff(font, filename)
+ }
 }
 \seealso{
 \code{\link[=bm_font]{bm_font()}} for information about bitmap font objects.

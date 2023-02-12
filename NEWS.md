@@ -1,4 +1,4 @@
-bittermelon 1.1.0
+bittermelon 1.1.1
 =================
 
 New features

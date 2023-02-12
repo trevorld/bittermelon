@@ -9,6 +9,7 @@
 #'
 #' @param font A [bm_font()] object.
 #' @examples
+#'  \donttest{
 #'  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
 #'  font <- read_yaff(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
@@ -16,6 +17,7 @@
 #'
 #'  filename <- tempfile(fileext = ".yaff")
 #'  write_yaff(font, filename)
+#'  }
 #' @export
 #' @rdname yaff_font
 #' @return `read_yaff()` returns a [bm_font()] object.

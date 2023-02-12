@@ -56,6 +56,7 @@ Use \code{update_monobit()} to download a newer, better version of \code{monobit
 (which unfortunately is too large to embed within this package).
 }
 \examples{
+ \donttest{
  if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
    try({
      font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -69,6 +70,7 @@ Use \code{update_monobit()} to download a newer, better version of \code{monobit
      filename <- tempfile(fileext = ".yaff")
      write_monobit(font, filename)
    })
+ }
  }
 }
 \seealso{
