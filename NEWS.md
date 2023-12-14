@@ -1,3 +1,12 @@
+bittermelon 1.1.2
+=================
+
+Bug fixes and minor improvements
+--------------------------------
+
+* Updates `is_combining_character()` so it will continue to work after a breaking change 
+  in `Unicode::u_char_property()`'s behavior introduced in `{Unicode}` v15.1.0-1 (#55).
+
 bittermelon 1.1.1
 =================
 
