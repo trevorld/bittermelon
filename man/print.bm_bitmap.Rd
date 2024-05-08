@@ -75,7 +75,7 @@ argument (the former contains Unicode \dQuote{Block Elements} while the latter i
                                 sides = 1L, value = 2L)
   print(bm_8_with_border, px = c(".", "@", "X"))
 
-  if (require("crayon") && crayon::has_color()) {
+  if (requireNamespace("crayon", quietly = TRUE) && crayon::has_color()) {
     print(bm_8_with_border, px = " ", bg = c("white", "blue", "red"))
   }
 }
