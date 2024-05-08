@@ -2,15 +2,14 @@
 % Please edit documentation in R/as_bm_bitmap.R
 \name{as_bm_bitmap}
 \alias{as_bm_bitmap}
-\alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.default}
 \alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.grob}
+\alias{as_bm_bitmap.matrix}
+\alias{as_bm_bitmap.maze}
 \title{Coerce to bitmap glyph objects}
 \usage{
 as_bm_bitmap(x, ...)
-
-\method{as_bm_bitmap}{matrix}(x, ...)
 
 \method{as_bm_bitmap}{default}(x, ...)
 
@@ -33,6 +32,10 @@ as_bm_bitmap(x, ...)
   png_device = NULL,
   threshold = 0.25
 )
+
+\method{as_bm_bitmap}{matrix}(x, ...)
+
+\method{as_bm_bitmap}{maze}(x, ..., walls = FALSE, start = NULL, end = NULL)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}
@@ -79,6 +82,10 @@ if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
 \item{threshold}{If any png channel weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
+
+\item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
+
+\item{start, end}{If not \code{NULL} add the solution from \code{start} to \code{end} as value 2.  See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
 }
 \value{
 A \code{bm_bitmap()} object.
@@ -96,14 +103,19 @@ A \code{bm_bitmap()} object.
   print(bm, px = px_ascii)
   bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
   print(bm, px = px_ascii)
-
- if (require("grid") && capabilities("png")) {
-   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
-   print(circle, px = c(".", "@"))
-
-   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
-                                        width = 8L, height = 16L)
-   print(inverted_exclamation, px = c(".", "@"))
+if (require("grid") && capabilities("png")) {
+  circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
+  print(circle, px = c(".", "@"))
+}
+if (require("grid") && capabilities("png")) {
+  inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
+                                       width = 8L, height = 16L)
+  print(inverted_exclamation, px = c(".", "@"))
+}
+ if (requireNamespace("mazing", quietly = TRUE)) {
+   m <- mazing::maze(12, 32)
+   bm <- as_bm_bitmap(m)
+   print(bm, px = px_ascii)
  }
 }
 \seealso{

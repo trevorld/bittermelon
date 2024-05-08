@@ -12,5 +12,6 @@
 ^Rakefile$
 ^README.Rmd$
 ^README.html$
+^tmp$
 inst/monobit/tests
 __pycache__

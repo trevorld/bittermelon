@@ -2,8 +2,8 @@
 % Please edit documentation in R/bittermelon-package.R
 \docType{package}
 \name{bittermelon}
-\alias{bittermelon}
 \alias{bittermelon-package}
+\alias{bittermelon}
 \title{bittermelon: Monochrome Bitmap Font Tools}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
@@ -44,7 +44,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Trevor L Davis \email{trevor.l.davis@gmail.com} (\href{https://orcid.org/0000-0001-6341-4639}{ORCID})
+\strong{Maintainer}: Trevor L. Davis \email{trevor.l.davis@gmail.com} (\href{https://orcid.org/0000-0001-6341-4639}{ORCID})
 
 Other contributors:
 \itemize{
