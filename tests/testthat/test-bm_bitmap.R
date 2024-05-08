@@ -28,4 +28,14 @@ test_that("as_bm_bitmap()", {
     circle_outline <- bm_outline(circle)
     verify_output("txt/circle_bm_outline.txt",
                   print(circle_outline, px = px_ascii))
+
+    skip_if_not_installed("mazing")
+    set.seed(42)
+    maze <- as_bm_bitmap(mazing::maze(12L, 12L))
+    verify_output("txt/maze.txt",
+                  print(maze, px = px_ascii))
+
+    maze2 <- as_bm_bitmap(mazing::maze(12L, 12L), start = "top", end = "bottom")
+    verify_output("txt/maze_solution.txt",
+                  print(maze2, px = px_ascii))
 })

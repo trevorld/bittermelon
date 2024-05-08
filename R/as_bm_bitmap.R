@@ -17,17 +17,6 @@ as_bm_bitmap <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.matrix <- function(x, ...) {
-    if (!is.integer(x)) {
-        x[, ] <- suppressWarnings(as.integer(x))
-    }
-    stopifnot(!any(is.na(x)))
-    class(x) <- c("bm_bitmap", class(x))
-    x
-}
-
-#' @rdname as_bm_bitmap
-#' @export
 as_bm_bitmap.default <- function(x, ...) {
     as_bm_bitmap.matrix(as.matrix(x))
 }
@@ -171,15 +160,15 @@ add_space <- function(bml, font) {
 #'                   (on an interval from zero to one)
 #'                   then the pixel is determined to be \dQuote{black}.
 #' @examples
-#'
-#'  if (require("grid") && capabilities("png")) {
-#'    circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
-#'    print(circle, px = c(".", "@"))
-#'
-#'    inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
-#'                                         width = 8L, height = 16L)
-#'    print(inverted_exclamation, px = c(".", "@"))
-#'  }
+#' if (require("grid") && capabilities("png")) {
+#'   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
+#'   print(circle, px = c(".", "@"))
+#' }
+#' if (require("grid") && capabilities("png")) {
+#'   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
+#'                                        width = 8L, height = 16L)
+#'   print(inverted_exclamation, px = c(".", "@"))
+#' }
 #' @importFrom grid gpar grob grid.draw pushViewport popViewport viewport
 #' @export
 as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
@@ -217,4 +206,39 @@ default_png_device <- function() {
         function(filename, width, height)
             grDevices::png(filename, width, height, bg = "transparent")
     }
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.matrix <- function(x, ...) {
+    if (!is.integer(x)) {
+        x[, ] <- suppressWarnings(as.integer(x))
+    }
+    stopifnot(!any(is.na(x)))
+    class(x) <- c("bm_bitmap", class(x))
+    x
+}
+
+#' @rdname as_bm_bitmap
+#' @param walls If `TRUE` the values of 1 denote the walls and the values of 0 denote the paths.
+#' @param start,end If not `NULL` add the solution from `start` to `end` as value 2.  See [mazing::solve_maze()].
+#' @examples
+#'  if (requireNamespace("mazing", quietly = TRUE)) {
+#'    m <- mazing::maze(12, 32)
+#'    bm <- as_bm_bitmap(m)
+#'    print(bm, px = px_ascii)
+#'  }
+as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
+    stopifnot(requireNamespace("mazing", quietly = TRUE))
+    b <- mazing::maze2binary(x)
+    if (walls)
+        b <- !b
+    bm <- as_bm_bitmap.matrix(b)
+    if (!is.null(start) & !is.null(end)) {
+        s <- mazing::solve_maze(x, start = start, end = end)
+        for (i in seq_len(nrow(s))) {
+            bm[2 * s[i, "row"], 2 * s[i, "col"]] <- 2L
+        }
+    }
+    bm
 }

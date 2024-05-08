@@ -1,3 +1,11 @@
+bittermelon 1.2.0 (development)
+===============================
+
+New features
+------------
+
+* `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
+
 bittermelon 1.1.2
 =================
 

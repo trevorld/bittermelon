@@ -64,6 +64,13 @@ if (crayon::has_color())
 ```{r plot, fig.width = 6, fig.height = 2}
 plot(bm, col = c("white", "darkblue", "lightblue", "black"))
 ```
+```{r maze}
+# Also supports {mazing} mazes
+set.seed(42)
+mazing::maze(16L, 32L) |>
+    as_bm_bitmap(walls = TRUE) |>
+    print(compress = "vertical")
+```
 
 ## <a name="fonts">Builtin Fonts</a>
 
