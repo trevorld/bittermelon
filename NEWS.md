@@ -6,6 +6,12 @@ New features
 
 * `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
 
+Bug fixes and minor improvements
+--------------------------------
+
+* `print.bm_bitmap()` no longer silently ignores its `compress` argument.
+
+
 bittermelon 1.1.2
 =================
 

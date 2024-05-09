@@ -36,7 +36,7 @@ print.bm_bitmap <- function(x, ...,
                             bg = getOption("bittermelon.bg", FALSE),
                             compress = getOption("bittermelon.compress", "none")) {
     x <- as_bm_bitmap(x)
-    s <- format(x, ..., px = px, fg = fg, bg = bg)
+    s <- format(x, ..., px = px, fg = fg, bg = bg, compress = compress)
     cat(s, sep = "\n")
     invisible(s)
 }
