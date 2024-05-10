@@ -13,10 +13,10 @@
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
 #'   capital_r <- font[[str2ucp("R")]]
-#'   print(bm_rotate(capital_r, 90), px = px_ascii)
-#'   print(bm_rotate(capital_r, 180), px = px_ascii)
-#'   print(bm_rotate(capital_r, 270), px = px_ascii)
-#'   print(bm_rotate(capital_r, 90, clockwise = FALSE), px = px_ascii)
+#'   print(bm_rotate(capital_r, 90))
+#'   print(bm_rotate(capital_r, 180))
+#'   print(bm_rotate(capital_r, 270))
+#'   print(bm_rotate(capital_r, 90, clockwise = FALSE))
 #'
 #' @seealso [bm_distort()] can do other (distorted) rotations by careful
 #'          use of its `vp` [grid::viewport()] argument.

@@ -16,8 +16,7 @@ The following \code{bittermelon} option may be set globally via \code{\link[base
 \describe{
 \item{bittermelon.px}{Set new default \code{px} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.
-If unset both functions default to \code{px_unicode} but
-some may prefer \code{px_ascii} which is an ASCII alternative.}
+If unset both functions default to \code{\link[=px_auto]{px_auto()}}.}
 \item{bittermelon.fg}{Set new default \code{fg} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.bg}{Set new default \code{bg} argument value for

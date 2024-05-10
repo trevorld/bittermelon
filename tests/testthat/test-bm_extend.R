@@ -33,29 +33,41 @@ test_that("bm_extend()", {
     expect_equal(nrow(bm_extend(plus_sign, left = 2L)), 9L)
     expect_equal(ncol(bm_extend(plus_sign, left = 2L)), 11L)
 
-    skip_on_os("windows")
+    skip_if(!cli::is_utf8_output())
     verify_output("txt/plus_sign_left_and_width.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, left = 2L))
+                  bm_extend(plus_sign, value = 2L, width = 12L, left = 2L),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_right_and_width.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, right = 2L))
+                  bm_extend(plus_sign, value = 2L, width = 12L, right = 2L),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_left.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "left"))
+                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "left"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_center_left.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "centre-left"))
+                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "centre-left"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_center_right.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "centre-right"))
+                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "centre-right"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_right.txt",
-                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "right"))
+                  bm_extend(plus_sign, value = 2L, width = 12L, hjust = "right"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_top.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "top"))
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "top"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_top_and_height.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, top = 2L))
+                  bm_extend(plus_sign, value = 2L, height = 12L, top = 2L),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_bottom_and_height.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, bottom = 2L))
+                  bm_extend(plus_sign, value = 2L, height = 12L, bottom = 2L),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_center_top.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-top"))
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-top"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_center_bottom.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-bottom"))
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "centre-bottom"),
+                  unicode = TRUE)
     verify_output("txt/plus_sign_bottom.txt",
-                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "bottom"))
+                  bm_extend(plus_sign, value = 2L, height = 12L, vjust = "bottom"),
+                  unicode = TRUE)
 })

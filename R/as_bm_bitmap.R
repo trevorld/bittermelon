@@ -47,9 +47,9 @@ as_bm_bitmap.default <- function(x, ...) {
 #'   font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
 #'   font <- read_yaff(font_file)
 #'   bm <- as_bm_bitmap("RSTATS", font = font)
-#'   print(bm, px = px_ascii)
+#'   print(bm)
 #'   bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
-#'   print(bm, px = px_ascii)
+#'   print(bm)
 #' @export
 as_bm_bitmap.character <- function(x, ...,
                                    direction = "left-to-right, top-to-bottom",
@@ -162,12 +162,12 @@ add_space <- function(bml, font) {
 #' @examples
 #' if (require("grid") && capabilities("png")) {
 #'   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
-#'   print(circle, px = c(".", "@"))
+#'   print(circle)
 #' }
 #' if (require("grid") && capabilities("png")) {
 #'   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
 #'                                        width = 8L, height = 16L)
-#'   print(inverted_exclamation, px = c(".", "@"))
+#'   print(inverted_exclamation)
 #' }
 #' @importFrom grid gpar grob grid.draw pushViewport popViewport viewport
 #' @export
@@ -224,9 +224,9 @@ as_bm_bitmap.matrix <- function(x, ...) {
 #' @param start,end If not `NULL` add the solution from `start` to `end` as value 2.  See [mazing::solve_maze()].
 #' @examples
 #'  if (requireNamespace("mazing", quietly = TRUE)) {
-#'    m <- mazing::maze(12, 32)
-#'    bm <- as_bm_bitmap(m)
-#'    print(bm, px = px_ascii)
+#'    m <- mazing::maze(16, 32)
+#'    bm <- as_bm_bitmap(m, walls = TRUE)
+#'    print(bm, compress = "vertical")
 #'  }
 as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
     stopifnot(requireNamespace("mazing", quietly = TRUE))

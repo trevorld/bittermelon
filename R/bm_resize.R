@@ -10,9 +10,9 @@
 #'  font <- read_hex(font_file)
 #'  # add a border to an "R"
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r, px = c("-", "#"))
+#'  print(capital_r)
 #'  capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
-#'  print(capital_r, px = c("-", "#"))
+#'  print(capital_r)
 #' @seealso [bm_extend()], [bm_pad()], and [bm_trim()].
 #' @inherit bm_clamp return
 #' @export

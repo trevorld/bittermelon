@@ -15,12 +15,12 @@
 #'   bml <- as_bm_list("RSTATS", font = font)
 #'   bml <- bm_flip(bml, "both")
 #'   bm <- bm_call(bml, cbind, direction = "RTL")
-#'   print(bm, px = px_ascii)
+#'   print(bm)
 #'
 #'   # Can also modify glyphs "in place"
 #'   exclamation <- font[[str2ucp("!")]]
 #'   exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
-#'   print(exclamation_flipped, px = px_ascii)
+#'   print(exclamation_flipped)
 #' @inherit bm_clamp return
 #' @export
 bm_flip <- function(bm_object, direction = "vertical", in_place = FALSE) {

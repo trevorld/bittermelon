@@ -27,6 +27,6 @@ will simply split the width/height in half.
  font <- read_hex(font_file)
  # add a border to an "R"
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = c(".", "@"))
+ print(capital_r)
  print(bm_padding_lengths(capital_r))
 }

@@ -31,7 +31,7 @@
 #' stats <- as_bm_list("STATS", font = font)
 #' is_bm_list(c(capital_r, capital_r))
 #' rstats <- c(capital_r, stats)
-#' print(bm_call(rstats, cbind), px = px_ascii)
+#' print(bm_call(rstats, cbind))
 #' @rdname combine
 #' @export
 c.bm_bitmap <- function(...) {

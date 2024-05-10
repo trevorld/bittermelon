@@ -3,8 +3,7 @@
 #'   \describe{
 #'     \item{bittermelon.px}{Set new default `px` argument value for
 #'                           [format.bm_bitmap()] and [print.bm_bitmap()].
-#'                           If unset both functions default to `px_unicode` but
-#'                           some may prefer `px_ascii` which is an ASCII alternative.}
+#'                           If unset both functions default to [px_auto()].}
 #'     \item{bittermelon.fg}{Set new default `fg` argument value for
 #'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
 #'     \item{bittermelon.bg}{Set new default `bg` argument value for

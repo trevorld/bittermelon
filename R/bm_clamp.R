@@ -19,10 +19,10 @@
 #'  plus_sign[5L, 3:7] <- 2L
 #'  plus_sign[3:7, 5L] <- 2L
 #'  plus_sign_glyph <- bm_bitmap(plus_sign)
-#'  print(plus_sign_glyph, px = c(".", "#", "@"))
+#'  print(plus_sign_glyph)
 #'
 #'  plus_sign_clamped <- bm_clamp(plus_sign_glyph)
-#'  print(plus_sign_clamped, px = c(".", "#", "@"))
+#'  print(plus_sign_clamped)
 #' @return Either a [bm_bitmap()], [bm_list()], or [bm_font()] object.
 #' @export
 bm_clamp <- function(bm_object, lower = 0L, upper = 1L, value = upper) {

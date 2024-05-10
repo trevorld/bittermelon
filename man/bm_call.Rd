@@ -28,5 +28,5 @@ plus it is easier to specify additional arguments.
   bml <- as_bm_list("RSTATS", font = font)
   bml <- bm_flip(bml, "both")
   bm <- bm_call(bml, cbind, direction = "RTL")
-  print(bm, px = px_ascii)
+  print(bm)
 }

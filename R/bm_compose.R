@@ -18,8 +18,8 @@
 #'   grave <- font[[str2ucp("`")]]
 #'   a <- font[[str2ucp("a")]]
 #'   bml <- bm_list(`U+0061` = a, `U+0300` = grave)
-#'   print(bml, px = px_ascii)
-#'   print(bm_compose(bml), px = px_ascii)
+#'   print(bml)
+#'   print(bm_compose(bml))
 #' @export
 bm_compose <- function(bml, pua_combining = character(0), ...) {
     if (length(bml) < 2L) return(bml)

@@ -20,7 +20,7 @@
 #'
 #'  # print out "R"
 #'  R_glyph <- font[[str2ucp("R")]]
-#'  print(R_glyph, px = c(".", "#"))
+#'  print(R_glyph)
 #' @return A named list with a \dQuote{bm_font} subclass.
 #' @seealso [is_bm_font()], [as_bm_font(), [hex2ucp()]]
 #' @export

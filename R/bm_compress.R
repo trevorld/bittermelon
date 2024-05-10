@@ -18,10 +18,10 @@
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
 #'   r <- font[[str2ucp("R")]]
-#'   print(r, px = px_ascii)
-#'   print(bm_compress(r, "vertical"), px = px_ascii)
-#'   print(bm_compress(r, "horizontal"), px = px_ascii)
-#'   print(bm_compress(r, "both"), px = px_ascii)
+#'   print(r)
+#'   print(bm_compress(r, "vertical"))
+#'   print(bm_compress(r, "horizontal"))
+#'   print(bm_compress(r, "both"))
 #' @inherit bm_clamp return
 #' @seealso See <https://en.wikipedia.org/wiki/Block_Elements> for more info on the Unicode Block Elements block.
 #' @export

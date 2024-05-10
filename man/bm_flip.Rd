@@ -29,10 +29,10 @@ It can flip the entire bitmap or just the glyph in place.
   bml <- as_bm_list("RSTATS", font = font)
   bml <- bm_flip(bml, "both")
   bm <- bm_call(bml, cbind, direction = "RTL")
-  print(bm, px = px_ascii)
+  print(bm)
 
   # Can also modify glyphs "in place"
   exclamation <- font[[str2ucp("!")]]
   exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
-  print(exclamation_flipped, px = px_ascii)
+  print(exclamation_flipped)
 }

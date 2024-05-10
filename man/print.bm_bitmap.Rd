@@ -6,6 +6,7 @@
 \alias{format.bm_bitmap}
 \alias{px_unicode}
 \alias{px_ascii}
+\alias{px_auto}
 \title{Print bitmap objects}
 \format{
 An object of class \code{character} of length 20.
@@ -13,19 +14,23 @@ An object of class \code{character} of length 20.
 An object of class \code{character} of length 20.
 }
 \usage{
-\method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
-                                 fg = getOption("bittermelon.fg", FALSE),
-                                 bg = getOption("bittermelon.bg", FALSE),
-                                 compress = getOption("bittermelon.compress", "none"))
+\method{print}{bm_bitmap}(x, ...,
+                     px = getOption("bittermelon.px", px_auto()),
+                     fg = getOption("bittermelon.fg", FALSE),
+                     bg = getOption("bittermelon.bg", FALSE),
+                     compress = getOption("bittermelon.compress", "none"))
 
-\method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
-                                 fg = getOption("bittermelon.fg", FALSE),
-                                 bg = getOption("bittermelon.bg", FALSE),
-                                 compress = getOption("bittermelon.compress", "none"))
+\method{format}{bm_bitmap}(x, ..., 
+                      px = getOption("bittermelon.px", px_auto()),
+                      fg = getOption("bittermelon.fg", FALSE),
+                      bg = getOption("bittermelon.bg", FALSE),
+                      compress = getOption("bittermelon.compress", "none"))
 
 px_unicode
 
 px_ascii
+
+px_auto(unicode = px_unicode, ascii = px_ascii)
 }
 \arguments{
 \item{x}{A \code{bm_bitmap()} object}
@@ -52,6 +57,10 @@ Otherwise compress first with \code{\link[=bm_compress]{bm_compress()}} passing
 the value of \code{compress} as its \code{direction} argument
 (i.e. either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b").}
+
+\item{unicode}{Character vector to use if \code{\link[cli:is_utf8_output]{cli::is_utf8_output()}} is \code{TRUE}.}
+
+\item{ascii}{Character vector to use if \code{\link[cli:is_utf8_output]{cli::is_utf8_output()}} is \code{FALSE}.}
 }
 \value{
 A character vector of the string representation (\code{print.bm_bitmap()} does this invisibly).
@@ -63,12 +72,13 @@ It is a wrapper around \code{format.bm_bitmap()} which converts bitmap objects
 to a character vector.
 \code{px_unicode} and \code{px_ascii} are builtin character vectors intended for use with the \code{px}
 argument (the former contains Unicode \dQuote{Block Elements} while the latter is purely ASCII).
+\code{px_auto()} chooses which character vector to use based on whether \code{\link[cli:is_utf8_output]{cli::is_utf8_output()}} is \code{TRUE} or not.
 }
 \examples{
   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
   font <- read_hex(font_file)
   bm_R <- font[[str2ucp("R")]]
-  print(bm_R, px = c(" ", "#"))
+  print(bm_R)
 
   bm_8 <- font[[str2ucp("8")]]
   bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),

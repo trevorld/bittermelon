@@ -18,7 +18,7 @@
 #'  capital_r <- font[[str2ucp("R")]]
 #'  dim(capital_r) # 8 x 16
 #'  if (require("grid") && capabilities("png")) {
-#'    print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii)
+#'    print(bm_distort(capital_r, width = 9L, height = 21L))
 #'  }
 #' @seealso [bm_expand()] for expanding width/height by integer multiples.
 #'          [bm_resize()] for resizing an image via trimming/extending an image.

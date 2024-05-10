@@ -32,7 +32,8 @@ test_that("read_hex() and write_hex()", {
 
     expect_equal(length(read_hex(textConnection(""))), 0L)
 
-    skip_on_os("windows")
+    skip_if(!cli::is_utf8_output())
     verify_output("txt/glyph32_with_9.txt",
-                  print(f32[[c32]]))
+                  print(f32[[c32]]),
+                  unicode = TRUE)
 })

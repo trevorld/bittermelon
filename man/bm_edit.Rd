@@ -32,6 +32,6 @@ be rectangular.
   # requires users to manually close file in text editor
   \dontrun{
     edited_r <- bm_edit(r)
-    print(edited_r, px = px_ascii)
+    print(edited_r)
   }
 }

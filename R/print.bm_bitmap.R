@@ -5,6 +5,7 @@
 #' to a character vector.
 #' `px_unicode` and `px_ascii` are builtin character vectors intended for use with the `px`
 #' argument (the former contains Unicode \dQuote{Block Elements} while the latter is purely ASCII).
+#' `px_auto()` chooses which character vector to use based on whether [cli::is_utf8_output()] is `TRUE` or not.
 #'
 #' @param x A `bm_bitmap()` object
 #' @param ... Further arguments passed to or from other methods.
@@ -12,7 +13,7 @@
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
 #'   bm_R <- font[[str2ucp("R")]]
-#'   print(bm_R, px = c(" ", "#"))
+#'   print(bm_R)
 #'
 #'   bm_8 <- font[[str2ucp("8")]]
 #'   bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
@@ -25,13 +26,14 @@
 #' @seealso [bm_bitmap()]
 #' @return A character vector of the string representation (`print.bm_bitmap()` does this invisibly).
 #'         As a side effect `print.bm_bitmap()` prints out the string representation to the terminal.
-#' @usage \method{print}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
-#'                                  fg = getOption("bittermelon.fg", FALSE),
-#'                                  bg = getOption("bittermelon.bg", FALSE),
-#'                                  compress = getOption("bittermelon.compress", "none"))
+#' @usage \method{print}{bm_bitmap}(x, ...,
+#'                      px = getOption("bittermelon.px", px_auto()),
+#'                      fg = getOption("bittermelon.fg", FALSE),
+#'                      bg = getOption("bittermelon.bg", FALSE),
+#'                      compress = getOption("bittermelon.compress", "none"))
 #' @export
 print.bm_bitmap <- function(x, ...,
-                            px = getOption("bittermelon.px", px_unicode),
+                            px = getOption("bittermelon.px", px_auto()),
                             fg = getOption("bittermelon.fg", FALSE),
                             bg = getOption("bittermelon.bg", FALSE),
                             compress = getOption("bittermelon.compress", "none")) {
@@ -59,13 +61,14 @@ print.bm_bitmap <- function(x, ...,
 #'                 the value of `compress` as its `direction` argument
 #'                 (i.e. either "vertical" or "v", "horizontal" or "h",
 #'                  OR "both" or "b").
-#' @usage \method{format}{bm_bitmap}(x, ..., px = getOption("bittermelon.px", px_unicode),
-#'                                  fg = getOption("bittermelon.fg", FALSE),
-#'                                  bg = getOption("bittermelon.bg", FALSE),
-#'                                  compress = getOption("bittermelon.compress", "none"))
+#' @usage \method{format}{bm_bitmap}(x, ..., 
+#'                       px = getOption("bittermelon.px", px_auto()),
+#'                       fg = getOption("bittermelon.fg", FALSE),
+#'                       bg = getOption("bittermelon.bg", FALSE),
+#'                       compress = getOption("bittermelon.compress", "none"))
 #' @export
 format.bm_bitmap <- function(x, ...,
-                             px = getOption("bittermelon.px", px_unicode),
+                             px = getOption("bittermelon.px", px_auto()),
                              fg = getOption("bittermelon.fg", FALSE),
                              bg = getOption("bittermelon.bg", FALSE),
                              compress = getOption("bittermelon.compress", "none")) {
@@ -136,3 +139,14 @@ px_ascii <- c("-", "@", "+", "#",
               "'", "[", "/", "d",
               "`", "\\", "]", "L",
               "^", "?", "P", "!")
+
+#' @rdname print.bm_bitmap
+#' @param unicode Character vector to use if [cli::is_utf8_output()] is `TRUE`.
+#' @param ascii Character vector to use if [cli::is_utf8_output()] is `FALSE`.
+#' @export
+px_auto <- function(unicode = px_unicode, ascii = px_ascii) {
+    if (cli::is_utf8_output())
+        unicode
+    else
+        ascii
+}

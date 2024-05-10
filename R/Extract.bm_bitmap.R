@@ -7,9 +7,9 @@
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r[4:14,2:8], px = px_ascii)
+#'  print(capital_r[4:14,2:8])
 #'  capital_r[11:13,3:5] <- 2L
-#'  print(capital_r, px = px_ascii)
+#'  print(capital_r)
 #' @param x [bm_bitmap()] object
 #' @param i,j indices specifying elements to extract or replace.
 #'            See [base::`[()`] for more information.
