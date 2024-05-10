@@ -23,10 +23,9 @@ Imports:
     Unicode,
     utils
 Suggests:
-    crayon,
     git2r,
-    ragg,
     mazing,
+    ragg,
     testthat,
     vdiffr,
     withr

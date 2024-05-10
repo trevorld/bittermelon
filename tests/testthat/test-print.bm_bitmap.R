@@ -12,6 +12,8 @@ test_that("print.bm_bitmap()", {
         print(space_glyph, px = c("."))
     })
 
+    expect_length(format(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
+
     skip_if(!cli::is_utf8_output())
     verify_output("txt/plus_unicode.txt", {
         print(bm_bitmap(plus_sign))
@@ -27,7 +29,6 @@ test_that("print.bm_bitmap()", {
         print(bm_bitmap(plus_space_rl))
     }, unicode = TRUE)
 
-    skip_if_not_installed("crayon")
     verify_output("txt/plus_unicode_color_char.txt", {
         print(bm_bitmap(plus_sign), fg = "blue", bg = "red")
     }, crayon = TRUE, unicode = TRUE)
@@ -39,6 +40,4 @@ test_that("print.bm_bitmap()", {
                                  bittermelon.bg = "white"),
                             print(bm_bitmap(plus_sign)))
         }, crayon = TRUE, unicode = TRUE)
-
-    expect_length(format(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
 })
