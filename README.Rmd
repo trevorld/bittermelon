@@ -57,9 +57,10 @@ bm <- bml |>
     bm_pad(sides = 2L, value = 3L)
 print(bm)
 
-# Can also print colored terminal output via suggested package {crayon}
-if (crayon::has_color())
-    print(bm, px = " ", bg = c("white", "black", "grey", "red"))
+# Can also print colored terminal output with help of {cli}
+if (cli::num_ansi_colors() >= 16L)
+    print(bm, px = " ",
+          bg = c(cli::bg_br_white, cli::bg_black, cli::bg_br_black, cli::bg_red))
 ```
 ```{r plot, fig.width = 6, fig.height = 2}
 plot(bm, col = c("white", "darkblue", "lightblue", "black"))

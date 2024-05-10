@@ -11,6 +11,8 @@ New features
 Bug fixes and minor improvements
 --------------------------------
 
+* The `bg` and `fg` arguments of `format.bm_bitmap()` and `print.bm_bitmap()`
+  now accept lists of `{cli}` ANSI style functions in addition to color strings.
 * `print.bm_bitmap()` no longer silently ignores its `compress` argument.
 * The default value of the option `bittermelon.px` is now `px_auto()`.
   This means if `cli::is_utf8_output()` is `FALSE` we now default to `px_ascii` instead of `px_unicode`.

@@ -130,9 +130,10 @@ print(bm)
 ```
 
 ```r
-# Can also print colored terminal output via suggested package {crayon}
-if (crayon::has_color())
-    print(bm, px = " ", bg = c("white", "black", "grey", "red"))
+# Can also print colored terminal output with help of {cli}
+if (cli::num_ansi_colors() >= 16L)
+    print(bm, px = " ",
+          bg = c(cli::bg_br_white, cli::bg_black, cli::bg_br_black, cli::bg_red))
 ```
 
 ```r
@@ -245,7 +246,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ```bitmap
    user  system elapsed 
-110.661   0.171 110.839 
+123.731   0.144 123.858 
 ```
 
 ```r

@@ -20,8 +20,9 @@
 #'                                 sides = 1L, value = 2L)
 #'   print(bm_8_with_border, px = c(".", "@", "X"))
 #'
-#'   if (requireNamespace("crayon", quietly = TRUE) && crayon::has_color()) {
-#'     print(bm_8_with_border, px = " ", bg = c("white", "blue", "red"))
+#'   if (cli::num_ansi_colors() >= 16L) {
+#'     print(bm_8_with_border, px = " ",
+#'           bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_red))
 #'   }
 #' @seealso [bm_bitmap()]
 #' @return A character vector of the string representation (`print.bm_bitmap()` does this invisibly).
@@ -48,14 +49,12 @@ print.bm_bitmap <- function(x, ...,
 #'              The first character for integer `0L`,
 #'              the second character for integer `1L`, and so on.
 #'              Will be recycled.
-#' @param fg R color strings of foreground colors to use.
-#'           Requires suggested package `crayon`.
+#' @param fg R color strings of foreground colors to use and/or cli ANSI style functions of class `cli_ansi_style`.
 #'           `FALSE` (default) for no foreground colors.
-#'           Will be recycled.
-#' @param bg R color strings of background colors to use.
-#'           Requires suggested package `crayon`.
+#'           Will be recycled and passed to [cli::make_ansi_style()].
+#' @param bg R color strings of background colors to use and/or cli ANSI style functions of class `cli_ansi_style`.
 #'           `FALSE` (default) for no background colors.
-#'           Will be recycled.
+#'           Will be recycled and passed to [cli::make_ansi_style()] with `bg = TRUE`.
 #' @param compress If `none` (default) don't compress first with [bm_compress()].
 #'                 Otherwise compress first with [bm_compress()] passing
 #'                 the value of `compress` as its `direction` argument
@@ -81,25 +80,25 @@ format.bm_bitmap <- function(x, ...,
     }
     n <- max(x) + 1L
     px <- rep_len(px, n)
-    fgl <- as.list(fg)
-    if (is.character(fg)) {
-        stopifnot(requireNamespace("crayon", quietly = TRUE))
-        fgl <- lapply(fgl, function(col) crayon::make_style(col))
+    if (!isFALSE(fg)) {
+        fgl <- lapply(fg, function(col) cli::make_ansi_style(col))
+        if (length(fgl) == 1) {
+            fgl <- rep_len(fgl, n)
+        } else if (length(fgl) < n) {
+            fgl <- rep(fgl, each = 20L, length.out = n)
+        }
+    } else {
+        fgl <- rep_len(FALSE, n)
     }
-    if (length(fgl) == 1) {
-        fgl <- rep_len(fgl, n)
-    } else if (length(fgl) < n) {
-        fgl <- rep(fgl, each = 20L, length.out = n)
-    }
-    bgl <- as.list(bg)
-    if (is.character(bg)) {
-        stopifnot(requireNamespace("crayon", quietly = TRUE))
-        bgl <- lapply(bgl, function(col) crayon::make_style(col, bg = TRUE))
-    }
-    if (length(bgl) == 1) {
-        bgl <- rep_len(bgl, n)
-    } else if (length(bgl) < n) {
-        bgl <- rep(bgl, each = 20L, length.out = n)
+    if (!isFALSE(bg)) {
+        bgl <- lapply(bg, function(col) cli::make_ansi_style(col, bg = TRUE))
+        if (length(bgl) == 1) {
+            bgl <- rep_len(bgl, n)
+        } else if (length(bgl) < n) {
+            bgl <- rep(bgl, each = 20L, length.out = n)
+        }
+    } else {
+        bgl <- rep_len(FALSE, n)
     }
     l <- sapply(seq_len(nrow(x)),
                 function(i) bm_bitmap_row_to_string(x[i, ], px, fgl, bgl))

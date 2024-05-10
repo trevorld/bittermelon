@@ -42,15 +42,13 @@ The first character for integer \code{0L},
 the second character for integer \code{1L}, and so on.
 Will be recycled.}
 
-\item{fg}{R color strings of foreground colors to use.
-Requires suggested package \code{crayon}.
+\item{fg}{R color strings of foreground colors to use and/or cli ANSI style functions of class \code{cli_ansi_style}.
 \code{FALSE} (default) for no foreground colors.
-Will be recycled.}
+Will be recycled and passed to \code{\link[cli:make_ansi_style]{cli::make_ansi_style()}}.}
 
-\item{bg}{R color strings of background colors to use.
-Requires suggested package \code{crayon}.
+\item{bg}{R color strings of background colors to use and/or cli ANSI style functions of class \code{cli_ansi_style}.
 \code{FALSE} (default) for no background colors.
-Will be recycled.}
+Will be recycled and passed to \code{\link[cli:make_ansi_style]{cli::make_ansi_style()}} with \code{bg = TRUE}.}
 
 \item{compress}{If \code{none} (default) don't compress first with \code{\link[=bm_compress]{bm_compress()}}.
 Otherwise compress first with \code{\link[=bm_compress]{bm_compress()}} passing
@@ -85,8 +83,9 @@ argument (the former contains Unicode \dQuote{Block Elements} while the latter i
                                 sides = 1L, value = 2L)
   print(bm_8_with_border, px = c(".", "@", "X"))
 
-  if (requireNamespace("crayon", quietly = TRUE) && crayon::has_color()) {
-    print(bm_8_with_border, px = " ", bg = c("white", "blue", "red"))
+  if (cli::num_ansi_colors() >= 16L) {
+    print(bm_8_with_border, px = " ",
+          bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_red))
   }
 }
 \seealso{
