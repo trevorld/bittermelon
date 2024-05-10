@@ -52,7 +52,7 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
  capital_r <- font[[str2ucp("R")]]
  dim(capital_r) # 8 x 16
  if (require("grid") && capabilities("png")) {
-   print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii)
+   print(bm_distort(capital_r, width = 9L, height = 21L))
  }
 }
 \seealso{

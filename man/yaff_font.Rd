@@ -31,7 +31,7 @@ as a yaff format bitmap font file.
  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
  font <- read_yaff(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = c(".", "#"))
+ print(capital_r)
 
  filename <- tempfile(fileext = ".yaff")
  write_yaff(font, filename)

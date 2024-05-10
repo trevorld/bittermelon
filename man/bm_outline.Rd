@@ -19,11 +19,11 @@ of another bitmap.
 \examples{
   square <- bm_bitmap(matrix(1L, nrow = 16L, ncol = 16L))
   square_outline <- bm_outline(square)
-  print(square_outline, px = px_ascii)
+  print(square_outline)
 
   if (require(grid) && capabilities("png")) {
     circle <- as_bm_bitmap(circleGrob(), width=16, height=16)
     circle_outline <- bm_outline(circle)
-    print(circle_outline, px = px_ascii)
+    print(circle_outline)
   }
 }

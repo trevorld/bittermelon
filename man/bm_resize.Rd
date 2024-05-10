@@ -52,9 +52,9 @@ This function is a convenience wrapper around \code{\link[=bm_trim]{bm_trim()}} 
  font <- read_hex(font_file)
  # add a border to an "R"
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = c("-", "#"))
+ print(capital_r)
  capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
- print(capital_r, px = c("-", "#"))
+ print(capital_r)
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_trim]{bm_trim()}}.

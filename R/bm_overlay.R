@@ -20,11 +20,11 @@
 #'   grave <- font[[str2ucp("`")]]
 #'   a <- font[[str2ucp("a")]]
 #'   a_grave <- bm_overlay(a, over = grave)
-#'   print(a_grave, px = px_ascii)
+#'   print(a_grave)
 #'
 #'   # Can also instead specify the under glyph as a named argument
 #'   a_grave2 <- bm_overlay(grave, under = a)
-#'   print(a_grave2, px = px_ascii)
+#'   print(a_grave2)
 #' @export
 bm_overlay <- function(bm_object, over = NULL, under = NULL,
                        hjust = "center-left", vjust = "center-top") {

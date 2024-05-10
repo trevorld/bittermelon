@@ -70,9 +70,9 @@ The directions and amount of removed pixels are settable
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = c("-", "#"))
+ print(capital_r)
  capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
- print(capital_r_trimmed, px = c("-", "#"))
+ print(capital_r_trimmed)
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_resize]{bm_resize()}}.

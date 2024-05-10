@@ -24,7 +24,7 @@ an indicated number of times.
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = px_ascii)
+ print(capital_r)
  print(bm_expand(capital_r, width = 2L),
        px = px_ascii)
  print(bm_expand(capital_r, height = 2L),

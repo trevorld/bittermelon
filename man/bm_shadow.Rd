@@ -60,11 +60,11 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
  capital_r <- font[[str2ucp("R")]]
- print(capital_r, px = px_ascii)
- print(bm_shadow(capital_r), px = px_ascii)
- print(bm_bold(capital_r), px = px_ascii)
- print(bm_glow(capital_r), px = px_ascii)
- print(bm_glow(capital_r, corner = TRUE), px = px_ascii)
+ print(capital_r)
+ print(bm_shadow(capital_r))
+ print(bm_bold(capital_r))
+ print(bm_glow(capital_r))
+ print(bm_glow(capital_r, corner = TRUE))
 
 }
 \seealso{

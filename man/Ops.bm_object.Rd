@@ -56,27 +56,27 @@ casts the bitmap to logical before calling \code{base::which()}.
 
   # Examples applied to individual bitmaps
   capital_r <- font[[str2ucp("R")]]
-  print(!capital_r, px = px_ascii)
+  print(!capital_r)
   capital_b <- font[[str2ucp("B")]]
-  print(capital_r & capital_b, px = px_ascii)
-  print(capital_r | capital_b, px = px_ascii)
-  print(capital_r + 1L, px = px_ascii)
-  print(capital_r + 1L > 1L, px = px_ascii)
+  print(capital_r & capital_b)
+  print(capital_r | capital_b)
+  print(capital_r + 1L)
+  print(capital_r + 1L > 1L)
   which(capital_r > 0L)
 
   # Examples applied to `bm_list()` objects
   bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
   bml <- as_bm_list(bml)
   bm <- do.call(cbind, bml)
-  print(bm, px = px_ascii)
+  print(bm)
 
   bml <- !bml
   bm <- do.call(cbind, bml)
-  print(bm, px = px_ascii)
+  print(bm)
 
   bml <- 2 * (bml + 1L)
   bm <- do.call(cbind, bml)
-  print(bm, px = px_ascii)
+  print(bm)
 
 }
 \seealso{

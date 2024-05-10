@@ -4,13 +4,16 @@ bittermelon 1.2.0 (development)
 New features
 ------------
 
+* `px_auto()` determines which character vector to use for "pixels" based on
+  whether `cli::is_utf8_output()` is `TRUE` or not.
 * `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
 
 Bug fixes and minor improvements
 --------------------------------
 
 * `print.bm_bitmap()` no longer silently ignores its `compress` argument.
-
+* The default value of the option `bittermelon.px` is now `px_auto()`.
+  This means if `cli::is_utf8_output()` is `FALSE` we now default to `px_ascii` instead of `px_unicode`.
 
 bittermelon 1.1.2
 =================

@@ -1,5 +1,4 @@
 test_that("bm_clamp()", {
-    skip_on_os("windows")
     plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
     plus_sign[5L, 3:7] <- 2L
     plus_sign[3:7, 5L] <- 2L

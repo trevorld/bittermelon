@@ -18,13 +18,13 @@
 #'   capital_b <- font[[str2ucp("B")]]
 #'   capital_m <- font[[str2ucp("M")]]
 #'   cbm <- cbind(capital_b, capital_m)
-#'   print(cbm, px = c(".", "#"))
+#'   print(cbm)
 #'   cbm_rl <- cbind(capital_b, capital_m, direction = "right-to-left")
-#'   print(cbm_rl, px = c(".", "#"))
+#'   print(cbm_rl)
 #'   rbm <- rbind(capital_b, capital_m)
-#'   print(rbm, px = c(".", "#"))
+#'   print(rbm)
 #'   rbm_bt <- rbind(capital_b, capital_m, direction = "bottom-to-top")
-#'   print(rbm_bt, px = c(".", "#"))
+#'   print(rbm_bt)
 #' @export
 cbind.bm_bitmap <- function(..., direction = "left-to-right", vjust = "center-top") {
     is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))

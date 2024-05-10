@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Monochrome Bitmap Font Tools
-Version: 1.2.0-2
+Version: 1.2.0-3
 Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com",
                     comment = c(ORCID = "0000-0001-6341-4639")),
@@ -14,6 +14,7 @@ URL: https://trevorldavis.com/R/bittermelon/
 BugReports: https://github.com/trevorld/bittermelon/issues
 License: MIT + file LICENSE
 Imports:
+    cli,
     findpython,
     grDevices,
     grid,
