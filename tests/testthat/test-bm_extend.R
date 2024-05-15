@@ -34,6 +34,8 @@ test_that("bm_extend()", {
     expect_equal(ncol(bm_extend(plus_sign, left = 2L)), 11L)
 
     skip_if(!cli::is_utf8_output())
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/plus_sign_left_and_width.txt",
                   bm_extend(plus_sign, value = 2L, width = 12L, left = 2L),
                   unicode = TRUE)

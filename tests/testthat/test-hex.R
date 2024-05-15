@@ -33,6 +33,8 @@ test_that("read_hex() and write_hex()", {
     expect_equal(length(read_hex(textConnection(""))), 0L)
 
     skip_if(!cli::is_utf8_output())
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/glyph32_with_9.txt",
                   print(f32[[c32]]),
                   unicode = TRUE)

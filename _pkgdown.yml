@@ -70,4 +70,5 @@ reference:
     - title: "Package options"
       desc: "Package global options"
       contents:
+          - bm_options
           - bittermelon

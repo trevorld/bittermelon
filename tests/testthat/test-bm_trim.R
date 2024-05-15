@@ -3,6 +3,8 @@ font <- read_hex(font_file)
 capital_r <- font[[str2ucp("R")]]
 
 test_that("bm_trim()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
     expect_equal(nrow(capital_r_trimmed), 12L)
     expect_equal(ncol(capital_r_trimmed), 7L)
@@ -36,6 +38,8 @@ test_that("bm_trim()", {
 })
 
 test_that("bm_shift()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     capital_r_shifted <- bm_shift(capital_r, bottom = 2L)
     verify_output("txt/capital_r_shifted.txt",
                   print(capital_r_shifted, px = c("-", "#")))
@@ -44,6 +48,8 @@ test_that("bm_shift()", {
 })
 
 test_that("bm_pad()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     capital_r_padded <- bm_pad(capital_r, sides = 2L)
     verify_output("txt/capital_r_padded.txt",
                   print(capital_r_padded, px = c(".", "#")))
@@ -52,6 +58,8 @@ test_that("bm_pad()", {
 })
 
 test_that("bm_shadow", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_shadow.txt",
                   print(bm_shadow(capital_r), px = px_ascii))
     verify_output("txt/capital_r_bold.txt",
@@ -65,11 +73,15 @@ test_that("bm_shadow", {
 
 test_that("bm_distort()", {
     skip_if_not(capabilities("png"))
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_distorted.txt",
                   print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii))
 })
 
 test_that("bm_rotate()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_rotated90.txt",
                   print(bm_rotate(capital_r, 90), px = px_ascii))
     verify_output("txt/capital_r_rotated180.txt",

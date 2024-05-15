@@ -38,6 +38,8 @@ test_that("bm_list()", {
 })
 
 test_that("as_bm_list()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     # Test 'as_bm_list.character()'
     bml <- as_bm_list("RSTATS", font = font)
     bml <- bm_extend(bml, sides = 1L, value = 0L)
@@ -99,6 +101,8 @@ test_that("Summary.bm_list()", {
 })
 
 test_that("bm_overlay()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     grave <- font[[str2ucp("`")]]
     a <- font[[str2ucp("a")]]
     a_grave <- bm_overlay(a, over = grave)
@@ -107,6 +111,8 @@ test_that("bm_overlay()", {
 })
 
 test_that("bm_mask()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     one <- font[[str2ucp("1")]]
     circle_large <- as_bm_bitmap(grid::circleGrob(r = 0.50), width = 16L, height = 16L)
     circle_small <- as_bm_bitmap(grid::circleGrob(r = 0.40), width = 16L, height = 16L)
@@ -129,6 +135,8 @@ test_that("bm_mask()", {
 })
 
 test_that("bm_flip()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_flip.txt",
         print(bm_flip(capital_r), px = px_ascii))
 
@@ -146,6 +154,8 @@ test_that("bm_flip()", {
 })
 
 test_that("bm_expand()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_expand_2w.txt",
         print(bm_expand(capital_r, width = 2L), px = px_ascii))
 
@@ -161,6 +171,8 @@ test_that("bm_expand()", {
 })
 
 test_that("bm_compress()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_compress_v.txt",
         print(bm_compress(capital_r, direction = "vertical"), px = px_ascii))
 
@@ -172,6 +184,8 @@ test_that("bm_compress()", {
 })
 
 test_that("as_bm_bitmap.character()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
     verify_output("txt/abbc.txt",
         print(as_bm_bitmap("RSTATS", font = font, direction = "lr"), px = px_ascii))
 
