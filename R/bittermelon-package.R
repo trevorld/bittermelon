@@ -13,6 +13,13 @@
 #'     \item{bittermelon.monobit_path}{Set new default `monobit_path` argument value
 #'                           for [read_monobit()] and [write_monobit()].}
 #'   }
+#'  The following `cli` options may also be of interest:
+#'   \describe{
+#'     \item{cli.num_colors}{See [cli::num_ansi_colors()].
+#'                           If set to `1L` then the `cli` package won't add any ANSI sequences.}
+#'     \item{cli.unicode}{Whether UTF-8 character support should be assumed.
+#'                        Used by [px_auto()] which is the default of the `bittermelon.px` option.}
+#'   }
 #'  The following `findpython` option may also be of interest:
 #'   \describe{
 #'     \item{python_cmd}{Explicitly set path to python binary to use with [read_monobit()]

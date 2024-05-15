@@ -26,6 +26,13 @@ If unset both functions default to \code{\link[=px_auto]{px_auto()}}.}
 \item{bittermelon.monobit_path}{Set new default \code{monobit_path} argument value
 for \code{\link[=read_monobit]{read_monobit()}} and \code{\link[=write_monobit]{write_monobit()}}.}
 }
+The following \code{cli} options may also be of interest:
+\describe{
+\item{cli.num_colors}{See \code{\link[cli:num_ansi_colors]{cli::num_ansi_colors()}}.
+If set to \code{1L} then the \code{cli} package won't add any ANSI sequences.}
+\item{cli.unicode}{Whether UTF-8 character support should be assumed.
+Used by \code{\link[=px_auto]{px_auto()}} which is the default of the \code{bittermelon.px} option.}
+}
 The following \code{findpython} option may also be of interest:
 \describe{
 \item{python_cmd}{Explicitly set path to python binary to use with \code{\link[=read_monobit]{read_monobit()}}

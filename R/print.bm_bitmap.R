@@ -15,6 +15,9 @@
 #'   bm_R <- font[[str2ucp("R")]]
 #'   print(bm_R)
 #'
+#'   if (cli::is_utf8_output())
+#'     print(bm_R, px = px_unicode, compress = "vertical")
+#'
 #'   bm_8 <- font[[str2ucp("8")]]
 #'   bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
 #'                                 sides = 1L, value = 2L)
