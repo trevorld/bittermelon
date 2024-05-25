@@ -1,0 +1,371 @@
+> p1 <- as_bm_pixmap(matrix("transparent", 1L, 1L))
+> print(p1, compress = "n")
+ 
+
+> print(p1, compress = "v")
+ 
+
+> print(p1, compress = "h")
+ 
+
+> print(p1, compress = "b")
+ 
+
+> p1 <- as_bm_pixmap(matrix("red", 1L, 1L))
+> print(p1, compress = "n")
+[31m█[39m
+
+> print(p1, compress = "v")
+[31m▀[39m
+
+> print(p1, compress = "h")
+[31m▌[39m
+
+> print(p1, compress = "b")
+[31m▘[39m
+
+> p2 <- test_pixmap("transparent")
+> print(p2, compress = "n")
+  
+  
+
+> print(p2, compress = "v")
+  
+
+> print(p2, compress = "h")
+ 
+ 
+
+> print(p2, compress = "b")
+ 
+
+> p2 <- test_pixmap("red")
+> print(p2, compress = "n")
+[31m█[39m[31m█[39m
+[31m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[31m█[39m[31m█[39m
+
+> print(p2, compress = "h")
+[31m█[39m
+[31m█[39m
+
+> print(p2, compress = "b")
+[31m█[39m
+
+> p2 <- test_pixmap("transparent", ul = "red")
+> print(p2, compress = "n")
+[31m█[39m 
+  
+
+> print(p2, compress = "v")
+[31m▀[39m 
+
+> print(p2, compress = "h")
+[31m▌[39m
+ 
+
+> print(p2, compress = "b")
+[31m▘[39m
+
+> p2 <- test_pixmap("transparent", ur = "red")
+> print(p2, compress = "n")
+ [31m█[39m
+  
+
+> print(p2, compress = "v")
+ [31m▀[39m
+
+> print(p2, compress = "h")
+[31m▐[39m
+ 
+
+> print(p2, compress = "b")
+[31m▝[39m
+
+> p2 <- test_pixmap("transparent", bl = "red")
+> print(p2, compress = "n")
+  
+[31m█[39m 
+
+> print(p2, compress = "v")
+[31m▄[39m 
+
+> print(p2, compress = "h")
+ 
+[31m▌[39m
+
+> print(p2, compress = "b")
+[31m▖[39m
+
+> p2 <- test_pixmap("transparent", br = "red")
+> print(p2, compress = "n")
+  
+ [31m█[39m
+
+> print(p2, compress = "v")
+ [31m▄[39m
+
+> print(p2, compress = "h")
+ 
+[31m▐[39m
+
+> print(p2, compress = "b")
+[31m▗[39m
+
+> p2 <- test_pixmap("red", ul = "transparent")
+> print(p2, compress = "n")
+ [31m█[39m
+[31m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[31m▄[39m[31m█[39m
+
+> print(p2, compress = "h")
+[31m▐[39m
+[31m█[39m
+
+> print(p2, compress = "b")
+[31m▟[39m
+
+> p2 <- test_pixmap("red", ur = "transparent")
+> print(p2, compress = "n")
+[31m█[39m 
+[31m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[31m█[39m[31m▄[39m
+
+> print(p2, compress = "h")
+[31m▌[39m
+[31m█[39m
+
+> print(p2, compress = "b")
+[31m▙[39m
+
+> p2 <- test_pixmap("red", bl = "transparent")
+> print(p2, compress = "n")
+[31m█[39m[31m█[39m
+ [31m█[39m
+
+> print(p2, compress = "v")
+[31m▀[39m[31m█[39m
+
+> print(p2, compress = "h")
+[31m█[39m
+[31m▐[39m
+
+> print(p2, compress = "b")
+[31m▜[39m
+
+> p2 <- test_pixmap("red", br = "transparent")
+> print(p2, compress = "n")
+[31m█[39m[31m█[39m
+[31m█[39m 
+
+> print(p2, compress = "v")
+[31m█[39m[31m▀[39m
+
+> print(p2, compress = "h")
+[31m█[39m
+[31m▌[39m
+
+> print(p2, compress = "b")
+[31m▛[39m
+
+> p2 <- test_pixmap("blue", ul = "red")
+> print(p2, compress = "n")
+[31m█[39m[34m█[39m
+[34m█[39m[34m█[39m
+
+> print(p2, compress = "v")
+[31m[44m▀[49m[39m[34m█[39m
+
+> print(p2, compress = "h")
+[31m[44m▌[49m[39m
+[34m█[39m
+
+> print(p2, compress = "b")
+[34m[41m▟[49m[39m
+
+> p2 <- test_pixmap("blue", ur = "red")
+> print(p2, compress = "n")
+[34m█[39m[31m█[39m
+[34m█[39m[34m█[39m
+
+> print(p2, compress = "v")
+[34m█[39m[31m[44m▀[49m[39m
+
+> print(p2, compress = "h")
+[34m[41m▌[49m[39m
+[34m█[39m
+
+> print(p2, compress = "b")
+[34m[41m▙[49m[39m
+
+> p2 <- test_pixmap("blue", bl = "red")
+> print(p2, compress = "n")
+[34m█[39m[34m█[39m
+[31m█[39m[34m█[39m
+
+> print(p2, compress = "v")
+[34m[41m▀[49m[39m[34m█[39m
+
+> print(p2, compress = "h")
+[34m█[39m
+[31m[44m▌[49m[39m
+
+> print(p2, compress = "b")
+[34m[41m▜[49m[39m
+
+> p2 <- test_pixmap("blue", br = "red")
+> print(p2, compress = "n")
+[34m█[39m[34m█[39m
+[34m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[34m█[39m[34m[41m▀[49m[39m
+
+> print(p2, compress = "h")
+[34m█[39m
+[34m[41m▌[49m[39m
+
+> print(p2, compress = "b")
+[34m[41m▛[49m[39m
+
+> p2 <- test_pixmap("transparent", ul = "red", bl = "red")
+> print(p2, compress = "n")
+[31m█[39m 
+[31m█[39m 
+
+> print(p2, compress = "v")
+[31m█[39m 
+
+> print(p2, compress = "h")
+[31m▌[39m
+[31m▌[39m
+
+> print(p2, compress = "b")
+[31m▌[39m
+
+> p2 <- test_pixmap("red", ul = "transparent", bl = "transparent")
+> print(p2, compress = "n")
+ [31m█[39m
+ [31m█[39m
+
+> print(p2, compress = "v")
+ [31m█[39m
+
+> print(p2, compress = "h")
+[31m▐[39m
+[31m▐[39m
+
+> print(p2, compress = "b")
+[31m▐[39m
+
+> p2 <- test_pixmap("blue", ur = "red", br = "red")
+> print(p2, compress = "n")
+[34m█[39m[31m█[39m
+[34m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[34m█[39m[31m█[39m
+
+> print(p2, compress = "h")
+[34m[41m▌[49m[39m
+[34m[41m▌[49m[39m
+
+> print(p2, compress = "b")
+[34m[41m▌[49m[39m
+
+> p2 <- test_pixmap("transparent", ul = "red", ur = "red")
+> print(p2, compress = "n")
+[31m█[39m[31m█[39m
+  
+
+> print(p2, compress = "v")
+[31m▀[39m[31m▀[39m
+
+> print(p2, compress = "h")
+[31m█[39m
+ 
+
+> print(p2, compress = "b")
+[31m▀[39m
+
+> p2 <- test_pixmap("red", ul = "transparent", ur = "transparent")
+> print(p2, compress = "n")
+  
+[31m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[31m▄[39m[31m▄[39m
+
+> print(p2, compress = "h")
+ 
+[31m█[39m
+
+> print(p2, compress = "b")
+[31m▄[39m
+
+> p2 <- test_pixmap("blue", ul = "red", ur = "red")
+> print(p2, compress = "n")
+[31m█[39m[31m█[39m
+[34m█[39m[34m█[39m
+
+> print(p2, compress = "v")
+[31m[44m▀[49m[39m[31m[44m▀[49m[39m
+
+> print(p2, compress = "h")
+[31m█[39m
+[34m█[39m
+
+> print(p2, compress = "b")
+[31m[44m▀[49m[39m
+
+> p2 <- test_pixmap("transparent", ul = "red", br = "red")
+> print(p2, compress = "n")
+[31m█[39m 
+ [31m█[39m
+
+> print(p2, compress = "v")
+[31m▀[39m[31m▄[39m
+
+> print(p2, compress = "h")
+[31m▌[39m
+[31m▐[39m
+
+> print(p2, compress = "b")
+[31m▚[39m
+
+> p2 <- test_pixmap("red", ul = "transparent", br = "transparent")
+> print(p2, compress = "n")
+ [31m█[39m
+[31m█[39m 
+
+> print(p2, compress = "v")
+[31m▄[39m[31m▀[39m
+
+> print(p2, compress = "h")
+[31m▐[39m
+[31m▌[39m
+
+> print(p2, compress = "b")
+[31m▞[39m
+
+> p2 <- test_pixmap("blue", ul = "red", br = "red")
+> print(p2, compress = "n")
+[31m█[39m[34m█[39m
+[34m█[39m[31m█[39m
+
+> print(p2, compress = "v")
+[31m[44m▀[49m[39m[34m[41m▀[49m[39m
+
+> print(p2, compress = "h")
+[31m[44m▌[49m[39m
+[34m[41m▌[49m[39m
+
+> print(p2, compress = "b")
+[31m[44m▚[49m[39m
+

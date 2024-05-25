@@ -1,4 +1,4 @@
-#' Coerce to bitmap glyph objects
+#' Cast to a bitmap matrix object
 #'
 #' `as_bm_bitmap()` turns an existing object into a `bm_bitmap()` object.
 #'
@@ -215,7 +215,7 @@ as_bm_bitmap.matrix <- function(x, ...) {
         x[, ] <- suppressWarnings(as.integer(x))
     }
     stopifnot(!any(is.na(x)))
-    class(x) <- c("bm_bitmap", class(x))
+    class(x) <- c("bm_bitmap", "bm_matrix", class(x))
     x
 }
 

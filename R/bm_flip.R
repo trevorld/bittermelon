@@ -8,19 +8,19 @@
 #'                  OR "both" or "b".
 #' @param in_place If `TRUE` flip the glyphs in place (without changing any white space padding).
 #' @examples
-#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'   font <- read_hex(font_file)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
 #'
-#'   # Print upside down
-#'   bml <- as_bm_list("RSTATS", font = font)
-#'   bml <- bm_flip(bml, "both")
-#'   bm <- bm_call(bml, cbind, direction = "RTL")
-#'   print(bm)
+#' # Print upside down
+#' bml <- as_bm_list("RSTATS", font = font)
+#' bml <- bm_flip(bml, "both")
+#' bm <- bm_call(bml, cbind, direction = "RTL")
+#' print(bm)
 #'
-#'   # Can also modify glyphs "in place"
-#'   exclamation <- font[[str2ucp("!")]]
-#'   exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
-#'   print(exclamation_flipped)
+#' # Can also modify glyphs "in place"
+#' exclamation <- font[[str2ucp("!")]]
+#' exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
+#' print(exclamation_flipped)
 #' @inherit bm_clamp return
 #' @export
 bm_flip <- function(bm_object, direction = "vertical", in_place = FALSE) {

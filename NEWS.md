@@ -4,6 +4,26 @@ bittermelon 1.2.0 (development)
 New features
 ------------
 
+* `bm_pixmap()` creates a S3 object representing raster image pixmaps (#60).
+  Intended to represent pixel art / sprites but can be used
+  to represent more complicated raster images.
+  It supports the following S3 methods:
+
+  * `as.matrix.bm_pixmap()`
+  * `as.raster.bm_pixmap()` and `plot.bm_pixmap()`
+  * `format.bm_pixmap()` and `print.bm_pixmap()`
+  * `as_bm_pixmap()` is a S3 method that coerces objects to `bm_pixmap()` objects
+
+    * `as_bm_pixmap.bm_bitmap()`
+    * `as_bm_pixmap.default()`
+    * `as_bm_pixmap.matrix()`
+    * `as_bm_pixmap.raster()`
+
+  * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
+    and `FALSE` for all other objects.
+
+* `food_crop_sprites()` returns a named list of lists
+  of twenty food crops in six various stages as `bm_pixmap()` objects.
 * `bm_options()` returns a list of (current or default) `bittermelon` options values.
 * `px_auto()` determines which character vector to use for "pixels" based on
   whether `cli::is_utf8_output()` is `TRUE` or not.
@@ -20,6 +40,7 @@ Bug fixes and minor improvements
 * Fixes bugs in `write_monobit()`, `write_yaff()`, and the unit tests
   if any of the options `bittermelon.fg`, `bittermelon.bg`, or `bittermelon.compress`
   are set away from their defaults.
+* `bm_bitmap()` objects now also have the class `"bm_matrix"` (as does the new `bm_pixmap()` objects).
 
 bittermelon 1.1.2
 =================
@@ -100,13 +121,12 @@ bittermelon 0.1.3
   (but we are unlikely to ever support exporting color bitmap fonts).
   It supports the following S3 methods:
 
-    * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
-    * `as.matrix.bm_bitmap()`
-    * `as.raster.bm_bitmap()` (#3) and `plot.bm_bitmap()` (#4)
-    * `cbind.bm_bitmap()` and `rbind.bm_bitmap()`
-    * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
-    * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
-
+  * `[.bm_bitmap()` and `[<-.bm_bitmap()` (#38)
+  * `as.matrix.bm_bitmap()`
+  * `as.raster.bm_bitmap()` (#3) and `plot.bm_bitmap()` (#4)
+  * `cbind.bm_bitmap()` and `rbind.bm_bitmap()`
+  * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
+  * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
   
     * `as_bm_bitmap.default()`

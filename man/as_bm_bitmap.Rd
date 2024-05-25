@@ -7,7 +7,7 @@
 \alias{as_bm_bitmap.grob}
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
-\title{Coerce to bitmap glyph objects}
+\title{Cast to a bitmap matrix object}
 \usage{
 as_bm_bitmap(x, ...)
 

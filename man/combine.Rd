@@ -31,12 +31,12 @@ First \tab Second \tab Result\cr
 \code{bm_bitmap()} \tab \code{bm_bitmap()} \tab \code{bm_list()}\cr
 \code{bm_bitmap()} \tab \code{bm_list()} \tab \code{bm_list()}\cr
 \code{bm_bitmap()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
+\code{bm_font()} \tab \code{bm_bitmap()} \tab \code{bm_font()}\cr
+\code{bm_font()} \tab \code{bm_list()} \tab \code{bm_font()}\cr
+\code{bm_font()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
 \code{bm_list()} \tab \code{bm_bitmap()} \tab \code{bm_list()}\cr
 \code{bm_list()} \tab \code{bm_list()} \tab \code{bm_list()}\cr
 \code{bm_list()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{fm_bitmap()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{fm_list()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{fm_font()} \tab \code{bm_font()}\cr
 }
 When combining with a \code{bm_font()} object if any \code{bm_bitmap()} objects
 share the same name we only keep the last one.

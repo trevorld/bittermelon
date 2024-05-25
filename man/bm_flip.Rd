@@ -22,17 +22,17 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
 It can flip the entire bitmap or just the glyph in place.
 }
 \examples{
-  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-  font <- read_hex(font_file)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
 
-  # Print upside down
-  bml <- as_bm_list("RSTATS", font = font)
-  bml <- bm_flip(bml, "both")
-  bm <- bm_call(bml, cbind, direction = "RTL")
-  print(bm)
+# Print upside down
+bml <- as_bm_list("RSTATS", font = font)
+bml <- bm_flip(bml, "both")
+bm <- bm_call(bml, cbind, direction = "RTL")
+print(bm)
 
-  # Can also modify glyphs "in place"
-  exclamation <- font[[str2ucp("!")]]
-  exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
-  print(exclamation_flipped)
+# Can also modify glyphs "in place"
+exclamation <- font[[str2ucp("!")]]
+exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
+print(exclamation_flipped)
 }
