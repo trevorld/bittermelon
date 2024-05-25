@@ -58,12 +58,12 @@ print.bm_bitmap <- function(x, ...,
 #' @param bg R color strings of background colors to use and/or cli ANSI style functions of class `cli_ansi_style`.
 #'           `FALSE` (default) for no background colors.
 #'           Will be recycled and passed to [cli::make_ansi_style()] with `bg = TRUE`.
-#' @param compress If `none` (default) don't compress first with [bm_compress()].
+#' @param compress If "none" (default) or "n" don't compress first with [bm_compress()].
 #'                 Otherwise compress first with [bm_compress()] passing
 #'                 the value of `compress` as its `direction` argument
 #'                 (i.e. either "vertical" or "v", "horizontal" or "h",
 #'                  OR "both" or "b").
-#' @usage \method{format}{bm_bitmap}(x, ..., 
+#' @usage \method{format}{bm_bitmap}(x, ...,
 #'                       px = getOption("bittermelon.px", px_auto()),
 #'                       fg = getOption("bittermelon.fg", FALSE),
 #'                       bg = getOption("bittermelon.bg", FALSE),
@@ -74,11 +74,12 @@ format.bm_bitmap <- function(x, ...,
                              fg = getOption("bittermelon.fg", FALSE),
                              bg = getOption("bittermelon.bg", FALSE),
                              compress = getOption("bittermelon.compress", "none")) {
+    direction <- match.arg(tolower(compress),
+                           c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
+    direction <- substr(direction, 1L, 1L)
     x <- as_bm_bitmap(x)
     if (nrow(x) == 0L) return(character(0))
-    if (compress != "none") {
-        direction <- match.arg(tolower(compress),
-                               c("vertical", "v", "horizontal", "h", "both", "b"))
+    if (direction != "n") {
         x <- bm_compress(x, direction = direction)
     }
     n <- max(x) + 1L
@@ -94,6 +95,9 @@ format.bm_bitmap <- function(x, ...,
         fgl <- rep_len(FALSE, n)
     }
     if (!isFALSE(bg)) {
+
+        # Avoid {cli} converting to ANSI style function if color string in `cli:::ansi_builtin_styles()`
+        if (is.character(bg)) bg <- col2rrggbbaa(bg)
         bgl <- lapply(bg, function(col) cli::make_ansi_style(col, bg = TRUE))
         if (length(bgl) == 1) {
             bgl <- rep_len(bgl, n)

@@ -10,12 +10,12 @@
 #' `bm_bitmap()` \tab `bm_bitmap()` \tab `bm_list()`\cr
 #' `bm_bitmap()` \tab `bm_list()` \tab `bm_list()`\cr
 #' `bm_bitmap()` \tab `bm_font()` \tab `bm_font()`\cr
+#' `bm_font()` \tab `bm_bitmap()` \tab `bm_font()`\cr
+#' `bm_font()` \tab `bm_list()` \tab `bm_font()`\cr
+#' `bm_font()` \tab `bm_font()` \tab `bm_font()`\cr
 #' `bm_list()` \tab `bm_bitmap()` \tab `bm_list()`\cr
 #' `bm_list()` \tab `bm_list()` \tab `bm_list()`\cr
 #' `bm_list()` \tab `bm_font()` \tab `bm_font()`\cr
-#' `bm_font()` \tab `fm_bitmap()` \tab `bm_font()`\cr
-#' `bm_font()` \tab `fm_list()` \tab `bm_font()`\cr
-#' `bm_font()` \tab `fm_font()` \tab `bm_font()`\cr
 #' }
 #' When combining with a `bm_font()` object if any `bm_bitmap()` objects
 #' share the same name we only keep the last one.
@@ -89,7 +89,6 @@ c.bm_font <- function(...) {
 #' @rdname combine
 #' @export
 c.bm_list <- function(...) {
-    l <- list(...)
     l <- list(...)
     stopifnot(length(l) > 0L)
     if (length(l) == 1L) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bm_bitmap.R
 \name{bm_bitmap}
 \alias{bm_bitmap}
-\title{Bitmap object}
+\title{Bittermelon bitmap matrix object}
 \usage{
 bm_bitmap(x)
 }
@@ -12,20 +12,24 @@ If not already an integer matrix it will be cast to one
 by \code{\link[=as_bm_bitmap]{as_bm_bitmap()}}.}
 }
 \value{
-An integer matrix with a \dQuote{bm_bitmap} subclass.
+An integer matrix with \dQuote{bm_bitmap} and \dQuote{bm_matrix} subclasses.
 }
 \description{
-\code{bm_bitmap()} creates an S3 object representing bitmap.
+\code{bm_bitmap()} creates an S3 matrix subclass representing a bitmap.
 }
 \details{
-Bitmaps are represented as integer matrices with special class methods.
-The bottom left pixel is represented by the first row and first column.
-The bottom right pixel is represented by the first row and last column.
-The top left pixel is represented by the last row and first column.
-The top right pixel is represented by the last row and last column.
-Color bitmaps are supported (the integer can be any non-negative integer)
+\itemize{
+\item Intended to represent binary bitmaps especially (but not limited to) bitmap font glyphs.
+\item Bitmaps are represented as integer matrices with special class methods.
+\item The bottom left pixel is represented by the first row and first column.
+\item The bottom right pixel is represented by the first row and last column.
+\item The top left pixel is represented by the last row and first column.
+\item The top right pixel is represented by the last row and last column.
+\item Non-binary bitmaps are supported (the integer can be any non-negative integer)
 but we are unlikely to ever support exporting color bitmap fonts.
-Color bitmaps can be cast to black-and-white bitmaps via \code{\link[=bm_clamp]{bm_clamp()}}.
+\item Non-binary bitmaps can be cast to binary bitmaps via \code{\link[=bm_clamp]{bm_clamp()}}.
+\item See \code{\link[=bm_pixmap]{bm_pixmap()}} for an alternative S3 object backed by a color string matrix.
+}
 }
 \section{Supported S3 methods}{
 

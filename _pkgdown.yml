@@ -2,36 +2,40 @@ destination: "../../websites/R/bittermelon/"
 url: "https://trevorldavis.com/R/bittermelon"
 development:
     mode: auto
+template:
+  bootstrap: 5
+  theme: arrow-dark
 reference:
-    - title: "Bitmap objects"
-      desc: 'Bitmap objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
+    - title: "Bittermelon bitmap and pixmap objects"
+      desc: 'Bittermelon bitmap and pixmap objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
           - bm_bitmap
           - as_bm_bitmap
           - is_bm_bitmap
+          - bm_pixmap
+          - as_bm_pixmap
+          - is_bm_pixmap
           - starts_with("\\[")
-          - as.matrix.bm_bitmap
+          - as.matrix.bm_matrix
           - cbind.bm_bitmap
-          - plot.bm_bitmap
+          - plot.bm_matrix
           - print.bm_bitmap
+          - print.bm_pixmap
     - title: "Bitmap list objects"
       desc: 'Bitmap list objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
           - bm_list
           - as_bm_list
           - is_bm_list
-    - title: "Bitmap font objects"
-      desc: 'Bitmap font objects and methods.  See also "Modify bitmaps", "Other bitmap object utilities", and "Read/write bitmap fonts".'
+    - title: "Bitmap fonts"
+      desc: 'Bitmap font objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
           - bm_font
           - as_bm_font
           - is_bm_font
-    - title: "Read/write bitmap fonts"
-      desc: "Functions to read/write bitmap fonts"
-      contents:
           - read_hex
-          - read_yaff
           - read_monobit
+          - read_yaff
     - title: "Modify bitmaps"
       desc: "Functions to modify bitmaps and bitmap lists"
       contents:
@@ -62,6 +66,7 @@ reference:
           - bm_lapply
           - bm_padding_lengths
           - bm_widths
+          - food_crop_sprites
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:

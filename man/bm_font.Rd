@@ -39,5 +39,5 @@ It is a subclass of \code{\link[=bm_list]{bm_list()}}.
  print(R_glyph)
 }
 \seealso{
-\code{\link[=is_bm_font]{is_bm_font()}}, [as_bm_font(), \code{\link[=hex2ucp]{hex2ucp()}}]
+\code{\link[=is_bm_font]{is_bm_font()}}, \code{\link[=as_bm_font]{as_bm_font()}}, \code{\link[=hex2ucp]{hex2ucp()}}
 }

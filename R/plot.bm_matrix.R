@@ -1,12 +1,15 @@
-#' Plot bitmap object
+#' Plot bitmap/pixmap objects
 #'
-#' `plot.bm_bitmap()` plots a bitmap object to the graphics device.
-#' It is a wrapper around `grid::grid.raster()` and `as.raster.bm_bitmap()`
+#' `plot.bm_bitmap()` plots a [bm_bitmap()] object to the graphics device
+#' while `plot.bm_pixmap()` plots a [bm_pixmap()] object to the graphics device.
+#' They are wrappers around [grid::grid.raster()] and `as.raster.bm_bitmap()`
+#' or `as.raster.bm_pixmap()`.
 #' which converts a bitmap glyph object to a raster object.
 #'
 #' @inheritParams format.bm_bitmap
 #' @param ... Passed to [grid::grid.raster()].
 #' @param col Character vector of R color specifications.
+#'            First color is used for values equal to 0, second color for values equal to 1, etc.
 #' @param interpolate Passed to [grid::grid.raster()].
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -18,22 +21,41 @@
 #'
 #'   grid::grid.newpage()
 #'   plot(capital_r, col = c("yellow", "blue", "red"))
-#' @export
-#' @return A `grid` rastergrob grob object silently.
+#' @return `plot.bm_bitmap()` and `plot.bm_pixmap()` return a [grid::rasterGrob()] object silently.
 #'         As a side effect will draw to graphics device.
-#' @seealso [bm_bitmap()], [as.raster.bm_bitmap()]
+#'         `as.raster.bm_bitmap()` and `as.raster.bm_pixmap()` return "raster" objects (see [grDevices::as.raster()]).
+#' @seealso [bm_bitmap()], [bm_pixmap()]
+#' @name plot.bm_matrix
+#' @export
 plot.bm_bitmap <- function(x, ..., col = c("grey80", "black", "grey40"),
                           interpolate = FALSE) {
     grid::grid.raster(as.raster.bm_bitmap(x, col = col),
                       ..., interpolate = interpolate)
 }
 
-#' @rdname plot.bm_bitmap
+#' @rdname plot.bm_matrix
+#' @export
+plot.bm_pixmap <- function(x, ...,
+                          interpolate = FALSE) {
+    grid::grid.raster(as.raster.bm_pixmap(x),
+                      ..., interpolate = interpolate)
+}
+
+#' @rdname plot.bm_matrix
 #' @importFrom grDevices as.raster
 #' @export
 as.raster.bm_bitmap <- function(x, ..., col = c("grey80", "black", "grey40")) { # nolint
-    x <- as.matrix(as_bm_bitmap(x))
+    x <- as.matrix(x)
     x <- x[rev(seq_len(nrow(x))), ]
     r <- apply(x, 2, function(i) col[i + 1L])
     grDevices::as.raster(r)
+}
+
+#' @rdname plot.bm_matrix
+#' @importFrom grDevices as.raster
+#' @export
+as.raster.bm_pixmap <- function(x, ...) { # nolint
+    x <- as.matrix(x)
+    x <- x[rev(seq_len(nrow(x))), ]
+    grDevices::as.raster(x)
 }

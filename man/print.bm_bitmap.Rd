@@ -20,7 +20,7 @@ An object of class \code{character} of length 20.
                      bg = getOption("bittermelon.bg", FALSE),
                      compress = getOption("bittermelon.compress", "none"))
 
-\method{format}{bm_bitmap}(x, ..., 
+\method{format}{bm_bitmap}(x, ...,
                       px = getOption("bittermelon.px", px_auto()),
                       fg = getOption("bittermelon.fg", FALSE),
                       bg = getOption("bittermelon.bg", FALSE),
@@ -50,7 +50,7 @@ Will be recycled and passed to \code{\link[cli:make_ansi_style]{cli::make_ansi_s
 \code{FALSE} (default) for no background colors.
 Will be recycled and passed to \code{\link[cli:make_ansi_style]{cli::make_ansi_style()}} with \code{bg = TRUE}.}
 
-\item{compress}{If \code{none} (default) don't compress first with \code{\link[=bm_compress]{bm_compress()}}.
+\item{compress}{If "none" (default) or "n" don't compress first with \code{\link[=bm_compress]{bm_compress()}}.
 Otherwise compress first with \code{\link[=bm_compress]{bm_compress()}} passing
 the value of \code{compress} as its \code{direction} argument
 (i.e. either "vertical" or "v", "horizontal" or "h",
