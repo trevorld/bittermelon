@@ -1,34 +1,34 @@
 Package: bittermelon
 Type: Package
-Title: Monochrome Bitmap Font Tools
-Version: 1.2.0-5
+Title: Bitmap Tools
+Version: 2.0.0-1
 Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com",
                     comment = c(ORCID = "0000-0001-6341-4639")),
-             person("Rob", "Hagemans", role = "cph",
-                    comment = "Author of included 'monobit' library"),
-             person("Frederic", "Cambus", role = "cph",
-                    comment = "Author of included 'Spleen' font"))
-Description: Provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
+             person("Frederic", "Cambus", role = "tyg",
+                    comment = "Developer of included 'Spleen' font"),
+             person("Markus", "Kuhn", role = "tyg",
+                    comment = "Maintainer of included 'Fixed' font"),
+             person("josehzz", role = "art",
+                    comment = "Artist of included 'Farming Crops 16x16' sprites"))
+Description: Provides functions for creating, modifying, and displaying bitmaps.   There is a special emphasis on monochrome bitmap fonts and their glyphs as well as colored pixel art/sprites.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'monobit' <https://github.com/robhagemans/monobit> is installed can also read/write several additional bitmap font formats.
 URL: https://trevorldavis.com/R/bittermelon/
 BugReports: https://github.com/trevorld/bittermelon/issues
 License: MIT + file LICENSE
 Imports:
     cli,
-    findpython,
     grDevices,
     grid,
     png,
-    rappdirs,
     Unicode,
     utils
 Suggests:
-    git2r,
     mazing,
     ragg,
     testthat,
     vdiffr,
     withr
+SystemRequirements: 'monobit' for reading/writing additional bitmap font formats.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1

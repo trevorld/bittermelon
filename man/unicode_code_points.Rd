@@ -51,7 +51,7 @@ Unicode code points as character vectors. \code{is_ucp()} returns
 \code{TRUE} if a valid Unicode code point.
 }
 \details{
-\code{hex2ucp(x)} is a wrapper for \code{as.character(Unicode::as.u_char(x))}.
+\code{hex2ucp(x)} is a wrapper for \code{as.character(Unicode::as.u_char(toupper(x)))}.
 \code{int2ucp} is a wrapper for \code{as.character(Unicode::as.u_char(as.integer(x)))}.
 \code{str2ucp(x)} is a wrapper for \code{as.character(Unicode::as.u_char(utf8ToInt(x)))}.
 \code{name2ucp(x)} is a wrapper for \code{as.character(Unicode::u_char_from_name(x))}.
@@ -72,11 +72,6 @@ by these functions and not \code{Unicode::u_char} objects.
   ucp2label("U+0052")
   name2ucp("LATIN CAPITAL LETTER R")
   str2ucp("R")
-
-  # Potential gotcha as as.hexmode("52") == as.integer("82") == 52L
-  all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
-  all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
-  all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
 
   block2ucp("Basic Latin")
   block2ucp("Basic Latin", omit_unnamed = FALSE)

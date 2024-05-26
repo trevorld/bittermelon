@@ -42,13 +42,14 @@ cli ANSI style function of class \code{cli_ansi_style}.
 It is a wrapper around \code{format.bm_pixmap()}.
 }
 \examples{
-crops <- food_crop_sprites()
-corn_portrait <- crops$corn[[6L]]
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(corn_portrait)
+  print(corn)
 }
+
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(corn_portrait, compress = "v", bg = cli::bg_br_white)
+  print(corn, compress = "v", bg = cli::bg_br_white)
 }
 
 if (cli::is_utf8_output() && 

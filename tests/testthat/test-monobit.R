@@ -1,5 +1,5 @@
-test_that("read_monobit() and write_monobit()", {
-    skip_if_not(findpython::can_find_python_cmd(minimum_version = "3.6"))
+test_that("`read_monobit()` and `write_monobit()`", {
+    skip_if_not(Sys.which("monobit-convert") != "")
     skip_on_cran()
 
     plus_cp <- name2ucp("PLUS SIGN") # code point U+002B

@@ -66,7 +66,7 @@ reference:
           - bm_lapply
           - bm_padding_lengths
           - bm_widths
-          - food_crop_sprites
+          - farming_crops_16x16
     - title: "Unicode utilities"
       desc: "Unicode utility functions"
       contents:

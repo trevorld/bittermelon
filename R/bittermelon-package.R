@@ -20,12 +20,6 @@
 #'     \item{cli.unicode}{Whether UTF-8 character support should be assumed.
 #'                        Used by [px_auto()] which is the default of the `bittermelon.px` option.}
 #'   }
-#'  The following `findpython` option may also be of interest:
-#'   \describe{
-#'     \item{python_cmd}{Explicitly set path to python binary to use with [read_monobit()]
-#'                       or [write_monobit()].  This is actually the appropriate global option
-#'                       for [findpython::find_python_cmd()].}
-#'   }
 #' @keywords internal
 #' @name bittermelon
 "_PACKAGE"

@@ -3,39 +3,29 @@
 \name{read_monobit}
 \alias{read_monobit}
 \alias{write_monobit}
-\alias{update_monobit}
 \title{Read and write bitmap font files using monobit}
 \usage{
 read_monobit(
   file,
   quietly = FALSE,
-  monobit_path = getOption("bittermelon.monobit_path", NULL)
+  monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
 )
 
 write_monobit(
   font,
   file,
   quietly = FALSE,
-  monobit_path = getOption("bittermelon.monobit_path", NULL)
+  monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
 )
-
-update_monobit(site = FALSE)
 }
 \arguments{
 \item{file}{A character string of a filename.}
 
-\item{quietly}{If \code{TRUE} suppress any standard output/error from \code{monobit}.}
+\item{quietly}{If \code{TRUE} suppress any standard output/error from \code{monobit-convert}.}
 
-\item{monobit_path}{Which directory containing \code{monobit} to use.
-Default will be to look in \code{file.path(rappdirs::user_config_dir("bittermelon"), "monobit")},
-\code{file.path(rappdirs::site_config_dir("bittermelon"), "monobit")}, and
-\code{system.file("monobit", package = "bittermelon")} (in that order).}
+\item{monobit_path}{Path/name of \code{monobit-convert} to use.  Passed to \code{\link[base:Sys.which]{base::Sys.which()}}.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
-
-\item{site}{If \code{TRUE} try to install into \code{rappdirs::site_config_dir("bittermelon")}
-instead of \code{rappdirs::user_config_dir("bittermelon")}.
-Note this may require administrator privileges.}
 }
 \value{
 \code{read_monobit()} returns a \code{\link[=bm_font]{bm_font()}} object.  \code{write_monobit()} returns \code{NULL} invisibly and
@@ -45,36 +35,32 @@ as a side effect writes \code{file}.
 \code{read_monobit()} reads in bitmap font file as a \code{\link[=bm_font]{bm_font()}} object while \code{write_monobit()}
 writes a \code{\link[=bm_font]{bm_font()}} object as a bitmap font file.
 It uses the file extension to determine the appropriate bitmap font format to use.
-\code{update_monobit()} downloads an updated version of \code{monobit}.
 }
 \details{
-\code{read_monobit()} and \code{write_monobit()} require Python v3.6 or greater available on the system.
-\code{read_monobit()} and \code{write_monobit()} uses \code{monobit}'s \code{convert.py} script to convert to/from
+\itemize{
+\item \code{read_monobit()} and \code{write_monobit()} require that the \code{monobit-convert} command is available on the system.
+\item \code{read_monobit()} and \code{write_monobit()} uses \code{monobit-convert} to convert to/from
 the yaff font format which this package can natively read/write from/to.
-This package embeds an older, smaller version of \code{monobit}.
-Use \code{update_monobit()} to download a newer, better version of \code{monobit}
-(which unfortunately is too large to embed within this package).
+\item One may install \code{monobit-convert} using \verb{pip3 install monobit}.
+\item For more information about \code{monobit} see \url{https://github.com/robhagemans/monobit}.
+}
 }
 \examples{
- \donttest{
- if (findpython::can_find_python_cmd(minimum_version = "3.6")) {
-   try({
-     font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-     tempfile <- tempfile(fileext = ".hex")
-     writeLines(readLines(font_file), tempfile)
+\donttest{# May take more than 5 seconds on CRAN servers
+if (Sys.which("monobit-convert") != "") {
+  try({
+    font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+    font <- read_monobit(font_file)
+    capital_r <- font[[str2ucp("R")]]
+    print(capital_r)
 
-     font <- read_monobit(tempfile)
-     capital_r <- font[[str2ucp("R")]]
-     print(capital_r)
-
-     filename <- tempfile(fileext = ".yaff")
-     write_monobit(font, filename)
-   })
- }
- }
+    filename <- tempfile(fileext = ".yaff")
+    write_monobit(font, filename)
+  })
+}
+}
 }
 \seealso{
 \code{\link[=bm_font]{bm_font()}} for more information about bitmap font objects.
 \code{\link[=read_hex]{read_hex()}}, \code{\link[=write_hex]{write_hex()}}, \code{\link[=read_yaff]{read_yaff()}}, \code{\link[=write_yaff]{write_yaff()}} for pure R bitmap font readers and writers.
-For more information about \code{monobit} see \url{https://github.com/robhagemans/monobit}.
 }

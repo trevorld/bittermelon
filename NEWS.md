@@ -1,5 +1,20 @@
-bittermelon 1.2.0 (development)
+bittermelon 2.0.0 (development)
 ===============================
+
+Breaking changes
+----------------
+
+* We no longer embed an increasingly outdated version of [monobit](https://github.com/robhagemans/monobit).
+
+  - `monobit` has now grown too large to embed within `{bittermelon}` and stay within CRAN package size limits.
+  - Users interested in reading/writing bitmap fonts formats other than `.hex` and `.yaff` files
+    will need to manually install their own version of `monobit` using `pip3 install monobit`.
+  - The interpretation of the argument `monobit_path` in `read_monobit()` and `write_monobit()`
+    and the global option `bittermelon.monobit_path` has been changed and now means the path
+    to pass to `base::Sys.which()` (if the new default name `"monobit-convert"` is not good enough).
+  - Any previously installed versions of `monobit` to `rappdirs::site_config_dir("bittermelon", "monobit")` or `rappdirs::user_config_dir("bittermelon", "monobit")` will now be ignored.
+    Please consider deleting them or update the `bittermelon.monobit_path` option to point to them.
+  - The function `update_monobit()` has been removed.
 
 New features
 ------------
@@ -22,8 +37,8 @@ New features
   * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
     and `FALSE` for all other objects.
 
-* `food_crop_sprites()` returns a named list of lists
-  of twenty food crops in six various stages as `bm_pixmap()` objects.
+* `farming_crops_16x16()` returns a named list of lists
+  of twenty farming crops in five stages of growth plus a portrait as `bm_pixmap()` objects.
 * `bm_options()` returns a list of (current or default) `bittermelon` options values.
 * `px_auto()` determines which character vector to use for "pixels" based on
   whether `cli::is_utf8_output()` is `TRUE` or not.
@@ -40,6 +55,9 @@ Bug fixes and minor improvements
 * Fixes bugs in `write_monobit()`, `write_yaff()`, and the unit tests
   if any of the options `bittermelon.fg`, `bittermelon.bg`, or `bittermelon.compress`
   are set away from their defaults.
+* `read_yaff()` now correctly handles octal codepoint and (single) character labels.
+* `write_yaff()` now encloses "tag" labels with double quotes.
+* `hex2ucp()` now also calls `base::toupper()` on the input value.
 * `bm_bitmap()` objects now also have the class `"bm_matrix"` (as does the new `bm_pixmap()` objects).
 
 bittermelon 1.1.2
