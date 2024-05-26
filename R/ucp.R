@@ -4,7 +4,7 @@
 #' Unicode code points as character vectors. `is_ucp()` returns
 #' `TRUE` if a valid Unicode code point.
 #'
-#' `hex2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(x))`.
+#' `hex2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(toupper(x)))`.
 #' `int2ucp` is a wrapper for `as.character(Unicode::as.u_char(as.integer(x)))`.
 #' `str2ucp(x)` is a wrapper for `as.character(Unicode::as.u_char(utf8ToInt(x)))`.
 #' `name2ucp(x)` is a wrapper for `as.character(Unicode::u_char_from_name(x))`.
@@ -34,11 +34,6 @@
 #'   name2ucp("LATIN CAPITAL LETTER R")
 #'   str2ucp("R")
 #'
-#'   # Potential gotcha as as.hexmode("52") == as.integer("82") == 52L
-#'   all.equal(hex2ucp(52L), int2ucp(52L)) # TRUE
-#'   all.equal(hex2ucp("52"), int2ucp("82")) # TRUE
-#'   all.equal(hex2ucp("82"), int2ucp("82")) # FALSE
-#'
 #'   block2ucp("Basic Latin")
 #'   block2ucp("Basic Latin", omit_unnamed = FALSE)
 #'   range2ucp("U+0020..U+0030")
@@ -47,16 +42,15 @@
 #' @rdname unicode_code_points
 #' @export
 hex2ucp <- function(x) {
-    x <- as.character(Unicode::as.u_char(x))
-    x <- ifelse(x == "<NA>", NA_character_, x)
-    x
+    x <- as.character(Unicode::as.u_char(toupper(x)))
+    ifelse(x == "<NA>", NA_character_, x)
 }
 
 #' @rdname unicode_code_points
 #' @export
 int2ucp <- function(x) {
-    x <- as.integer(x)
-    hex2ucp(x)
+    x <- as.character(Unicode::as.u_char(as.integer(x)))
+    ifelse(x == "<NA>", NA_character_, x)
 }
 
 #' @rdname unicode_code_points

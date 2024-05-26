@@ -1,3 +1,0 @@
-[submodule "monobit"]
-	path = inst/monobit
-	url = https://github.com/trevorld/monobit.git

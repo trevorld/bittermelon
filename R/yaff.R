@@ -9,7 +9,7 @@
 #'
 #' @param font A [bm_font()] object.
 #' @examples
-#'  \donttest{
+#'  \donttest{# May take more than 5 seconds on CRAN servers
 #'  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
 #'  font <- read_yaff(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
@@ -119,7 +119,7 @@ capture_yaff_glyphs <- function(contents) {
 }
 
 get_yaff_labels <- function(contents, starting_index) {
-    label_token <- "^[[:alnum:]+_ <>-]+:$"
+    label_token <- ".*:$"
     labels <- c()
     j <- starting_index - 1L
     is_label <- TRUE
@@ -131,7 +131,7 @@ get_yaff_labels <- function(contents, starting_index) {
             is_label <- FALSE
         }
     }
-    labels <- gsub(":$", "", labels)
+    labels <- substr(labels, 1L, nchar(labels) - 1L)
     labels
 }
 
@@ -145,7 +145,7 @@ label2ucp <- function(labels) {
 }
 
 yaff_ucp_sort <- function(x) {
-    uplus <- base::which(toupper(substr(x, 1, 2)) == "U+")
+    uplus <- base::which(toupper(substr(x, 1L, 2L)) == "U+")
     if (length(uplus))
         c(x[uplus], x[-uplus])
     else
@@ -153,16 +153,22 @@ yaff_ucp_sort <- function(x) {
 }
 
 yaff2ucp_helper <- function(label) {
-    if (toupper(substr(label, 1, 2)) == "U+") {
-        hex2ucp(toupper(label))
-    } else if (substr(label, 1, 2) == "0x") {
+    if (toupper(substr(label, 1L, 2L)) == "U+") {
         hex2ucp(label)
-    } else if (substr(label, 1, 2) == "0o") {
-        int2ucp(substr(label, 1, 2))
+    } else if (substr(label, 1L, 2L) == "0x") {
+        hex2ucp(label)
+    } else if (substr(label, 1L, 2L) == "0o") {
+        int2ucp(as.octmode(substr(label, 3L, nchar(label))))
     } else if (grepl("^[[:digit:]]+", label)) {
         int2ucp(label)
+    } else if (substr(label, 1L, 1L) == "'") {
+        str2ucp(substr(label, 2L, nchar(label) - 1L))
+    } else if (substr(label, 1L, 1L) == '"') {
+        name2ucp(substr(label, 2L, nchar(label) - 1L))
+    } else if (nchar(label) > 1L && grepl("^[[:alnum:]_.-]+$", label)) {
+        name2ucp(label)
     } else {
-        name2ucp(toupper(label))
+        str2ucp(label)
     }
 }
 
@@ -236,9 +242,9 @@ as_yaff_property <- function(key, value) {
 as_yaff_bm_bitmap <- function(code_point, font) {
     glyph <- font[[code_point]]
     glyph <- bm_extend(glyph, left = 4L, value = 2L)
-    label <- ucp2label(code_point)
+    tag <- ucp2label(code_point)
     c(paste0(code_point, ":"),
-      paste0(label, ":"),
+      paste0('"', tag, '":'),
       format(glyph, px = c(".", "@", " "), fg = FALSE, bg = FALSE, compress = "none"),
       "")
 }

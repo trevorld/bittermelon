@@ -1,16 +1,20 @@
-#' Sprites for twenty food crops
+#' Sprites for twenty farming crops
 #'
-#' `food_crop_sprites()` returns a named list of lists
-#' of twenty food crops in six various stages as [bm_pixmap()] objects.
+#' `farming_crops_16x16()` returns a named list of lists
+#' of twenty farming crops in five stages of growth plus a portrait as [bm_pixmap()] objects.
+#'
+#' * Each sprite is sixteen by sixteen pixels large.
+#' * [Farming Crops 16x16](https://opengameart.org/content/farming-crops-16x16) was made and dedicated to the public domain by [josehzz](https://opengameart.org/users/josehzz).
 #'
 #' @examples
-#' crops <- food_crop_sprites()
+#' crops <- farming_crops_16x16()
 #' names(crops)
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   print(crops$corn[[6L]], compress = "v")
+#'   print(crops$corn$portrait, compress = "v")
 #' }
+#'
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   print(crops$orange[[5L]], compress = "v")
+#'   print(crops$orange$stage5, compress = "v")
 #' }
 #' @return A named list of lists of six [bm_pixmap()] objects (one through five stages of growth plus a portrait for each crop).  The named list has the following twenty crop names:
 #'   * "avocado"
@@ -34,7 +38,7 @@
 #'   * "turnip"
 #'   * "wheat"
 #' @export
-food_crop_sprites <- function() {
+farming_crops_16x16 <- function() {
     f <- system.file("sprites/FarmingCrops16x16/Crop_Spritesheet.png",
                      package = "bittermelon")
     img <- png::readPNG(f)
@@ -44,6 +48,7 @@ food_crop_sprites <- function() {
               "pineapple", "potato", "rice", "rose", "strawberry",
               "sunflower", "tomato", "tulip", "turnip", "wheat")
     l <- list()
+    labels <- c(paste0("stage", 1:5), "portrait")
     for (crop in crops) {
         if (crop %in% c("cucumber", 
                         "turnip",
@@ -81,9 +86,9 @@ food_crop_sprites <- function() {
                      wheat = 1L + 4L * 16L
         )
         l[[crop]] <- list()
-        for (stage in 1:6) {
-            l[[crop]][[stage]] <- pm[seq.int(y0, length.out = 16L),
-                                     seq.int(x0 + (6L - stage) * 16L, length.out = 16L)]
+        for (i in 1:6) {
+            l[[crop]][[labels[i]]] <- pm[seq.int(y0, length.out = 16L),
+                                     seq.int(x0 + (6L - i) * 16L, length.out = 16L)]
         }
     }
     l

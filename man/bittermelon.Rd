@@ -4,11 +4,11 @@
 \name{bittermelon}
 \alias{bittermelon-package}
 \alias{bittermelon}
-\title{bittermelon: Monochrome Bitmap Font Tools}
+\title{bittermelon: Bitmap Tools}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides functions for creating and modifying bitmaps with special emphasis on bitmap fonts and their glyphs. Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'Python' is installed can also read/write several more bitmap font formats using an embedded version of 'monobit'.
+Provides functions for creating, modifying, and displaying bitmaps. There is a special emphasis on monochrome bitmap fonts and their glyphs as well as colored pixel art/sprites. Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'monobit' \url{https://github.com/robhagemans/monobit} is installed can also read/write several additional bitmap font formats.
 }
 \section{Package options}{
 
@@ -33,12 +33,6 @@ If set to \code{1L} then the \code{cli} package won't add any ANSI sequences.}
 \item{cli.unicode}{Whether UTF-8 character support should be assumed.
 Used by \code{\link[=px_auto]{px_auto()}} which is the default of the \code{bittermelon.px} option.}
 }
-The following \code{findpython} option may also be of interest:
-\describe{
-\item{python_cmd}{Explicitly set path to python binary to use with \code{\link[=read_monobit]{read_monobit()}}
-or \code{\link[=write_monobit]{write_monobit()}}.  This is actually the appropriate global option
-for \code{\link[findpython:find_python_cmd]{findpython::find_python_cmd()}}.}
-}
 }
 
 \seealso{
@@ -54,8 +48,9 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Rob Hagemans (Author of included 'monobit' library) [copyright holder]
-  \item Frederic Cambus (Author of included 'Spleen' font) [copyright holder]
+  \item Frederic Cambus (Developer of included 'Spleen' font) [typographer]
+  \item Markus Kuhn (Maintainer of included 'Fixed' font) [typographer]
+  \item josehzz (Artist of included 'Farming Crops 16x16' sprites) [artist]
 }
 
 }
