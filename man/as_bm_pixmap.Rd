@@ -6,6 +6,8 @@
 \alias{as_bm_pixmap.bm_bitmap}
 \alias{as_bm_pixmap.bm_pixmap}
 \alias{as_bm_pixmap.matrix}
+\alias{as_bm_pixmap.maze}
+\alias{as_bm_pixmap.nativeRaster}
 \alias{as_bm_pixmap.raster}
 \title{Cast to a pixmap matrix object}
 \usage{
@@ -13,11 +15,22 @@ as_bm_pixmap(x, ...)
 
 \method{as_bm_pixmap}{default}(x, ...)
 
-\method{as_bm_pixmap}{bm_bitmap}(x, ..., col = c("grey80", "black", "grey40"))
+\method{as_bm_pixmap}{bm_bitmap}(x, ..., col = getOption("bittermelon.col", col_bitmap))
 
 \method{as_bm_pixmap}{bm_pixmap}(x, ...)
 
 \method{as_bm_pixmap}{matrix}(x, ...)
+
+\method{as_bm_pixmap}{maze}(
+  x,
+  ...,
+  walls = FALSE,
+  start = NULL,
+  end = NULL,
+  col = getOption("bittermelon.col", col_bitmap)
+)
+
+\method{as_bm_pixmap}{nativeRaster}(x, ...)
 
 \method{as_bm_pixmap}{raster}(x, ...)
 }
@@ -27,12 +40,26 @@ as_bm_pixmap(x, ...)
 \item{...}{Potentially passed to other methods e.g. \code{as_bm_pixmap.default()} passes \code{...} to \code{\link[=as.raster]{as.raster()}}.}
 
 \item{col}{Character vector of R color specifications.}
+
+\item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
+
+\item{start, end}{If not \code{NULL} add the solution from \code{start} to \code{end} as value 2.  See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
 }
 \value{
 A \code{\link[=bm_pixmap]{bm_pixmap()}} object.
 }
 \description{
 \code{as_bm_pixmap()} casts an object to a \verb{[bm_pixmap()]} object.
+}
+\examples{
+img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
+pm <- as_bm_pixmap(img)
+plot(pm)
+
+if (requireNamespace("mazing", quietly = TRUE)) {
+  pm <- as_bm_pixmap(mazing::maze(32, 40), col = c("black", "white"))
+  plot(pm)
+}
 }
 \seealso{
 \code{\link[=bm_pixmap]{bm_pixmap()}}, \code{\link[=is_bm_pixmap]{is_bm_pixmap()}}

@@ -24,6 +24,11 @@
 #'   If not already a color string matrix it will be cast to one by [as_bm_pixmap()].
 #' @return A character matrix of color strings with a \dQuote{bm_pixmap} subclass.
 #' @seealso [as_bm_pixmap()], [is_bm_pixmap()]
+#' @examples
+#' # Bottom left pixel is **first** row and first column
+#' pm <- bm_pixmap(matrix(c("red", "blue", "green", "black"),
+#'                 nrow = 2L, byrow = TRUE))
+#' plot(pm)
 #' @export
 bm_pixmap <- function(x) {
     if (is_bm_pixmap(x))

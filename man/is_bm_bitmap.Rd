@@ -17,10 +17,10 @@ is_bm_bitmap(x)
 and \code{FALSE} for all other objects.
 }
 \examples{
- space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
- is_bm_bitmap(space_matrix)
- space_glyph <- bm_bitmap(space_matrix)
- is_bm_bitmap(space_glyph)
+space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
+is_bm_bitmap(space_matrix)
+space_glyph <- bm_bitmap(space_matrix)
+is_bm_bitmap(space_glyph)
 }
 \seealso{
 \code{\link[=bm_bitmap]{bm_bitmap()}}

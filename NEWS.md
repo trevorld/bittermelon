@@ -16,6 +16,11 @@ Breaking changes
     Please consider deleting them or update the `bittermelon.monobit_path` option to point to them.
   - The function `update_monobit()` has been removed.
 
+* The default `col` argument to `as.raster.bm_bitmap()` and `plot.bm_bitmap()` is now
+  `getOption("bittermelon.col", col_bitmap)` where the newly exported
+  `col_bitmap = c("transparent", "black", "grey50", "grey25")`.
+  In particular by default `0L` values will now be cast to "transparent" instead of "grey80".
+
 New features
 ------------
 
@@ -32,6 +37,8 @@ New features
     * `as_bm_pixmap.bm_bitmap()`
     * `as_bm_pixmap.default()`
     * `as_bm_pixmap.matrix()`
+    * `as_bm_pixmap.maze()`
+    * `as_bm_pixmap.nativeRaster()`
     * `as_bm_pixmap.raster()`
 
   * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
@@ -43,6 +50,7 @@ New features
 * `px_auto()` determines which character vector to use for "pixels" based on
   whether `cli::is_utf8_output()` is `TRUE` or not.
 * `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
+* `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
 
 Bug fixes and minor improvements
 --------------------------------
