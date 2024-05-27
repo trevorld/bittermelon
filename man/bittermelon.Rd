@@ -21,6 +21,8 @@ If unset both functions default to \code{\link[=px_auto]{px_auto()}}.}
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.bg}{Set new default \code{bg} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
+\item{bittermelon.col}{Set new default \code{col} argument value for
+\code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}} and \code{\link[=plot.bm_bitmap]{plot.bm_bitmap()}}.}
 \item{bittermelon.compress}{Set new default \code{compress} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}.}
 \item{bittermelon.monobit_path}{Set new default \code{monobit_path} argument value

@@ -16,6 +16,11 @@ is_bm_pixmap(x)
 \code{is_bm_pixmap()} returns \code{TRUE} for \code{bm_pixmap} objects (or subclasses)
 and \code{FALSE} for all other objects.
 }
+\examples{
+pm <- bm_pixmap(matrix(c("red", "blue", "green", "black"),
+                nrow = 2L, byrow = TRUE))
+is_bm_pixmap(pm)
+}
 \seealso{
 \code{\link[=bm_pixmap]{bm_pixmap()}}, \code{\link[=as_bm_pixmap]{as_bm_pixmap()}}
 }

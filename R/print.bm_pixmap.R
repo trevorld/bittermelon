@@ -54,8 +54,7 @@ format.bm_pixmap <- function(x, ...,
     direction <- substr(direction, 1L, 1L)
     if (nrow(x) == 0L || ncol(x) == 0L)
         return(character(0L))
-    stopifnot(cli::is_utf8_output(),
-              cli::num_ansi_colors() >= 8L)
+    stopifnot(cli::is_utf8_output(), cli::num_ansi_colors() >= 8L)
 
     s <- switch(direction,
            n = format_bmr_none(x),

@@ -212,7 +212,10 @@ default_png_device <- function() {
 #' @export
 as_bm_bitmap.matrix <- function(x, ...) {
     if (!is.integer(x)) {
-        x[, ] <- suppressWarnings(as.integer(x))
+        if (is.double(x))
+            x[, ] <- suppressWarnings(as.integer(round(x)))
+        else
+            x[, ] <- suppressWarnings(as.integer(x))
     }
     stopifnot(!any(is.na(x)))
     class(x) <- c("bm_bitmap", "bm_matrix", class(x))
@@ -228,6 +231,7 @@ as_bm_bitmap.matrix <- function(x, ...) {
 #'    bm <- as_bm_bitmap(m, walls = TRUE)
 #'    print(bm, compress = "vertical")
 #'  }
+#' @export
 as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
     stopifnot(requireNamespace("mazing", quietly = TRUE))
     b <- mazing::maze2binary(x)

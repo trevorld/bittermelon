@@ -40,6 +40,12 @@ all standardized to \code{"#FFFFFF00"}.
 }
 }
 
+\examples{
+# Bottom left pixel is **first** row and first column
+pm <- bm_pixmap(matrix(c("red", "blue", "green", "black"),
+                nrow = 2L, byrow = TRUE))
+plot(pm)
+}
 \seealso{
 \code{\link[=as_bm_pixmap]{as_bm_pixmap()}}, \code{\link[=is_bm_pixmap]{is_bm_pixmap()}}
 }

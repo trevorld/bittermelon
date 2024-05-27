@@ -23,6 +23,7 @@ Imports:
     Unicode,
     utils
 Suggests:
+    farver,
     mazing,
     ragg,
     testthat,
