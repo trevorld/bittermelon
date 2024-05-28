@@ -37,12 +37,10 @@ bm_flip_bitmap <- function(bitmap, direction = "v", in_place = in_place) {
         bitmap <- bm_trim(bitmap, sides = bmpl)
     }
     if (direction %in% c("h", "b")) {
-        for (i in seq_len(nrow(bitmap)))
-            bitmap[i, ] <- rev(bitmap[i, ])
+        bitmap <- flip_matrix_horizontally(bitmap)
     }
     if (direction %in% c("v", "b")) {
-        for (j in seq_len(ncol(bitmap)))
-            bitmap[, j] <- rev(bitmap[, j])
+        bitmap <- flip_matrix_vertically(bitmap)
     }
     if (in_place)
         bitmap <- bm_extend(bitmap, sides = bmpl)

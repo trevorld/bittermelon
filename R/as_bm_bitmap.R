@@ -182,6 +182,7 @@ add_space <- function(bml, font) {
 #' @export
 as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
                               png_device = NULL, threshold = 0.25) {
+    stopifnot(width > 1L, height > 1L) # guarantee `m_bitmap` is a matrix
     current_dev <- grDevices::dev.cur()
     if (current_dev > 1L)
         on.exit(grDevices::dev.set(current_dev))
@@ -200,7 +201,7 @@ as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
 
     array_glyph <- png::readPNG(png_file, native = FALSE)
     m_bitmap <- apply(array_glyph, c(1, 2), function(x) as.integer(any(x >= threshold)))
-    bm_bitmap(m_bitmap[rev(seq.int(nrow(m_bitmap))), ])
+    bm_bitmap(flip_matrix_vertically(m_bitmap))
 }
 
 default_png_device <- function() {

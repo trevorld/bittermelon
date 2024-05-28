@@ -28,10 +28,10 @@ bm_compose <- function(bml, pua_combining = character(0), ...) {
     i_combining <- is_combining_character(names(bml), pua_combining = pua_combining)
     n_combining <- sum(i_combining)
     bml_new <- vector("list", n_orig - n_combining)
-    bml_new[[1]] <-  bml[[1]]
-    names(bml_new)[1] <- names(bml)[1]
+    bml_new[[1L]] <-  bml[[1L]]
+    names(bml_new)[1L] <- names(bml)[1L]
     i_new <- 1L
-    for (i in seq.int(2, n_orig)) {
+    for (i in seq.int(2L, n_orig)) {
         if (i_combining[i]) {
             bml_new[[i_new]] <- bm_overlay(bml_new[[i_new]], bml[[i]], ...)
             names(bml_new)[i_new] <- paste(names(bml_new)[i_new], names(bml)[i])

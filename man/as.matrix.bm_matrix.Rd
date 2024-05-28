@@ -6,12 +6,15 @@
 \alias{as.matrix.bm_pixmap}
 \title{Cast bitmap/pixmap objects to a (normal) matrix}
 \usage{
-\method{as.matrix}{bm_matrix}(x, ...)
-
-\method{as.matrix}{bm_matrix}(x, ...)
+\method{as.matrix}{bm_matrix}(x, first_row_is_top = FALSE, ...)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_pixmap]{bm_pixmap()}} object.}
+
+\item{first_row_is_top}{If \code{TRUE} the first row of the matrix will represent the top of the bitmap
+(like \code{\link[grDevices:as.raster]{grDevices::as.raster()}} objects).
+If \code{FALSE} the first row of the matrix will represent the bottom of the bitmap
+(like \code{\link[=bm_bitmap]{bm_bitmap()}} and \code{\link[=bm_pixmap]{bm_pixmap()}} objects).}
 
 \item{...}{Currently ignored.}
 }
@@ -20,8 +23,10 @@ Either an integer matrix if \code{x} is a \code{\link[=bm_bitmap]{bm_bitmap()}} 
 or a character matrix if \code{x} is a \code{\link[=bm_pixmap]{bm_pixmap()}} object.
 }
 \description{
-\code{as.matrix.bm_matrix()} casts \code{\link[=bm_bitmap]{bm_bitmap()}} objects to an (normal) integer matrix.
+\code{as.matrix.bm_matrix()} casts \code{\link[=bm_bitmap]{bm_bitmap()}} objects to a (normal) integer matrix.
 and \code{\link[=bm_pixmap]{bm_pixmap()}} objects to a (normal) character matrix (of color strings).
+Note the bottom left pixel will still represented by the first row and first column,
+these methods simply remove the class names.
 }
 \examples{
  space_matrix <- matrix(0L, ncol = 8L, nrow = 8L)

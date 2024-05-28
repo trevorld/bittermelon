@@ -41,28 +41,28 @@ bm_padding_lengths_bitmap <- function(bm_bitmap, value = 0L) { # nolint
         col_bool <- apply(bm_bitmap, 2, function(x) all(x == value))
 
         left <- 0L
-        for (j in seq.int(width)) {
+        for (j in seq_len(width)) {
             if (col_bool[j])
                 left <- left + 1L
             else
                 break
         }
         right <- 0L
-        for (j in rev(seq.int(width))) {
+        for (j in seq.int(width, 1L, -1L)) {
             if (col_bool[j])
                 right <- right + 1L
             else
                 break
         }
         bottom <- 0L
-        for (i in seq.int(height)) {
+        for (i in seq_len(height)) {
             if (row_bool[i])
                 bottom <- bottom + 1L
             else
                 break
         }
         top <- 0L
-        for (i in rev(seq.int(height))) {
+        for (i in seq.int(height, 1L, -1L)) {
             if (row_bool[i])
                 top <- top + 1L
             else

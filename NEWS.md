@@ -57,6 +57,8 @@ New features
   + `as_bm_bitmap.raster()`
 
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
+* `as.matrix.bm_bitmap()` now has a `first_row_is_top` argument to flip the rows
+  so that the first row represents the top of the bitmap instead of the bottom.
 
 Bug fixes and minor improvements
 --------------------------------

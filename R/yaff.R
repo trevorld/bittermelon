@@ -51,7 +51,7 @@ capture_comments <- function(contents) {
     if (length(non_comments)) {
         first_non_comment <- min(non_comments)
         if (first_non_comment > 1L) {
-            comments <- contents[seq.int(first_non_comment - 1L)]
+            comments <- contents[seq_len(first_non_comment - 1L)]
         } else {
             comments <- character()
         }
