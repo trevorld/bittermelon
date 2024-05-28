@@ -18,9 +18,10 @@
 #' @export
 bm_options <- function(..., default = FALSE) {
     bmo <- list(bittermelon.bg = FALSE,
+                bittermelon.col = col_bitmap,
                 bittermelon.compress = "none",
                 bittermelon.fg = FALSE,
-                bittermelon.monobit_path = NULL,
+                bittermelon.monobit_path = "monobit-convert",
                 bittermelon.px = px_auto())
     l <- list(...)
     stopifnot(all(names(l) %in% names(bmo)))
