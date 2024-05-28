@@ -60,19 +60,19 @@ as.raster.bm_bitmap <- function(x, native = FALSE, ...,
         as_native_raster.bm_bitmap(x, col = col)
     } else {
         if (nrow(x) > 0L && ncol(x) > 0L) {
-            x <- as.matrix(x)[seq.int(nrow(x), 1L), , drop = FALSE]
-            r <- apply(x, 2, function(i) col[i + 1L])
+            cols <- col[as.integer(as.matrix(x, first_row_is_top = TRUE)) + 1L]
+            m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
+            as.raster(m)
         } else {
-            r <- matrix("#FFFFFF00", nrow = nrow(x), ncol = ncol(x))
+            as.raster(matrix("#FFFFFF00", nrow = nrow(x), ncol = ncol(x)))
         }
-        grDevices::as.raster(r)
     }
 }
 
 as_native_raster.bm_bitmap <- function(x, col = getOption("bittermelon.col", col_bitmap)) {
     if (nrow(x) > 0L && ncol(x) > 0L) {
         stopifnot(requireNamespace("farver", quietly = TRUE))
-        x <- as.matrix(x)[seq.int(nrow(x), 1L), , drop = FALSE]
+        x <- as.matrix(x, first_row_is_top = TRUE)
         r <- apply(x, 2, function(i) col[i + 1L])
         cols <- farver::encode_native(as.character(t(r)))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
@@ -91,11 +91,7 @@ as.raster.bm_pixmap <- function(x, native = FALSE, ...) { # nolint
     if (native) {
         as_native_raster.bm_pixmap(x)
     } else {
-        x <- as.matrix(x)
-        if (nrow(x) > 0L && ncol(x) > 0L) {
-            x <- x[seq.int(nrow(x), 1L), , drop = FALSE]
-        }
-        grDevices::as.raster(x)
+        as.raster(as.matrix(x, first_row_is_top = TRUE))
     }
 }
 
@@ -108,7 +104,7 @@ as.raster.bm_pixmap <- function(x, native = FALSE, ...) { # nolint
 as_native_raster.bm_pixmap <- function(x, ...) {
     if (nrow(x) > 0L && ncol(x) > 0L) {
         stopifnot(requireNamespace("farver", quietly = TRUE))
-        x <- as.matrix(x)[seq.int(nrow(x), 1L), , drop = FALSE]
+        x <- as.matrix(x, first_row_is_top = TRUE)
         cols <- farver::encode_native(as.character(t(x)))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
     } else {

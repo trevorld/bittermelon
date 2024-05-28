@@ -39,7 +39,7 @@ bm_expand_bitmap <- function(bitmap, width = 1L, height = 1L) {
         bitmap <- do.call(cbind.bm_bitmap, l)
     }
     if (height != 1L) {
-        l <- lapply(rev(seq_len(nrow(bitmap))),
+        l <- lapply(seq.int(nrow(bitmap), 1L, -1L),
                     function(i) bitmap[i, , drop = FALSE])
         l <- rep(l, each = height)
         bitmap <- do.call(rbind.bm_bitmap, l)
