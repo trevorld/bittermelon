@@ -49,7 +49,13 @@ New features
 * `bm_options()` returns a list of (current or default) `bittermelon` options values.
 * `px_auto()` determines which character vector to use for "pixels" based on
   whether `cli::is_utf8_output()` is `TRUE` or not.
-* `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
+* New `as_bm_bitmap` methods:
+
+  + `as_bm_bitmap.bm_pixmap()`
+  + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
+  + `as_bm_bitmap.nativeRaster()`
+  + `as_bm_bitmap.raster()`
+
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
 
 Bug fixes and minor improvements

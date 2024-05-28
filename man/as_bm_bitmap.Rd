@@ -3,15 +3,20 @@
 \name{as_bm_bitmap}
 \alias{as_bm_bitmap}
 \alias{as_bm_bitmap.default}
+\alias{as_bm_bitmap.bm_pixmap}
 \alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.grob}
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
+\alias{as_bm_bitmap.nativeRaster}
+\alias{as_bm_bitmap.raster}
 \title{Cast to a bitmap matrix object}
 \usage{
 as_bm_bitmap(x, ...)
 
 \method{as_bm_bitmap}{default}(x, ...)
+
+\method{as_bm_bitmap}{bm_pixmap}(x, ...)
 
 \method{as_bm_bitmap}{character}(
   x,
@@ -36,6 +41,10 @@ as_bm_bitmap(x, ...)
 \method{as_bm_bitmap}{matrix}(x, ...)
 
 \method{as_bm_bitmap}{maze}(x, ..., walls = FALSE, start = NULL, end = NULL)
+
+\method{as_bm_bitmap}{nativeRaster}(x, ...)
+
+\method{as_bm_bitmap}{raster}(x, ...)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}

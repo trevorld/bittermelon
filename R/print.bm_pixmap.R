@@ -49,13 +49,15 @@ print.bm_pixmap <- function(x, ...,
 format.bm_pixmap <- function(x, ...,
                              bg = getOption("bittermelon.bg", FALSE),
                              compress = getOption("bittermelon.compress", "none")) {
+    if (nrow(x) == 0L || ncol(x) == 0L)
+        return(character(0L))
+
+    if (!cli::is_utf8_output() || cli::num_ansi_colors() == 1L)
+        return(format.bm_bitmap(as_bm_bitmap.bm_pixmap(x), bg = bg, compress = compress))
+
     direction <- match.arg(tolower(compress),
                            c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
-    if (nrow(x) == 0L || ncol(x) == 0L)
-        return(character(0L))
-    stopifnot(cli::is_utf8_output(), cli::num_ansi_colors() >= 8L)
-
     s <- switch(direction,
            n = format_bmr_none(x),
            h = format_bmr_horizontal(x),
