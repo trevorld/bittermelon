@@ -50,7 +50,7 @@ bm_compress_both <- function(bitmap) {
             pixels <- bitmap[seq(2L * (i - 1L) + 1L, length.out = 2L),
                              seq(2L * (j - 1L) + 1L, length.out = 2L)]
             int <- mode_int(pixels)
-            pixels[which(pixels > 0)] <- 1L
+            pixels[which(as.logical(pixels > 0))] <- 1L
             pixels <- paste(as.character(pixels), collapse = "")
             new <- switch(pixels,
                           "1111" = 1L,

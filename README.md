@@ -36,20 +36,6 @@ The functions `read_monobit()` and `write_monobit()` that use the embedded versi
 
 ```r
 library("bittermelon") # remotes::install_github("trevorld/bittermelon")
-```
-
-```
-
-Attaching package: 'bittermelon'
-```
-
-```
-The following object is masked from 'package:base':
-
-    which
-```
-
-```r
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 font <- read_hex(font_file)
 bml <- as_bm_list("RSTATS", font = font)

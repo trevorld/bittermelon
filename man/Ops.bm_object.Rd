@@ -3,36 +3,16 @@
 \name{Ops.bm_bitmap}
 \alias{Ops.bm_bitmap}
 \alias{Ops.bm_list}
-\alias{which}
-\alias{which.default}
-\alias{which.bm_bitmap}
 \title{S3 Ops group generic methods for bitmap objects}
 \usage{
 \method{Ops}{bm_bitmap}(e1, e2)
 
 \method{Ops}{bm_list}(e1, e2)
-
-which(x, arr.ind = FALSE, useNames = TRUE)
-
-\method{which}{default}(x, arr.ind = FALSE, useNames = TRUE)
-
-\method{which}{bm_bitmap}(x, arr.ind = FALSE, useNames = TRUE)
 }
 \arguments{
 \item{e1, e2}{objects.}
-
-\item{x}{a \code{\link[base]{logical}} vector or array.  \code{\link[base]{NA}}s
-   are allowed and omitted (treated as if \code{FALSE}).}
-
-\item{arr.ind}{logical; should \bold{arr}ay \bold{ind}ices be returned
-   when \code{x} is an array?  Anything other than a single true value
-   is treated as false.}
-
-\item{useNames}{logical indicating if the value of \code{arrayInd()}
-   should have (non-null) dimnames at all.}
 }
 \value{
-\code{which.bm_bitmap()} returns a logical vector.
 The various \code{Ops.bm_bitmap} methods return a \code{\link[=bm_bitmap]{bm_bitmap()}} object.
 The various \code{Ops.bm_list} methods return a \code{\link[=bm_list]{bm_list()}} object.
 }
@@ -44,11 +24,6 @@ is an integer matrix of ones and zeros).
 The S3 Ops group generic methods for \code{bm_list()}
 and \code{bm_font()} objects simply returns another object
 with that operator applied to every bitmap in the original object.
-Since \code{\link[base:which]{base::which()}} does not automatically cast
-its argument to a logical value we also redefine it as a generic
-and besides a default method which simply calls \code{base:which()} we
-offer a \code{which.bm_bitmap()} method that first
-casts the bitmap to logical before calling \code{base::which()}.
 }
 \examples{
   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -62,7 +37,6 @@ casts the bitmap to logical before calling \code{base::which()}.
   print(capital_r | capital_b)
   print(capital_r + 1L)
   print(capital_r + 1L > 1L)
-  which(capital_r > 0L)
 
   # Examples applied to `bm_list()` objects
   bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS

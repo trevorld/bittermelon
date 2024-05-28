@@ -76,9 +76,9 @@ bm_mask_bitmap <- function(bitmap, mask = NULL, base = NULL, mode = "luminance",
 
 
     if (mode == "luminance") # 'luminance' mode then > 0 hidden
-        indices <- which(mask == 1L)
+        indices <- which(as.logical(mask == 1L))
     else # 'alpha' mode then < 1 hidden
-        indices <- which(mask == 0L)
+        indices <- which(as.logical(mask == 0L))
     base[indices] <- 0L
     base
 }

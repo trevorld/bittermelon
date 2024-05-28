@@ -40,7 +40,6 @@ but we are unlikely to ever support exporting color bitmap fonts.
 \item \code{\link[=cbind.bm_bitmap]{cbind.bm_bitmap()}} and \code{\link[=rbind.bm_bitmap]{rbind.bm_bitmap()}}
 \item \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} and \code{\link[=print.bm_bitmap]{print.bm_bitmap()}}
 \item \code{\link[=Ops.bm_bitmap]{Ops.bm_bitmap()}} for all the S3 \dQuote{Ops} Group generic functions
-\item \code{\link[=which.bm_bitmap]{which.bm_bitmap()}} (with \code{which()} re-defined as a generic)
 }
 }
 

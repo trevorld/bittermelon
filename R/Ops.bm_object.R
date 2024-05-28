@@ -7,11 +7,6 @@
 #' The S3 Ops group generic methods for `bm_list()`
 #' and `bm_font()` objects simply returns another object
 #' with that operator applied to every bitmap in the original object.
-#' Since [base::which()] does not automatically cast
-#' its argument to a logical value we also redefine it as a generic
-#' and besides a default method which simply calls `base:which()` we
-#' offer a `which.bm_bitmap()` method that first
-#' casts the bitmap to logical before calling `base::which()`.
 #' @examples
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'   font <- read_hex(font_file)
@@ -24,7 +19,6 @@
 #'   print(capital_r | capital_b)
 #'   print(capital_r + 1L)
 #'   print(capital_r + 1L > 1L)
-#'   which(capital_r > 0L)
 #'
 #'   # Examples applied to `bm_list()` objects
 #'   bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
@@ -40,11 +34,9 @@
 #'   bm <- do.call(cbind, bml)
 #'   print(bm)
 #'
-#' @inheritParams base::Ops
 #' @rdname Ops.bm_object
 #' @param e1,e2 objects.
-#' @return `which.bm_bitmap()` returns a logical vector.
-#'         The various `Ops.bm_bitmap` methods return a [bm_bitmap()] object.
+#' @return The various `Ops.bm_bitmap` methods return a [bm_bitmap()] object.
 #'         The various `Ops.bm_list` methods return a [bm_list()] object.
 #' @seealso [base::Ops]
 #' @export
@@ -104,23 +96,4 @@ Ops.bm_list <- function(e1, e2) {
                    stop(paste0("binary operation '", .Generic, "' not defined for `bm_list()` objects")))
         }
     }
-}
-
-#' @inheritParams base::which
-#' @rdname Ops.bm_object
-#' @export
-which <- function(x, arr.ind = FALSE, useNames = TRUE) { # nolint
-    UseMethod("which")
-}
-
-#' @rdname Ops.bm_object
-#' @export
-which.default <- function(x, arr.ind = FALSE, useNames = TRUE) { # nolint
-    base::which(x, arr.ind, useNames)
-}
-
-#' @rdname Ops.bm_object
-#' @export
-which.bm_bitmap <- function(x, arr.ind = FALSE, useNames = TRUE) { # nolint
-    base::which(as.logical(x))
 }
