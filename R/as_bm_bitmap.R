@@ -21,6 +21,15 @@ as_bm_bitmap.default <- function(x, ...) {
     as_bm_bitmap.matrix(as.matrix(x))
 }
 
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.bm_pixmap <- function(x, ...) {
+    opaque <- alpha_from_rgba(as.character(x)) > 127L
+    m <- matrix(as.integer(opaque), nrow = nrow(x), ncol = ncol(x))
+    class(m) <- c("bm_bitmap", "bm_matrix", class(m))
+    m
+}
+
 #' @inheritParams as_bm_list
 #' @inheritParams cbind.bm_bitmap
 #' @inheritParams rbind.bm_bitmap
@@ -245,4 +254,16 @@ as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
         }
     }
     bm
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.nativeRaster <- function(x, ...) {
+    as_bm_bitmap.bm_pixmap(as_bm_pixmap.nativeRaster(x))
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.raster <- function(x, ...) {
+    as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(x))
 }
