@@ -47,7 +47,7 @@ bm_shadow <- function(bm_object, value = 2L,
 bm_shadow_bitmap <- function(bitmap, value = 2L,
                       top = NULL, right = NULL, bottom = NULL, left = NULL) {
     shadow <- bm_shift(bitmap, top = top, right = right, bottom = bottom, left = left)
-    shadow[which(shadow > 0L)] <- as.integer(value)
+    shadow[which(as.logical(shadow > 0L))] <- as.integer(value)
     bm_overlay(shadow, bitmap)
 }
 

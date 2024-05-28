@@ -52,7 +52,7 @@ bm_overlay_bitmap <- function(bitmap, over = NULL, under = NULL,
         under <- bm_extend(under, height = nrow(over), vjust = vjust)
     if (nrow(under) > nrow(over))
         over <- bm_extend(over, height = nrow(under), vjust = vjust)
-    indices <- which(over > 0L)
+    indices <- which(as.logical(over > 0L))
     under[indices] <- over[indices]
     under
 }

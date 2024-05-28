@@ -21,7 +21,6 @@
 #' * [cbind.bm_bitmap()] and [rbind.bm_bitmap()]
 #' * [format.bm_bitmap()] and [print.bm_bitmap()]
 #' * [Ops.bm_bitmap()] for all the S3 \dQuote{Ops} Group generic functions
-#' * [which.bm_bitmap()] (with `which()` re-defined as a generic)
 #'
 #' @param x Object to be converted to `bm_bitmap()`.
 #'   If not already an integer matrix it will be cast to one

@@ -20,6 +20,11 @@ Breaking changes
   `getOption("bittermelon.col", col_bitmap)` where the newly exported
   `col_bitmap = c("transparent", "black", "grey50", "grey25")`.
   In particular by default `0L` values will now be cast to "transparent" instead of "grey80".
+  To get the old behaviour set `options("bittermelon.col" = c("grey80", "black", "grey40"))`.
+
+* We no longer export a generic S3 `which()` method which by default calls `base::which()`
+  and remove the special `which.bm_bitmap()` method that first cast to a logical.
+  Instead now use `which(as.logical(x))` for `bm_bitmap()` objects.
 
 New features
 ------------

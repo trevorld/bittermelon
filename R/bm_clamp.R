@@ -41,11 +41,11 @@ bm_clamp <- function(bm_object, lower = 0L, upper = 1L, value = upper) {
 bm_clamp_bitmap <- function(bitmap, lower = 0L, upper = 1L,
                             value_lower = lower, value_upper = upper) {
     stopifnot(lower <= upper)
-    indices <- which(bitmap < lower)
+    indices <- which(as.logical(bitmap < lower))
     if (length(indices)) {
         bitmap[indices] <- value_lower
     }
-    indices <- which(bitmap > upper)
+    indices <- which(as.logical(bitmap > upper))
     if (length(indices)) {
         bitmap[indices] <- value_upper
     }
