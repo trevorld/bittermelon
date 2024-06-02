@@ -220,6 +220,12 @@ default_png_device <- function() {
 
 #' @rdname as_bm_bitmap
 #' @export
+`as_bm_bitmap.magick-image` <- function(x, ...) {
+    as_bm_bitmap.bm_pixmap(`as_bm_pixmap.magick-image`(x))
+}
+
+#' @rdname as_bm_bitmap
+#' @export
 as_bm_bitmap.matrix <- function(x, ...) {
     if (!is.integer(x)) {
         if (is.double(x))

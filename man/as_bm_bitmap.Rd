@@ -6,6 +6,7 @@
 \alias{as_bm_bitmap.bm_pixmap}
 \alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.grob}
+\alias{as_bm_bitmap.magick-image}
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
 \alias{as_bm_bitmap.nativeRaster}
@@ -37,6 +38,8 @@ as_bm_bitmap(x, ...)
   png_device = NULL,
   threshold = 0.25
 )
+
+\method{as_bm_bitmap}{`magick-image`}(x, ...)
 
 \method{as_bm_bitmap}{matrix}(x, ...)
 

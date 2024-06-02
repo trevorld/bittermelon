@@ -2,11 +2,71 @@
 % Please edit documentation in R/bm_resize.R
 \name{bm_resize}
 \alias{bm_resize}
+\alias{bm_resize.bm_bitmap}
+\alias{bm_resize.bm_list}
+\alias{bm_resize.bm_pixmap}
+\alias{bm_resize.magick-image}
+\alias{bm_resize.nativeRaster}
+\alias{bm_resize.raster}
 \title{Resize bitmaps by trimming and/or extending}
 \usage{
 bm_resize(
-  bm_object,
+  x,
+  value,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{bm_bitmap}(
+  x,
   value = 0L,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{bm_list}(
+  x,
+  value = 0L,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{bm_pixmap}(
+  x,
+  value = "#FFFFFF00",
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{`magick-image`}(
+  x,
+  value = "transparent",
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{nativeRaster}(
+  x,
+  value = 16777215L,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_resize}{raster}(
+  x,
+  value = "transparent",
   width = NULL,
   height = NULL,
   hjust = "center-left",
@@ -14,9 +74,9 @@ bm_resize(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
-\item{value}{Integer value for the new pixels.}
+\item{value}{Value for the new pixels.}
 
 \item{width}{How many pixels wide should the new bitmap be.
 Use with the \code{hjust} argument or just one of either the \code{left} or \code{right} arguments.}

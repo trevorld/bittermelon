@@ -44,6 +44,12 @@ as_bm_pixmap.bm_pixmap <- function(x, ...) {
 
 #' @rdname as_bm_pixmap
 #' @export
+`as_bm_pixmap.magick-image` <- function(x, ...) {
+    as_bm_pixmap.raster(grDevices::as.raster(x, ...))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
 as_bm_pixmap.matrix <- function(x, ...) {
     if (is.character(x)) {
         cols <- col2rrggbbaa(as.character(x))

@@ -16,9 +16,9 @@
 #'   bm <- bm_call(bml, cbind, direction = "RTL")
 #'   print(bm)
 #' @export
-bm_call <- function(bm_object, .f, ...) {
-    if (!is.list(bm_object))
-        bm_object <- list(bm_object)
-    l <- c(as.list(bm_object), list(...))
+bm_call <- function(x, .f, ...) {
+    if (!is.list(x))
+        x <- list(x)
+    l <- c(as.list(x), list(...))
     do.call(.f, l)
 }

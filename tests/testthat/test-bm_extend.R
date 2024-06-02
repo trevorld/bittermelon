@@ -33,7 +33,7 @@ test_that("bm_extend()", {
     expect_equal(nrow(bm_extend(plus_sign, left = 2L)), 9L)
     expect_equal(ncol(bm_extend(plus_sign, left = 2L)), 11L)
 
-    skip_if(!cli::is_utf8_output())
+    skip_if_not(cli::is_utf8_output())
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))
     verify_output("txt/plus_sign_left_and_width.txt",
@@ -72,4 +72,83 @@ test_that("bm_extend()", {
     verify_output("txt/plus_sign_bottom.txt",
                   bm_extend(plus_sign, value = 2L, height = 12L, vjust = "bottom"),
                   unicode = TRUE)
+})
+
+test_that("`bm_extend.bm_pixmap()`", {
+    skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    verify_output("txt/bm_extend_pixmap.txt", {
+                  m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+                  pm <- as_bm_pixmap.matrix(m)
+                  print(bm_extend(pm, value = "red", top = 1L))
+                  print(bm_extend(pm, value = "red", right = 1L))
+                  print(bm_extend(pm, value = "red", bottom = 1L))
+                  print(bm_extend(pm, value = "red", left = 1L))
+                  }, crayon = TRUE, unicode = TRUE)
+
+})
+
+test_that("`bm_extend.image-magick()`", {
+    skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("magick")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    verify_output("txt/bm_extend_magick.txt", {
+                  m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+                  r <- magick::image_read(as_bm_pixmap(m))
+                  rt <- bm_extend(r, value = "red", top = 1L)
+                  print(inherits(rt, "magick-image"))
+                  print(`as_bm_pixmap.magick-image`(rt))
+                  rr <- bm_extend(r, value = "red", right = 1L)
+                  print(`as_bm_pixmap.magick-image`(rr))
+                  rb <- bm_extend(r, value = "red", bottom = 1L)
+                  print(`as_bm_pixmap.magick-image`(rb))
+                  rl <- bm_extend(r, value = "red", left = 1L)
+                  print(`as_bm_pixmap.magick-image`(rl))
+                  }, crayon = TRUE, unicode = TRUE)
+})
+
+test_that("`bm_extend.raster()`", {
+    skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    verify_output("txt/bm_extend_raster.txt", {
+                  m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+                  r <- as.raster(m)
+                  rt <- bm_extend(r, value = "red", top = 1L)
+                  print(inherits(rt, "raster"))
+                  print(as_bm_pixmap.raster(rt))
+                  rr <- bm_extend(r, value = "red", right = 1L)
+                  print(as_bm_pixmap.raster(rr))
+                  rb <- bm_extend(r, value = "red", bottom = 1L)
+                  print(as_bm_pixmap.raster(rb))
+                  rl <- bm_extend(r, value = "red", left = 1L)
+                  print(as_bm_pixmap.raster(rl))
+                  }, crayon = TRUE, unicode = TRUE)
+})
+
+test_that("`bm_extend.nativeRaster()`", {
+    skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("farver")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    verify_output("txt/bm_extend_nativeRaster.txt", {
+                  m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+                  r <- as.raster(as_bm_pixmap(m), native = TRUE)
+                  int <- farver::encode_native("red")
+                  rt <- bm_extend(r, value = int, top = 1L)
+                  print(as_bm_pixmap.nativeRaster(rt))
+                  print(inherits(rt, "nativeRaster"))
+                  rr <- bm_extend(r, value = int, right = 1L)
+                  print(as_bm_pixmap.nativeRaster(rr))
+                  rb <- bm_extend(r, value = int, bottom = 1L)
+                  print(as_bm_pixmap.nativeRaster(rb))
+                  rl <- bm_extend(r, value = int, left = 1L)
+                  print(as_bm_pixmap.nativeRaster(rl))
+                  }, crayon = TRUE, unicode = TRUE)
 })

@@ -3,7 +3,7 @@
 #' `bm_flip()` flips (reflects) bitmaps horizontally, vertically, or both.
 #' It can flip the entire bitmap or just the glyph in place.
 #'
-#' @inheritParams bm_clamp
+#' @param x Bitmap object.
 #' @param direction Either "vertical" or "v", "horizontal" or "h",
 #'                  OR "both" or "b".
 #' @param in_place If `TRUE` flip the glyphs in place (without changing any white space padding).
@@ -23,26 +23,60 @@
 #' print(exclamation_flipped)
 #' @inherit bm_clamp return
 #' @export
-bm_flip <- function(bm_object, direction = "vertical", in_place = FALSE) {
+bm_flip <- function(x, direction = "vertical", in_place = FALSE) {
+    UseMethod("bm_flip")
+}
+
+#' @rdname bm_flip
+#' @export
+bm_flip.bm_list <- function(x, direction = "vertical", in_place = FALSE) {
+    bm_lapply(x, bm_flip_bitmap, direction = direction, in_place = in_place)
+}
+
+#' @rdname bm_flip
+#' @export
+bm_flip.bm_matrix <- function(x, direction = "vertical", in_place = FALSE) {
+    bm_flip_bitmap(x, direction, in_place)
+}
+
+#' @rdname bm_flip
+#' @export
+`bm_flip.magick-image` <- function(x, direction = "vertical", in_place = FALSE) {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    pm <- as_bm_pixmap(x)
+    pm <- bm_flip_bitmap(pm, direction, in_place)
+    magick::image_read(pm)
+}
+
+#' @rdname bm_flip
+#' @export
+bm_flip.nativeRaster <- function(x, direction = "vertical", in_place = FALSE) {
+    pm <- as_bm_pixmap(x)
+    pm <- bm_flip_bitmap(pm, direction, in_place)
+    as.raster(pm, native = TRUE)
+}
+
+#' @rdname bm_flip
+#' @export
+bm_flip.raster <- function(x, direction = "vertical", in_place = FALSE) {
+    bm_flip_bitmap(x, direction, in_place)
+}
+
+bm_flip_bitmap <- function(x, direction = "v", in_place = in_place) {
     direction <- match.arg(tolower(direction),
                            c("vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
-    modify_bm_bitmaps(bm_object, bm_flip_bitmap,
-                      direction = direction, in_place = in_place)
-}
-
-bm_flip_bitmap <- function(bitmap, direction = "v", in_place = in_place) {
     if (in_place) {
-        bmpl <- bm_padding_lengths(bitmap)
-        bitmap <- bm_trim(bitmap, sides = bmpl)
+        bmpl <- bm_padding_lengths(x)
+        x <- bm_trim(x, sides = bmpl)
     }
     if (direction %in% c("h", "b")) {
-        bitmap <- flip_matrix_horizontally(bitmap)
+        x <- flip_matrix_horizontally(x)
     }
     if (direction %in% c("v", "b")) {
-        bitmap <- flip_matrix_vertically(bitmap)
+        x <- flip_matrix_vertically(x)
     }
     if (in_place)
-        bitmap <- bm_extend(bitmap, sides = bmpl)
-    bitmap
+        x <- bm_extend(x, sides = bmpl)
+    x
 }

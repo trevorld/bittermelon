@@ -5,7 +5,7 @@
 \title{Resize images via distortion.}
 \usage{
 bm_distort(
-  bm_object,
+  x,
   width = NULL,
   height = NULL,
   interpolate = FALSE,
@@ -15,7 +15,7 @@ bm_distort(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{A \code{bm_bitmap()} object}
 
 \item{width}{Desired width of bitmap}
 

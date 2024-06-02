@@ -16,28 +16,86 @@
 #' @seealso [bm_extend()], [bm_pad()], and [bm_trim()].
 #' @inherit bm_clamp return
 #' @export
-bm_resize <- function(bm_object, value = 0L, # nolint
+bm_resize <- function(x, value, # nolint
                       width = NULL, height = NULL,
                       hjust = "center-left", vjust = "center-top") {
-    modify_bm_bitmaps(bm_object, bm_resize_bitmap, value = value,
-                      width = width, height = height,
-                      hjust = hjust, vjust = vjust)
+    UseMethod("bm_resize")
 }
 
-bm_resize_bitmap <- function(bitmap, value = 0L,
+#' @rdname bm_resize
+#' @export
+bm_resize.bm_bitmap <- function(x, value = 0L, # nolint
+                                width = NULL, height = NULL,
+                                hjust = "center-left", vjust = "center-top") {
+    bm_resize_bitmap(x, value = value,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_resize
+#' @export
+bm_resize.bm_list <- function(x, value = 0L, # nolint
+                              width = NULL, height = NULL,
+                              hjust = "center-left", vjust = "center-top") {
+    bm_lapply(x, bm_resize_bitmap, value = value,
+              width = width, height = height,
+              hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_resize
+#' @export
+bm_resize.bm_pixmap <- function(x, value = "#FFFFFF00", # nolint
+                                width = NULL, height = NULL,
+                                hjust = "center-left", vjust = "center-top") {
+    bm_resize_bitmap(x, value = value,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_resize
+#' @export
+`bm_resize.magick-image` <- function(x, value = "transparent", # nolint
+                                     width = NULL, height = NULL,
+                                     hjust = "center-left", vjust = "center-top") {
+    bm_resize_bitmap(x, value = value,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_resize
+#' @export
+bm_resize.nativeRaster <- function(x, value = 16777215L, # nolint
+                             width = NULL, height = NULL,
+                             hjust = "center-left", vjust = "center-top") {
+    bm_resize_bitmap(x, value = value,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_resize
+#' @export
+bm_resize.raster <- function(x, value = "transparent", # nolint
+                             width = NULL, height = NULL,
+                             hjust = "center-left", vjust = "center-top") {
+    bm_resize_bitmap(x, value = value,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+bm_resize_bitmap <- function(x, value,
                              width = NULL, height = NULL,
                              hjust = hjust, vjust = vjust) {
-    if (!is.null(width) && ncol(bitmap) != width) {
-        if (ncol(bitmap) < width)
-            bitmap <- bm_extend(bitmap, value = value, width = width, hjust = hjust)
+    if (!is.null(width) && bm_widths(x) != width) {
+        if (bm_widths(x) < width)
+            x <- bm_extend(x, value = value, width = width, hjust = hjust)
         else
-            bitmap <- bm_trim(bitmap, width = width, hjust = hjust)
+            x <- bm_trim(x, width = width, hjust = hjust)
     }
-    if (!is.null(height) && nrow(bitmap) != height) {
-        if (nrow(bitmap) < height)
-            bitmap <- bm_extend(bitmap, value = value, height = height, vjust = vjust)
+    if (!is.null(height) && bm_heights(x) != height) {
+        if (bm_heights(x) < height)
+            x <- bm_extend(x, value = value, height = height, vjust = vjust)
         else
-            bitmap <- bm_trim(bitmap, height = height, vjust = vjust)
+            x <- bm_trim(x, height = height, vjust = vjust)
     }
-    bitmap
+    x
 }

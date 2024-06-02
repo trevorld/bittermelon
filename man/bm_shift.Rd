@@ -4,19 +4,12 @@
 \alias{bm_shift}
 \title{Shift elements within bitmaps}
 \usage{
-bm_shift(
-  bm_object,
-  value = 0L,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL
-)
+bm_shift(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
-\item{value}{Integer value for the new pixels.}
+\item{value}{Value for the new pixels.}
 
 \item{top}{Number of pixels to shift towards the top side.}
 

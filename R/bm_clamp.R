@@ -4,7 +4,7 @@
 #' The default coerces a multiple-integer-valued bitmap
 #' into a binary bitmap (as expected by most bitmap font formats).
 #'
-#' @param bm_object Either a [bm_bitmap()], [bm_list()],  or [bm_font()] object.
+#' @param x Either a [bm_bitmap()], [bm_list()],  or [bm_font()] object.
 #' @param lower Integer value.  Any value below `lower` will be clamped.
 #' @param upper Integer value.  Any value above `upper` will be clamped.
 #' @param value Integer vector of length one or two of replacement value(s).
@@ -25,7 +25,7 @@
 #'  print(plus_sign_clamped)
 #' @return Either a [bm_bitmap()], [bm_list()], or [bm_font()] object.
 #' @export
-bm_clamp <- function(bm_object, lower = 0L, upper = 1L, value = upper) {
+bm_clamp <- function(x, lower = 0L, upper = 1L, value = upper) {
     stopifnot(length(value) > 0L, length(value) < 3L)
     if (length(value) == 2L) {
         value_lower <- value[2L]
@@ -34,20 +34,20 @@ bm_clamp <- function(bm_object, lower = 0L, upper = 1L, value = upper) {
         value_lower <- lower
         value_upper <- value
     }
-    modify_bm_bitmaps(bm_object, bm_clamp_bitmap, lower = lower, upper = upper,
+    modify_bm_bitmaps(x, bm_clamp_bitmap, lower = lower, upper = upper,
                      value_lower = value_lower, value_upper = value_upper)
 }
 
-bm_clamp_bitmap <- function(bitmap, lower = 0L, upper = 1L,
+bm_clamp_bitmap <- function(x, lower = 0L, upper = 1L,
                             value_lower = lower, value_upper = upper) {
     stopifnot(lower <= upper)
-    indices <- which(as.logical(bitmap < lower))
+    indices <- which(as.logical(x < lower))
     if (length(indices)) {
-        bitmap[indices] <- value_lower
+        x[indices] <- value_lower
     }
-    indices <- which(as.logical(bitmap > upper))
+    indices <- which(as.logical(x > upper))
     if (length(indices)) {
-        bitmap[indices] <- value_upper
+        x[indices] <- value_upper
     }
-    bitmap
+    x
 }

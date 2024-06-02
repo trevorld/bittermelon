@@ -21,28 +21,28 @@
 #' @seealso [bm_extend()] (and [bm_resize()] which makes larger bitmaps
 #'           by adding pixels to their sides.
 #' @export
-bm_expand <- function(bm_object, width = 1L, height = 1L) {
-    modify_bm_bitmaps(bm_object, bm_expand_bitmap,
+bm_expand <- function(x, width = 1L, height = 1L) {
+    modify_bm_bitmaps(x, bm_expand_bitmap,
                       width = width, height = height)
 }
 
-bm_expand_bitmap <- function(bitmap, width = 1L, height = 1L) {
-    if (nrow(bitmap) == 0L || ncol(bitmap) == 0L) {
-        nr <- height * nrow(bitmap)
-        nc <- width * ncol(bitmap)
+bm_expand_bitmap <- function(x, width = 1L, height = 1L) {
+    if (nrow(x) == 0L || ncol(x) == 0L) {
+        nr <- height * nrow(x)
+        nc <- width * ncol(x)
         return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
     }
     if (width != 1L) {
-        l <- lapply(seq_len(ncol(bitmap)),
-                    function(j) bitmap[, j, drop = FALSE])
+        l <- lapply(seq_len(ncol(x)),
+                    function(j) x[, j, drop = FALSE])
         l <- rep(l, each = width)
-        bitmap <- do.call(cbind.bm_bitmap, l)
+        x <- do.call(cbind.bm_bitmap, l)
     }
     if (height != 1L) {
-        l <- lapply(seq.int(nrow(bitmap), 1L, -1L),
-                    function(i) bitmap[i, , drop = FALSE])
+        l <- lapply(seq.int(nrow(x), 1L, -1L),
+                    function(i) x[i, , drop = FALSE])
         l <- rep(l, each = height)
-        bitmap <- do.call(rbind.bm_bitmap, l)
+        x <- do.call(rbind.bm_bitmap, l)
     }
-    bitmap
+    x
 }

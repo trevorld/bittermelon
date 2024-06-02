@@ -26,41 +26,99 @@
 #'  capital_r_padded <- bm_pad(capital_r, sides = 2L)
 #'  print(capital_r_padded)
 #' @seealso [bm_extend()], [bm_resize()], and [bm_trim()]
-#' @inherit bm_clamp return
+#' @inherit bm_extend return
 #' @export
-bm_pad <- function(bm_object, value = 0L,
+bm_pad <- function(x, value,
                    type = c("exact", "extend", "trim"),
                    sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL) {
-    type <- match.arg(type, c("exact", "extend", "trim"))
     stopifnot(missing(sides) || missing(top))
     stopifnot(missing(sides) || missing(right))
     stopifnot(missing(sides) || missing(bottom))
     stopifnot(missing(sides) || missing(left))
-
-    modify_bm_bitmaps(bm_object, bm_pad_bitmap,
-                      value = value, type = type, sides = sides,
-                      top = top, right = right, bottom = bottom, left = left)
+    UseMethod("bm_pad")
 }
 
-bm_pad_bitmap <- function(bitmap, value = 0L,
+#' @rdname bm_pad
+#' @export
+bm_pad.bm_bitmap <- function(x, value = 0L,
+                             type = c("exact", "extend", "trim"),
+                             sides = NULL,
+                             top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    bm_pad_bitmap(x, value = value, type = type, sides = sides,
+                  top = top, right = right, bottom = bottom, left = left)
+}
+
+#' @rdname bm_pad
+#' @export
+bm_pad.bm_list <- function(x, value = 0L,
+                        type = c("exact", "extend", "trim"),
+                        sides = NULL,
+                        top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    bm_lapply(x, bm_pad_bitmap,
+              value = value, type = type, sides = sides,
+              top = top, right = right, bottom = bottom, left = left)
+}
+
+#' @rdname bm_pad
+#' @export
+bm_pad.bm_pixmap <- function(x, value = "#FFFFFF00",
+                             type = c("exact", "extend", "trim"),
+                             sides = NULL,
+                             top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    bm_pad_bitmap(x, value = value, type = type, sides = sides,
+                  top = top, right = right, bottom = bottom, left = left)
+}
+
+#' @rdname bm_pad
+#' @export
+`bm_pad.magick-image` <- function(x, value = "transparent",
+                                  type = c("exact", "extend", "trim"),
+                                  sides = NULL,
+                                  top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    bm_pad_bitmap(x, value = value, type = type, sides = sides,
+                  top = top, right = right, bottom = bottom, left = left)
+}
+
+#' @rdname bm_pad
+#' @export
+bm_pad.nativeRaster <- function(x, value = 16777215L,
+                                type = c("exact", "extend", "trim"),
+                                sides = NULL,
+                                top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    bm_pad_bitmap(x, value = value, type = type, sides = sides,
+                  top = top, right = right, bottom = bottom, left = left)
+}
+
+#' @rdname bm_pad
+#' @export
+bm_pad.raster <- function(x, value = "transparent",
+                             type = c("exact", "extend", "trim"),
+                             sides = NULL,
+                             top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    bm_pad_bitmap(x, value = value, type = type, sides = sides,
+                  top = top, right = right, bottom = bottom, left = left)
+}
+
+bm_pad_bitmap <- function(x, value,
                           type = type, sides = NULL,
                           top = NULL, right = NULL,
                           bottom = NULL, left = NULL) {
-
+    type <- match.arg(type, c("exact", "extend", "trim"))
     if (type %in% c("exact", "extend"))
-        bitmap <- bm_pad_extend(bitmap, value = value, sides = sides,
-                                top = top, right = right, bottom = bottom, left = left)
+        x <- bm_pad_extend(x, value = value, sides = sides,
+                           top = top, right = right, bottom = bottom, left = left)
     if (type %in% c("exact", "trim"))
-        bitmap <- bm_pad_trim(bitmap, value = value, sides = sides,
-                              top = top, right = right, bottom = bottom, left = left)
-    bitmap
+        x <- bm_pad_trim(x, value = value, sides = sides,
+                         top = top, right = right, bottom = bottom, left = left)
+    x
 }
 
-bm_pad_extend <- function(bitmap, value = 0L, sides = NULL,
+bm_pad_extend <- function(x, value, sides = NULL,
                    top = NULL, right = NULL, bottom = NULL, left = NULL) {
 
-    pl <- bm_padding_lengths(bitmap, value = value)
+    pl <- bm_padding_lengths(x, value = value)
     d <- list(top = top %||% pl[1L], right = right %||% pl[2L],
               bottom = bottom %||% pl[3L], left = left %||% pl[4L])
 
@@ -72,14 +130,14 @@ bm_pad_extend <- function(bitmap, value = 0L, sides = NULL,
     d$bottom <- ifelse(d$bottom > pl[3], d$bottom - pl[3], 0L)
     d$left <- ifelse(d$left > pl[4], d$left - pl[4], 0L)
 
-    bm_extend(bitmap, value = value,
+    bm_extend(x, value = value,
               top = d$top, right = d$right, bottom = d$bottom, left = d$left)
 }
 
-bm_pad_trim <- function(bitmap, value = 0L, sides = NULL,
+bm_pad_trim <- function(x, value, sides = NULL,
                         top = NULL, right = NULL, bottom = NULL, left = NULL) {
 
-    pl <- bm_padding_lengths(bitmap, value = value)
+    pl <- bm_padding_lengths(x, value = value)
     d <- list(top = top %||% pl[1L], right = right %||% pl[2L],
               bottom = bottom %||% pl[3L], left = left %||% pl[4L])
 
@@ -91,5 +149,5 @@ bm_pad_trim <- function(bitmap, value = 0L, sides = NULL,
     d$bottom <- ifelse(d$bottom < pl[3], pl[3] - d$bottom, 0L)
     d$left <- ifelse(d$left < pl[4], pl[4] - d$left, 0L)
 
-    bm_trim(bitmap, top = d$top, right = d$right, bottom = d$bottom, left = d$left)
+    bm_trim(x, top = d$top, right = d$right, bottom = d$bottom, left = d$left)
 }

@@ -8,10 +8,10 @@
 #'
 #' @inheritParams bm_extend
 #' @param over A 'bm_bitmap()' object to overlay
-#'             over the `bm_object` bitmap(s).
+#'             over the `x` bitmap(s).
 #'             Only one of `over` or `under` may be set.
 #' @param under A 'bm_bitmap()' object which will be overlaid
-#'             by the `bm_object` bitmap(s).
+#'             by the `x` bitmap(s).
 #'             Only one of `over` or `under` may be set.
 #' @inherit bm_clamp return
 #' @examples
@@ -26,22 +26,22 @@
 #'   a_grave2 <- bm_overlay(grave, under = a)
 #'   print(a_grave2)
 #' @export
-bm_overlay <- function(bm_object, over = NULL, under = NULL,
+bm_overlay <- function(x, over = NULL, under = NULL,
                        hjust = "center-left", vjust = "center-top") {
     stopifnot(is.null(over) || is.null(under))
 
-    modify_bm_bitmaps(bm_object, bm_overlay_bitmap,
+    modify_bm_bitmaps(x, bm_overlay_bitmap,
                       over = over, under = under,
                       hjust = hjust, vjust = vjust)
 }
 
-bm_overlay_bitmap <- function(bitmap, over = NULL, under = NULL,
+bm_overlay_bitmap <- function(x, over = NULL, under = NULL,
                               hjust = "center-left", vjust = "center-top") {
     if (is.null(over)) {
-        over <- bitmap
+        over <- x
         stopifnot(is_bm_bitmap(under))
     } else {
-        under <- bitmap
+        under <- x
         stopifnot(is_bm_bitmap(over))
     }
     if (ncol(over) > ncol(under))

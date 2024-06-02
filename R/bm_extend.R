@@ -4,9 +4,8 @@
 #' The directions and the integer value of the extra pixels are settable
 #' (defaulting to `0L`).
 #'
-#' @inheritParams bm_clamp
-#' @inherit bm_clamp return
-#' @param value Integer value for the new pixels.
+#' @param x Bitmap object.
+#' @param value Value for the new pixels.
 #' @param sides If not `NULL` then an integer vector indicating how
 #'              many pixels to pad on all four sides.
 #'              If the integer vector is of length one it indicates the number of pixels for all four sides.
@@ -34,20 +33,28 @@
 #'              it one pixel down or up respectively.
 #'              "centre", "center", and "centre-top" are aliases for "center-top".
 #'              "centre-bottom" is an alias for "center-bottom".
+#' @return Bitmap object.
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  # add a border to an "R"
-#'  capital_r <- font[[str2ucp("R")]]
-#'  capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
-#'  capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
-#'  print(capital_r)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' # add a border to an "R"
+#' capital_r <- font[[str2ucp("R")]]
+#' capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
+#' capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
+#' print(capital_r)
+#'
+#' crops <- farming_crops_16x16()
+#' corn <- crops$corn$portrait
+#' corn <- bm_extend(corn, value = "brown", sides = 1L)
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(corn, compress = "v")
+#' }
 #' @seealso [bm_expand()], [bm_pad()], [bm_resize()], and [bm_trim()].
 #' @export
-bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
-                   top = NULL, right = NULL, bottom = NULL, left = NULL,
-                   width = NULL, height = NULL,
-                   hjust = "center-left", vjust = "center-top") {
+bm_extend <- function(x, value,  sides = NULL,
+                      top = NULL, right = NULL, bottom = NULL, left = NULL,
+                      width = NULL, height = NULL,
+                      hjust = "center-left", vjust = "center-top") {
     stopifnot(missing(sides) || missing(top))
     stopifnot(missing(sides) || missing(right))
     stopifnot(missing(sides) || missing(bottom))
@@ -58,15 +65,96 @@ bm_extend <- function(bm_object, value = 0L, sides = NULL, # nolint
     stopifnot(missing(width) || (missing(left)) || missing(right))
     stopifnot(missing(hjust) || (missing(left) && missing(right)))
     stopifnot(missing(vjust) || (missing(left) && missing(right)))
-
-    modify_bm_bitmaps(bm_object, bm_extend_bitmap,
-                      sides = sides, value = value,
-                      top = top, right = right, bottom = bottom, left = left,
-                      width = width, height = height,
-                      hjust = hjust, vjust = vjust)
+    UseMethod("bm_extend")
 }
 
-bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
+#' @rdname bm_extend
+#' @export
+bm_extend.bm_bitmap <- function(x, value = 0L, sides = NULL,
+                                top = NULL, right = NULL, bottom = NULL, left = NULL,
+                                width = NULL, height = NULL,
+                                hjust = "center-left", vjust = "center-top") {
+    bm_extend_bitmap(x, value = value,
+                     sides = sides,
+                     top = top, right = right, bottom = bottom, left = left,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_extend
+#' @export
+bm_extend.bm_pixmap <- function(x, value = "#FFFFFF00", sides = NULL,
+                                top = NULL, right = NULL, bottom = NULL, left = NULL,
+                                width = NULL, height = NULL,
+                                hjust = "center-left", vjust = "center-top") {
+    bm_extend_bitmap(x, value = value,
+                     sides = sides,
+                     top = top, right = right, bottom = bottom, left = left,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_extend
+#' @export
+bm_extend.bm_list <- function(x, value = 0L, sides = NULL,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              width = NULL, height = NULL,
+                              hjust = "center-left", vjust = "center-top") {
+    bm_lapply(x, bm_extend_bitmap, value = value,
+              sides = sides,
+              top = top, right = right, bottom = bottom, left = left,
+              width = width, height = height,
+              hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_extend
+#' @export
+`bm_extend.magick-image` <- function(x, value = "transparent", sides = NULL,
+                                     top = NULL, right = NULL, bottom = NULL, left = NULL,
+                                     width = NULL, height = NULL,
+                                     hjust = "center-left", vjust = "center-top") {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    pm <- `as_bm_pixmap.magick-image`(x)
+    value <- col2rrggbbaa(value)
+    pm <- bm_extend_bitmap(pm, value = value,
+                           sides = sides,
+                           top = top, right = right, bottom = bottom, left = left,
+                           width = width, height = height,
+                           hjust = hjust, vjust = vjust)
+    magick::image_read(pm)
+}
+
+#' @rdname bm_extend
+#' @export
+bm_extend.nativeRaster <- function(x, value = 16777215L, sides = NULL,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              width = NULL, height = NULL,
+                              hjust = "center-left", vjust = "center-top") {
+    stopifnot(requireNamespace("farver", quietly = TRUE))
+    pm <- as_bm_pixmap.nativeRaster(x)
+    value <- col2rrggbbaa(farver::decode_native(value))
+    pm <- bm_extend_bitmap(pm, value = value,
+                           sides = sides,
+                           top = top, right = right, bottom = bottom, left = left,
+                           width = width, height = height,
+                           hjust = hjust, vjust = vjust)
+    as.raster(pm, native = TRUE)
+}
+
+#' @rdname bm_extend
+#' @export
+bm_extend.raster <- function(x, value = "transparent", sides = NULL,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              width = NULL, height = NULL,
+                              hjust = "center-left", vjust = "center-top") {
+    bm_extend_bitmap(x, value = value,
+                     sides = sides,
+                     top = top, right = right, bottom = bottom, left = left,
+                     width = width, height = height,
+                     hjust = hjust, vjust = vjust)
+}
+
+bm_extend_bitmap <- function(x, value = 0L, sides = NULL,
                              top = NULL, right = NULL, bottom = NULL, left = NULL,
                              width = NULL, height = NULL,
                              hjust = "center-left", vjust = "center-top") {
@@ -77,16 +165,89 @@ bm_extend_bitmap <- function(bitmap, value = 0L, sides = NULL,
     if (!is.null(sides))
         d <- adjust_d_sides(sides, d)
     if (!is.null(width))
-        d <- adjust_d_width_extend(bitmap, width, hjust, d, left, right)
+        d <- adjust_d_width_extend(x, width, hjust, d, left, right)
     if (!is.null(height))
-        d <- adjust_d_height_extend(bitmap, height, vjust, d, top, bottom)
+        d <- adjust_d_height_extend(x, height, vjust, d, top, bottom)
     stopifnot(min(unlist(d)) >= 0L)
 
-    bitmap <- bm_extend_top(bitmap, d$top, value)
-    bitmap <- bm_extend_right(bitmap, d$right, value)
-    bitmap <- bm_extend_bottom(bitmap, d$bottom, value)
-    bitmap <- bm_extend_left(bitmap, d$left, value)
-    bitmap
+    if (d$top > 0L)
+        x <- bm_extend_helper(x, d$top, value, "top")
+    if (d$right > 0L)
+        x <- bm_extend_helper(x, d$right, value, "right")
+    if (d$bottom > 0L)
+        x <- bm_extend_helper(x, d$bottom, value, "bottom")
+    if (d$left > 0L)
+        x <- bm_extend_helper(x, d$left, value, "left")
+    x
+}
+
+bm_extend_helper <- function(x, n, value, direction) {
+    UseMethod("bm_extend_helper")
+}
+
+#' @export
+bm_extend_helper.bm_bitmap <- function(x, n = 1L, value = 0L, direction = "top") {
+    switch(direction,
+           top = {
+               new <- as_bm_bitmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+               rbind.bm_bitmap(new, x)
+           },
+           right = {
+               new <- as_bm_bitmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+               cbind.bm_bitmap(x, new)
+           },
+           bottom = {
+               new <- as_bm_bitmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+               rbind.bm_bitmap(x, new)
+           },
+           left = {
+               new <- as_bm_bitmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+               cbind.bm_bitmap(new, x)
+           })
+}
+
+#' @export
+bm_extend_helper.bm_pixmap <- function(x, n = 1L, value = 0L, direction = "top") {
+    switch(direction,
+           top = {
+               new <- as_bm_pixmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+               rbind.bm_pixmap(new, x)
+           },
+           right = {
+               new <- as_bm_pixmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+               cbind.bm_pixmap(x, new)
+           },
+           bottom = {
+               new <- as_bm_pixmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+               rbind.bm_pixmap(x, new)
+           },
+           left = {
+               new <- as_bm_pixmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+               cbind.bm_pixmap(new, x)
+           })
+}
+
+#' @export
+bm_extend_helper.raster <- function(x, n = 1L, value = "transparent", direction = "top") {
+    x <- as.matrix(x)
+    x <- switch(direction,
+           top = {
+               new <- matrix(value, nrow = n, ncol = ncol(x))
+               rbind(new, x)
+           },
+           right = {
+               new <- matrix(value, nrow = nrow(x), ncol = n)
+               cbind(x, new)
+           },
+           bottom = {
+               new <- matrix(value, nrow = n, ncol = ncol(x))
+               rbind(x, new)
+           },
+           left = {
+               new <- matrix(value, nrow = nrow(x), ncol = n)
+               cbind(new, x)
+           })
+    as.raster(x)
 }
 
 adjust_d_sides <- function(sides, d) {
@@ -109,9 +270,9 @@ adjust_d_sides <- function(sides, d) {
     d
 }
 
-adjust_d_width_extend <- function(bitmap, width, hjust, d, left, right) {
-    stopifnot(ncol(bitmap) <= width)
-    remainder <- width - ncol(bitmap)
+adjust_d_width_extend <- function(x, width, hjust, d, left, right) {
+    stopifnot(ncol(x) <= width)
+    remainder <- width - ncol(x)
     adjust_d_width(remainder, width, hjust, d, left, right)
 }
 
@@ -143,9 +304,9 @@ adjust_d_width <- function(remainder, width, hjust, d, left, right) {
     d
 }
 
-adjust_d_height_extend <- function(bitmap, height, vjust, d, top, bottom) {
-    stopifnot(nrow(bitmap) <= height)
-    remainder <- height - nrow(bitmap)
+adjust_d_height_extend <- function(x, height, vjust, d, top, bottom) {
+    stopifnot(nrow(x) <= height)
+    remainder <- height - nrow(x)
     adjust_d_height(remainder, height, vjust, d, top, bottom)
 }
 
@@ -175,25 +336,4 @@ adjust_d_height <- function(remainder, height, vjust, d, top, bottom) {
         d$bottom <- remainder - d$top
     }
     d
-}
-
-bm_extend_top <- function(bitmap, n = 1L, value = 0L) {
-    if (n == 0L) return(bitmap)
-    new <- bm_bitmap(matrix(value, nrow = n, ncol = ncol(bitmap)))
-    rbind.bm_bitmap(new, bitmap)
-}
-bm_extend_right <- function(bitmap, n = 1L, value = 0L) {
-    if (n == 0L) return(bitmap)
-    new <- bm_bitmap(matrix(value, nrow = nrow(bitmap), ncol = n))
-    cbind.bm_bitmap(bitmap, new)
-}
-bm_extend_bottom <- function(bitmap, n = 1L, value = 0L) {
-    if (n == 0L) return(bitmap)
-    new <- bm_bitmap(matrix(value, nrow = n, ncol = ncol(bitmap)))
-    rbind.bm_bitmap(bitmap, new)
-}
-bm_extend_left <- function(bitmap, n = 1L, value = 0L) {
-    if (n == 0L) return(bitmap)
-    new <- bm_bitmap(matrix(value, nrow = nrow(bitmap), ncol = n))
-    cbind.bm_bitmap(new, bitmap)
 }

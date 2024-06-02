@@ -4,10 +4,10 @@
 \alias{bm_expand}
 \title{Expand bitmaps by repeating each row and/or column}
 \usage{
-bm_expand(bm_object, width = 1L, height = 1L)
+bm_expand(x, width = 1L, height = 1L)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{width}{An integer of how many times to repeat each column.}
 

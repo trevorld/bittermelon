@@ -5,7 +5,7 @@
 \title{Merge bitmaps by overlaying one over another}
 \usage{
 bm_overlay(
-  bm_object,
+  x,
   over = NULL,
   under = NULL,
   hjust = "center-left",
@@ -13,14 +13,14 @@ bm_overlay(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{over}{A 'bm_bitmap()' object to overlay
-over the \code{bm_object} bitmap(s).
+over the \code{x} bitmap(s).
 Only one of \code{over} or \code{under} may be set.}
 
 \item{under}{A 'bm_bitmap()' object which will be overlaid
-by the \code{bm_object} bitmap(s).
+by the \code{x} bitmap(s).
 Only one of \code{over} or \code{under} may be set.}
 
 \item{hjust}{One of "left", "center-left", "center-right", "right".

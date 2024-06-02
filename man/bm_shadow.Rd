@@ -7,7 +7,7 @@
 \title{Bitmap shadow, bold, and glow effects}
 \usage{
 bm_shadow(
-  bm_object,
+  x,
   value = 2L,
   top = NULL,
   right = NULL,
@@ -17,7 +17,7 @@ bm_shadow(
 )
 
 bm_bold(
-  bm_object,
+  x,
   value = 1L,
   top = NULL,
   right = NULL,
@@ -26,10 +26,10 @@ bm_bold(
   extend = TRUE
 )
 
-bm_glow(bm_object, value = 2L, extend = TRUE, corner = FALSE)
+bm_glow(x, value = 2L, extend = TRUE, corner = FALSE)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{value}{The integer value for the shadow, bold, or glow effect.}
 
