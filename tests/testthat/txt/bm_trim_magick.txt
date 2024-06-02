@@ -1,0 +1,49 @@
+> print(`as_bm_pixmap.magick-image`(corn), compress = "v")
+                
+    ▄██▄▄██     
+   ████████▄    
+   ▄█████████▄  
+ ▄████████████  
+ ▀▀▀ ▀████████  
+       ▀████▀   
+                
+
+> corn_t <- bm_trim(corn, top = 8L)
+> print(inherits(corn_t, "magick-image"))
+[1] TRUE
+
+> print(`as_bm_pixmap.magick-image`(corn_t), compress = "v")
+ ▄████████████  
+ ▀▀▀ ▀████████  
+       ▀████▀   
+                
+
+> corn_r <- bm_trim(corn, right = 8L)
+> print(`as_bm_pixmap.magick-image`(corn_r), compress = "v")
+        
+    ▄██▄
+   █████
+   ▄████
+ ▄██████
+ ▀▀▀ ▀██
+       ▀
+        
+
+> corn_b <- bm_trim(corn, bottom = 8L)
+> print(`as_bm_pixmap.magick-image`(corn_b), compress = "v")
+                
+    ▄██▄▄██     
+   ████████▄    
+   ▄█████████▄  
+
+> corn_l <- bm_trim(corn, left = 8L)
+> print(`as_bm_pixmap.magick-image`(corn_l), compress = "v")
+        
+▄██     
+███▄    
+█████▄  
+██████  
+██████  
+████▀   
+        
+

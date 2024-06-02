@@ -1,0 +1,42 @@
+> print(corn, compress = "v")
+                
+    ▄██▄▄██     
+   ████████▄    
+   ▄█████████▄  
+ ▄████████████  
+ ▀▀▀ ▀████████  
+       ▀████▀   
+                
+
+> print(bm_trim(corn, top = 8L), compress = "v")
+ ▄████████████  
+ ▀▀▀ ▀████████  
+       ▀████▀   
+                
+
+> print(bm_trim(corn, right = 8L), compress = "v")
+        
+    ▄██▄
+   █████
+   ▄████
+ ▄██████
+ ▀▀▀ ▀██
+       ▀
+        
+
+> print(bm_trim(corn, bottom = 8L), compress = "v")
+                
+    ▄██▄▄██     
+   ████████▄    
+   ▄█████████▄  
+
+> print(bm_trim(corn, left = 8L), compress = "v")
+        
+▄██     
+███▄    
+█████▄  
+██████  
+██████  
+████▀   
+        
+

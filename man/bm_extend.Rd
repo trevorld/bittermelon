@@ -2,11 +2,101 @@
 % Please edit documentation in R/bm_extend.R
 \name{bm_extend}
 \alias{bm_extend}
+\alias{bm_extend.bm_bitmap}
+\alias{bm_extend.bm_pixmap}
+\alias{bm_extend.bm_list}
+\alias{bm_extend.magick-image}
+\alias{bm_extend.nativeRaster}
+\alias{bm_extend.raster}
 \title{Extend bitmaps on the sides with extra pixels}
 \usage{
 bm_extend(
-  bm_object,
+  x,
+  value,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{bm_bitmap}(
+  x,
   value = 0L,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{bm_pixmap}(
+  x,
+  value = "#FFFFFF00",
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{bm_list}(
+  x,
+  value = 0L,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{`magick-image`}(
+  x,
+  value = "transparent",
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{nativeRaster}(
+  x,
+  value = 16777215L,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_extend}{raster}(
+  x,
+  value = "transparent",
   sides = NULL,
   top = NULL,
   right = NULL,
@@ -19,9 +109,9 @@ bm_extend(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
-\item{value}{Integer value for the new pixels.}
+\item{value}{Value for the new pixels.}
 
 \item{sides}{If not \code{NULL} then an integer vector indicating how
 many pixels to pad on all four sides.
@@ -60,7 +150,7 @@ it one pixel down or up respectively.
 "centre-bottom" is an alias for "center-bottom".}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Bitmap object.
 }
 \description{
 \code{bm_extend()} extends \code{\link[=bm_bitmap]{bm_bitmap()}} objects with extra pixels.
@@ -68,13 +158,20 @@ The directions and the integer value of the extra pixels are settable
 (defaulting to \code{0L}).
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- # add a border to an "R"
- capital_r <- font[[str2ucp("R")]]
- capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
- capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
- print(capital_r)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+# add a border to an "R"
+capital_r <- font[[str2ucp("R")]]
+capital_r <- bm_extend(capital_r, value = 2L, sides = 1L)
+capital_r <- bm_extend(capital_r, value = 3L, sides = 1L)
+print(capital_r)
+
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+corn <- bm_extend(corn, value = "brown", sides = 1L)
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(corn, compress = "v")
+}
 }
 \seealso{
 \code{\link[=bm_expand]{bm_expand()}}, \code{\link[=bm_pad]{bm_pad()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}.

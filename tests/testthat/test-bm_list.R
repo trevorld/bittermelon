@@ -55,38 +55,37 @@ test_that("as_bm_list()", {
     expect_equal(as_bm_list("", font = font), bm_list())
 })
 
+test_that("bm_padding_lengths.bm_bitmap()", {
+    plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
+    plus_sign[5L, 3:7] <- 1L
+    plus_sign[3:7, 5L] <- 1L
+    plus_sign_glyph <- bm_call(plus_sign, bm_bitmap)
+    bpl <- bm_padding_lengths(plus_sign_glyph)
+    expect_equal(bpl[[1]], 2L)
+    expect_equal(bpl[[2]], 2L)
+    expect_equal(bpl[[3]], 2L)
+    expect_equal(bpl[[4]], 2L)
+
+    space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
+    bpl <- bm_padding_lengths(space_glyph)
+    expect_equal(bpl[[1]], 4L)
+    expect_equal(bpl[[2]], 4L)
+    expect_equal(bpl[[3]], 5L)
+    expect_equal(bpl[[4]], 5L)
+
+    bpl <- bm_padding_lengths(capital_r)
+    expect_equal(bpl[[1]], 2L)
+    expect_equal(bpl[[2]], 1L)
+    expect_equal(bpl[[3]], 4L)
+    expect_equal(bpl[[4]], 0L)
+})
+
 test_that("bm_widths() and bm_heights()", {
     expect_equal(bm_widths(font), 8L)
     expect_equal(bm_heights(font), 16L)
 
     expect_equal(length(font), length(bm_widths(font, unique = FALSE)))
     expect_equal(length(font), length(bm_heights(font, unique = FALSE)))
-})
-
-test_that("bm_padding_lengths()", {
-
-    plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
-    plus_sign[5L, 3:7] <- 1L
-    plus_sign[3:7, 5L] <- 1L
-    plus_sign_glyph <- bm_call(plus_sign, bm_bitmap)
-    bpl <- bm_padding_lengths(plus_sign_glyph)
-    expect_equal(bpl[1], 2L)
-    expect_equal(bpl[2], 2L)
-    expect_equal(bpl[3], 2L)
-    expect_equal(bpl[4], 2L)
-
-    space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
-    bpl <- bm_padding_lengths(space_glyph)
-    expect_equal(bpl[1], 4L)
-    expect_equal(bpl[2], 4L)
-    expect_equal(bpl[3], 5L)
-    expect_equal(bpl[4], 5L)
-
-    bpl <- bm_padding_lengths(capital_r)
-    expect_equal(bpl[1], 2L)
-    expect_equal(bpl[2], 1L)
-    expect_equal(bpl[3], 4L)
-    expect_equal(bpl[4], 0L)
 })
 
 test_that("Summary.bm_list()", {

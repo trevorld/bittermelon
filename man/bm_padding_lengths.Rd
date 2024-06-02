@@ -2,19 +2,37 @@
 % Please edit documentation in R/bm_padding_lengths.R
 \name{bm_padding_lengths}
 \alias{bm_padding_lengths}
+\alias{bm_padding_lengths.bm_bitmap}
+\alias{bm_padding_lengths.bm_list}
+\alias{bm_padding_lengths.bm_pixmap}
+\alias{bm_padding_lengths.magick-image}
+\alias{bm_padding_lengths.nativeRaster}
+\alias{bm_padding_lengths.raster}
 \title{Compute bitmap padding lengths}
 \usage{
-bm_padding_lengths(bm_object, value = 0L)
+bm_padding_lengths(x, value = 0L)
+
+\method{bm_padding_lengths}{bm_bitmap}(x, value = 0L)
+
+\method{bm_padding_lengths}{bm_list}(x, value = 0L)
+
+\method{bm_padding_lengths}{bm_pixmap}(x, value = "#FFFFFF00")
+
+\method{bm_padding_lengths}{`magick-image`}(x, value = "transparent")
+
+\method{bm_padding_lengths}{nativeRaster}(x, value = 16777215L)
+
+\method{bm_padding_lengths}{raster}(x, value = "transparent")
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
-\item{value}{The value of the \dQuote{padding} integer to compute lengths for.}
+\item{value}{The value of the \dQuote{padding} element to compute lengths for.}
 }
 \value{
-If \code{bm_object} is a \code{bm_bitmap()} object then a integer vector of length four
+If \code{x} is a \code{bm_bitmap()} object then a integer vector of length four
 representing the padding lengths for the top, right, bottom, and left sides respectively.
-If \code{bm_object} is a \code{bm_list()} or \code{bm_font()} then a list of integer vectors of length four.
+If \code{x} is a \code{bm_list()} or \code{bm_font()} then a list of integer vectors of length four.
 }
 \description{
 \code{bm_padding_lengths()} computes the padding lengths of a

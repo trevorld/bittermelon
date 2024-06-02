@@ -4,10 +4,10 @@
 \alias{bm_clamp}
 \title{Clamp bitmap integer values.}
 \usage{
-bm_clamp(bm_object, lower = 0L, upper = 1L, value = upper)
+bm_clamp(x, lower = 0L, upper = 1L, value = upper)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{lower}{Integer value.  Any value below \code{lower} will be clamped.}
 

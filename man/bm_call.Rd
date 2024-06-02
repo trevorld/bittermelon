@@ -4,10 +4,10 @@
 \alias{bm_call}
 \title{Execute a function call on bitmap objects}
 \usage{
-bm_call(bm_object, .f, ...)
+bm_call(x, .f, ...)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 
 \item{.f}{A function to execute.}
 

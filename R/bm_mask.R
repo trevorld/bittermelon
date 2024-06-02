@@ -43,25 +43,25 @@
 #'   print(circle_minus_lower_left)
 #' }
 #' @export
-bm_mask <- function(bm_object, mask = NULL, base = NULL,
+bm_mask <- function(x, mask = NULL, base = NULL,
                     mode = c("luminance", "alpha"),
                     hjust = "center-left", vjust = "center-top") {
 
     stopifnot(is.null(mask) || is.null(base))
     mode <- match.arg(mode, c("luminance", "alpha"))
 
-    modify_bm_bitmaps(bm_object, bm_mask_bitmap,
+    modify_bm_bitmaps(x, bm_mask_bitmap,
                       mask = mask, base = base, mode = mode,
                       hjust = hjust, vjust = vjust)
 }
 
-bm_mask_bitmap <- function(bitmap, mask = NULL, base = NULL, mode = "luminance",
+bm_mask_bitmap <- function(x, mask = NULL, base = NULL, mode = "luminance",
                            hjust = "center-left", vjust = "center-top") {
     if (is.null(mask)) {
-        mask <- bitmap
+        mask <- x
         stopifnot(is_bm_bitmap(base))
     } else {
-        base <- bitmap
+        base <- x
         stopifnot(is_bm_bitmap(mask))
     }
     mask <- bm_clamp(mask) # coerce to binary

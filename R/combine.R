@@ -41,7 +41,7 @@ c.bm_bitmap <- function(...) {
         r <- bm_list(...)
     } else {
         second <- l[[2L]]
-        stopifnot(is_bm_object(second))
+        stopifnot(is_bm_bitmap(second) || is_bm_list(second))
         if (is_bm_bitmap(second)) {
             r <- as_bm_list.list(l[1:2])
         } else if (is_bm_font(second)) {
@@ -67,7 +67,7 @@ c.bm_font <- function(...) {
     } else {
         r <- l[[1]]
         second <- l[[2L]]
-        stopifnot(is_bm_object(second))
+        stopifnot(is_bm_bitmap(second) || is_bm_list(second))
         if (is_bm_bitmap(second)) {
             ucp <- names(l)[2L]
             stopifnot(!is.null(ucp), is_ucp(ucp))
@@ -95,7 +95,7 @@ c.bm_list <- function(...) {
         r <- l[[1]]
     } else {
         second <- l[[2L]]
-        stopifnot(is_bm_object(second))
+        stopifnot(is_bm_bitmap(second) || is_bm_list(second))
         if (is_bm_bitmap(second)) {
             r <- c.bm_list(l[[1]], as_bm_list.list(l[2L]))
         } else if (is_bm_font(second)) {

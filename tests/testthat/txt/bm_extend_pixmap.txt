@@ -1,0 +1,20 @@
+> m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+> pm <- as_bm_pixmap.matrix(m)
+> print(bm_extend(pm, value = "red", top = 1L))
+[31m█[39m[31m█[39m
+[33m█[39m[33m█[39m
+[34m█[39m[34m█[39m
+
+> print(bm_extend(pm, value = "red", right = 1L))
+[33m█[39m[33m█[39m[31m█[39m
+[34m█[39m[34m█[39m[31m█[39m
+
+> print(bm_extend(pm, value = "red", bottom = 1L))
+[33m█[39m[33m█[39m
+[34m█[39m[34m█[39m
+[31m█[39m[31m█[39m
+
+> print(bm_extend(pm, value = "red", left = 1L))
+[31m█[39m[33m█[39m[33m█[39m
+[31m█[39m[34m█[39m[34m█[39m
+

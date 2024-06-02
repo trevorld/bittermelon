@@ -20,17 +20,17 @@
 #'  print(capital_r)
 #' @seealso [bm_trim()] and [bm_extend()]
 #' @export
-bm_shift <- function(bm_object, value = 0L,
+bm_shift <- function(x, value = 0L,
                      top = NULL, right = NULL, bottom = NULL, left = NULL) {
     stopifnot(is.null(top) || is.null(bottom))
     stopifnot(is.null(left) || is.null(right))
-    modify_bm_bitmaps(bm_object, bm_shift_bitmap, value = value,
+    modify_bm_bitmaps(x, bm_shift_bitmap, value = value,
                      top = top, right = right, bottom = bottom, left = left)
 }
 
-bm_shift_bitmap <- function(bitmap, value = 0L,
+bm_shift_bitmap <- function(x, value = 0L,
                      top = NULL, right = NULL, bottom = NULL, left = NULL) {
-    bitmap <- bm_trim(bitmap, top = top, right = right, bottom = bottom, left = left)
-    bitmap <- bm_extend(bitmap, value = value, top = bottom, right = left, bottom = top, left = right)
-    bitmap
+    x <- bm_trim(x, top = top, right = right, bottom = bottom, left = left)
+    x <- bm_extend(x, value = value, top = bottom, right = left, bottom = top, left = right)
+    x
 }

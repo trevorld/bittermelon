@@ -26,6 +26,11 @@ Breaking changes
   and remove the special `which.bm_bitmap()` method that first cast to a logical.
   Instead now use `which(as.logical(x))` for `bm_bitmap()` objects.
 
+* Many functions were upgraded to S3 generics that support more bitmap objects.
+  The first argument of these functions are now usually `x` instead of `bm_object`.
+  If specifying the first argument by name instead of positionally you'll now
+  need to use `x` instead.
+
 New features
 ------------
 
@@ -36,11 +41,13 @@ New features
 
   * `as.matrix.bm_pixmap()`
   * `as.raster.bm_pixmap()` and `plot.bm_pixmap()`
+  * `cbind.bm_pixmap()` and `rbind.bm_pixmap()`
   * `format.bm_pixmap()` and `print.bm_pixmap()`
   * `as_bm_pixmap()` is a S3 method that coerces objects to `bm_pixmap()` objects
 
     * `as_bm_pixmap.bm_bitmap()`
     * `as_bm_pixmap.default()`
+    * `as_bm_pixmap.magick-image()`
     * `as_bm_pixmap.matrix()`
     * `as_bm_pixmap.maze()`
     * `as_bm_pixmap.nativeRaster()`
@@ -57,6 +64,7 @@ New features
 * New `as_bm_bitmap` methods:
 
   + `as_bm_bitmap.bm_pixmap()`
+  + `as_bm_bitmap.magick-image()`
   + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
   + `as_bm_bitmap.nativeRaster()`
   + `as_bm_bitmap.raster()`
@@ -64,6 +72,22 @@ New features
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
 * `as.matrix.bm_bitmap()` now has a `first_row_is_top` argument to flip the rows
   so that the first row represents the top of the bitmap instead of the bottom.
+
+The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
+
+* `bm_extend()`
+* `bm_flip()`
+* `bm_heights()`
+* `bm_pad()`
+* `bm_padding_lengths()`
+* `bm_resize()`
+* `bm_rotate()`
+* `bm_trim()`
+* `bm_widths()`
+
+The following functions are now S3 generics but they only have methods that support `bm_bitmap()` and `bm_font()` / `bm_list()` objects:
+
+* `bm_outline()`
 
 Bug fixes and minor improvements
 --------------------------------

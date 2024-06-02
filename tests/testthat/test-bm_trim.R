@@ -37,6 +37,83 @@ test_that("bm_trim()", {
     expect_equal(nrow(capital_r_resized2), 18L)
 })
 
+test_that("bm_trim.bm_pixmap()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+    skip_if_not(cli::is_utf8_output())
+    crops <- farming_crops_16x16()
+    corn <- crops$corn$portrait
+    verify_output("txt/bm_trim_pixmap.txt", {
+        print(corn, compress = "v")
+        print(bm_trim(corn, top = 8L), compress = "v")
+        print(bm_trim(corn, right = 8L), compress = "v")
+        print(bm_trim(corn, bottom = 8L), compress = "v")
+        print(bm_trim(corn, left = 8L), compress = "v")
+    }, crayon = FALSE, unicode = TRUE)
+})
+
+test_that("bm_trim.magick-image()", {
+    skip_if_not_installed("magick")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+    skip_if_not(cli::is_utf8_output())
+    crops <- farming_crops_16x16()
+    corn <- magick::image_read(crops$corn$portrait)
+    verify_output("txt/bm_trim_magick.txt", {
+        print(`as_bm_pixmap.magick-image`(corn), compress = "v")
+        corn_t <- bm_trim(corn, top = 8L)
+        print(inherits(corn_t, "magick-image"))
+        print(`as_bm_pixmap.magick-image`(corn_t), compress = "v")
+        corn_r <- bm_trim(corn, right = 8L)
+        print(`as_bm_pixmap.magick-image`(corn_r), compress = "v")
+        corn_b <- bm_trim(corn, bottom = 8L)
+        print(`as_bm_pixmap.magick-image`(corn_b), compress = "v")
+        corn_l <- bm_trim(corn, left = 8L)
+        print(`as_bm_pixmap.magick-image`(corn_l), compress = "v")
+    }, crayon = FALSE, unicode = TRUE)
+})
+
+test_that("bm_trim.nativeRaster()", {
+    skip_if_not_installed("farver")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+    skip_if_not(cli::is_utf8_output())
+    crops <- farming_crops_16x16()
+    corn <- as.raster(crops$corn$portrait, native = TRUE)
+    verify_output("txt/bm_trim_nativeRaster.txt", {
+        print(as_bm_pixmap.nativeRaster(corn), compress = "v")
+        corn_t <- bm_trim(corn, top = 8L)
+        print(inherits(corn_t, "nativeRaster"))
+        print(as_bm_pixmap.nativeRaster(corn_t), compress = "v")
+        corn_r <- bm_trim(corn, right = 8L)
+        print(as_bm_pixmap.nativeRaster(corn_r), compress = "v")
+        corn_b <- bm_trim(corn, bottom = 8L)
+        print(as_bm_pixmap.nativeRaster(corn_b), compress = "v")
+        corn_l <- bm_trim(corn, left = 8L)
+        print(as_bm_pixmap.nativeRaster(corn_l), compress = "v")
+    }, crayon = FALSE, unicode = TRUE)
+})
+
+test_that("bm_trim.raster()", {
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+    skip_if_not(cli::is_utf8_output())
+    crops <- farming_crops_16x16()
+    corn <- as.raster(crops$corn$portrait)
+    verify_output("txt/bm_trim_raster.txt", {
+        print(as_bm_pixmap.raster(corn), compress = "v")
+        corn_t <- bm_trim(corn, top = 8L)
+        print(inherits(corn_t, "raster"))
+        print(as_bm_pixmap.raster(corn_t), compress = "v")
+        corn_r <- bm_trim(corn, right = 8L)
+        print(as_bm_pixmap.raster(corn_r), compress = "v")
+        corn_b <- bm_trim(corn, bottom = 8L)
+        print(as_bm_pixmap.raster(corn_b), compress = "v")
+        corn_l <- bm_trim(corn, left = 8L)
+        print(as_bm_pixmap.raster(corn_l), compress = "v")
+    }, crayon = FALSE, unicode = TRUE)
+})
+
 test_that("bm_shift()", {
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))

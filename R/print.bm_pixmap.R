@@ -58,6 +58,7 @@ format.bm_pixmap <- function(x, ...,
     direction <- match.arg(tolower(compress),
                            c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
+    x <- as.matrix(x)
     s <- switch(direction,
            n = format_bmr_none(x),
            h = format_bmr_horizontal(x),

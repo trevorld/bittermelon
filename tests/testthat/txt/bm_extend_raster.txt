@@ -1,0 +1,27 @@
+> m <- matrix(c("blue", "yellow"), nrow = 2L, ncol = 2L)
+> r <- as.raster(m)
+> rt <- bm_extend(r, value = "red", top = 1L)
+> print(inherits(rt, "raster"))
+[1] TRUE
+
+> print(as_bm_pixmap.raster(rt))
+[31m█[39m[31m█[39m
+[34m█[39m[34m█[39m
+[33m█[39m[33m█[39m
+
+> rr <- bm_extend(r, value = "red", right = 1L)
+> print(as_bm_pixmap.raster(rr))
+[34m█[39m[34m█[39m[31m█[39m
+[33m█[39m[33m█[39m[31m█[39m
+
+> rb <- bm_extend(r, value = "red", bottom = 1L)
+> print(as_bm_pixmap.raster(rb))
+[34m█[39m[34m█[39m
+[33m█[39m[33m█[39m
+[31m█[39m[31m█[39m
+
+> rl <- bm_extend(r, value = "red", left = 1L)
+> print(as_bm_pixmap.raster(rl))
+[31m█[39m[34m█[39m[34m█[39m
+[31m█[39m[33m█[39m[33m█[39m
+

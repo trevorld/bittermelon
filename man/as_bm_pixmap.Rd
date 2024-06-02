@@ -5,6 +5,7 @@
 \alias{as_bm_pixmap.default}
 \alias{as_bm_pixmap.bm_bitmap}
 \alias{as_bm_pixmap.bm_pixmap}
+\alias{as_bm_pixmap.magick-image}
 \alias{as_bm_pixmap.matrix}
 \alias{as_bm_pixmap.maze}
 \alias{as_bm_pixmap.nativeRaster}
@@ -18,6 +19,8 @@ as_bm_pixmap(x, ...)
 \method{as_bm_pixmap}{bm_bitmap}(x, ..., col = getOption("bittermelon.col", col_bitmap))
 
 \method{as_bm_pixmap}{bm_pixmap}(x, ...)
+
+\method{as_bm_pixmap}{`magick-image`}(x, ...)
 
 \method{as_bm_pixmap}{matrix}(x, ...)
 

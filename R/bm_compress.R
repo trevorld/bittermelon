@@ -25,29 +25,29 @@
 #' @inherit bm_clamp return
 #' @seealso See <https://en.wikipedia.org/wiki/Block_Elements> for more info on the Unicode Block Elements block.
 #' @export
-bm_compress <- function(bm_object, direction = "vertical") {
+bm_compress <- function(x, direction = "vertical") {
     direction <- match.arg(tolower(direction),
                            c("vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
-    modify_bm_bitmaps(bm_object, bm_compress_bitmap, direction = direction)
+    modify_bm_bitmaps(x, bm_compress_bitmap, direction = direction)
 }
 
-bm_compress_bitmap <- function(bitmap, direction = "v") {
-    if (ncol(bitmap) %% 2L == 1L)
-        bitmap <- bm_extend(bitmap, right = 1L)
-    if (nrow(bitmap) %% 2L == 1L)
-        bitmap <- bm_extend(bitmap, bottom = 1L)
+bm_compress_bitmap <- function(x, direction = "v") {
+    if (ncol(x) %% 2L == 1L)
+        x <- bm_extend(x, right = 1L)
+    if (nrow(x) %% 2L == 1L)
+        x <- bm_extend(x, bottom = 1L)
     switch(direction,
-           b = bm_compress_both(bitmap),
-           h = bm_compress_horizontal(bitmap),
-           v = bm_compress_vertical(bitmap))
+           b = bm_compress_both(x),
+           h = bm_compress_horizontal(x),
+           v = bm_compress_vertical(x))
 }
 
-bm_compress_both <- function(bitmap) {
-    m <- matrix(0L, nrow = nrow(bitmap) / 2L, ncol = ncol(bitmap) / 2L)
+bm_compress_both <- function(x) {
+    m <- matrix(0L, nrow = nrow(x) / 2L, ncol = ncol(x) / 2L)
     for (i in seq_len(nrow(m))) {
         for (j in seq_len(ncol(m))) {
-            pixels <- bitmap[seq(2L * (i - 1L) + 1L, length.out = 2L),
+            pixels <- x[seq(2L * (i - 1L) + 1L, length.out = 2L),
                              seq(2L * (j - 1L) + 1L, length.out = 2L)]
             int <- mode_int(pixels)
             pixels[which(as.logical(pixels > 0))] <- 1L
@@ -75,11 +75,11 @@ bm_compress_both <- function(bitmap) {
     }
     bm_bitmap(m)
 }
-bm_compress_vertical <- function(bitmap) {
-    m <- matrix(0L, nrow = nrow(bitmap) / 2L, ncol = ncol(bitmap))
+bm_compress_vertical <- function(x) {
+    m <- matrix(0L, nrow = nrow(x) / 2L, ncol = ncol(x))
     for (i in seq_len(nrow(m))) {
         for (j in seq_len(ncol(m))) {
-            pixels <- bitmap[seq(2L * (i - 1L) + 1L, length.out = 2L), j]
+            pixels <- x[seq(2L * (i - 1L) + 1L, length.out = 2L), j]
             int <- mode_int(pixels)
             pixels[pixels > 0] <- 1L
             pixels <- paste(as.character(pixels), collapse = "")
@@ -94,11 +94,11 @@ bm_compress_vertical <- function(bitmap) {
     }
     bm_bitmap(m)
 }
-bm_compress_horizontal <- function(bitmap) {
-    m <- matrix(0L, nrow = nrow(bitmap), ncol = ncol(bitmap) / 2L)
+bm_compress_horizontal <- function(x) {
+    m <- matrix(0L, nrow = nrow(x), ncol = ncol(x) / 2L)
     for (i in seq_len(nrow(m))) {
         for (j in seq_len(ncol(m))) {
-            pixels <- bitmap[i, seq(2L * (j - 1L) + 1L, length.out = 2L)]
+            pixels <- x[i, seq(2L * (j - 1L) + 1L, length.out = 2L)]
             int <- mode_int(pixels)
             pixels[pixels > 0] <- 1L
             pixels <- paste(as.character(pixels), collapse = "")

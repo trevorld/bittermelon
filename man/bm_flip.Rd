@@ -2,12 +2,27 @@
 % Please edit documentation in R/bm_flip.R
 \name{bm_flip}
 \alias{bm_flip}
+\alias{bm_flip.bm_list}
+\alias{bm_flip.bm_matrix}
+\alias{bm_flip.magick-image}
+\alias{bm_flip.nativeRaster}
+\alias{bm_flip.raster}
 \title{Flip (reflect) bitmaps}
 \usage{
-bm_flip(bm_object, direction = "vertical", in_place = FALSE)
+bm_flip(x, direction = "vertical", in_place = FALSE)
+
+\method{bm_flip}{bm_list}(x, direction = "vertical", in_place = FALSE)
+
+\method{bm_flip}{bm_matrix}(x, direction = "vertical", in_place = FALSE)
+
+\method{bm_flip}{`magick-image`}(x, direction = "vertical", in_place = FALSE)
+
+\method{bm_flip}{nativeRaster}(x, direction = "vertical", in_place = FALSE)
+
+\method{bm_flip}{raster}(x, direction = "vertical", in_place = FALSE)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{direction}{Either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b".}

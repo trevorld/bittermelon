@@ -4,10 +4,10 @@
 \alias{bm_compress}
 \title{Compress bitmaps using a "block elements" scheme}
 \usage{
-bm_compress(bm_object, direction = "vertical")
+bm_compress(x, direction = "vertical")
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{direction}{Either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b".}

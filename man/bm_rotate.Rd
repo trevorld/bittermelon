@@ -2,12 +2,27 @@
 % Please edit documentation in R/bm_rotate.R
 \name{bm_rotate}
 \alias{bm_rotate}
+\alias{bm_rotate.bm_matrix}
+\alias{bm_rotate.nativeRaster}
+\alias{bm_rotate.magick-image}
+\alias{bm_rotate.raster}
+\alias{bm_rotate.bm_list}
 \title{Rotate bitmaps 0, 90, 180, or 270 degrees}
 \usage{
-bm_rotate(bm_object, angle = 0, clockwise = TRUE)
+bm_rotate(x, angle = 0L, clockwise = TRUE)
+
+\method{bm_rotate}{bm_matrix}(x, angle = 0L, clockwise = TRUE)
+
+\method{bm_rotate}{nativeRaster}(x, angle = 0L, clockwise = TRUE)
+
+\method{bm_rotate}{`magick-image`}(x, angle = 0L, clockwise = TRUE)
+
+\method{bm_rotate}{raster}(x, angle = 0L, clockwise = TRUE)
+
+\method{bm_rotate}{bm_list}(x, angle = 0L, clockwise = TRUE)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{angle}{Angle to rotate bitmap by.}
 

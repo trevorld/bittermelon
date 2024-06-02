@@ -3,7 +3,7 @@
 #' `bm_rotate()` losslessly rotates bitmaps by 0, 90, 180, or 270 degrees.
 #' If `90` or `270` degrees are indicated the width and height of the bitmap will be flipped.
 #'
-#' @inheritParams bm_clamp
+#' @param x Bitmap object.
 #' @param angle Angle to rotate bitmap by.
 #' @param clockwise If `TRUE` rotate bitmaps clockwise.
 #'                  Note Unicode's convention is to rotate glyphs clockwise
@@ -24,23 +24,57 @@
 #'          rotate glyphs 180 degrees in place.
 #' @inherit bm_clamp return
 #' @export
-bm_rotate <- function(bm_object, angle = 0, clockwise = TRUE) {
-    modify_bm_bitmaps(bm_object, bm_rotate_bitmap,
-                      angle = angle, clockwise = clockwise)
+bm_rotate <- function(x, angle = 0L, clockwise = TRUE) {
+    UseMethod("bm_rotate")
 }
 
-bm_rotate_bitmap <- function(bitmap, angle = 0, clockwise = TRUE) {
+#' @rdname bm_rotate
+#' @export
+bm_rotate.bm_matrix <- function(x, angle = 0L, clockwise = TRUE) {
+    bm_rotate_bitmap(x, angle, clockwise)
+}
+
+#' @rdname bm_rotate
+#' @export
+bm_rotate.nativeRaster <- function(x, angle = 0L, clockwise = TRUE) {
+    pm <- as_bm_pixmap.nativeRaster(x)
+    pm <- bm_rotate_bitmap(pm, angle, clockwise)
+    as.raster(pm, native = TRUE)
+}
+
+#' @rdname bm_rotate
+#' @export
+`bm_rotate.magick-image` <- function(x, angle = 0L, clockwise = TRUE) {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    pm <- `as_bm_pixmap.magick-image`(x)
+    pm <- bm_rotate_bitmap(pm, angle, clockwise)
+    magick::image_read(pm)
+}
+
+#' @rdname bm_rotate
+#' @export
+bm_rotate.raster <- function(x, angle = 0L, clockwise = TRUE) {
+    as.raster(bm_rotate_bitmap(x, angle, !clockwise))
+}
+
+#' @rdname bm_rotate
+#' @export
+bm_rotate.bm_list <- function(x, angle = 0L, clockwise = TRUE) {
+    bm_lapply(x, bm_rotate_bitmap, angle = angle, clockwise = clockwise)
+}
+
+bm_rotate_bitmap <- function(x, angle = 0, clockwise = TRUE) {
     angle <- as.integer(angle)
     if (clockwise)
         angle <- -angle
     angle <- angle %% 360L
     stopifnot(angle %in% c(0L, 90L, 180L, 270L))
     if (angle == 90L) {
-        bitmap <- bm_flip(t(bitmap), direction = "horizontal")
+        x <- flip_matrix_horizontally(t(x))
     } else if (angle == 180L) {
-        bitmap <- bm_flip(bitmap, direction = "both")
+        x <- flip_matrix_horizontally(flip_matrix_vertically(x))
     } else if (angle == 270L) {
-        bitmap <- bm_flip(t(bitmap), direction = "vertical")
+        x <- flip_matrix_vertically(t(x))
     } # No change if angle == 0L
-    bitmap
+    x
 }

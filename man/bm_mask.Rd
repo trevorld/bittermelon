@@ -5,7 +5,7 @@
 \title{Modify bitmaps via masking with a 'mask' bitmap}
 \usage{
 bm_mask(
-  bm_object,
+  x,
   mask = NULL,
   base = NULL,
   mode = c("luminance", "alpha"),
@@ -14,7 +14,7 @@ bm_mask(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{mask}{A 'bm_bitmap()' object to use as a \dQuote{mask}.
 Only one of \code{mask} or \code{base} may be set.}

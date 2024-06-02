@@ -23,24 +23,24 @@
 #' @seealso [bm_expand()] for expanding width/height by integer multiples.
 #'          [bm_resize()] for resizing an image via trimming/extending an image.
 #' @export
-bm_distort <- function(bm_object, width = NULL, height = NULL,
+bm_distort <- function(x, width = NULL, height = NULL,
                        interpolate = FALSE, vp = NULL,
                        png_device = NULL, threshold = 0.25) {
-    modify_bm_bitmaps(bm_object, bm_distort_bitmap,
+    modify_bm_bitmaps(x, bm_distort_bitmap,
                       width = width, height = height,
                       interpolate = interpolate, vp = vp,
                       png_device = png_device, threshold = threshold)
 }
 
-bm_distort_bitmap <- function(bitmap, width = NULL, height = NULL,
+bm_distort_bitmap <- function(x, width = NULL, height = NULL,
                               interpolate = FALSE, vp = NULL,
                               png_device = NULL, threshold = 0.25) {
     if (is.null(width))
-        width <- ncol(bitmap)
+        width <- ncol(x)
     if (is.null(height))
-        height <- nrow(bitmap)
-    col <- c("transparent", rep_len(1L, max(max(bitmap) - 1L, 1L)))
-    r <- as.raster(bitmap, col = col)
+        height <- nrow(x)
+    col <- c("transparent", rep_len(1L, max(max(x) - 1L, 1L)))
+    r <- as.raster(x, col = col)
     grob <- grid::rasterGrob(r, interpolate = interpolate, width = 1, height = 1, vp = vp)
     as_bm_bitmap.grob(grob, width = width, height = height,
                       png_device = png_device, threshold = threshold)

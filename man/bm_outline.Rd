@@ -2,12 +2,18 @@
 % Please edit documentation in R/bm_outline.R
 \name{bm_outline}
 \alias{bm_outline}
+\alias{bm_outline.bm_bitmap}
+\alias{bm_outline.bm_list}
 \title{Compute "outline" bitmap of a bitmap}
 \usage{
-bm_outline(bm_object)
+bm_outline(x)
+
+\method{bm_outline}{bm_bitmap}(x)
+
+\method{bm_outline}{bm_list}(x)
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
 }
 \value{
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
@@ -17,13 +23,13 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
 of another bitmap.
 }
 \examples{
-  square <- bm_bitmap(matrix(1L, nrow = 16L, ncol = 16L))
-  square_outline <- bm_outline(square)
-  print(square_outline)
+square <- bm_bitmap(matrix(1L, nrow = 16L, ncol = 16L))
+square_outline <- bm_outline(square)
+print(square_outline)
 
-  if (require(grid) && capabilities("png")) {
-    circle <- as_bm_bitmap(circleGrob(), width=16, height=16)
-    circle_outline <- bm_outline(circle)
-    print(circle_outline)
-  }
+if (require(grid) && capabilities("png")) {
+  circle <- as_bm_bitmap(circleGrob(), width=16, height=16)
+  circle_outline <- bm_outline(circle)
+  print(circle_outline)
+}
 }

@@ -28,7 +28,7 @@
 #' @inherit bm_clamp return
 #' @seealso [bm_extend()] and [bm_shift()]
 #' @export
-bm_shadow <- function(bm_object, value = 2L,
+bm_shadow <- function(x, value = 2L,
                       top = NULL, right = NULL, bottom = NULL, left = NULL,
                       extend = TRUE) {
     stopifnot(is.null(top) || is.null(bottom))
@@ -38,22 +38,22 @@ bm_shadow <- function(bm_object, value = 2L,
         bottom <- 1L
     }
     if (extend)
-        bm_object <- bm_extend(bm_object, top = top, right = right, bottom = bottom, left = left)
-    modify_bm_bitmaps(bm_object, bm_shadow_bitmap, value = value,
+        x <- bm_extend(x, top = top, right = right, bottom = bottom, left = left)
+    modify_bm_bitmaps(x, bm_shadow_bitmap, value = value,
                       top = top, right = right, bottom = bottom, left = left)
 }
 
 
-bm_shadow_bitmap <- function(bitmap, value = 2L,
+bm_shadow_bitmap <- function(x, value = 2L,
                       top = NULL, right = NULL, bottom = NULL, left = NULL) {
-    shadow <- bm_shift(bitmap, top = top, right = right, bottom = bottom, left = left)
+    shadow <- bm_shift(x, top = top, right = right, bottom = bottom, left = left)
     shadow[which(as.logical(shadow > 0L))] <- as.integer(value)
-    bm_overlay(shadow, bitmap)
+    bm_overlay(shadow, x)
 }
 
 #' @rdname bm_shadow
 #' @export
-bm_bold <- function(bm_object, value = 1L,
+bm_bold <- function(x, value = 1L,
                     top = NULL, right = NULL, bottom = NULL, left = NULL,
                     extend = TRUE) {
     stopifnot(is.null(top) || is.null(bottom))
@@ -61,40 +61,40 @@ bm_bold <- function(bm_object, value = 1L,
     if (is.null(top) && is.null(right) && is.null(bottom) && is.null(left)) {
         right <- 1L
     }
-    bm_shadow(bm_object, value = value,
+    bm_shadow(x, value = value,
               top = top, right = right, bottom = bottom, left = left, extend = extend)
 }
 
 #' @rdname bm_shadow
 #' @export
-bm_glow <- function(bm_object, value = 2L, extend = TRUE, corner = FALSE) {
-    modify_bm_bitmaps(bm_object, bm_glow_bitmap, value = value,
+bm_glow <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
+    modify_bm_bitmaps(x, bm_glow_bitmap, value = value,
                       extend = extend, corner = corner)
 }
 
-bm_glow_bitmap <- function(bm_object, value = 2L, extend = TRUE, corner = FALSE) {
-    bmt <- bm_shadow(bm_object, value = value, extend = extend, top = 1L)
-    bmr <- bm_shadow(bm_object, value = value, extend = extend, right = 1L)
-    bmb <- bm_shadow(bm_object, value = value, extend = extend, bottom = 1L)
-    bml <- bm_shadow(bm_object, value = value, extend = extend, left = 1L)
+bm_glow_bitmap <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
+    bmt <- bm_shadow(x, value = value, extend = extend, top = 1L)
+    bmr <- bm_shadow(x, value = value, extend = extend, right = 1L)
+    bmb <- bm_shadow(x, value = value, extend = extend, bottom = 1L)
+    bml <- bm_shadow(x, value = value, extend = extend, left = 1L)
     if (extend) {
-        bm_new <- bm_extend(bm_object, sides = 1L)
+        bm_new <- bm_extend(x, sides = 1L)
         bmt <- bm_extend(bmt, right = 1L, bottom = 1L, left = 1L)
         bmr <- bm_extend(bmr, top = 1L, bottom = 1L, left = 1L)
         bmb <- bm_extend(bmb, top = 1L, right = 1L, left = 1L)
         bml <- bm_extend(bml, top = 1L, right = 1L, bottom = 1L)
     } else {
-        bm_new <- bm_object
+        bm_new <- x
     }
     bm_new <- bm_overlay(bm_new, under = bmt)
     bm_new <- bm_overlay(bm_new, under = bmr)
     bm_new <- bm_overlay(bm_new, under = bmb)
     bm_new <- bm_overlay(bm_new, under = bml)
     if (corner) {
-        bmtr <- bm_shadow(bm_object, value = value, extend = extend, top = 1L, right = 1L)
-        bmbr <- bm_shadow(bm_object, value = value, extend = extend, bottom = 1L, right = 1L)
-        bmbl <- bm_shadow(bm_object, value = value, extend = extend, bottom = 1L, left = 1L)
-        bmtl <- bm_shadow(bm_object, value = value, extend = extend, top = 1L, left = 1L)
+        bmtr <- bm_shadow(x, value = value, extend = extend, top = 1L, right = 1L)
+        bmbr <- bm_shadow(x, value = value, extend = extend, bottom = 1L, right = 1L)
+        bmbl <- bm_shadow(x, value = value, extend = extend, bottom = 1L, left = 1L)
+        bmtl <- bm_shadow(x, value = value, extend = extend, top = 1L, left = 1L)
         if (extend) {
             bmtr <- bm_extend(bmtr, bottom = 1L, left = 1L)
             bmbr <- bm_extend(bmbr, top = 1L, left = 1L)

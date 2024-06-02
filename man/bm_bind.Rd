@@ -3,18 +3,24 @@
 \name{cbind.bm_bitmap}
 \alias{cbind.bm_bitmap}
 \alias{rbind.bm_bitmap}
-\title{Combine bitmaps by rows or columns}
+\alias{cbind.bm_pixmap}
+\alias{rbind.bm_pixmap}
+\title{Combine bitmap/pixmap objects by rows or columns}
 \usage{
 \method{cbind}{bm_bitmap}(..., direction = "left-to-right", vjust = "center-top")
 
 \method{rbind}{bm_bitmap}(..., direction = "top-to-bottom", hjust = "center-left")
+
+\method{cbind}{bm_pixmap}(..., direction = "left-to-right", vjust = "center-top")
+
+\method{rbind}{bm_pixmap}(..., direction = "top-to-bottom", hjust = "center-left")
 }
 \arguments{
-\item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} objects.}
+\item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_pixmap]{bm_pixmap()}} objects.}
 
-\item{direction}{For \verb{cbind().bm_bitmap} either "left-to-right" (default) or its aliases "ltr" and "lr"
+\item{direction}{For \code{cbind()} either "left-to-right" (default) or its aliases "ltr" and "lr"
 OR "right-to-left" or its aliases "rtl" and "rl".
-For \verb{rbind().bm_bitmap} either "top-to-bottom" (default) or its aliases "ttb" and "tb"
+For \code{rbind()} either "top-to-bottom" (default) or its aliases "ttb" and "tb"
 OR "bottom-to-top" or its aliases "btt" and "bt".
 The \code{direction} argument is not case-sensitive.}
 
@@ -23,11 +29,12 @@ The \code{direction} argument is not case-sensitive.}
 \item{hjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap widths are different.}
 }
 \value{
-A \code{\link[=bm_bitmap]{bm_bitmap()}} object.
+A \code{\link[=bm_bitmap]{bm_bitmap()}} or \code{\link[=bm_pixmap]{bm_pixmap()}} object.
 }
 \description{
-\code{cbind.bm_bitmap()} and \code{rbind.bm_bitmap()} combine
-by columns or rows respectively.
+\code{cbind.bm_bitmap()} / \code{cbind.bm_pixmap()} and
+\code{rbind.bm_bitmap()} / \code{rbind.bm_pixmap()}
+combine by columns or rows respectively.
 }
 \examples{
   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

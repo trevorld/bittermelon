@@ -2,11 +2,83 @@
 % Please edit documentation in R/bm_pad.R
 \name{bm_pad}
 \alias{bm_pad}
+\alias{bm_pad.bm_bitmap}
+\alias{bm_pad.bm_list}
+\alias{bm_pad.bm_pixmap}
+\alias{bm_pad.magick-image}
+\alias{bm_pad.nativeRaster}
+\alias{bm_pad.raster}
 \title{Adjust bitmap padding lengths}
 \usage{
 bm_pad(
-  bm_object,
+  x,
+  value,
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{bm_bitmap}(
+  x,
   value = 0L,
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{bm_list}(
+  x,
+  value = 0L,
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{bm_pixmap}(
+  x,
+  value = "#FFFFFF00",
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{`magick-image`}(
+  x,
+  value = "transparent",
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{nativeRaster}(
+  x,
+  value = 16777215L,
+  type = c("exact", "extend", "trim"),
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_pad}{raster}(
+  x,
+  value = "transparent",
   type = c("exact", "extend", "trim"),
   sides = NULL,
   top = NULL,
@@ -16,9 +88,9 @@ bm_pad(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
-\item{value}{Integer value for the new pixels.}
+\item{value}{Value for the new pixels.}
 
 \item{type}{Either "exact", `"extend", or "trim".
 "exact" makes sure the padding is exactly the indicated amount,
@@ -42,7 +114,7 @@ This is the same scheme as used by the CSS padding and margin properties.}
 \item{left}{Desired number of pixels of padding on the left.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Bitmap object.
 }
 \description{
 \code{bm_pad()} adjusts bitmap padding lengths.

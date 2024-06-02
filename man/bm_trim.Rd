@@ -2,10 +2,80 @@
 % Please edit documentation in R/bm_trim.R
 \name{bm_trim}
 \alias{bm_trim}
+\alias{bm_trim.bm_matrix}
+\alias{bm_trim.bm_list}
+\alias{bm_trim.magick-image}
+\alias{bm_trim.nativeRaster}
+\alias{bm_trim.raster}
 \title{Trim bitmaps}
 \usage{
 bm_trim(
-  bm_object,
+  x,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_trim}{bm_matrix}(
+  x,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_trim}{bm_list}(
+  x,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_trim}{`magick-image`}(
+  x,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_trim}{nativeRaster}(
+  x,
+  sides = NULL,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  width = NULL,
+  height = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_trim}{raster}(
+  x,
   sides = NULL,
   top = NULL,
   right = NULL,
@@ -18,7 +88,7 @@ bm_trim(
 )
 }
 \arguments{
-\item{bm_object}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Bitmap object.}
 
 \item{sides}{If not \code{NULL} then an integer vector indicating how
 many pixels to trim on all four sides.
@@ -59,12 +129,11 @@ it one pixel down or up respectively.
 Note if "top" we will trim on the bottom (and vice-versa).}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Bitmap object.
 }
 \description{
-\code{bm_trim()} trims \code{\link[=bm_bitmap]{bm_bitmap()}} objects reducing the number of pixels.
-The directions and amount of removed pixels are settable
-(defaulting to \code{0L}).
+\code{bm_trim()} trims bitmap objects reducing the number of pixels.
+The directions and amount of removed pixels are settable.
 }
 \examples{
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
