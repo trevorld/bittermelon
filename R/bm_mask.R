@@ -46,13 +46,30 @@
 bm_mask <- function(x, mask = NULL, base = NULL,
                     mode = c("luminance", "alpha"),
                     hjust = "center-left", vjust = "center-top") {
-
     stopifnot(is.null(mask) || is.null(base))
-    mode <- match.arg(mode, c("luminance", "alpha"))
+    UseMethod("bm_mask")
+}
 
-    modify_bm_bitmaps(x, bm_mask_bitmap,
-                      mask = mask, base = base, mode = mode,
-                      hjust = hjust, vjust = vjust)
+#' @rdname bm_mask
+#' @export
+bm_mask.bm_bitmap <- function(x, mask = NULL, base = NULL,
+                              mode = c("luminance", "alpha"),
+                              hjust = "center-left", vjust = "center-top") {
+    mode <- match.arg(mode, c("luminance", "alpha"))
+    bm_mask_bitmap(x, 
+                   mask = mask, base = base, mode = mode,
+                   hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_mask
+#' @export
+bm_mask.bm_list <- function(x, mask = NULL, base = NULL,
+                            mode = c("luminance", "alpha"),
+                            hjust = "center-left", vjust = "center-top") {
+    mode <- match.arg(mode, c("luminance", "alpha"))
+    bm_lapply(x, bm_mask_bitmap,
+              mask = mask, base = base, mode = mode,
+              hjust = hjust, vjust = vjust)
 }
 
 bm_mask_bitmap <- function(x, mask = NULL, base = NULL, mode = "luminance",

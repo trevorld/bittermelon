@@ -85,9 +85,16 @@ The following functions are now S3 generics that have methods that support (at l
 * `bm_trim()`
 * `bm_widths()`
 
-The following functions are now S3 generics but they only have methods that support `bm_bitmap()` and `bm_font()` / `bm_list()` objects:
+The following functions are now S3 generics but they only have builtin methods that support `bm_bitmap()` and `bm_font()` / `bm_list()` objects:
 
+* `bm_bold()`
+* `bm_distort()`
+* `bm_expand()`
+* `bm_glow()`
+* `bm_mask()`
 * `bm_outline()`
+* `bm_overlay()`
+* `bm_shadow()`
 
 Bug fixes and minor improvements
 --------------------------------

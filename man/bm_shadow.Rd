@@ -2,11 +2,49 @@
 % Please edit documentation in R/bm_shadow.R
 \name{bm_shadow}
 \alias{bm_shadow}
+\alias{bm_shadow.default}
+\alias{bm_shadow.bm_bitmap}
+\alias{bm_shadow.bm_list}
 \alias{bm_bold}
+\alias{bm_bold.default}
+\alias{bm_bold.bm_bitmap}
+\alias{bm_bold.bm_list}
 \alias{bm_glow}
+\alias{bm_glow.bm_bitmap}
+\alias{bm_glow.bm_list}
 \title{Bitmap shadow, bold, and glow effects}
 \usage{
 bm_shadow(
+  x,
+  value = 2L,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_shadow}{default}(
+  x,
+  value,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_shadow}{bm_bitmap}(
+  x,
+  value = 2L,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_shadow}{bm_list}(
   x,
   value = 2L,
   top = NULL,
@@ -26,7 +64,41 @@ bm_bold(
   extend = TRUE
 )
 
-bm_glow(x, value = 2L, extend = TRUE, corner = FALSE)
+\method{bm_bold}{default}(
+  x,
+  value,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_bold}{bm_bitmap}(
+  x,
+  value = 1L,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_bold}{bm_list}(
+  x,
+  value = 1L,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+bm_glow(x, value, extend = TRUE, corner = FALSE)
+
+\method{bm_glow}{bm_bitmap}(x, value = 2L, extend = TRUE, corner = FALSE)
+
+\method{bm_glow}{bm_list}(x, value = 2L, extend = TRUE, corner = FALSE)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}

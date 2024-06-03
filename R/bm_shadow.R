@@ -33,16 +33,40 @@ bm_shadow <- function(x, value = 2L,
                       extend = TRUE) {
     stopifnot(is.null(top) || is.null(bottom))
     stopifnot(is.null(left) || is.null(right))
+    UseMethod("bm_shadow")
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_shadow.default <- function(x, value,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              extend = TRUE) {
     if (is.null(top) && is.null(right) && is.null(bottom) && is.null(left)) {
         right <- 1L
         bottom <- 1L
     }
     if (extend)
         x <- bm_extend(x, top = top, right = right, bottom = bottom, left = left)
-    modify_bm_bitmaps(x, bm_shadow_bitmap, value = value,
+    bm_shadow_bitmap(x, value = value,
                       top = top, right = right, bottom = bottom, left = left)
 }
 
+#' @rdname bm_shadow
+#' @export
+bm_shadow.bm_bitmap <- function(x, value = 2L,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              extend = TRUE) {
+    NextMethod(value = as.integer(value))
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_shadow.bm_list <- function(x, value = 2L,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              extend = TRUE) {
+    bm_lapply(x, bm_shadow, value = value,
+              top = top, right = right, bottom = bottom, left = left, extend = extend)
+}
 
 bm_shadow_bitmap <- function(x, value = 2L,
                       top = NULL, right = NULL, bottom = NULL, left = NULL) {
@@ -56,6 +80,14 @@ bm_shadow_bitmap <- function(x, value = 2L,
 bm_bold <- function(x, value = 1L,
                     top = NULL, right = NULL, bottom = NULL, left = NULL,
                     extend = TRUE) {
+    UseMethod("bm_bold")
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_bold.default <- function(x, value,
+                            top = NULL, right = NULL, bottom = NULL, left = NULL,
+                            extend = TRUE) {
     stopifnot(is.null(top) || is.null(bottom))
     stopifnot(is.null(left) || is.null(right))
     if (is.null(top) && is.null(right) && is.null(bottom) && is.null(left)) {
@@ -67,9 +99,36 @@ bm_bold <- function(x, value = 1L,
 
 #' @rdname bm_shadow
 #' @export
-bm_glow <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
-    modify_bm_bitmaps(x, bm_glow_bitmap, value = value,
-                      extend = extend, corner = corner)
+bm_bold.bm_bitmap <- function(x, value = 1L,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              extend = TRUE) {
+    NextMethod(value = as.integer(value))
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_bold.bm_list <- function(x, value = 1L,
+                              top = NULL, right = NULL, bottom = NULL, left = NULL,
+                              extend = TRUE) {
+    NextMethod(value = as.integer(value))
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_glow <- function(x, value, extend = TRUE, corner = FALSE) {
+    UseMethod("bm_glow")
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_glow.bm_bitmap <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
+    bm_glow_bitmap(x, value = value, extend = extend, corner = corner)
+}
+
+#' @rdname bm_shadow
+#' @export
+bm_glow.bm_list <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
+    bm_lapply(x, bm_glow_bitmap, value = value, extend = extend, corner = corner)
 }
 
 bm_glow_bitmap <- function(x, value = 2L, extend = TRUE, corner = FALSE) {
