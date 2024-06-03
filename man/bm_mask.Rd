@@ -2,9 +2,29 @@
 % Please edit documentation in R/bm_mask.R
 \name{bm_mask}
 \alias{bm_mask}
+\alias{bm_mask.bm_bitmap}
+\alias{bm_mask.bm_list}
 \title{Modify bitmaps via masking with a 'mask' bitmap}
 \usage{
 bm_mask(
+  x,
+  mask = NULL,
+  base = NULL,
+  mode = c("luminance", "alpha"),
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_mask}{bm_bitmap}(
+  x,
+  mask = NULL,
+  base = NULL,
+  mode = c("luminance", "alpha"),
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_mask}{bm_list}(
   x,
   mask = NULL,
   base = NULL,

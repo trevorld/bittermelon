@@ -22,8 +22,19 @@
 #'           by adding pixels to their sides.
 #' @export
 bm_expand <- function(x, width = 1L, height = 1L) {
-    modify_bm_bitmaps(x, bm_expand_bitmap,
-                      width = width, height = height)
+    UseMethod("bm_expand")
+}
+
+#' @rdname bm_expand
+#' @export
+bm_expand.bm_bitmap <- function(x, width = 1L, height = 1L) {
+    bm_expand_bitmap(x, width = width, height = height)
+}
+
+#' @rdname bm_expand
+#' @export
+bm_expand.bm_list <- function(x, width = 1L, height = 1L) {
+    bm_lapply(x, bm_expand_bitmap, width = width, height = height)
 }
 
 bm_expand_bitmap <- function(x, width = 1L, height = 1L) {

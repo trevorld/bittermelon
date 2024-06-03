@@ -23,13 +23,30 @@
 #' @seealso [bm_expand()] for expanding width/height by integer multiples.
 #'          [bm_resize()] for resizing an image via trimming/extending an image.
 #' @export
-bm_distort <- function(x, width = NULL, height = NULL,
-                       interpolate = FALSE, vp = NULL,
-                       png_device = NULL, threshold = 0.25) {
-    modify_bm_bitmaps(x, bm_distort_bitmap,
+bm_distort <- function(x, width = NULL, height = NULL, ...) {
+    UseMethod("bm_distort")
+}
+
+#' @rdname bm_distort
+#' @export
+bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL,
+                                 interpolate = FALSE, vp = NULL,
+                                 png_device = NULL, threshold = 0.25) {
+    bm_distort_bitmap(x, 
                       width = width, height = height,
                       interpolate = interpolate, vp = vp,
                       png_device = png_device, threshold = threshold)
+}
+
+#' @rdname bm_distort
+#' @export
+bm_distort.bm_list <- function(x, width = NULL, height = NULL,
+                               interpolate = FALSE, vp = NULL,
+                               png_device = NULL, threshold = 0.25) {
+    bm_lapply(x, bm_distort_bitmap,
+              width = width, height = height,
+              interpolate = interpolate, vp = vp,
+              png_device = png_device, threshold = threshold)
 }
 
 bm_distort_bitmap <- function(x, width = NULL, height = NULL,

@@ -2,9 +2,23 @@
 % Please edit documentation in R/bm_distort.R
 \name{bm_distort}
 \alias{bm_distort}
+\alias{bm_distort.bm_bitmap}
+\alias{bm_distort.bm_list}
 \title{Resize images via distortion.}
 \usage{
-bm_distort(
+bm_distort(x, width = NULL, height = NULL, ...)
+
+\method{bm_distort}{bm_bitmap}(
+  x,
+  width = NULL,
+  height = NULL,
+  interpolate = FALSE,
+  vp = NULL,
+  png_device = NULL,
+  threshold = 0.25
+)
+
+\method{bm_distort}{bm_list}(
   x,
   width = NULL,
   height = NULL,
@@ -20,6 +34,8 @@ bm_distort(
 \item{width}{Desired width of bitmap}
 
 \item{height}{Desired height of bitmap}
+
+\item{...}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
 
 \item{interpolate}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
 

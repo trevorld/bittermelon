@@ -29,10 +29,24 @@
 bm_overlay <- function(x, over = NULL, under = NULL,
                        hjust = "center-left", vjust = "center-top") {
     stopifnot(is.null(over) || is.null(under))
+    UseMethod("bm_overlay")
+}
 
-    modify_bm_bitmaps(x, bm_overlay_bitmap,
-                      over = over, under = under,
+#' @rdname bm_overlay
+#' @export
+bm_overlay.bm_bitmap <- function(x, over = NULL, under = NULL,
+                                 hjust = "center-left", vjust = "center-top") {
+    bm_overlay_bitmap(x, over = over, under = under,
                       hjust = hjust, vjust = vjust)
+}
+
+#' @rdname bm_overlay
+#' @export
+bm_overlay.bm_list <- function(x, over = NULL, under = NULL,
+                                 hjust = "center-left", vjust = "center-top") {
+    bm_lapply(x, bm_overlay_bitmap,
+              over = over, under = under,
+              hjust = hjust, vjust = vjust)
 }
 
 bm_overlay_bitmap <- function(x, over = NULL, under = NULL,

@@ -2,9 +2,27 @@
 % Please edit documentation in R/bm_overlay.R
 \name{bm_overlay}
 \alias{bm_overlay}
+\alias{bm_overlay.bm_bitmap}
+\alias{bm_overlay.bm_list}
 \title{Merge bitmaps by overlaying one over another}
 \usage{
 bm_overlay(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_overlay}{bm_bitmap}(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top"
+)
+
+\method{bm_overlay}{bm_list}(
   x,
   over = NULL,
   under = NULL,
