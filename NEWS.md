@@ -75,6 +75,7 @@ New features
 
 The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
 
+* `bm_expand()`
 * `bm_extend()`
 * `bm_flip()`
 * `bm_heights()`
@@ -89,7 +90,6 @@ The following functions are now S3 generics but they only have builtin methods t
 
 * `bm_bold()`
 * `bm_distort()`
-* `bm_expand()`
 * `bm_glow()`
 * `bm_mask()`
 * `bm_outline()`

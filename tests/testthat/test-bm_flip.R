@@ -1,12 +1,17 @@
 test_that("`bm_flip()`", {
-    corn <- farming_crops_16x16()$corn$portrait
-    corn_r <- as.raster(corn)
-
     skip_if_not_installed("magick")
-    corn_mi <- magick::image_read(corn_r)
-
     skip_if_not_installed("farver")
+
+    corn <- farming_crops_16x16()$corn$portrait
+    corn_l <- bm_list(as_bm_bitmap(corn))
+    expect_equal(bm_padding_lengths(corn_l[[1L]])[["left"]],
+                 bm_padding_lengths(bm_flip(corn_l, "h")[[1L]])[["right"]])
+    corn_r <- as.raster(corn)
+    corn_mi <- magick::image_read(corn_r)
     corn_nr <- as.raster(corn, native = TRUE)
+
+    expect_equal(bm_padding_lengths(corn_l[[1L]])[["left"]],
+                 bm_padding_lengths(bm_rotate(corn_l, 90L)[[1L]])[["top"]])
 
     verify_output("txt/bm_flip.txt", {
         print(corn)
