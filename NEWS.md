@@ -31,6 +31,10 @@ Breaking changes
   If specifying the first argument by name instead of positionally you'll now
   need to use `x` instead.
 
+* Arguments other than `x`, `width`, and `height` in `bm_distort()`
+  are no longer supported positionally.
+  They must be passed in by name.
+
 New features
 ------------
 
