@@ -29,7 +29,7 @@ bm_distort <- function(x, width = NULL, height = NULL, ...) {
 
 #' @rdname bm_distort
 #' @export
-bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL,
+bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL, ...,
                                  interpolate = FALSE, vp = NULL,
                                  png_device = NULL, threshold = 0.25) {
     bm_distort_bitmap(x, 
@@ -40,7 +40,7 @@ bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL,
 
 #' @rdname bm_distort
 #' @export
-bm_distort.bm_list <- function(x, width = NULL, height = NULL,
+bm_distort.bm_list <- function(x, width = NULL, height = NULL, ...,
                                interpolate = FALSE, vp = NULL,
                                png_device = NULL, threshold = 0.25) {
     bm_lapply(x, bm_distort_bitmap,
@@ -49,7 +49,7 @@ bm_distort.bm_list <- function(x, width = NULL, height = NULL,
               png_device = png_device, threshold = threshold)
 }
 
-bm_distort_bitmap <- function(x, width = NULL, height = NULL,
+bm_distort_bitmap <- function(x, width = NULL, height = NULL, ...,
                               interpolate = FALSE, vp = NULL,
                               png_device = NULL, threshold = 0.25) {
     if (is.null(width))
