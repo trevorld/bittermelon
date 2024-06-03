@@ -28,32 +28,88 @@ bm_expand <- function(x, width = 1L, height = 1L) {
 #' @rdname bm_expand
 #' @export
 bm_expand.bm_bitmap <- function(x, width = 1L, height = 1L) {
-    bm_expand_bitmap(x, width = width, height = height)
+    if (nrow(x) == 0L || ncol(x) == 0L || width == 0L || height == 0L) {
+        nr <- height * nrow(x)
+        nc <- width * ncol(x)
+        return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
+    } else {
+        bm_expand_bitmap(x, width = width, height = height)
+    }
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.bm_list <- function(x, width = 1L, height = 1L) {
-    bm_lapply(x, bm_expand_bitmap, width = width, height = height)
+    bm_lapply(x, bm_expand, width = width, height = height)
+}
+
+#' @rdname bm_expand
+#' @export
+bm_expand.bm_pixmap <- function(x, width = 1L, height = 1L) {
+    if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
+        nr <- height * nrow(x)
+        nc <- width * ncol(x)
+        return(bm_pixmap(matrix(character(), nrow = nr, ncol = nc)))
+    } else {
+        bm_expand_bitmap(x, width = width, height = height)
+    }
+}
+
+#' @rdname bm_expand
+#' @export
+`bm_expand.magick-image` <- function(x, width = 1L, height = 1L) {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    pm <- as_bm_pixmap(x)
+    pm <- bm_expand(pm, width = width, height = height)
+    magick::image_read(pm)
+}
+
+#' @rdname bm_expand
+#' @export
+bm_expand.nativeRaster <- function(x, width = 1L, height = 1L) {
+    pm <- as_bm_pixmap(x)
+    pm <- bm_expand(pm, width = width, height = height)
+    as.raster(pm, native = TRUE)
+}
+
+#' @rdname bm_expand
+#' @export
+bm_expand.raster <- function(x, width = 1L, height = 1L) {
+    if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
+        nr <- height * nrow(x)
+        nc <- width * ncol(x)
+        return(as.raster(matrix(character(), nrow = nr, ncol = nc)))
+    } else {
+        # The `height` logic is a bit different from `bm_expand_bitmap()`
+        x <- as.matrix(x)
+        if (width != 1L) {
+            l <- lapply(seq_len(ncol(x)),
+                        function(j) x[, j, drop = FALSE])
+            l <- rep(l, each = width)
+            x <- do.call(cbind, l)
+        }
+        if (height != 1L) {
+            l <- lapply(seq_len(nrow(x)),
+                        function(i) x[i, , drop = FALSE])
+            l <- rep(l, each = height)
+            x <- do.call(rbind, l)
+        }
+        as.raster(x)
+    }
 }
 
 bm_expand_bitmap <- function(x, width = 1L, height = 1L) {
-    if (nrow(x) == 0L || ncol(x) == 0L) {
-        nr <- height * nrow(x)
-        nc <- width * ncol(x)
-        return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
-    }
     if (width != 1L) {
         l <- lapply(seq_len(ncol(x)),
                     function(j) x[, j, drop = FALSE])
         l <- rep(l, each = width)
-        x <- do.call(cbind.bm_bitmap, l)
+        x <- do.call(cbind, l)
     }
     if (height != 1L) {
         l <- lapply(seq.int(nrow(x), 1L, -1L),
                     function(i) x[i, , drop = FALSE])
         l <- rep(l, each = height)
-        x <- do.call(rbind.bm_bitmap, l)
+        x <- do.call(rbind, l)
     }
     x
 }

@@ -4,6 +4,10 @@
 \alias{bm_expand}
 \alias{bm_expand.bm_bitmap}
 \alias{bm_expand.bm_list}
+\alias{bm_expand.bm_pixmap}
+\alias{bm_expand.magick-image}
+\alias{bm_expand.nativeRaster}
+\alias{bm_expand.raster}
 \title{Expand bitmaps by repeating each row and/or column}
 \usage{
 bm_expand(x, width = 1L, height = 1L)
@@ -11,6 +15,14 @@ bm_expand(x, width = 1L, height = 1L)
 \method{bm_expand}{bm_bitmap}(x, width = 1L, height = 1L)
 
 \method{bm_expand}{bm_list}(x, width = 1L, height = 1L)
+
+\method{bm_expand}{bm_pixmap}(x, width = 1L, height = 1L)
+
+\method{bm_expand}{`magick-image`}(x, width = 1L, height = 1L)
+
+\method{bm_expand}{nativeRaster}(x, width = 1L, height = 1L)
+
+\method{bm_expand}{raster}(x, width = 1L, height = 1L)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
