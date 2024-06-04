@@ -2,36 +2,37 @@
 % Please edit documentation in R/bm_shadow.R
 \name{bm_shadow}
 \alias{bm_shadow}
-\alias{bm_shadow.default}
 \alias{bm_shadow.bm_bitmap}
 \alias{bm_shadow.bm_list}
+\alias{bm_shadow.bm_pixmap}
+\alias{bm_shadow.magick-image}
+\alias{bm_shadow.nativeRaster}
+\alias{bm_shadow.raster}
 \alias{bm_bold}
-\alias{bm_bold.default}
 \alias{bm_bold.bm_bitmap}
 \alias{bm_bold.bm_list}
+\alias{bm_bold.bm_pixmap}
+\alias{bm_bold.magick-image}
+\alias{bm_bold.nativeRaster}
+\alias{bm_bold.raster}
 \alias{bm_glow}
 \alias{bm_glow.bm_bitmap}
 \alias{bm_glow.bm_list}
+\alias{bm_glow.bm_pixmap}
+\alias{bm_glow.magick-image}
+\alias{bm_glow.nativeRaster}
+\alias{bm_glow.raster}
 \title{Bitmap shadow, bold, and glow effects}
 \usage{
 bm_shadow(
-  x,
-  value = 2L,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL,
-  extend = TRUE
-)
-
-\method{bm_shadow}{default}(
   x,
   value,
   top = NULL,
   right = NULL,
   bottom = NULL,
   left = NULL,
-  extend = TRUE
+  extend = TRUE,
+  ...
 )
 
 \method{bm_shadow}{bm_bitmap}(
@@ -41,7 +42,9 @@ bm_shadow(
   right = NULL,
   bottom = NULL,
   left = NULL,
-  extend = TRUE
+  extend = TRUE,
+  bg = 0L,
+  ...
 )
 
 \method{bm_shadow}{bm_list}(
@@ -51,22 +54,61 @@ bm_shadow(
   right = NULL,
   bottom = NULL,
   left = NULL,
-  extend = TRUE
+  extend = TRUE,
+  ...
+)
+
+\method{bm_shadow}{bm_pixmap}(
+  x,
+  value = col2hex("black"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE,
+  bg = col2hex("transparent"),
+  ...
+)
+
+\method{bm_shadow}{`magick-image`}(
+  x,
+  value = "black",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE,
+  bg = "transparent",
+  ...
+)
+
+\method{bm_shadow}{nativeRaster}(
+  x,
+  value = col2int("black"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE,
+  bg = "transparent",
+  ...
+)
+
+\method{bm_shadow}{raster}(
+  x,
+  value = "black",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE,
+  bg = "transparent",
+  ...
 )
 
 bm_bold(
   x,
   value = 1L,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL,
-  extend = TRUE
-)
-
-\method{bm_bold}{default}(
-  x,
-  value,
   top = NULL,
   right = NULL,
   bottom = NULL,
@@ -94,11 +136,87 @@ bm_bold(
   extend = TRUE
 )
 
-bm_glow(x, value, extend = TRUE, corner = FALSE)
+\method{bm_bold}{bm_pixmap}(
+  x,
+  value = col2hex("black"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
 
-\method{bm_glow}{bm_bitmap}(x, value = 2L, extend = TRUE, corner = FALSE)
+\method{bm_bold}{`magick-image`}(
+  x,
+  value = "black",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
 
-\method{bm_glow}{bm_list}(x, value = 2L, extend = TRUE, corner = FALSE)
+\method{bm_bold}{nativeRaster}(
+  x,
+  value = col2int("black"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+\method{bm_bold}{raster}(
+  x,
+  value = "black",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  extend = TRUE
+)
+
+bm_glow(x, value, extend = TRUE, corner = FALSE, ...)
+
+\method{bm_glow}{bm_bitmap}(x, value = 2L, extend = TRUE, corner = FALSE, bg = 0L, ...)
+
+\method{bm_glow}{bm_list}(x, value = 2L, extend = TRUE, corner = FALSE, ...)
+
+\method{bm_glow}{bm_pixmap}(
+  x,
+  value = col2hex("black"),
+  extend = TRUE,
+  corner = FALSE,
+  bg = col2hex("transparent"),
+  ...
+)
+
+\method{bm_glow}{`magick-image`}(
+  x,
+  value = "black",
+  extend = TRUE,
+  corner = FALSE,
+  bg = "transparent",
+  ...
+)
+
+\method{bm_glow}{nativeRaster}(
+  x,
+  value = "black",
+  extend = TRUE,
+  corner = FALSE,
+  bg = "transparent",
+  ...
+)
+
+\method{bm_glow}{raster}(
+  x,
+  value = "black",
+  extend = TRUE,
+  corner = FALSE,
+  bg = "transparent",
+  ...
+)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
@@ -117,6 +235,10 @@ then defaults to \code{1L} for \code{bm_shadow()} and \code{0L} for \code{bm_emb
 \item{left}{How many pixels left should the shadow go.}
 
 \item{extend}{Make the bitmap larger to give the new glyph more "room".}
+
+\item{...}{Passed to other methods.}
+
+\item{bg}{Bitmap background value.}
 
 \item{corner}{Fill in the corners.}
 }

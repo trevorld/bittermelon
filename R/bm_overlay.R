@@ -27,46 +27,123 @@
 #'   print(a_grave2)
 #' @export
 bm_overlay <- function(x, over = NULL, under = NULL,
-                       hjust = "center-left", vjust = "center-top") {
+                       hjust = "center-left", vjust = "center-top", ...) {
     stopifnot(is.null(over) || is.null(under))
     UseMethod("bm_overlay")
 }
 
 #' @rdname bm_overlay
+#' @param bg Bitmap background value.
 #' @export
 bm_overlay.bm_bitmap <- function(x, over = NULL, under = NULL,
-                                 hjust = "center-left", vjust = "center-top") {
-    bm_overlay_bitmap(x, over = over, under = under,
-                      hjust = hjust, vjust = vjust)
+                                 hjust = "center-left", vjust = "center-top", bg = 0L, ...) {
+    if (is.null(over)) {
+        over <- x
+        under <- as_bm_bitmap(under)
+    } else {
+        under <- x
+        over <- as_bm_bitmap(over)
+    }
+    bm_overlay_bitmap(over = over, under = under,
+                      hjust = hjust, vjust = vjust, bg = bg)
+}
+
+#' @rdname bm_overlay
+#' @param ... Passed to `bm_overlay()`.
+#' @export
+bm_overlay.bm_list <- function(x, over = NULL, under = NULL,
+                               hjust = "center-left", vjust = "center-top", ...) {
+    bm_lapply(x, bm_overlay,
+              over = over, under = under,
+              hjust = hjust, vjust = vjust, ...)
 }
 
 #' @rdname bm_overlay
 #' @export
-bm_overlay.bm_list <- function(x, over = NULL, under = NULL,
-                                 hjust = "center-left", vjust = "center-top") {
-    bm_lapply(x, bm_overlay_bitmap,
-              over = over, under = under,
-              hjust = hjust, vjust = vjust)
-}
-
-bm_overlay_bitmap <- function(x, over = NULL, under = NULL,
-                              hjust = "center-left", vjust = "center-top") {
+bm_overlay.bm_pixmap <- function(x, over = NULL, under = NULL,
+                                 hjust = "center-left", vjust = "center-top",
+                                 bg = col2hex("transparent"), ...) {
+    bg <- col2hex(bg)
     if (is.null(over)) {
         over <- x
-        stopifnot(is_bm_bitmap(under))
+        under <- as_bm_pixmap(under)
     } else {
         under <- x
-        stopifnot(is_bm_bitmap(over))
+        over <- as_bm_pixmap(over)
     }
-    if (ncol(over) > ncol(under))
-        under <- bm_extend(under, width = ncol(over), hjust = hjust)
-    if (ncol(under) > ncol(over))
-        over <- bm_extend(over, width = ncol(under), hjust = hjust)
-    if (nrow(over) > nrow(under))
-        under <- bm_extend(under, height = nrow(over), vjust = vjust)
-    if (nrow(under) > nrow(over))
-        over <- bm_extend(over, height = nrow(under), vjust = vjust)
-    indices <- which(as.logical(over > 0L))
+    bm_overlay_bitmap(over = over, under = under,
+                      hjust = hjust, vjust = vjust, bg = bg)
+}
+
+#' @rdname bm_overlay
+#' @export
+`bm_overlay.magick-image` <- function(x, over = NULL, under = NULL,
+                                      hjust = "center-left", vjust = "center-top",
+                                      bg = "transparent", ...) {
+    stopifnot(requireNamespace("magick", quietly = TRUE))
+    x <- as_bm_pixmap(x)
+    bg <- col2hex(bg)
+    if (is.null(over)) {
+        over <- x
+        under <- as_bm_pixmap(under)
+    } else {
+        under <- x
+        over <- as_bm_pixmap(over)
+    }
+    pm <- bm_overlay_bitmap(over = over, under = under,
+                            hjust = hjust, vjust = vjust, bg = bg)
+    magick::image_read(pm)
+}
+
+#' @rdname bm_overlay
+#' @export
+bm_overlay.nativeRaster <- function(x, over = NULL, under = NULL,
+                              hjust = "center-left", vjust = "center-top",
+                              bg = col2int("transparent"), ...) {
+    x <- as_bm_pixmap(x)
+    bg <- int2col(as_native(bg))
+    if (is.null(over)) {
+        over <- x
+        under <- as_bm_pixmap(under)
+    } else {
+        under <- x
+        over <- as_bm_pixmap(over)
+    }
+    pm <- bm_overlay_bitmap(over = over, under = under,
+                            hjust = hjust, vjust = vjust, bg = bg)
+    as.raster(pm, native = TRUE)
+}
+
+#' @rdname bm_overlay
+#' @export
+bm_overlay.raster <- function(x, over = NULL, under = NULL,
+                              hjust = "center-left", vjust = "center-top",
+                              bg = "transparent", ...) {
+    x <- as_bm_pixmap(x)
+    bg <- col2hex(bg)
+    if (is.null(over)) {
+        over <- x
+        under <- as_bm_pixmap(under)
+    } else {
+        under <- x
+        over <- as_bm_pixmap(over)
+    }
+    pm <- bm_overlay_bitmap(over = over, under = under,
+                            hjust = hjust, vjust = vjust, bg = bg)
+    as.raster(pm)
+}
+
+bm_overlay_bitmap <- function(over = NULL, under = NULL,
+                              hjust = "center-left", vjust = "center-top", bg) {
+    if (bm_widths(over) > bm_widths(under))
+        under <- bm_extend(under, width = bm_widths(over), hjust = hjust)
+    if (bm_widths(under) > bm_widths(over))
+        over <- bm_extend(over, width = bm_widths(under), hjust = hjust)
+    if (bm_heights(over) > bm_heights(under))
+        under <- bm_extend(under, height = bm_heights(over), vjust = vjust)
+    if (bm_heights(under) > bm_heights(over))
+        over <- bm_extend(over, height = bm_heights(under), vjust = vjust)
+    indices <- which(as.logical(over != bg))
     under[indices] <- over[indices]
     under
 }
