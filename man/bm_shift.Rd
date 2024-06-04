@@ -2,9 +2,55 @@
 % Please edit documentation in R/bm_shift.R
 \name{bm_shift}
 \alias{bm_shift}
+\alias{bm_shift.bm_bitmap}
+\alias{bm_shift.bm_list}
+\alias{bm_shift.bm_pixmap}
+\alias{bm_shift.magick-image}
+\alias{bm_shift.nativeRaster}
+\alias{bm_shift.raster}
 \title{Shift elements within bitmaps}
 \usage{
-bm_shift(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
+bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
+
+\method{bm_shift}{bm_bitmap}(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
+
+\method{bm_shift}{bm_list}(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
+
+\method{bm_shift}{bm_pixmap}(
+  x,
+  value = col2hex("transparent"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_shift}{`magick-image`}(
+  x,
+  value = "transparent",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_shift}{nativeRaster}(
+  x,
+  value = col2int("transparent"),
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
+
+\method{bm_shift}{raster}(
+  x,
+  value = "transparent",
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL
+)
 }
 \arguments{
 \item{x}{Bitmap object.}

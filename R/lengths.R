@@ -6,7 +6,7 @@
 #'
 #' @param x Bitmap object.
 #' @param unique Apply [base::unique()] to the returned integer vector.
-#' @param ... `bm_heights.default()` and `bm_widths.default()` pass this to `as_bm_pixmap(x, ...)`.
+#' @param ... Ignored.
 #' @return A integer vector of the relevant length of each
 #'         of the bitmap objects in `x`.
 #'         If `unique` is `TRUE` then any duplicates will have been removed.
@@ -35,12 +35,6 @@ bm_heights.bm_list <- function(x, unique = TRUE, ...) {
         base::unique(nr)
     else
         nr
-}
-
-#' @rdname lengths
-#' @export
-bm_heights.default <- function(x, ...) {
-    nrow(as_bm_pixmap(x, ...))
 }
 
 #' @rdname lengths
@@ -82,12 +76,6 @@ bm_widths.bm_list <- function(x, unique = TRUE, ...) {
         base::unique(nc)
     else
         nc
-}
-
-#' @rdname lengths
-#' @export
-bm_widths.default <- function(x, ...) {
-    ncol(as_bm_pixmap(x, ...))
 }
 
 #' @rdname lengths

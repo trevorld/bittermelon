@@ -4,14 +4,12 @@
 \alias{bm_heights}
 \alias{bm_heights.bm_matrix}
 \alias{bm_heights.bm_list}
-\alias{bm_heights.default}
 \alias{bm_heights.magick-image}
 \alias{bm_heights.nativeRaster}
 \alias{bm_heights.raster}
 \alias{bm_widths}
 \alias{bm_widths.bm_matrix}
 \alias{bm_widths.bm_list}
-\alias{bm_widths.default}
 \alias{bm_widths.magick-image}
 \alias{bm_widths.nativeRaster}
 \alias{bm_widths.raster}
@@ -22,8 +20,6 @@ bm_heights(x, ...)
 \method{bm_heights}{bm_matrix}(x, ...)
 
 \method{bm_heights}{bm_list}(x, unique = TRUE, ...)
-
-\method{bm_heights}{default}(x, ...)
 
 \method{bm_heights}{`magick-image`}(x, ...)
 
@@ -37,8 +33,6 @@ bm_widths(x, ...)
 
 \method{bm_widths}{bm_list}(x, unique = TRUE, ...)
 
-\method{bm_widths}{default}(x, ...)
-
 \method{bm_widths}{`magick-image`}(x, ...)
 
 \method{bm_widths}{nativeRaster}(x, ...)
@@ -48,7 +42,7 @@ bm_widths(x, ...)
 \arguments{
 \item{x}{Bitmap object.}
 
-\item{...}{\code{bm_heights.default()} and \code{bm_widths.default()} pass this to \code{as_bm_pixmap(x, ...)}.}
+\item{...}{Ignored.}
 
 \item{unique}{Apply \code{\link[base:unique]{base::unique()}} to the returned integer vector.}
 }

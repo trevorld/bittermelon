@@ -4,6 +4,10 @@
 \alias{bm_overlay}
 \alias{bm_overlay.bm_bitmap}
 \alias{bm_overlay.bm_list}
+\alias{bm_overlay.bm_pixmap}
+\alias{bm_overlay.magick-image}
+\alias{bm_overlay.nativeRaster}
+\alias{bm_overlay.raster}
 \title{Merge bitmaps by overlaying one over another}
 \usage{
 bm_overlay(
@@ -11,7 +15,8 @@ bm_overlay(
   over = NULL,
   under = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  ...
 )
 
 \method{bm_overlay}{bm_bitmap}(
@@ -19,7 +24,9 @@ bm_overlay(
   over = NULL,
   under = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  bg = 0L,
+  ...
 )
 
 \method{bm_overlay}{bm_list}(
@@ -27,7 +34,48 @@ bm_overlay(
   over = NULL,
   under = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  ...
+)
+
+\method{bm_overlay}{bm_pixmap}(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top",
+  bg = col2hex("transparent"),
+  ...
+)
+
+\method{bm_overlay}{`magick-image`}(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top",
+  bg = "transparent",
+  ...
+)
+
+\method{bm_overlay}{nativeRaster}(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top",
+  bg = col2int("transparent"),
+  ...
+)
+
+\method{bm_overlay}{raster}(
+  x,
+  over = NULL,
+  under = NULL,
+  hjust = "center-left",
+  vjust = "center-top",
+  bg = "transparent",
+  ...
 )
 }
 \arguments{
@@ -54,6 +102,10 @@ place in "center" if possible but if not possible will bias
 it one pixel down or up respectively.
 "centre", "center", and "centre-top" are aliases for "center-top".
 "centre-bottom" is an alias for "center-bottom".}
+
+\item{...}{Passed to \code{bm_overlay()}.}
+
+\item{bg}{Bitmap background value.}
 }
 \value{
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
