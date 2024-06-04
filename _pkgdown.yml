@@ -49,6 +49,7 @@ reference:
           - bm_outline
           - bm_overlay
           - bm_pad
+          - bm_replace
           - bm_resize
           - bm_rotate
           - bm_shadow

@@ -17,6 +17,7 @@ test_that("`print.bm_pixmap()` works as expected", {
         # 1x1
         p1 <- as_bm_pixmap(matrix("transparent", 1L, 1L))
         print(p1, compress = "n")
+        print(p1, compress = "n", bg = "magenta")
         print(p1, compress = "v")
         print(p1, compress = "h")
         print(p1, compress = "b")
