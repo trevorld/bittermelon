@@ -45,7 +45,7 @@ bm_pad(
 
 \method{bm_pad}{bm_pixmap}(
   x,
-  value = "#FFFFFF00",
+  value = col2hex("transparent"),
   type = c("exact", "extend", "trim"),
   sides = NULL,
   top = NULL,
@@ -67,7 +67,7 @@ bm_pad(
 
 \method{bm_pad}{nativeRaster}(
   x,
-  value = 16777215L,
+  value = col2int("transparent"),
   type = c("exact", "extend", "trim"),
   sides = NULL,
   top = NULL,

@@ -83,6 +83,7 @@ The following functions are now S3 generics that have methods that support (at l
 * `bm_extend()`
 * `bm_flip()`
 * `bm_heights()`
+* `bm_outline()`
 * `bm_pad()`
 * `bm_padding_lengths()`
 * `bm_resize()`
@@ -96,9 +97,13 @@ The following functions are now S3 generics but they only have builtin methods t
 * `bm_distort()`
 * `bm_glow()`
 * `bm_mask()`
-* `bm_outline()`
 * `bm_overlay()`
 * `bm_shadow()`
+
+New color utilities:
+
+* `col2hex()` standardize color strings into a unique hex color string.
+* `col2int()` and `int2col()` convert back and forth to (native) color integers.
 
 Bug fixes and minor improvements
 --------------------------------

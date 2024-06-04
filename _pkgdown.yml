@@ -71,6 +71,11 @@ reference:
       contents:
           - hex2ucp
           - ucp2label
+    - title: "Color utilities"
+      desc: "Color utility functions"
+      contents:
+          - col2hex
+          - col2int
     - title: "Package options"
       desc: "Package global options"
       contents:

@@ -30,7 +30,7 @@ as_bm_pixmap.default <- function(x, ...) {
 #' @rdname as_bm_pixmap
 #' @export
 as_bm_pixmap.bm_bitmap <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) { # nolint
-    cols <- col2rrggbbaa(col)[as.integer(x) + 1L]
+    cols <- col2hex(col)[as.integer(x) + 1L]
     m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
     class(m) <- c("bm_pixmap", "bm_matrix", class(m))
     m
@@ -52,7 +52,7 @@ as_bm_pixmap.bm_pixmap <- function(x, ...) {
 #' @export
 as_bm_pixmap.matrix <- function(x, ...) {
     if (is.character(x)) {
-        cols <- col2rrggbbaa(as.character(x))
+        cols <- col2hex(as.character(x))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
         class(m) <- c("bm_pixmap", "bm_matrix", class(m))
         m
@@ -79,9 +79,8 @@ as_bm_pixmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
 #' @rdname as_bm_pixmap
 #' @export
 as_bm_pixmap.nativeRaster <- function(x, ...) {
-    stopifnot(requireNamespace("farver", quietly = TRUE))
     if (nrow(x) > 0L && ncol(x) > 0L) {
-        cols <- col2rrggbbaa(farver::decode_native(as.integer(x)))
+        cols <- int2col(as.integer(x))
         m <- flip_matrix_vertically(matrix(cols, nrow = nrow(x), ncol = ncol(x), byrow = TRUE))
         class(m) <- c("bm_pixmap", "bm_matrix", class(m))
         m
@@ -95,7 +94,7 @@ as_bm_pixmap.nativeRaster <- function(x, ...) {
 as_bm_pixmap.raster <- function(x, ...) {
     # Standardize all colors to #RRGGBBAA format
     if (nrow(x) > 0L && ncol(x) > 0L) {
-        cols <- col2rrggbbaa(as.character(flip_matrix_vertically(as.matrix(x))))
+        cols <- col2hex(as.character(flip_matrix_vertically(as.matrix(x))))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
         class(m) <- c("bm_pixmap", "bm_matrix", class(m))
         m

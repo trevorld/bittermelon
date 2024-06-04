@@ -39,7 +39,7 @@ bm_resize(
 
 \method{bm_resize}{bm_pixmap}(
   x,
-  value = "#FFFFFF00",
+  value = col2hex("transparent"),
   width = NULL,
   height = NULL,
   hjust = "center-left",
@@ -57,7 +57,7 @@ bm_resize(
 
 \method{bm_resize}{nativeRaster}(
   x,
-  value = 16777215L,
+  value = col2int("transparent"),
   width = NULL,
   height = NULL,
   hjust = "center-left",

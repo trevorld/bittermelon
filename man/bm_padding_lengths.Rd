@@ -10,17 +10,17 @@
 \alias{bm_padding_lengths.raster}
 \title{Compute bitmap padding lengths}
 \usage{
-bm_padding_lengths(x, value = 0L)
+bm_padding_lengths(x, value)
 
 \method{bm_padding_lengths}{bm_bitmap}(x, value = 0L)
 
 \method{bm_padding_lengths}{bm_list}(x, value = 0L)
 
-\method{bm_padding_lengths}{bm_pixmap}(x, value = "#FFFFFF00")
+\method{bm_padding_lengths}{bm_pixmap}(x, value = col2hex("transparent"))
 
 \method{bm_padding_lengths}{`magick-image`}(x, value = "transparent")
 
-\method{bm_padding_lengths}{nativeRaster}(x, value = 16777215L)
+\method{bm_padding_lengths}{nativeRaster}(x, value = col2int("transparent"))
 
 \method{bm_padding_lengths}{raster}(x, value = "transparent")
 }

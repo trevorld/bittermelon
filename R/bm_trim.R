@@ -106,7 +106,6 @@ bm_trim.nativeRaster <- function(x, sides = NULL,
                                  top = NULL, right = NULL, bottom = NULL, left = NULL,
                                  width = NULL, height = NULL,
                                  hjust = "center-left", vjust = "center-top") {
-    stopifnot(requireNamespace("farver", quietly = TRUE))
     pm <- as_bm_pixmap.nativeRaster(x)
     pm <- bm_trim_bitmap(pm,
                          sides = sides,

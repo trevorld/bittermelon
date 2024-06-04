@@ -64,20 +64,19 @@ as.raster.bm_bitmap <- function(x, native = FALSE, ...,
             m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
             as.raster(m)
         } else {
-            as.raster(matrix("#FFFFFF00", nrow = nrow(x), ncol = ncol(x)))
+            as.raster(matrix(character(0L), nrow = nrow(x), ncol = ncol(x)))
         }
     }
 }
 
 as_native_raster.bm_bitmap <- function(x, col = getOption("bittermelon.col", col_bitmap)) {
     if (nrow(x) > 0L && ncol(x) > 0L) {
-        stopifnot(requireNamespace("farver", quietly = TRUE))
         x <- as.matrix(x, first_row_is_top = TRUE)
         r <- apply(x, 2, function(i) col[i + 1L])
-        cols <- farver::encode_native(as.character(t(r)))
+        cols <- col2int(as.character(t(r)))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
     } else {
-        m <- matrix(0L, nrow = nrow(x), ncol = ncol(x))
+        m <- matrix(integer(0L), nrow = nrow(x), ncol = ncol(x))
     }
     class(m) <- "nativeRaster"
     m
@@ -103,12 +102,11 @@ as.raster.bm_pixmap <- function(x, native = FALSE, ...) { # nolint
 # Is there a S3 generic to convert to a native raster?
 as_native_raster.bm_pixmap <- function(x, ...) {
     if (nrow(x) > 0L && ncol(x) > 0L) {
-        stopifnot(requireNamespace("farver", quietly = TRUE))
         x <- as.matrix(x, first_row_is_top = TRUE)
-        cols <- farver::encode_native(as.character(t(x)))
+        cols <- col2int(as.character(t(x)))
         m <- matrix(cols, nrow = nrow(x), ncol = ncol(x))
     } else {
-        m <- matrix(0L, nrow = nrow(x), ncol = ncol(x))
+        m <- matrix(integer(0L), nrow = nrow(x), ncol = ncol(x))
     }
     class(m) <- "nativeRaster"
     m
