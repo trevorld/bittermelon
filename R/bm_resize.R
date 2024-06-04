@@ -44,7 +44,7 @@ bm_resize.bm_list <- function(x, value = 0L, # nolint
 
 #' @rdname bm_resize
 #' @export
-bm_resize.bm_pixmap <- function(x, value = "#FFFFFF00", # nolint
+bm_resize.bm_pixmap <- function(x, value = col2hex("transparent"), # nolint
                                 width = NULL, height = NULL,
                                 hjust = "center-left", vjust = "center-top") {
     bm_resize_bitmap(x, value = value,
@@ -64,10 +64,10 @@ bm_resize.bm_pixmap <- function(x, value = "#FFFFFF00", # nolint
 
 #' @rdname bm_resize
 #' @export
-bm_resize.nativeRaster <- function(x, value = 16777215L, # nolint
+bm_resize.nativeRaster <- function(x, value = col2int("transparent"), # nolint
                              width = NULL, height = NULL,
                              hjust = "center-left", vjust = "center-top") {
-    bm_resize_bitmap(x, value = value,
+    bm_resize_bitmap(x, value = as_native(value),
                      width = width, height = height,
                      hjust = hjust, vjust = vjust)
 }

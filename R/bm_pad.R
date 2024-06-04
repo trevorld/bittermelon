@@ -62,10 +62,11 @@ bm_pad.bm_list <- function(x, value = 0L,
 
 #' @rdname bm_pad
 #' @export
-bm_pad.bm_pixmap <- function(x, value = "#FFFFFF00",
+bm_pad.bm_pixmap <- function(x, value = col2hex("transparent"),
                              type = c("exact", "extend", "trim"),
                              sides = NULL,
                              top = NULL, right = NULL, bottom = NULL, left = NULL) {
+    value <- col2hex(value)
     bm_pad_bitmap(x, value = value, type = type, sides = sides,
                   top = top, right = right, bottom = bottom, left = left)
 }
@@ -83,7 +84,7 @@ bm_pad.bm_pixmap <- function(x, value = "#FFFFFF00",
 
 #' @rdname bm_pad
 #' @export
-bm_pad.nativeRaster <- function(x, value = 16777215L,
+bm_pad.nativeRaster <- function(x, value = col2int("transparent"),
                                 type = c("exact", "extend", "trim"),
                                 sides = NULL,
                                 top = NULL, right = NULL, bottom = NULL, left = NULL) {

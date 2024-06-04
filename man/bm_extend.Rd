@@ -40,7 +40,7 @@ bm_extend(
 
 \method{bm_extend}{bm_pixmap}(
   x,
-  value = "#FFFFFF00",
+  value = col2hex("transparent"),
   sides = NULL,
   top = NULL,
   right = NULL,
@@ -82,7 +82,7 @@ bm_extend(
 
 \method{bm_extend}{nativeRaster}(
   x,
-  value = 16777215L,
+  value = col2int("transparent"),
   sides = NULL,
   top = NULL,
   right = NULL,

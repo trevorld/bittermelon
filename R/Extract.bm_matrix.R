@@ -41,7 +41,7 @@
 #' @rdname Extract.bm_matrix
 #' @export
 `[<-.bm_pixmap` <- function(x, i, j, ..., value) { # nolint
-    value <- col2rrggbbaa(value)
+    value <- col2hex(value)
     x <- NextMethod()
     x
 }

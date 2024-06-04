@@ -83,10 +83,11 @@ bm_extend.bm_bitmap <- function(x, value = 0L, sides = NULL,
 
 #' @rdname bm_extend
 #' @export
-bm_extend.bm_pixmap <- function(x, value = "#FFFFFF00", sides = NULL,
+bm_extend.bm_pixmap <- function(x, value = col2hex("transparent"), sides = NULL,
                                 top = NULL, right = NULL, bottom = NULL, left = NULL,
                                 width = NULL, height = NULL,
                                 hjust = "center-left", vjust = "center-top") {
+    value <- col2hex(value)
     bm_extend_bitmap(x, value = value,
                      sides = sides,
                      top = top, right = right, bottom = bottom, left = left,
@@ -115,7 +116,7 @@ bm_extend.bm_list <- function(x, value = 0L, sides = NULL,
                                      hjust = "center-left", vjust = "center-top") {
     stopifnot(requireNamespace("magick", quietly = TRUE))
     pm <- `as_bm_pixmap.magick-image`(x)
-    value <- col2rrggbbaa(value)
+    value <- col2hex(value)
     pm <- bm_extend_bitmap(pm, value = value,
                            sides = sides,
                            top = top, right = right, bottom = bottom, left = left,
@@ -126,15 +127,13 @@ bm_extend.bm_list <- function(x, value = 0L, sides = NULL,
 
 #' @rdname bm_extend
 #' @export
-bm_extend.nativeRaster <- function(x, value = 16777215L, sides = NULL,
+bm_extend.nativeRaster <- function(x, value = col2int("transparent"), sides = NULL,
                               top = NULL, right = NULL, bottom = NULL, left = NULL,
                               width = NULL, height = NULL,
                               hjust = "center-left", vjust = "center-top") {
-    stopifnot(requireNamespace("farver", quietly = TRUE))
-    pm <- as_bm_pixmap.nativeRaster(x)
-    value <- col2rrggbbaa(farver::decode_native(value))
-    pm <- bm_extend_bitmap(pm, value = value,
-                           sides = sides,
+    value <- int2col(as_native(value))
+    pm <- bm_extend_bitmap(as_bm_pixmap.nativeRaster(x),
+                           value = value, sides = sides,
                            top = top, right = right, bottom = bottom, left = left,
                            width = width, height = height,
                            hjust = hjust, vjust = vjust)

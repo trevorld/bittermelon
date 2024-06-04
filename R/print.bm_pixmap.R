@@ -38,7 +38,7 @@ print.bm_pixmap <- function(x, ...,
                             bg = getOption("bittermelon.bg", FALSE),
                             compress = getOption("bittermelon.compress", "none")) {
     # Avoid {cli} converting to ANSI style function if color string in `cli:::ansi_builtin_styles()`
-    if (is.character(bg)) bg <- col2rrggbbaa(bg)
+    if (is.character(bg)) bg <- col2hex(bg)
     s <- format(x, ..., bg = bg, compress = compress)
     cat(s, sep = "\n")
     invisible(s)
@@ -71,18 +71,6 @@ format.bm_pixmap <- function(x, ...,
 }
 
 # img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
-
-col2rrggbbaa <- function(x) {
-    rgb <- grDevices::col2rgb(x, alpha = TRUE)
-    which_transparent <- which(rgb[4, ] == 0L)
-    if (length(which_transparent)) {
-        rgb[1, which_transparent] <- 255L
-        rgb[2, which_transparent] <- 255L
-        rgb[3, which_transparent] <- 255L
-    }
-    grDevices::rgb(rgb[1, ], rgb[2, ], rgb[3, ], rgb[4, ],
-                   maxColorValue = 255)
-}
 
 format_bmr_none <- function(x) {
     as.character(apply(x, 1L, row_bmr_none))

@@ -18,7 +18,7 @@
 #'  print(capital_r)
 #'  print(bm_padding_lengths(capital_r))
 #' @export
-bm_padding_lengths <- function(x, value = 0L) {
+bm_padding_lengths <- function(x, value) {
     UseMethod("bm_padding_lengths")
 }
 
@@ -36,24 +36,23 @@ bm_padding_lengths.bm_list <- function(x, value = 0L) {
 
 #' @rdname bm_padding_lengths
 #' @export
-bm_padding_lengths.bm_pixmap <- function(x, value = "#FFFFFF00") {
-    bm_padding_lengths_bitmap(x, value = col2rrggbbaa(value))
+bm_padding_lengths.bm_pixmap <- function(x, value = col2hex("transparent")) {
+    bm_padding_lengths_bitmap(x, value = col2hex(value))
 }
 
 #' @rdname bm_padding_lengths
 #' @export
 `bm_padding_lengths.magick-image` <- function(x, value = "transparent") {
     stopifnot(requireNamespace("magick", quietly = TRUE))
-    value <- col2rrggbbaa(value)
+    value <- col2hex(value)
     bm_padding_lengths_bitmap(`as_bm_pixmap.magick-image`(x), 
                               value = value)
 }
 
 #' @rdname bm_padding_lengths
 #' @export
-bm_padding_lengths.nativeRaster <- function(x, value = 16777215L) {
-    stopifnot(requireNamespace("farver", quietly = TRUE))
-    value <- col2rrggbbaa(farver::decode_native(value))
+bm_padding_lengths.nativeRaster <- function(x, value = col2int("transparent")) {
+    value <- int2col(as_native(value))
     bm_padding_lengths_bitmap(as_bm_pixmap.nativeRaster(x), 
                               value = value)
 }
@@ -62,7 +61,7 @@ bm_padding_lengths.nativeRaster <- function(x, value = 16777215L) {
 #' @export
 bm_padding_lengths.raster <- function(x, value = "transparent") {
     bm_padding_lengths_bitmap(as_bm_pixmap.raster(x), 
-                              value = col2rrggbbaa(value))
+                              value = col2hex(value))
 }
 
 bm_padding_lengths_bitmap <- function(bm_bitmap, value = 0L) { # nolint
