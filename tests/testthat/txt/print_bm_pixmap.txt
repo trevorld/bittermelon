@@ -2,6 +2,9 @@
 > print(p1, compress = "n")
  
 
+> print(p1, compress = "n", bg = "magenta")
+[45m [49m
+
 > print(p1, compress = "v")
  
 

@@ -100,6 +100,10 @@ The following functions are now S3 generics but they only have builtin methods t
 * `bm_overlay()`
 * `bm_shadow()`
 
+New bitmap manipulation functions:
+
+* `bm_replace()`
+
 New color utilities:
 
 * `col2hex()` standardize color strings into a unique hex color string.
