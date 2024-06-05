@@ -91,6 +91,13 @@ as_bm_pixmap.nativeRaster <- function(x, ...) {
 
 #' @rdname as_bm_pixmap
 #' @export
+as_bm_pixmap.pixeltrix <- function(x, ...) {
+    bm <- as_bm_bitmap.pixeltrix(x)
+    as_bm_pixmap.bm_bitmap(bm, col = attr(x, "colours"))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
 as_bm_pixmap.raster <- function(x, ...) {
     # Standardize all colors to #RRGGBBAA format
     if (nrow(x) > 0L && ncol(x) > 0L) {

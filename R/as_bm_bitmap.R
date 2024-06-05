@@ -271,6 +271,13 @@ as_bm_bitmap.nativeRaster <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
+as_bm_bitmap.pixeltrix <- function(x, ...) {
+    m <- matrix(as.integer(x), nrow = nrow(x), ncol = ncol(x))
+    as_bm_bitmap(flip_matrix_vertically(m))
+}
+
+#' @rdname as_bm_bitmap
+#' @export
 as_bm_bitmap.raster <- function(x, ...) {
     as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(x))
 }

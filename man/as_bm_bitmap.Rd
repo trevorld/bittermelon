@@ -10,6 +10,7 @@
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
 \alias{as_bm_bitmap.nativeRaster}
+\alias{as_bm_bitmap.pixeltrix}
 \alias{as_bm_bitmap.raster}
 \title{Cast to a bitmap matrix object}
 \usage{
@@ -46,6 +47,8 @@ as_bm_bitmap(x, ...)
 \method{as_bm_bitmap}{maze}(x, ..., walls = FALSE, start = NULL, end = NULL)
 
 \method{as_bm_bitmap}{nativeRaster}(x, ...)
+
+\method{as_bm_bitmap}{pixeltrix}(x, ...)
 
 \method{as_bm_bitmap}{raster}(x, ...)
 }
