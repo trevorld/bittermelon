@@ -47,7 +47,7 @@ New features
   to represent more complicated raster images.
   It supports the following S3 methods:
 
-  * `as.matrix.bm_pixmap()`
+  * `as.matrix.bm_pixmap()` and `as.array.bm_pixmap()`
   * `as.raster.bm_pixmap()` and `plot.bm_pixmap()`
   * `cbind.bm_pixmap()` and `rbind.bm_pixmap()`
   * `format.bm_pixmap()` and `print.bm_pixmap()`
@@ -82,6 +82,7 @@ New features
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
 * `as.matrix.bm_bitmap()` now has a `first_row_is_top` argument to flip the rows
   so that the first row represents the top of the bitmap instead of the bottom.
+* New `as.array.bm_bitmap()` function for writing bitmaps with `png::writePNG()` and friends.
 
 The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
 

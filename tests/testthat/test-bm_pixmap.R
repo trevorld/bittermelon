@@ -2,6 +2,24 @@ test_that("`bm_pixmap()` works as expected", {
     pm <- as_bm_pixmap(matrix(character(0L), 0L, 0L))
     expect_true(is_bm_pixmap(pm))
     expect_true(is_bm_matrix(pm))
+
+})
+
+test_that("`as.array.bm_pixmap()`", {
+    skip_if_not_installed("png")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    tulip <- farming_crops_16x16()$tulip$portrait
+    bm <- as_bm_bitmap(tulip)
+    pm1 <- as_bm_pixmap(bm)
+    a1 <- as.array(bm)
+    f <- tempfile(fileext = ".png")
+    png::writePNG(a1, f)
+    a2 <- png::readPNG(f)
+    unlink(f)
+    pm2 <- as_bm_pixmap(a2)
+    expect_equal(pm1, pm2)
 })
 
 test_that("`as_bm_pixmap()`", {

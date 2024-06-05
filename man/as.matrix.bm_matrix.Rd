@@ -23,10 +23,11 @@ Either an integer matrix if \code{x} is a \code{\link[=bm_bitmap]{bm_bitmap()}} 
 or a character matrix if \code{x} is a \code{\link[=bm_pixmap]{bm_pixmap()}} object.
 }
 \description{
-\code{as.matrix.bm_matrix()} casts \code{\link[=bm_bitmap]{bm_bitmap()}} objects to a (normal) integer matrix.
+\code{as.matrix.bm_matrix()} casts \code{\link[=bm_bitmap]{bm_bitmap()}} objects to a (normal) integer matrix
 and \code{\link[=bm_pixmap]{bm_pixmap()}} objects to a (normal) character matrix (of color strings).
-Note the bottom left pixel will still represented by the first row and first column,
-these methods simply remove the class names.
+Note unless \code{first_row_is_top = TRUE} the bottom left pixel will still be
+represented by the pixel in the first row and first column
+(i.e. these methods simply remove the class names).
 }
 \examples{
  space_matrix <- matrix(0L, ncol = 8L, nrow = 8L)
