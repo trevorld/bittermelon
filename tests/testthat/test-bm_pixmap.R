@@ -1,7 +1,20 @@
 test_that("`bm_pixmap()` works as expected", {
-    pm <- as_bm_pixmap(matrix("transparent", 0L, 0L))
+    pm <- as_bm_pixmap(matrix(character(0L), 0L, 0L))
     expect_true(is_bm_pixmap(pm))
     expect_true(is_bm_matrix(pm))
+})
+
+test_that("`as_bm_pixmap()`", {
+    skip_if_not_installed("farver")
+    r0 <- as.raster(matrix(character(0L), nrow = 0L, ncol = 4L))
+    pm0 <- as_bm_pixmap(r0)
+    bm0 <- as_bm_bitmap(pm0)
+    pm1 <- as_bm_pixmap(as.matrix(bm0))
+    nr0 <- as.raster(pm0, native = TRUE)
+    pm2 <- as_bm_pixmap(nr0)
+    expect_equal(dim(pm0), c(0L, 4L))
+    expect_equal(dim(pm1), c(0L, 4L))
+    expect_equal(dim(pm2), c(0L, 4L))
 })
 
 test_that("`cbind()` and `rbind()`", {

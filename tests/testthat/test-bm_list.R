@@ -156,13 +156,13 @@ test_that("bm_expand()", {
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))
     verify_output("txt/capital_r_expand_2w.txt",
-        print(bm_expand(capital_r, width = 2L), px = px_ascii))
+        print(bm_expand(capital_r, width = 2L, height = 1L), px = px_ascii))
 
     verify_output("txt/capital_r_expand_2v.txt",
         print(bm_expand(capital_r, height = 2L), px = px_ascii))
 
     verify_output("txt/capital_r_expand_2vw.txt",
-        print(bm_expand(capital_r, width = 2L, height = 2L), px = px_ascii))
+        print(bm_expand(capital_r, width = 2L), px = px_ascii))
 
     zero <- bm_bitmap(matrix(integer(), nrow = 0, ncol = 0))
     zero_expand <- bm_expand(zero, width = 2L, height = 2L)

@@ -8,7 +8,7 @@
        ▀████▀   
                 
 
-> print(bm_expand(corn, width = 2L), compress = "v")
+> print(bm_expand(corn, width = 2L, height = 1L), compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -18,7 +18,7 @@
               ▀▀████████▀▀      
                                 
 
-> print(bm_expand(corn, height = 2L), compress = "v")
+> print(bm_expand(corn, width = 1L, height = 2L), compress = "v")
                 
                 
      ██  ██     
@@ -36,7 +36,7 @@
                 
                 
 
-> print(as_bm_pixmap(bm_expand(corn_r, width = 2L)), compress = "v")
+> print(as_bm_pixmap(bm_expand(corn_r, width = 2L, height = 1L)), compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -64,7 +64,7 @@
                 
                 
 
-> print(as_bm_pixmap(bm_expand(corn_nr, width = 2L)), compress = "v")
+> print(as_bm_pixmap(bm_expand(corn_nr, width = 2L, height = 1L)), compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -92,7 +92,7 @@
                 
                 
 
-> print(as_bm_pixmap(bm_expand(corn_mi, width = 2L)), compress = "v")
+> print(as_bm_pixmap(bm_expand(corn_mi, width = 2L, height = 1L)), compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        

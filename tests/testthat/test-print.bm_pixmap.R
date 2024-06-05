@@ -9,6 +9,7 @@ test_that("`print.bm_pixmap()` works as expected", {
                  character(0L))
 
     skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("mazing")
     test_pixmap <- function(bg = "transparent",
                             ul = bg, ur = bg, bl = bg, br = bg) {
         as_bm_pixmap(matrix(c(bl, br, ul, ur), byrow = TRUE, ncol = 2L))
@@ -170,6 +171,11 @@ test_that("`print.bm_pixmap()` works as expected", {
         print(p2, compress = "v")
         print(p2, compress = "h")
         print(p2, compress = "b")
+
+        pmm <- as_bm_pixmap(mazing::maze(14, 14), col = c("red", "white"))
+        print(pmm, compress = "v")
+
     }, crayon = TRUE, unicode = TRUE)
+
 
 })

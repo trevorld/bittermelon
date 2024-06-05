@@ -21,13 +21,13 @@
 #' @seealso [bm_extend()] (and [bm_resize()] which makes larger bitmaps
 #'           by adding pixels to their sides.
 #' @export
-bm_expand <- function(x, width = 1L, height = 1L) {
+bm_expand <- function(x, width = 1L, height = width) {
     UseMethod("bm_expand")
 }
 
 #' @rdname bm_expand
 #' @export
-bm_expand.bm_bitmap <- function(x, width = 1L, height = 1L) {
+bm_expand.bm_bitmap <- function(x, width = 1L, height = width) {
     if (nrow(x) == 0L || ncol(x) == 0L || width == 0L || height == 0L) {
         nr <- height * nrow(x)
         nc <- width * ncol(x)
@@ -39,13 +39,13 @@ bm_expand.bm_bitmap <- function(x, width = 1L, height = 1L) {
 
 #' @rdname bm_expand
 #' @export
-bm_expand.bm_list <- function(x, width = 1L, height = 1L) {
+bm_expand.bm_list <- function(x, width = 1L, height = width) {
     bm_lapply(x, bm_expand, width = width, height = height)
 }
 
 #' @rdname bm_expand
 #' @export
-bm_expand.bm_pixmap <- function(x, width = 1L, height = 1L) {
+bm_expand.bm_pixmap <- function(x, width = 1L, height = width) {
     if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
         nr <- height * nrow(x)
         nc <- width * ncol(x)
@@ -57,7 +57,7 @@ bm_expand.bm_pixmap <- function(x, width = 1L, height = 1L) {
 
 #' @rdname bm_expand
 #' @export
-`bm_expand.magick-image` <- function(x, width = 1L, height = 1L) {
+`bm_expand.magick-image` <- function(x, width = 1L, height = width) {
     stopifnot(requireNamespace("magick", quietly = TRUE))
     pm <- as_bm_pixmap(x)
     pm <- bm_expand(pm, width = width, height = height)
@@ -66,7 +66,7 @@ bm_expand.bm_pixmap <- function(x, width = 1L, height = 1L) {
 
 #' @rdname bm_expand
 #' @export
-bm_expand.nativeRaster <- function(x, width = 1L, height = 1L) {
+bm_expand.nativeRaster <- function(x, width = 1L, height = width) {
     pm <- as_bm_pixmap(x)
     pm <- bm_expand(pm, width = width, height = height)
     as.raster(pm, native = TRUE)
@@ -74,7 +74,7 @@ bm_expand.nativeRaster <- function(x, width = 1L, height = 1L) {
 
 #' @rdname bm_expand
 #' @export
-bm_expand.raster <- function(x, width = 1L, height = 1L) {
+bm_expand.raster <- function(x, width = 1L, height = width) {
     if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
         nr <- height * nrow(x)
         nc <- width * ncol(x)
@@ -98,7 +98,7 @@ bm_expand.raster <- function(x, width = 1L, height = 1L) {
     }
 }
 
-bm_expand_bitmap <- function(x, width = 1L, height = 1L) {
+bm_expand_bitmap <- function(x, width = 1L, height = width) {
     if (width != 1L) {
         l <- lapply(seq_len(ncol(x)),
                     function(j) x[, j, drop = FALSE])
