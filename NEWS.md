@@ -35,6 +35,10 @@ Breaking changes
   are no longer supported positionally.
   They must be passed in by name.
 
+* The default for `height` in `bm_expand()` is now the value of `width` i.e.
+  `bm_expand(x, 2L)` will now double the size of `x` in both directions.
+  To get the previous behaviour you may now need to explicitly set `height = 1L`.
+
 New features
 ------------
 

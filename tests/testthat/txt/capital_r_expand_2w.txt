@@ -1,4 +1,4 @@
-> print(bm_expand(capital_r, width = 2L), px = px_ascii)
+> print(bm_expand(capital_r, width = 2L, height = 1L), px = px_ascii)
 ----------------
 ----------------
 @@@@@@@@@@@@----
