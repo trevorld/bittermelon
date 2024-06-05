@@ -9,6 +9,7 @@
 \alias{as_bm_pixmap.matrix}
 \alias{as_bm_pixmap.maze}
 \alias{as_bm_pixmap.nativeRaster}
+\alias{as_bm_pixmap.pixeltrix}
 \alias{as_bm_pixmap.raster}
 \title{Cast to a pixmap matrix object}
 \usage{
@@ -34,6 +35,8 @@ as_bm_pixmap(x, ...)
 )
 
 \method{as_bm_pixmap}{nativeRaster}(x, ...)
+
+\method{as_bm_pixmap}{pixeltrix}(x, ...)
 
 \method{as_bm_pixmap}{raster}(x, ...)
 }

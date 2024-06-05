@@ -49,13 +49,14 @@ New features
   * `format.bm_pixmap()` and `print.bm_pixmap()`
   * `as_bm_pixmap()` is a S3 method that coerces objects to `bm_pixmap()` objects
 
-    * `as_bm_pixmap.bm_bitmap()`
-    * `as_bm_pixmap.default()`
-    * `as_bm_pixmap.magick-image()`
-    * `as_bm_pixmap.matrix()`
-    * `as_bm_pixmap.maze()`
-    * `as_bm_pixmap.nativeRaster()`
-    * `as_bm_pixmap.raster()`
+    - `as_bm_pixmap.bm_bitmap()`
+    - `as_bm_pixmap.default()`
+    - `as_bm_pixmap.magick-image()`
+    - `as_bm_pixmap.matrix()`
+    - `as_bm_pixmap.maze()`
+    - `as_bm_pixmap.nativeRaster()`
+    - `as_bm_pixmap.pixeltrix()`
+    - `as_bm_pixmap.raster()`
 
   * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
     and `FALSE` for all other objects.
@@ -71,6 +72,7 @@ New features
   + `as_bm_bitmap.magick-image()`
   + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
   + `as_bm_bitmap.nativeRaster()`
+  + `as_bm_pixmap.pixeltrix()`
   + `as_bm_bitmap.raster()`
 
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
