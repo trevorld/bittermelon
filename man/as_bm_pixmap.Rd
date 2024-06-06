@@ -3,8 +3,10 @@
 \name{as_bm_pixmap}
 \alias{as_bm_pixmap}
 \alias{as_bm_pixmap.default}
+\alias{as_bm_pixmap.array}
 \alias{as_bm_pixmap.bm_bitmap}
 \alias{as_bm_pixmap.bm_pixmap}
+\alias{as_bm_pixmap.grob}
 \alias{as_bm_pixmap.magick-image}
 \alias{as_bm_pixmap.matrix}
 \alias{as_bm_pixmap.maze}
@@ -17,9 +19,13 @@ as_bm_pixmap(x, ...)
 
 \method{as_bm_pixmap}{default}(x, ...)
 
+\method{as_bm_pixmap}{array}(x, ...)
+
 \method{as_bm_pixmap}{bm_bitmap}(x, ..., col = getOption("bittermelon.col", col_bitmap))
 
 \method{as_bm_pixmap}{bm_pixmap}(x, ...)
+
+\method{as_bm_pixmap}{grob}(x, ..., width = 16L, height = 16L, png_device = NULL)
 
 \method{as_bm_pixmap}{`magick-image`}(x, ...)
 
@@ -47,6 +53,16 @@ as_bm_pixmap(x, ...)
 
 \item{col}{Character vector of R color specifications.}
 
+\item{width}{Desired width of bitmap}
+
+\item{height}{Desired height of bitmap}
+
+\item{png_device}{A function taking arguments \code{filename}, \code{width}, and \code{height}
+that starts a graphics device that saves a png image
+with a transparent background.  By default will use \code{\link[ragg:agg_png]{ragg::agg_png()}}
+if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
+if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
+
 \item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
 
 \item{start, end}{If not \code{NULL} add the solution from \code{start} to \code{end} as value 2.  See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
@@ -58,9 +74,17 @@ A \code{\link[=bm_pixmap]{bm_pixmap()}} object.
 \code{as_bm_pixmap()} casts an object to a \verb{[bm_pixmap()]} object.
 }
 \examples{
-img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
-pm <- as_bm_pixmap(img)
-plot(pm)
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+is_bm_pixmap(corn)
+all.equal(corn, as_bm_pixmap(as.array(corn)))
+all.equal(corn, as_bm_pixmap(as.raster(corn)))
+if (requireNamespace("farver", quietly = TRUE)) {
+  all.equal(corn, as_bm_pixmap(as.raster(corn, native = TRUE)))
+}
+if (requireNamespace("magick", quietly = TRUE)) {
+  all.equal(corn, as_bm_pixmap(magick::image_read(corn)))
+}
 
 if (requireNamespace("mazing", quietly = TRUE)) {
   pm <- as_bm_pixmap(mazing::maze(32, 40), col = c("black", "white"))

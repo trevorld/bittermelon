@@ -7,9 +7,17 @@
 #' @seealso [bm_pixmap()], [is_bm_pixmap()]
 #' @return A [bm_pixmap()] object.
 #' @examples
-#' img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
-#' pm <- as_bm_pixmap(img)
-#' plot(pm)
+#' crops <- farming_crops_16x16()
+#' corn <- crops$corn$portrait
+#' is_bm_pixmap(corn)
+#' all.equal(corn, as_bm_pixmap(as.array(corn)))
+#' all.equal(corn, as_bm_pixmap(as.raster(corn)))
+#' if (requireNamespace("farver", quietly = TRUE)) {
+#'   all.equal(corn, as_bm_pixmap(as.raster(corn, native = TRUE)))
+#' }
+#' if (requireNamespace("magick", quietly = TRUE)) {
+#'   all.equal(corn, as_bm_pixmap(magick::image_read(corn)))
+#' }
 #'
 #' if (requireNamespace("mazing", quietly = TRUE)) {
 #'   pm <- as_bm_pixmap(mazing::maze(32, 40), col = c("black", "white"))
@@ -23,6 +31,12 @@ as_bm_pixmap <- function(x, ...) {
 #' @rdname as_bm_pixmap
 #' @export
 as_bm_pixmap.default <- function(x, ...) {
+    as_bm_pixmap.raster(grDevices::as.raster(x, ...))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.array <- function(x, ...) {
     as_bm_pixmap.raster(grDevices::as.raster(x, ...))
 }
 
@@ -40,6 +54,32 @@ as_bm_pixmap.bm_bitmap <- function(x, ..., col = getOption("bittermelon.col", co
 #' @export
 as_bm_pixmap.bm_pixmap <- function(x, ...) {
     x
+}
+
+#' @inheritParams as_bm_bitmap
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.grob <- function(x, ..., width = 16L, height = 16L,
+                              png_device = NULL) {
+    stopifnot(width > 1L, height > 1L) # guarantee `m_bitmap` is a matrix
+    current_dev <- grDevices::dev.cur()
+    if (current_dev > 1L)
+        on.exit(grDevices::dev.set(current_dev))
+
+    png_file <- tempfile(fileext = ".png")
+    on.exit(unlink(png_file))
+
+    if (is.null(png_device))
+        png_device <- default_png_device()
+
+    png_device(filename = png_file, height = height, width = width)
+    pushViewport(viewport(gp = gpar(lwd = 0, col = "black", fill = "black")))
+    grid.draw(x)
+    popViewport()
+    grDevices::dev.off()
+
+    a <- png::readPNG(png_file, native = FALSE)
+    as_bm_pixmap.array(a)
 }
 
 #' @rdname as_bm_pixmap

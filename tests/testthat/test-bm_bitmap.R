@@ -40,4 +40,11 @@ test_that("as_bm_bitmap()", {
     maze2 <- as_bm_bitmap(mazing::maze(12L, 12L), start = "top", end = "bottom")
     verify_output("txt/maze_solution.txt",
                   print(maze2, px = px_ascii))
+
+    bm0 <- bm_bitmap(matrix(integer(0L), nrow = 0L, ncol = 4L))
+    bm1 <- as_bm_bitmap(as.raster(bm0))
+    bm2 <- as_bm_bitmap(as.raster(bm0, native = TRUE))
+    expect_equal(dim(bm0), c(0L, 4L))
+    expect_equal(dim(bm1), c(0L, 4L))
+    expect_equal(dim(bm2), c(0L, 4L))
 })

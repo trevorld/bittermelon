@@ -17,14 +17,27 @@ as_bm_bitmap <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
+as_bm_bitmap.array <- function(x, ..., threshold = 0.5) {
+    as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(as.raster(x)),
+                           threshold = threshold)
+}
+
+#' @rdname as_bm_bitmap
+#' @export
 as_bm_bitmap.default <- function(x, ...) {
     as_bm_bitmap.matrix(as.matrix(x))
 }
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.bm_pixmap <- function(x, ...) {
-    opaque <- alpha_from_rgba(as.character(x)) > 127L
+as_bm_bitmap.bm_bitmap <- function(x, ...) {
+    x
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.bm_pixmap <- function(x, ..., threshold = 0.5) {
+    opaque <- alpha_from_rgba(as.character(x)) / 255 > threshold
     m <- matrix(as.integer(opaque), nrow = nrow(x), ncol = ncol(x))
     class(m) <- c("bm_bitmap", "bm_matrix", class(m))
     m
@@ -165,7 +178,7 @@ add_space <- function(bml, font) {
 #'                   with a transparent background.  By default will use [ragg::agg_png()]
 #'                   if available else the \dQuote{cairo} version of [grDevices::png()]
 #'                   if available else just [grDevices::png()].
-#' @param threshold  If any png channel weakly exceeds this threshold
+#' @param threshold  If the alpha channel weakly exceeds this threshold
 #'                   (on an interval from zero to one)
 #'                   then the pixel is determined to be \dQuote{black}.
 #' @examples
@@ -199,9 +212,8 @@ as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
     popViewport()
     grDevices::dev.off()
 
-    array_glyph <- png::readPNG(png_file, native = FALSE)
-    m_bitmap <- apply(array_glyph, c(1, 2), function(x) as.integer(any(x >= threshold)))
-    bm_bitmap(flip_matrix_vertically(m_bitmap))
+    a <- png::readPNG(png_file, native = FALSE)
+    as_bm_bitmap.array(a, threshold = threshold)
 }
 
 default_png_device <- function() {
@@ -220,8 +232,8 @@ default_png_device <- function() {
 
 #' @rdname as_bm_bitmap
 #' @export
-`as_bm_bitmap.magick-image` <- function(x, ...) {
-    as_bm_bitmap.bm_pixmap(`as_bm_pixmap.magick-image`(x))
+`as_bm_bitmap.magick-image` <- function(x, ..., threshold = 0.5) {
+    as_bm_bitmap.bm_pixmap(`as_bm_pixmap.magick-image`(x), threshold = threshold)
 }
 
 #' @rdname as_bm_bitmap
@@ -265,8 +277,8 @@ as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.nativeRaster <- function(x, ...) {
-    as_bm_bitmap.bm_pixmap(as_bm_pixmap.nativeRaster(x))
+as_bm_bitmap.nativeRaster <- function(x, ..., threshold = 0.5) {
+    as_bm_bitmap.bm_pixmap(as_bm_pixmap.nativeRaster(x), threshold = 0.5)
 }
 
 #' @rdname as_bm_bitmap
@@ -278,6 +290,6 @@ as_bm_bitmap.pixeltrix <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.raster <- function(x, ...) {
-    as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(x))
+as_bm_bitmap.raster <- function(x, ..., threshold = 0.5) {
+    as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(x), threshold = 0.5)
 }

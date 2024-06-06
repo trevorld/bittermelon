@@ -31,9 +31,10 @@ Breaking changes
   If specifying the first argument by name instead of positionally you'll now
   need to use `x` instead.
 
-* Arguments other than `x`, `width`, and `height` in `bm_distort()`
-  are no longer supported positionally.
-  They must be passed in by name.
+* `bm_distort()` is now a wrapper around `magick::image_resize()`.
+  `x`, `width`, and `height` are now the only supported *positional* arguments
+  and the `interpolate`, `vp`, and `png_device` arguments are no longer supported.
+  It now requires the suggested package `{magick}`.
 
 * The default for `height` in `bm_expand()` is now the value of `width` i.e.
   `bm_expand(x, 2L)` will now double the size of `x` in both directions.
@@ -53,8 +54,10 @@ New features
   * `format.bm_pixmap()` and `print.bm_pixmap()`
   * `as_bm_pixmap()` is a S3 method that coerces objects to `bm_pixmap()` objects
 
+    - `as_bm_pixmap.array()`
     - `as_bm_pixmap.bm_bitmap()`
     - `as_bm_pixmap.default()`
+    - `as_bm_pixmap.grob()`
     - `as_bm_pixmap.magick-image()`
     - `as_bm_pixmap.matrix()`
     - `as_bm_pixmap.maze()`
@@ -72,6 +75,7 @@ New features
   whether `cli::is_utf8_output()` is `TRUE` or not.
 * New `as_bm_bitmap` methods:
 
+  + `as_bm_bitmap.array()`
   + `as_bm_bitmap.bm_pixmap()`
   + `as_bm_bitmap.magick-image()`
   + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
@@ -87,6 +91,7 @@ New features
 The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
 
 * `bm_bold()`
+* `bm_distort()`
 * `bm_expand()`
 * `bm_extend()`
 * `bm_flip()`
@@ -105,10 +110,9 @@ The following functions are now S3 generics that have methods that support (at l
 
 The following functions are now S3 generics but they only have builtin methods that support `bm_bitmap()` and `bm_font()` / `bm_list()` objects:
 
-* `bm_distort()`
 * `bm_mask()`
 
-New bitmap manipulation function:
+New bitmap/pixmap manipulation function:
 
 * `bm_replace()`
 
