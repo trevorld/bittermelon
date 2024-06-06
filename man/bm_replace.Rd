@@ -8,7 +8,7 @@
 \alias{bm_replace.magick-image}
 \alias{bm_replace.nativeRaster}
 \alias{bm_replace.raster}
-\title{Replace a color with another color}
+\title{Replace a color in a bitmap with another color}
 \usage{
 bm_replace(x, value, old)
 
