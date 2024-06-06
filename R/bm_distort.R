@@ -1,6 +1,6 @@
-#' Resize images via distortion.
+#' Resize bitmaps via distortion.
 #'
-#' `bm_distort()` resize images to arbitrary width and height value via [magick::image_resize()].
+#' `bm_distort()` resize bitmaps to arbitrary width and height value via [magick::image_resize()].
 #'
 #' @inheritParams as.raster.bm_bitmap
 #' @inheritParams as_bm_bitmap.grob

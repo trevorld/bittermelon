@@ -2,12 +2,32 @@
 % Please edit documentation in R/bm_clamp.R
 \name{bm_clamp}
 \alias{bm_clamp}
-\title{Clamp bitmap integer values.}
+\alias{bm_clamp.bm_bitmap}
+\alias{bm_clamp.bm_list}
+\alias{bm_clamp.bm_pixmap}
+\alias{bm_clamp.magick-image}
+\alias{bm_clamp.nativeRaster}
+\alias{bm_clamp.raster}
+\title{Clamp bitmap values}
 \usage{
-bm_clamp(x, lower = 0L, upper = 1L, value = upper)
+bm_clamp(x, ...)
+
+\method{bm_clamp}{bm_bitmap}(x, lower = 0L, upper = 1L, value = upper, ...)
+
+\method{bm_clamp}{bm_list}(x, ...)
+
+\method{bm_clamp}{bm_pixmap}(x, value = col2hex("black"), bg = col2hex("transparent"), ...)
+
+\method{bm_clamp}{`magick-image`}(x, value = "black", bg = "transparent", ...)
+
+\method{bm_clamp}{nativeRaster}(x, value = col2int("black"), bg = col2int("transparent"), ...)
+
+\method{bm_clamp}{raster}(x, value = "black", bg = "transparent", ...)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 
 \item{lower}{Integer value.  Any value below \code{lower} will be clamped.}
 
@@ -19,23 +39,32 @@ any values above \code{upper} are replaced by \code{value}
 while those below \code{lower} are replaced by \code{lower}.
 If \code{value} is length two any values above \code{upper}
 are replaced by \code{value[2]} and any values below \code{lower}
-are replaced by \code{value[1]}.}
+are replaced by \code{value[1]}.
+For pixmap objects indicate requested non-background color.}
+
+\item{bg}{Bitmap background value.}
 }
 \value{
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
 }
 \description{
-\code{bm_clamp()} \dQuote{clamps} bitmap integers that lie outside an interval.
+\code{bm_clamp()} \dQuote{clamps} \code{\link[=bm_bitmap]{bm_bitmap()}} integers that lie outside an interval.
 The default coerces a multiple-integer-valued bitmap
 into a binary bitmap (as expected by most bitmap font formats).
+For pixmap objects non-background pixels are all coerced to a single value.
 }
 \examples{
- plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
- plus_sign[5L, 3:7] <- 2L
- plus_sign[3:7, 5L] <- 2L
- plus_sign_glyph <- bm_bitmap(plus_sign)
- print(plus_sign_glyph)
+plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
+plus_sign[5L, 3:7] <- 2L
+plus_sign[3:7, 5L] <- 2L
+plus_sign_glyph <- bm_bitmap(plus_sign)
+print(plus_sign_glyph)
 
- plus_sign_clamped <- bm_clamp(plus_sign_glyph)
- print(plus_sign_clamped)
+plus_sign_clamped <- bm_clamp(plus_sign_glyph)
+print(plus_sign_clamped)
+
+tulip <- farming_crops_16x16()$tulip$portrait
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 8L) {
+  print(bm_clamp(tulip, "magenta"), compress = "v")
+}
 }

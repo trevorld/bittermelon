@@ -36,8 +36,8 @@ reference:
           - read_hex
           - read_monobit
           - read_yaff
-    - title: "Modify bitmaps"
-      desc: "Functions to modify bitmaps and bitmap lists"
+    - title: "Modify bitmaps and pixmaps"
+      desc: "Functions to modify bitmaps, bitmap lists, and pixmaps"
       contents:
           - Ops.bm_list
           - bm_clamp
@@ -57,7 +57,7 @@ reference:
           - bm_shift
           - bm_trim
     - title: "Other bitmap object utilities"
-      desc: "Other bitmap object utility functions"
+      desc: "Other bitmap/pixmap object utility functions"
       contents:
           - c.bm_list
           - Summary.bm_list

@@ -1,4 +1,4 @@
-#' Replace a color with another color
+#' Replace a color in a bitmap with another color
 #'
 #' `bm_replace()` replaces a bitmap color with another color.
 #' In particular default arguments will try to replace the background color.

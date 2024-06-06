@@ -1,6 +1,7 @@
-#' Compress bitmaps using a "block elements" scheme
+#' Compress bitmaps by a factor of two
 #'
-#' Compress bitmaps by a factor of two by re-mapping to a \dQuote{block elements} scheme.
+#' Compresses [bm_bitmap()] objects by a factor of two by re-mapping to a \dQuote{block elements} scheme.
+#' For pixmap objects like [bm_pixmap()] we simply shrink the pixmap by a factor of two using [bm_distort()].
 #'
 #' Depending on `direction` we shrink the bitmaps height and/or width by
 #' a factor of two and re-encode pairs/quartets of pixels to a \dQuote{block elements} scheme.
@@ -15,21 +16,90 @@
 #' either of them are used as the `px` argument.
 #' @inheritParams bm_flip
 #' @examples
-#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'   font <- read_hex(font_file)
-#'   r <- font[[str2ucp("R")]]
-#'   print(r)
-#'   print(bm_compress(r, "vertical"))
-#'   print(bm_compress(r, "horizontal"))
-#'   print(bm_compress(r, "both"))
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' r <- font[[str2ucp("R")]]
+#' print(r)
+#' print(bm_compress(r, "vertical"))
+#' print(bm_compress(r, "horizontal"))
+#' print(bm_compress(r, "both"))
+#'
+#' if (cli::is_utf8_output() && 
+#'     cli::num_ansi_colors() > 256L &&
+#'     requireNamespace("magick", quietly = TRUE)) {
+#'   img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
+#'   pm <- as_bm_pixmap(img)
+#'   pmc <- bm_compress(pm, "both", filter = NULL)
+#'   print(pmc, compress = "v")
+#' }
 #' @inherit bm_clamp return
 #' @seealso See <https://en.wikipedia.org/wiki/Block_Elements> for more info on the Unicode Block Elements block.
 #' @export
-bm_compress <- function(x, direction = "vertical") {
+bm_compress <- function(x, direction = "vertical", ...) {
+    UseMethod("bm_compress")
+}
+
+#' @rdname bm_compress
+#' @export
+bm_compress.bm_bitmap <- function(x, direction = "vertical", ...) {
     direction <- match.arg(tolower(direction),
                            c("vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
-    modify_bm_bitmaps(x, bm_compress_bitmap, direction = direction)
+    bm_compress_bitmap(x, direction = direction)
+}
+
+#' @rdname bm_compress
+#' @inheritParams bm_distort
+#' @export
+bm_compress.bm_pixmap <- function(x, direction = "vertical", ..., filter = "Point") {
+    bm_compress_pixmap(x, direction, filter)
+}
+
+#' @rdname bm_compress
+#' @inheritParams bm_distort
+#' @export
+`bm_compress.magick-image` <- function(x, direction = "vertical", ..., filter = "Point") {
+    bm_compress_pixmap(x, direction, filter)
+}
+
+#' @rdname bm_compress
+#' @inheritParams bm_distort
+#' @export
+bm_compress.nativeRaster <- function(x, direction = "vertical", ..., filter = "Point") {
+    bm_compress_pixmap(x, direction, filter)
+}
+
+#' @rdname bm_compress
+#' @inheritParams bm_distort
+#' @export
+bm_compress.raster <- function(x, direction = "vertical", ..., filter = "Point") {
+    bm_compress_pixmap(x, direction, filter)
+}
+
+bm_compress_pixmap <- function(x, direction, filter) {
+    direction <- match.arg(tolower(direction),
+                           c("vertical", "v", "horizontal", "h", "both", "b"))
+    direction <- substr(direction, 1L, 1L)
+    switch(direction,
+           v = bm_distort(x, width = bm_widths(x),
+                          height = bm_heights(x) / 2L,
+                          filter = filter),
+           h = bm_distort(x, width = bm_widths(x) / 2L,
+                          height = bm_heights(x),
+                          filter = filter),
+           b = bm_distort(x, width = bm_widths(x) / 2L, 
+                          height = bm_heights(x) / 2L,
+                          filter = filter)
+           )
+}
+
+#' @rdname bm_compress
+#' @export
+bm_compress.bm_list <- function(x, direction = "vertical", ...) {
+    direction <- match.arg(tolower(direction),
+                           c("vertical", "v", "horizontal", "h", "both", "b"))
+    direction <- substr(direction, 1L, 1L)
+    bm_lapply(x, bm_compress, direction = direction)
 }
 
 bm_compress_bitmap <- function(x, direction = "v") {

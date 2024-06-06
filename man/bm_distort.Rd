@@ -8,7 +8,7 @@
 \alias{bm_distort.magick-image}
 \alias{bm_distort.nativeRaster}
 \alias{bm_distort.raster}
-\title{Resize images via distortion.}
+\title{Resize bitmaps via distortion.}
 \usage{
 bm_distort(x, width = NULL, height = NULL, ...)
 
@@ -54,7 +54,7 @@ then the pixel is determined to be \dQuote{black}.}
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
 }
 \description{
-\code{bm_distort()} resize images to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
+\code{bm_distort()} resize bitmaps to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
 }
 \examples{
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

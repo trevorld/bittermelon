@@ -44,6 +44,22 @@ test_that("`bm_distort()` works", {
     expect_equal(bm_widths(corn_nrd2), 12L)
     expect_equal(bm_widths(corn_mid2), 12L)
 
+    corn_d3 <- bm_compress(corn, "v")
+    corn_ld3 <- bm_compress(corn_l, "h")
+    corn_rd3 <- bm_compress(corn_r, "b")
+    corn_nrd3 <- bm_compress(corn_nr, "v")
+    corn_mid3 <- bm_compress(corn_mi, "h")
+    expect_equal(bm_heights(corn_d3), 8L)
+    expect_equal(bm_heights(corn_ld3), 16L)
+    expect_equal(bm_heights(corn_rd3), 8L)
+    expect_equal(bm_heights(corn_nrd3), 8L)
+    expect_equal(bm_heights(corn_mid3), 16L)
+    expect_equal(bm_widths(corn_d3), 16L)
+    expect_equal(bm_widths(corn_ld3), 8L)
+    expect_equal(bm_widths(corn_rd3), 8L)
+    expect_equal(bm_widths(corn_nrd3), 16L)
+    expect_equal(bm_widths(corn_mid3), 8L)
+
     verify_output("txt/bm_distort.txt", {
         print(corn_d, compress = "v")
         print(corn_ld)

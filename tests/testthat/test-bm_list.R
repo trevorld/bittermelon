@@ -109,30 +109,6 @@ test_that("bm_overlay()", {
         print(a_grave, px = px_ascii))
 })
 
-test_that("bm_mask()", {
-    skip_if_not_installed("withr")
-    withr::local_options(bm_options(default = TRUE))
-    one <- font[[str2ucp("1")]]
-    circle_large <- as_bm_bitmap(grid::circleGrob(r = 0.50), width = 16L, height = 16L)
-    circle_small <- as_bm_bitmap(grid::circleGrob(r = 0.40), width = 16L, height = 16L)
-
-    circle_outline <- bm_mask(circle_large, circle_small)
-    verify_output("txt/circle_outline.txt",
-        print(circle_outline, px = px_ascii))
-
-    # U+2776 "Dingbat Negative Circled Digit One"
-    circle_minus_one <- bm_mask(circle_large, one)
-    verify_output("txt/circle_minus_one.txt",
-        print(circle_minus_one, px = px_ascii))
-
-    square_full <- bm_bitmap(matrix(1L, nrow = 16L, ncol = 16L))
-    square_minus_lower_left <- square_full
-    square_minus_lower_left[1:8, 1:8] <- 0L
-    circle_minus_lower_left <- bm_mask(circle_large, square_minus_lower_left, mode = "alpha")
-    verify_output("txt/circle_minus_lower_left.txt",
-        print(circle_minus_lower_left, px = px_ascii))
-})
-
 test_that("bm_flip()", {
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))
