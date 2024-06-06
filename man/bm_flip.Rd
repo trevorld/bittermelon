@@ -22,15 +22,15 @@ bm_flip(x, direction = "vertical", in_place = FALSE)
 \method{bm_flip}{raster}(x, direction = "vertical", in_place = FALSE)
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{direction}{Either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b".}
 
-\item{in_place}{If \code{TRUE} flip the glyphs in place (without changing any white space padding).}
+\item{in_place}{If \code{TRUE} flip the glyphs in place (without changing any background padding).}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_flip()} flips (reflects) bitmaps horizontally, vertically, or both.
@@ -50,4 +50,10 @@ print(bm)
 exclamation <- font[[str2ucp("!")]]
 exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
 print(exclamation_flipped)
+
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  crops <- farming_crops_16x16()
+  corn <- crops$corn$portrait
+  print(bm_flip(corn, "h"), compress = "v")
+}
 }

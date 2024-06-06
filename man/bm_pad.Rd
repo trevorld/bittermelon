@@ -88,7 +88,7 @@ bm_pad(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{value}{Value for the new pixels.}
 
@@ -114,18 +114,23 @@ This is the same scheme as used by the CSS padding and margin properties.}
 \item{left}{Desired number of pixels of padding on the left.}
 }
 \value{
-Bitmap object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_pad()} adjusts bitmap padding lengths.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- capital_r <- font[[str2ucp("R")]]
- print(capital_r)
- capital_r_padded <- bm_pad(capital_r, sides = 2L)
- print(capital_r_padded)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+print(capital_r)
+capital_r_padded <- bm_pad(capital_r, sides = 2L)
+print(capital_r_padded)
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  crops <- farming_crops_16x16()
+  corn <- crops$corn$portrait
+  print(bm_pad(corn, sides = 4L), compress = "v", bg = "white")
+}
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_resize]{bm_resize()}}, and \code{\link[=bm_trim]{bm_trim()}}

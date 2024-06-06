@@ -3,7 +3,7 @@
 #' `bm_trim()` trims bitmap objects reducing the number of pixels.
 #' The directions and amount of removed pixels are settable.
 #'
-#' @param x Bitmap object.
+#' @inheritParams bm_clamp
 #' @param sides If not `NULL` then an integer vector indicating how
 #'              many pixels to trim on all four sides.
 #'              If the integer vector is of length one it indicates the number of pixels for all four sides.
@@ -33,14 +33,20 @@
 #'              "centre", "center", and "centre-top" are aliases for "center-top".
 #'              "centre-bottom" is an alias for "center-bottom".
 #'              Note if "top" we will trim on the bottom (and vice-versa).
-#' @return Bitmap object.
+#' @inherit bm_clamp return
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r)
-#'  capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
-#'  print(capital_r_trimmed)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' capital_r <- font[[str2ucp("R")]]
+#' print(capital_r)
+#' capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
+#' print(capital_r_trimmed)
+#' corn <- farming_crops_16x16()$corn$portrait
+#' print(bm_padding_lengths(corn))
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_trim(corn, top = 1L, right = 1L, bottom = 1L),
+#'         bg = "cyan", compress = "v")
+#' }
 #' @seealso [bm_extend()], [bm_pad()], and [bm_resize()].
 #' @export
 bm_trim <- function(x, sides = NULL,

@@ -12,12 +12,18 @@
 #' @param left Number of pixels to shift towards the left side.
 #' @inherit bm_clamp return
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r)
-#'  capital_r <- bm_shift(capital_r, bottom = 2L, right = 1L)
-#'  print(capital_r)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' capital_r <- font[[str2ucp("R")]]
+#' print(capital_r)
+#' capital_r <- bm_shift(capital_r, bottom = 2L, right = 1L)
+#' print(capital_r)
+#' corn <- farming_crops_16x16()$corn$portrait
+#' print(bm_padding_lengths(corn))
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_shift(corn, left = 1L, top = 2L),
+#'         bg = "cyan", compress = "v")
+#' }
 #' @seealso [bm_trim()] and [bm_extend()]
 #' @export
 bm_shift <- function(x, value,

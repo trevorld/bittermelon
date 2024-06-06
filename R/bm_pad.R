@@ -19,14 +19,19 @@
 #' @param bottom Desired number of pixels of padding on the bottom.
 #' @param left Desired number of pixels of padding on the left.
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r)
-#'  capital_r_padded <- bm_pad(capital_r, sides = 2L)
-#'  print(capital_r_padded)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' capital_r <- font[[str2ucp("R")]]
+#' print(capital_r)
+#' capital_r_padded <- bm_pad(capital_r, sides = 2L)
+#' print(capital_r_padded)
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   crops <- farming_crops_16x16()
+#'   corn <- crops$corn$portrait
+#'   print(bm_pad(corn, sides = 4L), compress = "v", bg = "white")
+#' }
 #' @seealso [bm_extend()], [bm_resize()], and [bm_trim()]
-#' @inherit bm_extend return
+#' @inherit bm_clamp return
 #' @export
 bm_pad <- function(x, value,
                    type = c("exact", "extend", "trim"),

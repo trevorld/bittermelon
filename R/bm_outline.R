@@ -4,7 +4,7 @@
 #' of another bitmap.
 #' @inheritParams bm_clamp
 #' @param bg Bitmap \dQuote{background} value.
-#' @param value Bitmap value for the outline.
+#' @param value Bitmap \dQuote{color} value for the outline.
 #' @inherit bm_clamp return
 #' @examples
 #' square <- bm_bitmap(matrix(1L, nrow = 16L, ncol = 16L))

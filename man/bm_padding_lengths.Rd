@@ -25,7 +25,7 @@ bm_padding_lengths(x, value)
 \method{bm_padding_lengths}{raster}(x, value = "transparent")
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{value}{The value of the \dQuote{padding} element to compute lengths for.}
 }
@@ -41,10 +41,15 @@ If the entire bitmap is of the target value then the left/right and top/bottom
 will simply split the width/height in half.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- # add a border to an "R"
- capital_r <- font[[str2ucp("R")]]
- print(capital_r)
- print(bm_padding_lengths(capital_r))
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+# add a border to an "R"
+capital_r <- font[[str2ucp("R")]]
+print(capital_r)
+print(bm_padding_lengths(capital_r))
+corn <- farming_crops_16x16()$corn$portrait
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(corn, bg = "cyan", compress = "v")
+}
+print(bm_padding_lengths(corn))
 }

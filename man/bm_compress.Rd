@@ -25,12 +25,12 @@ bm_compress(x, direction = "vertical", ...)
 \method{bm_compress}{bm_list}(x, direction = "vertical", ...)
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{direction}{Either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b".}
 
-\item{...}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
+\item{...}{Additional arguments to be passed to or from methods.}
 
 \item{filter}{Passed to \code{\link[magick:transform]{magick::image_resize()}}.
 Use \code{\link[magick:options]{magick::filter_types()}} for list of supported filters.
@@ -39,7 +39,7 @@ The default "Point" filter will maintain your sprite's color palette.
 if you are not trying to maintain a sprite color palette.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 Compresses \code{\link[=bm_bitmap]{bm_bitmap()}} objects by a factor of two by re-mapping to a \dQuote{block elements} scheme.

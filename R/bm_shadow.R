@@ -26,6 +26,14 @@
 #'  print(bm_glow(capital_r))
 #'  print(bm_glow(capital_r, corner = TRUE))
 #'
+#' corn <- farming_crops_16x16()$corn$portrait
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_shadow(corn, "red"), compress = "v")
+#' }
+#'
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_glow(corn, "cyan", corner = TRUE), compress = "v")
+#' }
 #' @inherit bm_clamp return
 #' @seealso [bm_extend()] and [bm_shift()]
 #' @export

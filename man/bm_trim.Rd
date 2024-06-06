@@ -88,7 +88,7 @@ bm_trim(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{sides}{If not \code{NULL} then an integer vector indicating how
 many pixels to trim on all four sides.
@@ -129,19 +129,25 @@ it one pixel down or up respectively.
 Note if "top" we will trim on the bottom (and vice-versa).}
 }
 \value{
-Bitmap object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_trim()} trims bitmap objects reducing the number of pixels.
 The directions and amount of removed pixels are settable.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- capital_r <- font[[str2ucp("R")]]
- print(capital_r)
- capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
- print(capital_r_trimmed)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+print(capital_r)
+capital_r_trimmed <- bm_trim(capital_r, c(1, 1, 3, 0))
+print(capital_r_trimmed)
+corn <- farming_crops_16x16()$corn$portrait
+print(bm_padding_lengths(corn))
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(bm_trim(corn, top = 1L, right = 1L, bottom = 1L),
+        bg = "cyan", compress = "v")
+}
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_resize]{bm_resize()}}.

@@ -6,13 +6,18 @@
 #'
 #' @inheritParams bm_extend
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  # add a border to an "R"
-#'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r)
-#'  capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
-#'  print(capital_r)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' # add a border to an "R"
+#' capital_r <- font[[str2ucp("R")]]
+#' print(capital_r)
+#' capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
+#' print(capital_r)
+#' corn <- farming_crops_16x16()$corn$portrait
+#' corn <- bm_resize(corn, width = 20L, height = 20L, vjust = "top")
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(corn, bg = "cyan", compress = "v")
+#' }
 #' @seealso [bm_extend()], [bm_pad()], and [bm_trim()].
 #' @inherit bm_clamp return
 #' @export

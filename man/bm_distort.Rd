@@ -32,13 +32,13 @@ bm_distort(x, width = NULL, height = NULL, ...)
 \method{bm_distort}{raster}(x, width = NULL, height = NULL, ..., filter = "Point")
 }
 \arguments{
-\item{x}{A \code{bm_bitmap()} object}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{width}{Desired width of bitmap}
 
 \item{height}{Desired height of bitmap}
 
-\item{...}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
+\item{...}{Additional arguments to be passed to or from methods.}
 
 \item{filter}{Passed to \code{\link[magick:transform]{magick::image_resize()}}.
 Use \code{\link[magick:options]{magick::filter_types()}} for list of supported filters.
@@ -51,7 +51,7 @@ if you are not trying to maintain a sprite color palette.}
 then the pixel is determined to be \dQuote{black}.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_distort()} resize bitmaps to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
@@ -63,6 +63,13 @@ capital_r <- font[[str2ucp("R")]]
 dim(capital_r) # 8 x 16
 if (requireNamespace("magick", quietly = TRUE)) {
   print(bm_distort(capital_r, width = 9L, height = 21L))
+}
+if (cli::is_utf8_output() && 
+    cli::num_ansi_colors() >= 256L &&
+    requireNamespace("magick", quietly = TRUE)) {
+  crops <- farming_crops_16x16()
+  corn <- crops$corn$portrait
+  print(bm_distort(corn, width = 24L), compress = "v")
 }
 }
 \seealso{

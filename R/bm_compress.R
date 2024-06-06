@@ -14,6 +14,8 @@
 #' matching \dQuote{Block Elements} glyphs while `px_ascii` gives the closest ASCII approximation.
 #' Hence `print.bm_bitmap()` should produce reasonable results for compressed bitmaps if
 #' either of them are used as the `px` argument.
+#' @inheritParams bm_clamp
+#' @inheritParams bm_distort
 #' @inheritParams bm_flip
 #' @examples
 #' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -49,28 +51,24 @@ bm_compress.bm_bitmap <- function(x, direction = "vertical", ...) {
 }
 
 #' @rdname bm_compress
-#' @inheritParams bm_distort
 #' @export
 bm_compress.bm_pixmap <- function(x, direction = "vertical", ..., filter = "Point") {
     bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
-#' @inheritParams bm_distort
 #' @export
 `bm_compress.magick-image` <- function(x, direction = "vertical", ..., filter = "Point") {
     bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
-#' @inheritParams bm_distort
 #' @export
 bm_compress.nativeRaster <- function(x, direction = "vertical", ..., filter = "Point") {
     bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
-#' @inheritParams bm_distort
 #' @export
 bm_compress.raster <- function(x, direction = "vertical", ..., filter = "Point") {
     bm_compress_pixmap(x, direction, filter)

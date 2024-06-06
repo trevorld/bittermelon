@@ -4,17 +4,20 @@
 #' `bm_heights()` returns the heights of the bitmaps.
 #' `bm_widths()` and `bm_heights()` are S3 generic functions.
 #'
-#' @param x Bitmap object.
+#' @inheritParams bm_clamp
 #' @param unique Apply [base::unique()] to the returned integer vector.
 #' @param ... Ignored.
 #' @return A integer vector of the relevant length of each
 #'         of the bitmap objects in `x`.
 #'         If `unique` is `TRUE` then any duplicates will have been removed.
 #' @examples
-#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'   font <- read_hex(font_file)
-#'   bm_widths(font) # every glyph in the font is 8 pixels wide
-#'   bm_heights(font) # every glyph in the font is 16 pixels high
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' bm_widths(font) # every glyph in the font is 8 pixels wide
+#' bm_heights(font) # every glyph in the font is 16 pixels high
+#' corn <- farming_crops_16x16()$corn$portrait
+#' bm_widths(corn)
+#' bm_heights(corn)
 #' @rdname lengths
 #' @export
 bm_heights <- function(x, ...) {

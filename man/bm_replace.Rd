@@ -25,16 +25,16 @@ bm_replace(x, value, old)
 \method{bm_replace}{raster}(x, value = "transparent", old = x[1L, 1L])
 }
 \arguments{
-\item{x}{A bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
-\item{value}{New bitmap color value.}
+\item{value}{New bitmap \dQuote{color} value.}
 
-\item{old}{Old bitmap color value to replace.}
+\item{old}{Old bitmap \dQuote{color} value to replace.}
 
 \item{...}{Passed to \code{bm_replace.bm_bitmap()}.}
 }
 \value{
-A bitmap object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_replace()} replaces a bitmap color with another color.
@@ -42,6 +42,14 @@ In particular default arguments will try to replace the background color.
 }
 \examples{
 corn <- farming_crops_16x16()$corn$portrait
-bm_replace(corn, "cyan")
-bm_replace(corn, "magenta")
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(bm_replace(corn, "cyan"), compress = "v")
+}
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(bm_replace(corn, "magenta"), compress = "v")
+}
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+print(bm_replace(capital_r, 2L))
 }

@@ -79,13 +79,13 @@ bm_overlay(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
-\item{over}{A 'bm_bitmap()' object to overlay
+\item{over}{A bitmap/pixmap object to overlay
 over the \code{x} bitmap(s).
 Only one of \code{over} or \code{under} may be set.}
 
-\item{under}{A 'bm_bitmap()' object which will be overlaid
+\item{under}{A bitmap/pixmap object which will be overlaid
 by the \code{x} bitmap(s).
 Only one of \code{over} or \code{under} may be set.}
 
@@ -108,7 +108,7 @@ it one pixel down or up respectively.
 \item{bg}{Bitmap background value.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_overlay()} merges bitmaps by overlaying a bitmap over another.
@@ -119,14 +119,21 @@ they are the same size.  Then the non-zero pixels of the \dQuote{over}
 bitmap will be inserted into the \dQuote{under} bitmap.
 }
 \examples{
-  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-  font <- read_hex(font_file)
-  grave <- font[[str2ucp("`")]]
-  a <- font[[str2ucp("a")]]
-  a_grave <- bm_overlay(a, over = grave)
-  print(a_grave)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+grave <- font[[str2ucp("`")]]
+a <- font[[str2ucp("a")]]
+a_grave <- bm_overlay(a, over = grave)
+print(a_grave)
 
-  # Can also instead specify the under glyph as a named argument
-  a_grave2 <- bm_overlay(grave, under = a)
-  print(a_grave2)
+# Can also instead specify the under glyph as a named argument
+a_grave2 <- bm_overlay(grave, under = a)
+print(a_grave2)
+
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  crops <- farming_crops_16x16()
+  corn <- bm_shift(crops$corn$portrait, right = 2L, top = 2L)
+  grapes <- bm_shift(crops$grapes$portrait, bottom = 1L)
+  print(bm_overlay(corn, grapes))
+}
 }
