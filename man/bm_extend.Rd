@@ -109,7 +109,7 @@ bm_extend(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{value}{Value for the new pixels.}
 
@@ -150,7 +150,7 @@ it one pixel down or up respectively.
 "centre-bottom" is an alias for "center-bottom".}
 }
 \value{
-Bitmap object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_extend()} extends \code{\link[=bm_bitmap]{bm_bitmap()}} objects with extra pixels.
@@ -168,9 +168,9 @@ print(capital_r)
 
 crops <- farming_crops_16x16()
 corn <- crops$corn$portrait
-corn <- bm_extend(corn, value = "brown", sides = 1L)
+corn_framed <- bm_extend(corn, value = "brown", sides = 1L)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(corn, compress = "v")
+  print(corn_framed, compress = "v")
 }
 }
 \seealso{

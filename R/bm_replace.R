@@ -2,14 +2,22 @@
 #'
 #' `bm_replace()` replaces a bitmap color with another color.
 #' In particular default arguments will try to replace the background color.
-#' @param x A bitmap object.
-#' @param value New bitmap color value.
-#' @param old Old bitmap color value to replace.
-#' @return A bitmap object.
+#' @inheritParams bm_clamp
+#' @param value New bitmap \dQuote{color} value.
+#' @param old Old bitmap \dQuote{color} value to replace.
+#' @inherit bm_clamp return
 #' @examples
 #' corn <- farming_crops_16x16()$corn$portrait
-#' bm_replace(corn, "cyan")
-#' bm_replace(corn, "magenta")
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_replace(corn, "cyan"), compress = "v")
+#' }
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(bm_replace(corn, "magenta"), compress = "v")
+#' }
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' capital_r <- font[[str2ucp("R")]]
+#' print(bm_replace(capital_r, 2L))
 #' @export
 bm_replace <- function(x, value, old) {
     UseMethod("bm_replace")

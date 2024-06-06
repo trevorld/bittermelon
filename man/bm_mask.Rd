@@ -74,12 +74,13 @@ bm_mask(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
-\item{mask}{A 'bm_bitmap()' object to use as a \dQuote{mask}.
-Only one of \code{mask} or \code{base} may be set.}
+\item{mask}{An object to use as a binary bitmap \dQuote{mask}.
+Only one of \code{mask} or \code{base} may be set.
+Will be coerced to a \code{\link[=bm_bitmap]{bm_bitmap()}} object by \code{\link[=as_bm_bitmap]{as_bm_bitmap()}}.}
 
-\item{base}{A 'bm_bitmap()' object which will be \dQuote{masked} by \code{mask}.
+\item{base}{A bitmap/pixmap object which will be \dQuote{masked} by \code{mask}.
 Only one of \code{mask} or \code{base} may be set.}
 
 \item{mode}{Either "luminance" (default) or "alpha".}
@@ -99,7 +100,7 @@ it one pixel down or up respectively.
 "centre-bottom" is an alias for "center-bottom".}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+A bitmap/pixmap object that is the same type as \code{x} (if \code{base} is \code{NULL}) or \code{base}.
 }
 \description{
 \code{bm_mask()} modifies bitmaps by using a binary bitmap \dQuote{mask}
@@ -111,9 +112,9 @@ they are the same size.
 If necessary the \code{mask} will be coerced into a \dQuote{binary} mask
 by \code{bm_clamp(as_bm_bitmap(mask))}.
 If \code{mode} is "luminance" then where the \code{mask} is \code{1L}
-the corresponding pixel in \code{base} will be coerced to \code{0L}.
+the corresponding pixel in \code{base} will be coerced to the background value.
 If \code{mode} is "alpha" then where the \code{mask} is \code{0L}
-the corresponding pixel in \code{base} will be coerced to \code{0L}
+the corresponding pixel in \code{base} will be coerced to the background value.
 }
 \examples{
 if (require("grid", quietly = TRUE) && capabilities("png")) {

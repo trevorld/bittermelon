@@ -219,7 +219,7 @@ bm_glow(x, value, extend = TRUE, corner = FALSE, ...)
 )
 }
 \arguments{
-\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}},  or \code{\link[=bm_font]{bm_font()}} object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{value}{The integer value for the shadow, bold, or glow effect.}
 
@@ -243,7 +243,7 @@ then defaults to \code{1L} for \code{bm_shadow()} and \code{0L} for \code{bm_emb
 \item{corner}{Fill in the corners.}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 \code{bm_shadow()} adds a basic "shadow" effect to the bitmap(s).
@@ -260,6 +260,14 @@ Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}
  print(bm_glow(capital_r))
  print(bm_glow(capital_r, corner = TRUE))
 
+corn <- farming_crops_16x16()$corn$portrait
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(bm_shadow(corn, "red"), compress = "v")
+}
+
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(bm_glow(corn, "cyan", corner = TRUE), compress = "v")
+}
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}} and \code{\link[=bm_shift]{bm_shift()}}

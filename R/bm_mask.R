@@ -8,17 +8,19 @@
 #' If necessary the `mask` will be coerced into a \dQuote{binary} mask
 #' by `bm_clamp(as_bm_bitmap(mask))`.
 #' If `mode` is "luminance" then where the `mask` is `1L`
-#' the corresponding pixel in `base` will be coerced to `0L`.
+#' the corresponding pixel in `base` will be coerced to the background value.
 #' If `mode` is "alpha" then where the `mask` is `0L`
-#' the corresponding pixel in `base` will be coerced to `0L`
+#' the corresponding pixel in `base` will be coerced to the background value.
 #'
+#' @inheritParams bm_clamp
 #' @inheritParams bm_overlay
-#' @param mask A 'bm_bitmap()' object to use as a \dQuote{mask}.
+#' @param mask An object to use as a binary bitmap \dQuote{mask}.
 #'             Only one of `mask` or `base` may be set.
-#' @param base A 'bm_bitmap()' object which will be \dQuote{masked} by `mask`.
+#'             Will be coerced to a [bm_bitmap()] object by [as_bm_bitmap()].
+#' @param base A bitmap/pixmap object which will be \dQuote{masked} by `mask`.
 #'             Only one of `mask` or `base` may be set.
 #' @param mode Either "luminance" (default) or "alpha".
-#' @inherit bm_clamp return
+#' @return A bitmap/pixmap object that is the same type as `x` (if `base` is `NULL`) or `base`.
 #' @examples
 #' if (require("grid", quietly = TRUE) && capabilities("png")) {
 #'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
@@ -57,7 +59,10 @@ bm_mask <- function(x, mask = NULL, base = NULL,
                     mode = c("luminance", "alpha"),
                     hjust = "center-left", vjust = "center-top") {
     stopifnot(is.null(mask) || is.null(base))
-    UseMethod("bm_mask")
+    if (!is.null(base))
+        bm_mask(base, mask = x, mode = mode, hjust = hjust, vjust = vjust)
+    else
+        UseMethod("bm_mask")
 }
 
 #' @rdname bm_mask

@@ -40,7 +40,7 @@ bm_widths(x, ...)
 \method{bm_widths}{raster}(x, ...)
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{...}{Ignored.}
 
@@ -57,8 +57,11 @@ If \code{unique} is \code{TRUE} then any duplicates will have been removed.
 \code{bm_widths()} and \code{bm_heights()} are S3 generic functions.
 }
 \examples{
-  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-  font <- read_hex(font_file)
-  bm_widths(font) # every glyph in the font is 8 pixels wide
-  bm_heights(font) # every glyph in the font is 16 pixels high
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+bm_widths(font) # every glyph in the font is 8 pixels wide
+bm_heights(font) # every glyph in the font is 16 pixels high
+corn <- farming_crops_16x16()$corn$portrait
+bm_widths(corn)
+bm_heights(corn)
 }

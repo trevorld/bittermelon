@@ -3,10 +3,10 @@
 #' `bm_flip()` flips (reflects) bitmaps horizontally, vertically, or both.
 #' It can flip the entire bitmap or just the glyph in place.
 #'
-#' @param x Bitmap object.
+#' @inheritParams bm_clamp
 #' @param direction Either "vertical" or "v", "horizontal" or "h",
 #'                  OR "both" or "b".
-#' @param in_place If `TRUE` flip the glyphs in place (without changing any white space padding).
+#' @param in_place If `TRUE` flip the glyphs in place (without changing any background padding).
 #' @examples
 #' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #' font <- read_hex(font_file)
@@ -21,6 +21,12 @@
 #' exclamation <- font[[str2ucp("!")]]
 #' exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
 #' print(exclamation_flipped)
+#'
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   crops <- farming_crops_16x16()
+#'   corn <- crops$corn$portrait
+#'   print(bm_flip(corn, "h"), compress = "v")
+#' }
 #' @inherit bm_clamp return
 #' @export
 bm_flip <- function(x, direction = "vertical", in_place = FALSE) {

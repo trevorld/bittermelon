@@ -4,7 +4,7 @@
 #' The directions and the integer value of the extra pixels are settable
 #' (defaulting to `0L`).
 #'
-#' @param x Bitmap object.
+#' @inheritParams bm_clamp
 #' @param value Value for the new pixels.
 #' @param sides If not `NULL` then an integer vector indicating how
 #'              many pixels to pad on all four sides.
@@ -33,7 +33,7 @@
 #'              it one pixel down or up respectively.
 #'              "centre", "center", and "centre-top" are aliases for "center-top".
 #'              "centre-bottom" is an alias for "center-bottom".
-#' @return Bitmap object.
+#' @inherit bm_clamp return
 #' @examples
 #' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #' font <- read_hex(font_file)
@@ -45,9 +45,9 @@
 #'
 #' crops <- farming_crops_16x16()
 #' corn <- crops$corn$portrait
-#' corn <- bm_extend(corn, value = "brown", sides = 1L)
+#' corn_framed <- bm_extend(corn, value = "brown", sides = 1L)
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   print(corn, compress = "v")
+#'   print(corn_framed, compress = "v")
 #' }
 #' @seealso [bm_expand()], [bm_pad()], [bm_resize()], and [bm_trim()].
 #' @export

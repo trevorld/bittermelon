@@ -74,7 +74,7 @@ bm_resize(
 )
 }
 \arguments{
-\item{x}{Bitmap object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{value}{Value for the new pixels.}
 
@@ -99,7 +99,7 @@ it one pixel down or up respectively.
 "centre-bottom" is an alias for "center-bottom".}
 }
 \value{
-Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
 Trim and/or extend bitmaps to a desired height and/or width.
@@ -108,13 +108,18 @@ Trim and/or extend bitmaps to a desired height and/or width.
 This function is a convenience wrapper around \code{\link[=bm_trim]{bm_trim()}} and \code{\link[=bm_extend]{bm_extend()}}.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- # add a border to an "R"
- capital_r <- font[[str2ucp("R")]]
- print(capital_r)
- capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
- print(capital_r)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+# add a border to an "R"
+capital_r <- font[[str2ucp("R")]]
+print(capital_r)
+capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
+print(capital_r)
+corn <- farming_crops_16x16()$corn$portrait
+corn <- bm_resize(corn, width = 20L, height = 20L, vjust = "top")
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(corn, bg = "cyan", compress = "v")
+}
 }
 \seealso{
 \code{\link[=bm_extend]{bm_extend()}}, \code{\link[=bm_pad]{bm_pad()}}, and \code{\link[=bm_trim]{bm_trim()}}.

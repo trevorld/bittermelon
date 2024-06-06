@@ -5,7 +5,7 @@
 #' into a binary bitmap (as expected by most bitmap font formats).
 #' For pixmap objects non-background pixels are all coerced to a single value.
 #'
-#' @param x Either a [bm_bitmap()], [bm_list()],  or [bm_font()] object.
+#' @param x Either a [bm_bitmap()], [bm_font()], [bm_list()], ["magick-image"][magick::image_read()], "nativeRaster", [bm_pixmap()], or ["raster"][grDevices::as.raster()]  object.
 #' @param lower Integer value.  Any value below `lower` will be clamped.
 #' @param upper Integer value.  Any value above `upper` will be clamped.
 #' @param value Integer vector of length one or two of replacement value(s).
@@ -30,7 +30,7 @@
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 8L) {
 #'   print(bm_clamp(tulip, "magenta"), compress = "v")
 #' }
-#' @return Either a [bm_bitmap()], [bm_list()], or [bm_font()] object.
+#' @return Depending on `x` either a [bm_bitmap()], [bm_font()], [bm_list()], [magick-image][magick::image_read()], "nativeRaster", [bm_pixmap()], or [raster][grDevices::as.raster()]  object.
 #' @export
 bm_clamp <- function(x, ...) {
     UseMethod("bm_clamp")

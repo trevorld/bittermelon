@@ -11,12 +11,17 @@
 #'         representing the padding lengths for the top, right, bottom, and left sides respectively.
 #'         If `x` is a `bm_list()` or `bm_font()` then a list of integer vectors of length four.
 #' @examples
-#'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'  font <- read_hex(font_file)
-#'  # add a border to an "R"
-#'  capital_r <- font[[str2ucp("R")]]
-#'  print(capital_r)
-#'  print(bm_padding_lengths(capital_r))
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' # add a border to an "R"
+#' capital_r <- font[[str2ucp("R")]]
+#' print(capital_r)
+#' print(bm_padding_lengths(capital_r))
+#' corn <- farming_crops_16x16()$corn$portrait
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(corn, bg = "cyan", compress = "v")
+#' }
+#' print(bm_padding_lengths(corn))
 #' @export
 bm_padding_lengths <- function(x, value) {
     UseMethod("bm_padding_lengths")

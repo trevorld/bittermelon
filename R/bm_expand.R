@@ -12,12 +12,17 @@
 #'  font <- read_hex(font_file)
 #'  capital_r <- font[[str2ucp("R")]]
 #'  print(capital_r)
-#'  print(bm_expand(capital_r, width = 2L),
+#'  print(bm_expand(capital_r, 2L),
 #'        px = px_ascii)
-#'  print(bm_expand(capital_r, height = 2L),
+#'  print(bm_expand(capital_r, width = 1L, height = 2L),
 #'        px = px_ascii)
-#'  print(bm_expand(capital_r, width = 2L, height = 2L),
+#'  print(bm_expand(capital_r, width = 2L, height = 1L),
 #'        px = px_ascii)
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   crops <- farming_crops_16x16()
+#'   corn <- crops$corn$portrait
+#'   print(bm_expand(corn, 2L), compress = "v")
+#' }
 #' @seealso [bm_extend()] (and [bm_resize()] which makes larger bitmaps
 #'           by adding pixels to their sides.
 #' @export

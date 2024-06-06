@@ -2,9 +2,8 @@
 #'
 #' `bm_distort()` resize bitmaps to arbitrary width and height value via [magick::image_resize()].
 #'
-#' @inheritParams as.raster.bm_bitmap
-#' @inheritParams as_bm_bitmap.grob
 #' @inheritParams bm_clamp
+#' @inheritParams as_bm_bitmap.grob
 #' @inherit bm_clamp return
 #'
 #' @examples
@@ -14,6 +13,13 @@
 #' dim(capital_r) # 8 x 16
 #' if (requireNamespace("magick", quietly = TRUE)) {
 #'   print(bm_distort(capital_r, width = 9L, height = 21L))
+#' }
+#' if (cli::is_utf8_output() && 
+#'     cli::num_ansi_colors() >= 256L &&
+#'     requireNamespace("magick", quietly = TRUE)) {
+#'   crops <- farming_crops_16x16()
+#'   corn <- crops$corn$portrait
+#'   print(bm_distort(corn, width = 24L), compress = "v")
 #' }
 #' @seealso [bm_expand()] for expanding width/height by integer multiples.
 #'          [bm_resize()] for resizing an image via trimming/extending an image.
