@@ -4,6 +4,10 @@
 \alias{bm_distort}
 \alias{bm_distort.bm_bitmap}
 \alias{bm_distort.bm_list}
+\alias{bm_distort.bm_pixmap}
+\alias{bm_distort.magick-image}
+\alias{bm_distort.nativeRaster}
+\alias{bm_distort.raster}
 \title{Resize images via distortion.}
 \usage{
 bm_distort(x, width = NULL, height = NULL, ...)
@@ -13,22 +17,19 @@ bm_distort(x, width = NULL, height = NULL, ...)
   width = NULL,
   height = NULL,
   ...,
-  interpolate = FALSE,
-  vp = NULL,
-  png_device = NULL,
-  threshold = 0.25
+  filter = "Point",
+  threshold = 0.5
 )
 
-\method{bm_distort}{bm_list}(
-  x,
-  width = NULL,
-  height = NULL,
-  ...,
-  interpolate = FALSE,
-  vp = NULL,
-  png_device = NULL,
-  threshold = 0.25
-)
+\method{bm_distort}{bm_list}(x, width = NULL, height = NULL, ...)
+
+\method{bm_distort}{bm_pixmap}(x, width = NULL, height = NULL, ..., filter = "Point")
+
+\method{bm_distort}{`magick-image`}(x, width = NULL, height = NULL, ..., filter = "Point")
+
+\method{bm_distort}{nativeRaster}(x, width = NULL, height = NULL, ..., filter = "Point")
+
+\method{bm_distort}{raster}(x, width = NULL, height = NULL, ..., filter = "Point")
 }
 \arguments{
 \item{x}{A \code{bm_bitmap()} object}
@@ -39,17 +40,13 @@ bm_distort(x, width = NULL, height = NULL, ...)
 
 \item{...}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
 
-\item{interpolate}{Passed to \code{\link[grid:grid.raster]{grid::grid.raster()}}.}
+\item{filter}{Passed to \code{\link[magick:transform]{magick::image_resize()}}.
+Use \code{\link[magick:options]{magick::filter_types()}} for list of supported filters.
+The default "Point" filter will maintain your sprite's color palette.
+\code{NULL} will give you the \code{magick}'s default filter which may work better
+if you are not trying to maintain a sprite color palette.}
 
-\item{vp}{A \code{\link[grid:viewport]{grid::viewport()}} object that could be used to further manipulate the image.}
-
-\item{png_device}{A function taking arguments \code{filename}, \code{width}, and \code{height}
-that starts a graphics device that saves a png image
-with a transparent background.  By default will use \code{\link[ragg:agg_png]{ragg::agg_png()}}
-if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
-if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
-
-\item{threshold}{If any png channel weakly exceeds this threshold
+\item{threshold}{If the alpha channel weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
 }
@@ -57,21 +54,16 @@ then the pixel is determined to be \dQuote{black}.}
 Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, or \code{\link[=bm_font]{bm_font()}} object.
 }
 \description{
-\code{bm_distort()} resize images to arbitrary width and height value via distortion.
-}
-\details{
-\code{bm_distort()} generates a distorted \code{\link[grid:grid.raster]{grid::rasterGrob()}} with the help of
-\code{\link[=as.raster.bm_bitmap]{as.raster.bm_bitmap()}} which is then converted back to a
-\code{\link[=bm_bitmap]{bm_bitmap()}} via \code{\link[=as_bm_bitmap.grob]{as_bm_bitmap.grob()}}.
+\code{bm_distort()} resize images to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- capital_r <- font[[str2ucp("R")]]
- dim(capital_r) # 8 x 16
- if (require("grid") && capabilities("png")) {
-   print(bm_distort(capital_r, width = 9L, height = 21L))
- }
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+dim(capital_r) # 8 x 16
+if (requireNamespace("magick", quietly = TRUE)) {
+  print(bm_distort(capital_r, width = 9L, height = 21L))
+}
 }
 \seealso{
 \code{\link[=bm_expand]{bm_expand()}} for expanding width/height by integer multiples.

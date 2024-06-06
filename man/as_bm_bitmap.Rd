@@ -2,7 +2,9 @@
 % Please edit documentation in R/as_bm_bitmap.R
 \name{as_bm_bitmap}
 \alias{as_bm_bitmap}
+\alias{as_bm_bitmap.array}
 \alias{as_bm_bitmap.default}
+\alias{as_bm_bitmap.bm_bitmap}
 \alias{as_bm_bitmap.bm_pixmap}
 \alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.grob}
@@ -16,9 +18,13 @@
 \usage{
 as_bm_bitmap(x, ...)
 
+\method{as_bm_bitmap}{array}(x, ..., threshold = 0.5)
+
 \method{as_bm_bitmap}{default}(x, ...)
 
-\method{as_bm_bitmap}{bm_pixmap}(x, ...)
+\method{as_bm_bitmap}{bm_bitmap}(x, ...)
+
+\method{as_bm_bitmap}{bm_pixmap}(x, ..., threshold = 0.5)
 
 \method{as_bm_bitmap}{character}(
   x,
@@ -40,22 +46,26 @@ as_bm_bitmap(x, ...)
   threshold = 0.25
 )
 
-\method{as_bm_bitmap}{`magick-image`}(x, ...)
+\method{as_bm_bitmap}{`magick-image`}(x, ..., threshold = 0.5)
 
 \method{as_bm_bitmap}{matrix}(x, ...)
 
 \method{as_bm_bitmap}{maze}(x, ..., walls = FALSE, start = NULL, end = NULL)
 
-\method{as_bm_bitmap}{nativeRaster}(x, ...)
+\method{as_bm_bitmap}{nativeRaster}(x, ..., threshold = 0.5)
 
 \method{as_bm_bitmap}{pixeltrix}(x, ...)
 
-\method{as_bm_bitmap}{raster}(x, ...)
+\method{as_bm_bitmap}{raster}(x, ..., threshold = 0.5)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}
 
 \item{...}{Further arguments passed to or from other methods.}
+
+\item{threshold}{If the alpha channel weakly exceeds this threshold
+(on an interval from zero to one)
+then the pixel is determined to be \dQuote{black}.}
 
 \item{direction}{For purely horizontal binding either "left-to-right" (default) or its aliases "ltr" and "lr"
 OR "right-to-left" or its aliases "rtl" and "rl".
@@ -93,10 +103,6 @@ that starts a graphics device that saves a png image
 with a transparent background.  By default will use \code{\link[ragg:agg_png]{ragg::agg_png()}}
 if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
 if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
-
-\item{threshold}{If any png channel weakly exceeds this threshold
-(on an interval from zero to one)
-then the pixel is determined to be \dQuote{black}.}
 
 \item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
 

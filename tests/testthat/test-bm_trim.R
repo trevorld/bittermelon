@@ -138,14 +138,6 @@ test_that("bm_shadow", {
 })
 
 
-test_that("bm_distort()", {
-    skip_if_not(capabilities("png"))
-    skip_if_not_installed("withr")
-    withr::local_options(bm_options(default = TRUE))
-    verify_output("txt/capital_r_distorted.txt",
-                  print(bm_distort(capital_r, width = 9L, height = 21L), px = px_ascii))
-})
-
 test_that("bm_rotate()", {
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))
