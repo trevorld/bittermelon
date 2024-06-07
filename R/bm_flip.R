@@ -35,8 +35,8 @@ bm_flip <- function(x, direction = "vertical", in_place = FALSE) {
 
 #' @rdname bm_flip
 #' @export
-bm_flip.bm_list <- function(x, direction = "vertical", in_place = FALSE) {
-    bm_lapply(x, bm_flip_bitmap, direction = direction, in_place = in_place)
+bm_flip.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_flip, ...)
 }
 
 #' @rdname bm_flip

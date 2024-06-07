@@ -38,8 +38,8 @@ bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL, ...,
 
 #' @rdname bm_distort
 #' @export
-bm_distort.bm_list <- function(x, width = NULL, height = NULL, ...) {
-    bm_lapply(x, bm_distort, width = width, height = height, ...)
+bm_distort.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_distort, ...)
 }
 
 #' @rdname bm_distort

@@ -14,7 +14,7 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
 
 \method{bm_shift}{bm_bitmap}(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
 
-\method{bm_shift}{bm_list}(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
+\method{bm_shift}{bm_list}(x, ...)
 
 \method{bm_shift}{bm_pixmap}(
   x,
@@ -64,6 +64,8 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
 \item{bottom}{Number of pixels to shift towards the bottom side.}
 
 \item{left}{Number of pixels to shift towards the left side.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.

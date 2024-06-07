@@ -32,16 +32,7 @@ bm_pad(
   left = NULL
 )
 
-\method{bm_pad}{bm_list}(
-  x,
-  value = 0L,
-  type = c("exact", "extend", "trim"),
-  sides = NULL,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL
-)
+\method{bm_pad}{bm_list}(x, ...)
 
 \method{bm_pad}{bm_pixmap}(
   x,
@@ -112,6 +103,8 @@ This is the same scheme as used by the CSS padding and margin properties.}
 \item{bottom}{Desired number of pixels of padding on the bottom.}
 
 \item{left}{Desired number of pixels of padding on the left.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.

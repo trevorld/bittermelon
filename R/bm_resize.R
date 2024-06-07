@@ -39,12 +39,8 @@ bm_resize.bm_bitmap <- function(x, value = 0L, # nolint
 
 #' @rdname bm_resize
 #' @export
-bm_resize.bm_list <- function(x, value = 0L, # nolint
-                              width = NULL, height = NULL,
-                              hjust = "center-left", vjust = "center-top") {
-    bm_lapply(x, bm_resize_bitmap, value = value,
-              width = width, height = height,
-              hjust = hjust, vjust = vjust)
+bm_resize.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_resize, ...)
 }
 
 #' @rdname bm_resize

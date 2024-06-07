@@ -29,4 +29,28 @@ test_that("bm_clamp()", {
     expect_equal(max(plus_sign_clamped), 2L)
     expect_equal(sum(plus_sign_clamped == 1L), 0L)
     expect_equal(sum(plus_sign_clamped == 2L), 81L)
+
+    skip_if_not(cli::is_utf8_output())
+    skip_if_not_installed("farver")
+    skip_if_not_installed("magick")
+    skip_if_not_installed("withr")
+    withr::local_options(bm_options(default = TRUE))
+
+    corn <- farming_crops_16x16()$corn$portrait
+    corn_l <- bm_list(as_bm_bitmap(corn))
+    corn_r <- as.raster(corn)
+    corn_nr <- as.raster(corn, native = TRUE)
+    corn_mi <- magick::image_read(corn)
+    corn_c <- bm_clamp(corn, "cyan")
+    corn_lc <- bm_clamp(corn_l)
+    corn_rc <- bm_clamp(corn_r, "green")
+    corn_nrc <- bm_clamp(corn_nr, "magenta")
+    corn_mic <- bm_clamp(corn_mi, "red")
+    verify_output("txt/bm_clamp.txt", {
+        print(corn_c, compress = "v")
+        print(corn_lc)
+        print(as_bm_pixmap(corn_rc), compress = "v")
+        print(as_bm_pixmap(corn_nrc), compress = "v")
+        print(as_bm_pixmap(corn_mic), compress = "v")
+    }, unicode = TRUE, crayon = TRUE)
 })

@@ -57,13 +57,9 @@ bm_overlay.bm_bitmap <- function(x, over = NULL, under = NULL,
 }
 
 #' @rdname bm_overlay
-#' @param ... Passed to `bm_overlay()`.
 #' @export
-bm_overlay.bm_list <- function(x, over = NULL, under = NULL,
-                               hjust = "center-left", vjust = "center-top", ...) {
-    bm_lapply(x, bm_overlay,
-              over = over, under = under,
-              hjust = hjust, vjust = vjust, ...)
+bm_overlay.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_overlay, ...)
 }
 
 #' @rdname bm_overlay

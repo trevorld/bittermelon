@@ -35,8 +35,8 @@ bm_padding_lengths.bm_bitmap <- function(x, value = 0L) {
 
 #' @rdname bm_padding_lengths
 #' @export
-bm_padding_lengths.bm_list <- function(x, value = 0L) {
-    lapply(x, bm_padding_lengths, value = value)
+bm_padding_lengths.bm_list <- function(x, ...) {
+    lapply(x, bm_padding_lengths, ...)
 }
 
 #' @rdname bm_padding_lengths

@@ -79,15 +79,8 @@ bm_trim.bm_matrix <- function(x, sides = NULL,
 
 #' @rdname bm_trim
 #' @export
-bm_trim.bm_list <- function(x, sides = NULL,
-                            top = NULL, right = NULL, bottom = NULL, left = NULL,
-                            width = NULL, height = NULL,
-                            hjust = "center-left", vjust = "center-top") {
-    bm_lapply(x, bm_trim_bitmap,
-              sides = sides,
-              top = top, right = right, bottom = bottom, left = left,
-              width = width, height = height,
-              hjust = hjust, vjust = vjust)
+bm_trim.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_trim, ...)
 }
 
 #' @rdname bm_trim

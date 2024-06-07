@@ -63,8 +63,8 @@ bm_rotate.raster <- function(x, angle = 0L, clockwise = TRUE) {
 
 #' @rdname bm_rotate
 #' @export
-bm_rotate.bm_list <- function(x, angle = 0L, clockwise = TRUE) {
-    bm_lapply(x, bm_rotate_bitmap, angle = angle, clockwise = clockwise)
+bm_rotate.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_rotate, ...)
 }
 
 bm_rotate_bitmap <- function(x, angle = 0, clockwise = TRUE) {

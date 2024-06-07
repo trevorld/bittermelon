@@ -12,6 +12,9 @@ test_that("`as.array.bm_pixmap()`", {
 
     tulip <- farming_crops_16x16()$tulip$portrait
     bm <- as_bm_bitmap(tulip)
+    bm2 <- tulip != col2hex("transparent")
+    expect_equal(bm, bm2)
+
     pm1 <- as_bm_pixmap(bm)
     a1 <- as.array(bm)
     f <- tempfile(fileext = ".png")

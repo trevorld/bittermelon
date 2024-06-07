@@ -35,18 +35,7 @@ bm_trim(
   vjust = "center-top"
 )
 
-\method{bm_trim}{bm_list}(
-  x,
-  sides = NULL,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL,
-  width = NULL,
-  height = NULL,
-  hjust = "center-left",
-  vjust = "center-top"
-)
+\method{bm_trim}{bm_list}(x, ...)
 
 \method{bm_trim}{`magick-image`}(
   x,
@@ -127,6 +116,8 @@ it one pixel down or up respectively.
 "centre", "center", and "centre-top" are aliases for "center-top".
 "centre-bottom" is an alias for "center-bottom".
 Note if "top" we will trim on the bottom (and vice-versa).}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.

@@ -34,8 +34,8 @@ bm_outline.bm_bitmap <- function(x, value = 1L, bg = 0L) {
 
 #' @rdname bm_outline
 #' @export
-bm_outline.bm_list <- function(x, value = 1L, bg = 0L) {
-    bm_lapply(x, bm_outline, value = value, bg = bg)
+bm_outline.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_outline, ...)
 }
 
 #' @rdname bm_outline

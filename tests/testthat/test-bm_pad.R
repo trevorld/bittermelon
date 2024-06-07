@@ -10,6 +10,8 @@ test_that("`bm_padding_lengths()`", {
     expect_equal(bm_padding_lengths(corn), expected)
     corn_l <- bm_list(as_bm_bitmap(corn))
     expect_equal(bm_padding_lengths(corn_l)[[1L]], expected)
+    corn_lrs <- bm_resize(corn_l, width = 20L)
+    expect_equal(bm_widths(corn_lrs), 20L)
     corn_e <- bm_pad(corn, type = "exact", sides = 2L)
     expect_equal(bm_widths(corn_e), 17L)
     corn_t <- bm_pad(corn, type = "exact", sides = 0L)

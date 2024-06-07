@@ -19,7 +19,7 @@ bm_rotate(x, angle = 0L, clockwise = TRUE)
 
 \method{bm_rotate}{raster}(x, angle = 0L, clockwise = TRUE)
 
-\method{bm_rotate}{bm_list}(x, angle = 0L, clockwise = TRUE)
+\method{bm_rotate}{bm_list}(x, ...)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
@@ -29,6 +29,8 @@ bm_rotate(x, angle = 0L, clockwise = TRUE)
 \item{clockwise}{If \code{TRUE} rotate bitmaps clockwise.
 Note Unicode's convention is to rotate glyphs clockwise
 i.e. the top of the "BLACK CHESS PAWN ROTATED NINETY DEGREES" glyph points right.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
