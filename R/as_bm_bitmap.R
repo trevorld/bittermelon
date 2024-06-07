@@ -267,9 +267,20 @@ as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
         b <- !b
     bm <- as_bm_bitmap.matrix(b)
     if (!is.null(start) & !is.null(end)) {
-        s <- mazing::solve_maze(x, start = start, end = end)
-        for (i in seq_len(nrow(s))) {
-            bm[2 * s[i, "row"], 2 * s[i, "col"]] <- 2L
+        path <- mazing::solve_maze(x, start = start, end = end)
+
+        # Can get rid of this once `solve_maze()` supports `by = 0.5`
+        path2 <- matrix(0, nrow = 2L * nrow(path) - 1L, ncol = 2L)
+        path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 1L] <- path[, 1L]
+        path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 2L] <- path[, 2L]
+        for (i in seq_len(nrow(path) - 1)) {
+            path2[2L * i, 1L] <- mean(path[c(i, i+1L), 1L])
+            path2[2L * i, 2L] <- mean(path[c(i, i+1L), 2L])
+        }
+        path <- path2
+
+        for (i in seq_len(nrow(path))) {
+            bm[2L * path[i, 2L], 2L * path[i, 1L]] <- 2L
         }
     }
     bm
