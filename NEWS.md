@@ -57,6 +57,7 @@ New features
     - `as_bm_pixmap.array()`
     - `as_bm_pixmap.bm_bitmap()`
     - `as_bm_pixmap.default()`
+    - `as_bm_pixmap.glyph_bitmap()`
     - `as_bm_pixmap.grob()`
     - `as_bm_pixmap.magick-image()`
     - `as_bm_pixmap.matrix()`
@@ -78,6 +79,7 @@ New features
 
   + `as_bm_bitmap.array()`
   + `as_bm_bitmap.bm_pixmap()`
+  + `as_bm_pixmap.glyph_bitmap()` coerces `{fontr}` "glyph\_bitmap" objects (#64).
   + `as_bm_bitmap.magick-image()`
   + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
   + `as_bm_bitmap.nativeRaster()`

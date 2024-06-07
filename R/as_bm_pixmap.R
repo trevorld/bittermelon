@@ -61,6 +61,12 @@ as_bm_pixmap.bm_pixmap <- function(x, ...) {
     x
 }
 
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.glyph_bitmap <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) {
+    as_bm_pixmap.bm_bitmap(as_bm_bitmap.glyph_bitmap(x), col = col)
+}
+
 #' @inheritParams as_bm_bitmap
 #' @rdname as_bm_pixmap
 #' @export

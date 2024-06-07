@@ -15,5 +15,7 @@
 ^tmp$
 inst/monobit/tests
 __pycache__
+tests/testthat/txt/fontr.txt
+tests/testthat/test-fontr.R
 tests/testthat/txt/pixeltrix.txt
 tests/testthat/test-pixeltrix.R
