@@ -93,11 +93,8 @@ bm_compress_pixmap <- function(x, direction, filter) {
 
 #' @rdname bm_compress
 #' @export
-bm_compress.bm_list <- function(x, direction = "vertical", ...) {
-    direction <- match.arg(tolower(direction),
-                           c("vertical", "v", "horizontal", "h", "both", "b"))
-    direction <- substr(direction, 1L, 1L)
-    bm_lapply(x, bm_compress, direction = direction)
+bm_compress.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_compress, ...)
 }
 
 bm_compress_bitmap <- function(x, direction = "v") {

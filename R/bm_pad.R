@@ -56,13 +56,8 @@ bm_pad.bm_bitmap <- function(x, value = 0L,
 
 #' @rdname bm_pad
 #' @export
-bm_pad.bm_list <- function(x, value = 0L,
-                        type = c("exact", "extend", "trim"),
-                        sides = NULL,
-                        top = NULL, right = NULL, bottom = NULL, left = NULL) {
-    bm_lapply(x, bm_pad_bitmap,
-              value = value, type = type, sides = sides,
-              top = top, right = right, bottom = bottom, left = left)
+bm_pad.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_pad, ...)
 }
 
 #' @rdname bm_pad

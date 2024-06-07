@@ -2,10 +2,13 @@
 % Please edit documentation in R/Ops.bm_object.R
 \name{Ops.bm_bitmap}
 \alias{Ops.bm_bitmap}
+\alias{Ops.bm_pixmap}
 \alias{Ops.bm_list}
 \title{S3 Ops group generic methods for bitmap objects}
 \usage{
 \method{Ops}{bm_bitmap}(e1, e2)
+
+\method{Ops}{bm_pixmap}(e1, e2)
 
 \method{Ops}{bm_list}(e1, e2)
 }
@@ -13,45 +16,47 @@
 \item{e1, e2}{objects.}
 }
 \value{
-The various \code{Ops.bm_bitmap} methods return a \code{\link[=bm_bitmap]{bm_bitmap()}} object.
+The various \code{Ops.bm_bitmap} and \code{Ops.bm_pixmap} methods return a \code{\link[=bm_bitmap]{bm_bitmap()}} object.
 The various \code{Ops.bm_list} methods return a \code{\link[=bm_list]{bm_list()}} object.
 }
 \description{
 The S3 Ops group generic methods for \code{bm_bitmap()} objects
 are simply the result of the generic integer matrix method
-cast back to a binary \code{bm_bitmap()} object (which
-is an integer matrix of ones and zeros).
+cast back to a \code{bm_bitmap()} object (which is an integer matrix).
 The S3 Ops group generic methods for \code{bm_list()}
 and \code{bm_font()} objects simply returns another object
 with that operator applied to every bitmap in the original object.
 }
 \examples{
-  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-  font <- read_hex(font_file)
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
 
-  # Examples applied to individual bitmaps
-  capital_r <- font[[str2ucp("R")]]
-  print(!capital_r)
-  capital_b <- font[[str2ucp("B")]]
-  print(capital_r & capital_b)
-  print(capital_r | capital_b)
-  print(capital_r + 1L)
-  print(capital_r + 1L > 1L)
+# Examples applied to individual bitmaps
+capital_r <- font[[str2ucp("R")]]
+print(!capital_r)
+capital_b <- font[[str2ucp("B")]]
+print(capital_r & capital_b)
+print(capital_r | capital_b)
+print(capital_r + 1L)
+print(capital_r + 1L > 1L)
 
-  # Examples applied to `bm_list()` objects
-  bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
-  bml <- as_bm_list(bml)
-  bm <- do.call(cbind, bml)
-  print(bm)
+# Examples applied to `bm_list()` objects
+bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
+bml <- as_bm_list(bml)
+bm <- do.call(cbind, bml)
+print(bm)
 
-  bml <- !bml
-  bm <- do.call(cbind, bml)
-  print(bm)
+bml <- !bml
+bm <- do.call(cbind, bml)
+print(bm)
 
-  bml <- 2 * (bml + 1L)
-  bm <- do.call(cbind, bml)
-  print(bm)
+bml <- 2 * (bml + 1L)
+bm <- do.call(cbind, bml)
+print(bm)
 
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+print(corn == col2hex("transparent"))
 }
 \seealso{
 \link[base:groupGeneric]{base::Ops}

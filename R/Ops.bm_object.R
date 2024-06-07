@@ -2,45 +2,54 @@
 #'
 #' The S3 Ops group generic methods for `bm_bitmap()` objects
 #' are simply the result of the generic integer matrix method
-#' cast back to a binary `bm_bitmap()` object (which
-#' is an integer matrix of ones and zeros).
+#' cast back to a `bm_bitmap()` object (which is an integer matrix).
 #' The S3 Ops group generic methods for `bm_list()`
 #' and `bm_font()` objects simply returns another object
 #' with that operator applied to every bitmap in the original object.
 #' @examples
-#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'   font <- read_hex(font_file)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
 #'
-#'   # Examples applied to individual bitmaps
-#'   capital_r <- font[[str2ucp("R")]]
-#'   print(!capital_r)
-#'   capital_b <- font[[str2ucp("B")]]
-#'   print(capital_r & capital_b)
-#'   print(capital_r | capital_b)
-#'   print(capital_r + 1L)
-#'   print(capital_r + 1L > 1L)
+#' # Examples applied to individual bitmaps
+#' capital_r <- font[[str2ucp("R")]]
+#' print(!capital_r)
+#' capital_b <- font[[str2ucp("B")]]
+#' print(capital_r & capital_b)
+#' print(capital_r | capital_b)
+#' print(capital_r + 1L)
+#' print(capital_r + 1L > 1L)
 #'
-#'   # Examples applied to `bm_list()` objects
-#'   bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
-#'   bml <- as_bm_list(bml)
-#'   bm <- do.call(cbind, bml)
-#'   print(bm)
+#' # Examples applied to `bm_list()` objects
+#' bml <- font[c("U+0023", "U+0052", "U+0053", "U+0054", "U+0041", "U+0054", "U+0053")] # #RSTATS
+#' bml <- as_bm_list(bml)
+#' bm <- do.call(cbind, bml)
+#' print(bm)
 #'
-#'   bml <- !bml
-#'   bm <- do.call(cbind, bml)
-#'   print(bm)
+#' bml <- !bml
+#' bm <- do.call(cbind, bml)
+#' print(bm)
 #'
-#'   bml <- 2 * (bml + 1L)
-#'   bm <- do.call(cbind, bml)
-#'   print(bm)
+#' bml <- 2 * (bml + 1L)
+#' bm <- do.call(cbind, bml)
+#' print(bm)
 #'
+#' crops <- farming_crops_16x16()
+#' corn <- crops$corn$portrait
+#' print(corn == col2hex("transparent"))
 #' @rdname Ops.bm_object
 #' @param e1,e2 objects.
-#' @return The various `Ops.bm_bitmap` methods return a [bm_bitmap()] object.
+#' @return The various `Ops.bm_bitmap` and `Ops.bm_pixmap` methods return a [bm_bitmap()] object.
 #'         The various `Ops.bm_list` methods return a [bm_list()] object.
 #' @seealso [base::Ops]
 #' @export
 Ops.bm_bitmap <- function(e1, e2) {
+   as_bm_bitmap.matrix(NextMethod())
+}
+
+
+#' @rdname Ops.bm_object
+#' @export
+Ops.bm_pixmap <- function(e1, e2) {
    as_bm_bitmap.matrix(NextMethod())
 }
 

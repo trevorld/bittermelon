@@ -67,6 +67,7 @@ New features
 
   * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
     and `FALSE` for all other objects.
+  * Some of the "Ops" group generic operators such as `==` and `!=`.
 
 * `farming_crops_16x16()` returns a named list of lists
   of twenty farming crops in five stages of growth plus a portrait as `bm_pixmap()` objects.

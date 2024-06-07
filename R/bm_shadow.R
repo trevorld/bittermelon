@@ -39,7 +39,7 @@
 #' @export
 bm_shadow <- function(x, value,
                       top = NULL, right = NULL, bottom = NULL, left = NULL,
-                      extend = TRUE, ...) {
+                      extend = TRUE, bg) {
     stopifnot(is.null(top) || is.null(bottom))
     stopifnot(is.null(left) || is.null(right))
     UseMethod("bm_shadow")
@@ -49,25 +49,22 @@ bm_shadow <- function(x, value,
 #' @export
 bm_shadow.bm_bitmap <- function(x, value = 2L,
                                 top = NULL, right = NULL, bottom = NULL, left = NULL,
-                                extend = TRUE, bg = 0L, ...) {
+                                extend = TRUE, bg = 0L) {
     bm_shadow_bitmap(x, value = as.integer(value), bg = as.integer(bg),
                      top = top, right = right, bottom = bottom, left = left, extend = extend)
 }
 
 #' @rdname bm_shadow
 #' @export
-bm_shadow.bm_list <- function(x, value = 2L,
-                              top = NULL, right = NULL, bottom = NULL, left = NULL,
-                              extend = TRUE, ...) {
-    bm_lapply(x, bm_shadow, value = value,
-              top = top, right = right, bottom = bottom, left = left, extend = extend, ...)
+bm_shadow.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_shadow, ...)
 }
 
 #' @rdname bm_shadow
 #' @export
 bm_shadow.bm_pixmap <- function(x, value = col2hex("black"),
                                 top = NULL, right = NULL, bottom = NULL, left = NULL,
-                                extend = TRUE, bg = col2hex("transparent"), ...) {
+                                extend = TRUE, bg = col2hex("transparent")) {
     bm_shadow_bitmap(x, value = col2hex(value), bg = col2hex(bg),
                      top = top, right = right, bottom = bottom, left = left,
                      extend = extend)
@@ -77,7 +74,7 @@ bm_shadow.bm_pixmap <- function(x, value = col2hex("black"),
 #' @export
 `bm_shadow.magick-image` <- function(x, value = "black",
                                 top = NULL, right = NULL, bottom = NULL, left = NULL,
-                                extend = TRUE, bg = "transparent", ...) {
+                                extend = TRUE, bg = "transparent") {
     stopifnot(requireNamespace("magick", quietly = TRUE))
     pm <- bm_shadow_bitmap(as_bm_pixmap(x), value = col2hex(value), bg = col2hex(bg),
                            top = top, right = right, bottom = bottom, left = left,
@@ -89,7 +86,7 @@ bm_shadow.bm_pixmap <- function(x, value = col2hex("black"),
 #' @export
 bm_shadow.nativeRaster <- function(x, value = col2int("black"),
                                 top = NULL, right = NULL, bottom = NULL, left = NULL,
-                                extend = TRUE, bg = "transparent", ...) {
+                                extend = TRUE, bg = "transparent") {
     pm <- bm_shadow_bitmap(as_bm_pixmap(x),
                            value = int2col(as_native(value)), bg = int2col(as_native(bg)),
                            top = top, right = right, bottom = bottom, left = left,
@@ -101,7 +98,7 @@ bm_shadow.nativeRaster <- function(x, value = col2int("black"),
 #' @export
 bm_shadow.raster <- function(x, value = "black",
                              top = NULL, right = NULL, bottom = NULL, left = NULL,
-                             extend = TRUE, bg = "transparent", ...) {
+                             extend = TRUE, bg = "transparent") {
     pm <- bm_shadow_bitmap(as_bm_pixmap(x), value = col2hex(value), bg = col2hex(bg),
                            top = top, right = right, bottom = bottom, left = left, extend = extend)
     as.raster(pm)
@@ -142,12 +139,8 @@ bm_bold.bm_bitmap <- function(x, value = 1L,
 
 #' @rdname bm_shadow
 #' @export
-bm_bold.bm_list <- function(x, value = 1L,
-                            top = NULL, right = NULL, bottom = NULL, left = NULL,
-                            extend = TRUE) {
-    bm_lapply(x, bm_bold, value = value,
-              top = NULL, right = NULL, bottom = NULL, left = NULL,
-              extend = TRUE)
+bm_bold.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_bold, ...)
 }
 
 #' @rdname bm_shadow
@@ -208,28 +201,27 @@ bm_bold_bitmap <- function(x, value,
 
 #' @rdname bm_shadow
 #' @export
-bm_glow <- function(x, value, extend = TRUE, corner = FALSE, ...) {
+bm_glow <- function(x, value, extend = TRUE, corner = FALSE, bg) {
     UseMethod("bm_glow")
 }
 
 #' @rdname bm_shadow
 #' @export
-bm_glow.bm_bitmap <- function(x, value = 2L, extend = TRUE, corner = FALSE, bg = 0L, ...) {
+bm_glow.bm_bitmap <- function(x, value = 2L, extend = TRUE, corner = FALSE, bg = 0L) {
     bm_glow_bitmap(x, value = as.integer(value), bg = as.integer(bg),
                    extend = extend, corner = corner)
 }
 
 #' @rdname bm_shadow
-#' @param ... Passed to other methods.
 #' @export
-bm_glow.bm_list <- function(x, value = 2L, extend = TRUE, corner = FALSE, ...) {
-    bm_lapply(x, bm_glow, value = value, extend = extend, corner = corner, ...)
+bm_glow.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_glow, ...)
 }
 
 #' @rdname bm_shadow
 #' @export
 bm_glow.bm_pixmap <- function(x, value = col2hex("black"), extend = TRUE, corner = FALSE, 
-                              bg = col2hex("transparent"), ...) {
+                              bg = col2hex("transparent")) {
     bm_glow_bitmap(x, value = col2hex(value), bg = col2hex(bg),
                    extend = extend, corner = corner)
 }
@@ -237,7 +229,7 @@ bm_glow.bm_pixmap <- function(x, value = col2hex("black"), extend = TRUE, corner
 #' @rdname bm_shadow
 #' @export
 `bm_glow.magick-image` <- function(x, value = "black", extend = TRUE, corner = FALSE, 
-                              bg = "transparent", ...) {
+                              bg = "transparent") {
     stopifnot(requireNamespace("magick", quietly = TRUE))
     pm <- bm_glow_bitmap(as_bm_pixmap(x), value = col2hex(value), bg = col2hex(bg),
                          extend = extend, corner = corner)
@@ -247,7 +239,7 @@ bm_glow.bm_pixmap <- function(x, value = col2hex("black"), extend = TRUE, corner
 #' @rdname bm_shadow
 #' @export
 bm_glow.nativeRaster <- function(x, value = "black", extend = TRUE, corner = FALSE, 
-                              bg = "transparent", ...) {
+                              bg = "transparent") {
     pm <- bm_glow_bitmap(as_bm_pixmap(x),
                          value = int2col(as_native(value)), 
                          bg = int2col(as_native(bg)),
@@ -258,7 +250,7 @@ bm_glow.nativeRaster <- function(x, value = "black", extend = TRUE, corner = FAL
 #' @rdname bm_shadow
 #' @export
 bm_glow.raster <- function(x, value = "black", extend = TRUE, corner = FALSE, 
-                              bg = "transparent", ...) {
+                              bg = "transparent") {
     pm <- bm_glow_bitmap(as_bm_pixmap(x), value = col2hex(value), bg = col2hex(bg),
                          extend = extend, corner = corner)
     as.raster(pm)

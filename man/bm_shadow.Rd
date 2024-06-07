@@ -32,7 +32,7 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  ...
+  bg
 )
 
 \method{bm_shadow}{bm_bitmap}(
@@ -43,20 +43,10 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  bg = 0L,
-  ...
+  bg = 0L
 )
 
-\method{bm_shadow}{bm_list}(
-  x,
-  value = 2L,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL,
-  extend = TRUE,
-  ...
-)
+\method{bm_shadow}{bm_list}(x, ...)
 
 \method{bm_shadow}{bm_pixmap}(
   x,
@@ -66,8 +56,7 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  bg = col2hex("transparent"),
-  ...
+  bg = col2hex("transparent")
 )
 
 \method{bm_shadow}{`magick-image`}(
@@ -78,8 +67,7 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  bg = "transparent",
-  ...
+  bg = "transparent"
 )
 
 \method{bm_shadow}{nativeRaster}(
@@ -90,8 +78,7 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  bg = "transparent",
-  ...
+  bg = "transparent"
 )
 
 \method{bm_shadow}{raster}(
@@ -102,8 +89,7 @@ bm_shadow(
   bottom = NULL,
   left = NULL,
   extend = TRUE,
-  bg = "transparent",
-  ...
+  bg = "transparent"
 )
 
 bm_bold(
@@ -126,15 +112,7 @@ bm_bold(
   extend = TRUE
 )
 
-\method{bm_bold}{bm_list}(
-  x,
-  value = 1L,
-  top = NULL,
-  right = NULL,
-  bottom = NULL,
-  left = NULL,
-  extend = TRUE
-)
+\method{bm_bold}{bm_list}(x, ...)
 
 \method{bm_bold}{bm_pixmap}(
   x,
@@ -176,47 +154,25 @@ bm_bold(
   extend = TRUE
 )
 
-bm_glow(x, value, extend = TRUE, corner = FALSE, ...)
+bm_glow(x, value, extend = TRUE, corner = FALSE, bg)
 
-\method{bm_glow}{bm_bitmap}(x, value = 2L, extend = TRUE, corner = FALSE, bg = 0L, ...)
+\method{bm_glow}{bm_bitmap}(x, value = 2L, extend = TRUE, corner = FALSE, bg = 0L)
 
-\method{bm_glow}{bm_list}(x, value = 2L, extend = TRUE, corner = FALSE, ...)
+\method{bm_glow}{bm_list}(x, ...)
 
 \method{bm_glow}{bm_pixmap}(
   x,
   value = col2hex("black"),
   extend = TRUE,
   corner = FALSE,
-  bg = col2hex("transparent"),
-  ...
+  bg = col2hex("transparent")
 )
 
-\method{bm_glow}{`magick-image`}(
-  x,
-  value = "black",
-  extend = TRUE,
-  corner = FALSE,
-  bg = "transparent",
-  ...
-)
+\method{bm_glow}{`magick-image`}(x, value = "black", extend = TRUE, corner = FALSE, bg = "transparent")
 
-\method{bm_glow}{nativeRaster}(
-  x,
-  value = "black",
-  extend = TRUE,
-  corner = FALSE,
-  bg = "transparent",
-  ...
-)
+\method{bm_glow}{nativeRaster}(x, value = "black", extend = TRUE, corner = FALSE, bg = "transparent")
 
-\method{bm_glow}{raster}(
-  x,
-  value = "black",
-  extend = TRUE,
-  corner = FALSE,
-  bg = "transparent",
-  ...
-)
+\method{bm_glow}{raster}(x, value = "black", extend = TRUE, corner = FALSE, bg = "transparent")
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
@@ -236,9 +192,9 @@ then defaults to \code{1L} for \code{bm_shadow()} and \code{0L} for \code{bm_emb
 
 \item{extend}{Make the bitmap larger to give the new glyph more "room".}
 
-\item{...}{Passed to other methods.}
-
 \item{bg}{Bitmap background value.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 
 \item{corner}{Fill in the corners.}
 }

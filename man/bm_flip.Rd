@@ -11,7 +11,7 @@
 \usage{
 bm_flip(x, direction = "vertical", in_place = FALSE)
 
-\method{bm_flip}{bm_list}(x, direction = "vertical", in_place = FALSE)
+\method{bm_flip}{bm_list}(x, ...)
 
 \method{bm_flip}{bm_matrix}(x, direction = "vertical", in_place = FALSE)
 
@@ -28,6 +28,8 @@ bm_flip(x, direction = "vertical", in_place = FALSE)
 OR "both" or "b".}
 
 \item{in_place}{If \code{TRUE} flip the glyphs in place (without changing any background padding).}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.

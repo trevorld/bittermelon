@@ -95,17 +95,23 @@ bm_extend.bm_pixmap <- function(x, value = col2hex("transparent"), sides = NULL,
                      hjust = hjust, vjust = vjust)
 }
 
+# #' @rdname bm_extend
+# #' @export
+# bm_extend.bm_list <- function(x, value = 0L, sides = NULL,
+#                               top = NULL, right = NULL, bottom = NULL, left = NULL,
+#                               width = NULL, height = NULL,
+#                               hjust = "center-left", vjust = "center-top") {
+#     bm_lapply(x, bm_extend_bitmap, value = value,
+#               sides = sides,
+#               top = top, right = right, bottom = bottom, left = left,
+#               width = width, height = height,
+#               hjust = hjust, vjust = vjust)
+# }
+
 #' @rdname bm_extend
 #' @export
-bm_extend.bm_list <- function(x, value = 0L, sides = NULL,
-                              top = NULL, right = NULL, bottom = NULL, left = NULL,
-                              width = NULL, height = NULL,
-                              hjust = "center-left", vjust = "center-top") {
-    bm_lapply(x, bm_extend_bitmap, value = value,
-              sides = sides,
-              top = top, right = right, bottom = bottom, left = left,
-              width = width, height = height,
-              hjust = hjust, vjust = vjust)
+bm_extend.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_extend, ...)
 }
 
 #' @rdname bm_extend

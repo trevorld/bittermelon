@@ -43,10 +43,8 @@ bm_shift.bm_bitmap <- function(x, value = 0L,
 
 #' @rdname bm_shift
 #' @export
-bm_shift.bm_list <- function(x, value = 0L,
-                             top = NULL, right = NULL, bottom = NULL, left = NULL) {
-    bm_lapply(x, bm_shift, value = value,
-              top = top, right = right, bottom = bottom, left = left)
+bm_shift.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_shift, ...)
 }
 
 #' @rdname bm_shift

@@ -21,7 +21,7 @@ bm_distort(x, width = NULL, height = NULL, ...)
   threshold = 0.5
 )
 
-\method{bm_distort}{bm_list}(x, width = NULL, height = NULL, ...)
+\method{bm_distort}{bm_list}(x, ...)
 
 \method{bm_distort}{bm_pixmap}(x, width = NULL, height = NULL, ..., filter = "Point")
 

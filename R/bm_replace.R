@@ -33,10 +33,9 @@ bm_replace.bm_bitmap <- function(x, value = 0L, old = x[1L, 1L]) {
 }
 
 #' @rdname bm_replace
-#' @param ... Passed to `bm_replace.bm_bitmap()`.
 #' @export
-bm_replace.bm_list <- function(x, value = 0L, ...) {
-    bm_lapply(x, bm_replace, value = value, ...)
+bm_replace.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_replace, ...)
 }
 
 #' @rdname bm_replace

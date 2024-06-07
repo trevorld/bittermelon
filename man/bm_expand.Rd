@@ -14,7 +14,7 @@ bm_expand(x, width = 1L, height = width)
 
 \method{bm_expand}{bm_bitmap}(x, width = 1L, height = width)
 
-\method{bm_expand}{bm_list}(x, width = 1L, height = width)
+\method{bm_expand}{bm_list}(x, ...)
 
 \method{bm_expand}{bm_pixmap}(x, width = 1L, height = width)
 
@@ -30,6 +30,8 @@ bm_expand(x, width = 1L, height = width)
 \item{width}{An integer of how many times to repeat each column.}
 
 \item{height}{An integer of how many times to repeat each row.}
+
+\item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
 Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.

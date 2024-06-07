@@ -44,8 +44,8 @@ bm_expand.bm_bitmap <- function(x, width = 1L, height = width) {
 
 #' @rdname bm_expand
 #' @export
-bm_expand.bm_list <- function(x, width = 1L, height = width) {
-    bm_lapply(x, bm_expand, width = width, height = height)
+bm_expand.bm_list <- function(x, ...) {
+    bm_lapply(x, bm_expand, ...)
 }
 
 #' @rdname bm_expand

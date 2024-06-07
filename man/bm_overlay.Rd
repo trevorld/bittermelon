@@ -29,14 +29,7 @@ bm_overlay(
   ...
 )
 
-\method{bm_overlay}{bm_list}(
-  x,
-  over = NULL,
-  under = NULL,
-  hjust = "center-left",
-  vjust = "center-top",
-  ...
-)
+\method{bm_overlay}{bm_list}(x, ...)
 
 \method{bm_overlay}{bm_pixmap}(
   x,
@@ -103,7 +96,7 @@ it one pixel down or up respectively.
 "centre", "center", and "centre-top" are aliases for "center-top".
 "centre-bottom" is an alias for "center-bottom".}
 
-\item{...}{Passed to \code{bm_overlay()}.}
+\item{...}{Additional arguments to be passed to or from methods.}
 
 \item{bg}{Bitmap background value.}
 }
