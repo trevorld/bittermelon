@@ -50,8 +50,9 @@ print(bm_rotate(capital_r, 270))
 print(bm_rotate(capital_r, 90, clockwise = FALSE))
 
 corn <- farming_crops_16x16()$corn$portrait
+corn_180 <- bm_rotate(corn, 180)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(bm_rotate(corn, 180), compress = "v")
+  print(corn_180, compress = "v")
 }
 }
 \seealso{

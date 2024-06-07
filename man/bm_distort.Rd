@@ -62,14 +62,17 @@ font <- read_hex(font_file)
 capital_r <- font[[str2ucp("R")]]
 dim(capital_r) # 8 x 16
 if (requireNamespace("magick", quietly = TRUE)) {
-  print(bm_distort(capital_r, width = 9L, height = 21L))
+  capital_r_9x21 <- bm_distort(capital_r, width = 9L, height = 21L)
+  print(capital_r_9x21)
 }
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+dim(corn) # 16 x 16
 if (cli::is_utf8_output() && 
     cli::num_ansi_colors() >= 256L &&
     requireNamespace("magick", quietly = TRUE)) {
-  crops <- farming_crops_16x16()
-  corn <- crops$corn$portrait
-  print(bm_distort(corn, width = 24L), compress = "v")
+  corn_24x24 <- bm_distort(corn, width = 24L)
+  print(corn_24x24, compress = "v")
 }
 }
 \seealso{

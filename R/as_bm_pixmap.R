@@ -19,9 +19,14 @@
 #'   all.equal(corn, as_bm_pixmap(magick::image_read(corn)))
 #' }
 #'
-#' if (requireNamespace("mazing", quietly = TRUE)) {
-#'   pm <- as_bm_pixmap(mazing::maze(32, 40), col = c("black", "white"))
-#'   plot(pm)
+#' if (requireNamespace("mazing", quietly = TRUE) &&
+#'     cli::is_utf8_output() &&
+#'     cli::num_ansi_colors() >= 8L) {
+#'   pm <- as_bm_pixmap(mazing::maze(24L, 32L),
+#'                      start = "top", end = "bottom",
+#'                      col = c("#CD0BBC", "white", "black"))
+#'   pm <- bm_pad(pm, sides = 2L)
+#'   print(pm, compress = "v")
 #' }
 #' @export
 as_bm_pixmap <- function(x, ...) {

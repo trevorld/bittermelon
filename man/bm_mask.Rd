@@ -141,12 +141,14 @@ if (capabilities("png")) {
   print(circle_minus_lower_left)
 }
 
+if (capabilities("png")) {
+  m <- matrix(grDevices::rainbow(8L), byrow = TRUE, ncol = 8L, nrow = 8L)
+  rainbow <- bm_expand(as_bm_pixmap(m), 2L)
+  circle_rainbow <- bm_mask(rainbow, circle_large, mode = "alpha")
+}
 if (cli::is_utf8_output() && 
     cli::num_ansi_colors() >= 256L &&
     capabilities("png")) {
-  pm <- matrix(grDevices::rainbow(8L), byrow = TRUE, ncol = 8L, nrow = 8L)
-  pm <- bm_expand(as_bm_pixmap(pm), 2L)
-  pm <- bm_mask(pm, circle_large, mode = "alpha")
-  print(pm, compress = "v")
+  print(circle_rainbow, compress = "v")
 }
 }

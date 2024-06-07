@@ -67,13 +67,13 @@ print(bm_compress(r, "vertical"))
 print(bm_compress(r, "horizontal"))
 print(bm_compress(r, "both"))
 
+img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
+logo <- as_bm_pixmap(img)
 if (cli::is_utf8_output() && 
     cli::num_ansi_colors() > 256L &&
     requireNamespace("magick", quietly = TRUE)) {
-  img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
-  pm <- as_bm_pixmap(img)
-  pmc <- bm_compress(pm, "both", filter = NULL)
-  print(pmc, compress = "v")
+  logo_c <- bm_compress(pm, "both", filter = NULL)
+  print(logo_c, compress = "v")
 }
 }
 \seealso{

@@ -53,9 +53,10 @@ exclamation <- font[[str2ucp("!")]]
 exclamation_flipped <- bm_flip(exclamation, in_place = TRUE)
 print(exclamation_flipped)
 
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+corn_fh <- bm_flip(corn, "h")
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  crops <- farming_crops_16x16()
-  corn <- crops$corn$portrait
-  print(bm_flip(corn, "h"), compress = "v")
+  print(corn_fh, compress = "v")
 }
 }

@@ -27,11 +27,12 @@
 #' a_grave2 <- bm_overlay(grave, under = a)
 #' print(a_grave2)
 #'
+#' crops <- farming_crops_16x16()
+#' corn <- bm_shift(crops$corn$portrait, right = 2L, top = 2L)
+#' grapes <- bm_shift(crops$grapes$portrait, bottom = 1L)
+#' grapes_and_corn <- bm_overlay(corn, grapes)
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   crops <- farming_crops_16x16()
-#'   corn <- bm_shift(crops$corn$portrait, right = 2L, top = 2L)
-#'   grapes <- bm_shift(crops$grapes$portrait, bottom = 1L)
-#'   print(bm_overlay(corn, grapes))
+#'   print(grapes_and_corn, compress = "v")
 #' }
 #' @export
 bm_overlay <- function(x, over = NULL, under = NULL,

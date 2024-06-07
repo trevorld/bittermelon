@@ -25,10 +25,11 @@
 #' print(capital_r)
 #' capital_r_padded <- bm_pad(capital_r, sides = 2L)
 #' print(capital_r_padded)
+#' crops <- farming_crops_16x16()
+#' corn <- crops$corn$portrait
+#' corn_pad4 <- bm_pad(corn, sides = 4L)
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   crops <- farming_crops_16x16()
-#'   corn <- crops$corn$portrait
-#'   print(bm_pad(corn, sides = 4L), compress = "v", bg = "white")
+#'   print(corn_pad4, compress = "v", bg = "cyan")
 #' }
 #' @seealso [bm_extend()], [bm_resize()], and [bm_trim()]
 #' @inherit bm_clamp return

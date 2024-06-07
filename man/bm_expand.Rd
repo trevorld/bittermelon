@@ -51,10 +51,11 @@ an indicated number of times.
        px = px_ascii)
  print(bm_expand(capital_r, width = 2L, height = 1L),
        px = px_ascii)
+crops <- farming_crops_16x16()
+corn <- crops$corn$portrait
+corn_2x <- bm_expand(corn, 2L)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  crops <- farming_crops_16x16()
-  corn <- crops$corn$portrait
-  print(bm_expand(corn, 2L), compress = "v")
+  print(corn_2x, compress = "v")
 }
 }
 \seealso{
