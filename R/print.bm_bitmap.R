@@ -74,6 +74,9 @@ format.bm_bitmap <- function(x, ...,
                              fg = getOption("bittermelon.fg", FALSE),
                              bg = getOption("bittermelon.bg", FALSE),
                              compress = getOption("bittermelon.compress", "none")) {
+    if (nrow(x) == 0L || ncol(x) == 0L)
+        return(character(0L))
+
     direction <- match.arg(tolower(compress),
                            c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)

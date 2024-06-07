@@ -14,7 +14,9 @@ test_that("print.bm_bitmap()", {
         print(space_glyph, px = c("."))
     })
 
-    expect_length(format(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L))), 0L)
+    expect_length(format(bm_bitmap(matrix(character(), nrow = 0L, ncol = 0L))), 0L)
+    expect_length(format(bm_bitmap(matrix(character(), nrow = 0L, ncol = 4L))), 0L)
+    expect_length(format(bm_bitmap(matrix(character(), nrow = 4L, ncol = 0L))), 0L)
 
     skip_if(!cli::is_utf8_output())
     verify_output("txt/plus_unicode.txt", {

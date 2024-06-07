@@ -136,6 +136,7 @@ Bug fixes and minor improvements
 * `write_yaff()` now encloses "tag" labels with double quotes.
 * `hex2ucp()` now also calls `base::toupper()` on the input value.
 * `bm_bitmap()` objects now also have the class `"bm_matrix"` (as does the new `bm_pixmap()` objects).
+* `format.bm_bitmap(x)` no longer throws an error when `x` has zero columns (#68).
 
 bittermelon 1.1.2
 =================
