@@ -111,9 +111,9 @@ print(capital_r)
 capital_r <- bm_resize(capital_r, width = 12L, height = 12L, vjust = "top")
 print(capital_r)
 corn <- farming_crops_16x16()$corn$portrait
-corn <- bm_resize(corn, width = 20L, height = 20L, vjust = "top")
+corn_rs <- bm_resize(corn, width = 20L, height = 20L, vjust = "top")
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(corn, bg = "cyan", compress = "v")
+  print(corn_rs, bg = "cyan", compress = "v")
 }
 }
 \seealso{

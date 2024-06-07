@@ -17,9 +17,10 @@
 #'   print(circle_outline)
 #' }
 #'
+#' corn <- farming_crops_16x16()$corn$portrait
+#' corn_outline <- bm_outline(corn, "magenta")
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   corn <- farming_crops_16x16()$corn$portrait
-#'   print(bm_outline(corn), bg = "white")
+#'   print(corn_outline, bg = "white")
 #' }
 #' @export
 bm_outline <- function(x, value, bg) {

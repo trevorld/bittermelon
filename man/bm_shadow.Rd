@@ -207,22 +207,24 @@ Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\lin
 \code{bm_glow()} adds a basic "glow" effect to the bitmap(s).
 }
 \examples{
- font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
- font <- read_hex(font_file)
- capital_r <- font[[str2ucp("R")]]
- print(capital_r)
- print(bm_shadow(capital_r))
- print(bm_bold(capital_r))
- print(bm_glow(capital_r))
- print(bm_glow(capital_r, corner = TRUE))
+font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+font <- read_hex(font_file)
+capital_r <- font[[str2ucp("R")]]
+print(capital_r)
+print(bm_shadow(capital_r))
+print(bm_bold(capital_r))
+print(bm_glow(capital_r))
+print(bm_glow(capital_r, corner = TRUE))
 
 corn <- farming_crops_16x16()$corn$portrait
+corn_shadow <- bm_shadow(corn, "red")
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(bm_shadow(corn, "red"), compress = "v")
+  print(corn_shadow, compress = "v")
 }
 
+corn_glow <- bm_glow(corn, "cyan", corner = TRUE)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(bm_glow(corn, "cyan", corner = TRUE), compress = "v")
+  print(corn_glow, compress = "v")
 }
 }
 \seealso{

@@ -43,9 +43,9 @@
 #' print(capital_r_trimmed)
 #' corn <- farming_crops_16x16()$corn$portrait
 #' print(bm_padding_lengths(corn))
+#' corn_trimmed <- bm_trim(corn, top = 1L, right = 1L, bottom = 1L)
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-#'   print(bm_trim(corn, top = 1L, right = 1L, bottom = 1L),
-#'         bg = "cyan", compress = "v")
+#'   print(corn_trimmed, bg = "cyan", compress = "v")
 #' }
 #' @seealso [bm_extend()], [bm_pad()], and [bm_resize()].
 #' @export

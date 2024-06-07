@@ -45,9 +45,6 @@ corn <- farming_crops_16x16()$corn$portrait
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
   print(bm_replace(corn, "cyan"), compress = "v")
 }
-if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(bm_replace(corn, "magenta"), compress = "v")
-}
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 font <- read_hex(font_file)
 capital_r <- font[[str2ucp("R")]]

@@ -86,9 +86,9 @@ capital_r <- bm_shift(capital_r, bottom = 2L, right = 1L)
 print(capital_r)
 corn <- farming_crops_16x16()$corn$portrait
 print(bm_padding_lengths(corn))
+corn_shifted <- bm_shift(corn, left = 1L, top = 2L)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  print(bm_shift(corn, left = 1L, top = 2L),
-        bg = "cyan", compress = "v")
+  print(corn_shifted, bg = "cyan", compress = "v")
 }
 }
 \seealso{
