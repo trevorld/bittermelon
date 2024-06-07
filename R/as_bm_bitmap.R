@@ -171,6 +171,14 @@ add_space <- function(bml, font) {
 }
 
 #' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.glyph_bitmap <- function(x, ..., threshold = 0.5) {
+    ints <- as.integer(as.integer(x) / 255 >= threshold)
+    m <- matrix(ints, nrow = nrow(x), ncol = ncol(x))
+    as_bm_bitmap.matrix(m)
+}
+
+#' @rdname as_bm_bitmap
 #' @param width Desired width of bitmap
 #' @param height Desired height of bitmap
 #' @param png_device A function taking arguments `filename`, `width`, and `height`

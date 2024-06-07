@@ -7,6 +7,7 @@
 \alias{as_bm_bitmap.bm_bitmap}
 \alias{as_bm_bitmap.bm_pixmap}
 \alias{as_bm_bitmap.character}
+\alias{as_bm_bitmap.glyph_bitmap}
 \alias{as_bm_bitmap.grob}
 \alias{as_bm_bitmap.magick-image}
 \alias{as_bm_bitmap.matrix}
@@ -36,6 +37,8 @@ as_bm_bitmap(x, ...)
   compose = TRUE,
   pua_combining = character(0)
 )
+
+\method{as_bm_bitmap}{glyph_bitmap}(x, ..., threshold = 0.5)
 
 \method{as_bm_bitmap}{grob}(
   x,
