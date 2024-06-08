@@ -26,7 +26,7 @@
 * `{bittermelon}` provides functions for creating, modifying, and printing bitmaps.
 * It can pretty print bitmaps to the R terminal.
 * It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
-* There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write several more bitmap font formats.
+* There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write [several more bitmap font formats](https://github.com/robhagemans/monobit?tab=readme-ov-file#supported-bitmap-formats).
 * Besides supporting the builtin `bm_bitmap()` and `bm_pixmap()` objects it also supports modifying `{magick}`'s "magick-image" objects and base R's "nativeRaster" and "raster" objects.
 
 ## <a name="installation">Installation</a>

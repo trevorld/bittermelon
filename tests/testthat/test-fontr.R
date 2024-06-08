@@ -4,14 +4,14 @@ test_that("`fontr` import works", {
     skip_if_not_installed("withr")
     withr::local_options(bm_options(default = TRUE))
 
-    ch_C <- fontr::glyph_bitmap("C", family = "sans",
+    ch_R <- fontr::glyph_bitmap("R", family = "sans",
                                 face = "regular", pixel_size = 20)
-    bm_C <- as_bm_bitmap(ch_C)
-    pm_C <- as_bm_pixmap(ch_C)
+    bm_R <- as_bm_bitmap(ch_R)
+    pm_R <- as_bm_pixmap(ch_R)
 
     verify_output("txt/fontr.txt", {
-        print(bm_C)
-        print(pm_C)
+        print(bm_R)
+        print(pm_R)
     }, unicode = FALSE, crayon = FALSE)
 
 })

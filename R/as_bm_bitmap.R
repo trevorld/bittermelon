@@ -175,7 +175,7 @@ add_space <- function(bml, font) {
 as_bm_bitmap.glyph_bitmap <- function(x, ..., threshold = 0.5) {
     ints <- as.integer(as.integer(x) / 255 >= threshold)
     m <- matrix(ints, nrow = nrow(x), ncol = ncol(x))
-    as_bm_bitmap.matrix(m)
+    as_bm_bitmap.matrix(flip_matrix_vertically(m))
 }
 
 #' @rdname as_bm_bitmap
