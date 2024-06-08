@@ -1,6 +1,6 @@
 #' Sprites for twenty farming crops
 #'
-#' `farming_crops_16x16()` returns a named list of lists
+#' `farming_crops_16x16()` returns a named list of [bm_list()] lists
 #' of twenty farming crops in five stages of growth plus a portrait as [bm_pixmap()] objects.
 #'
 #' * Each sprite is sixteen by sixteen pixels large.
@@ -16,7 +16,7 @@
 #' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
 #'   print(crops$orange$stage5, compress = "v")
 #' }
-#' @return A named list of lists of six [bm_pixmap()] objects (one through five stages of growth plus a portrait for each crop).  The named list has the following twenty crop names:
+#' @return A named list of [bm_list()] lists of six [bm_pixmap()] objects (one through five stages of growth plus a portrait for each crop).  The named list has the following twenty crop names:
 #'   * "avocado"
 #'   * "cassava"
 #'   * "coffee" 
@@ -85,7 +85,7 @@ farming_crops_16x16 <- function() {
                      turnip = 1L + 9L * 16L,
                      wheat = 1L + 4L * 16L
         )
-        l[[crop]] <- list()
+        l[[crop]] <- bm_list()
         for (i in 1:6) {
             l[[crop]][[labels[i]]] <- pm[seq.int(y0, length.out = 16L),
                                      seq.int(x0 + (6L - i) * 16L, length.out = 16L)]

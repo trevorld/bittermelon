@@ -7,7 +7,7 @@
 farming_crops_16x16()
 }
 \value{
-A named list of lists of six \code{\link[=bm_pixmap]{bm_pixmap()}} objects (one through five stages of growth plus a portrait for each crop).  The named list has the following twenty crop names:
+A named list of \code{\link[=bm_list]{bm_list()}} lists of six \code{\link[=bm_pixmap]{bm_pixmap()}} objects (one through five stages of growth plus a portrait for each crop).  The named list has the following twenty crop names:
 \itemize{
 \item "avocado"
 \item "cassava"
@@ -32,7 +32,7 @@ A named list of lists of six \code{\link[=bm_pixmap]{bm_pixmap()}} objects (one 
 }
 }
 \description{
-\code{farming_crops_16x16()} returns a named list of lists
+\code{farming_crops_16x16()} returns a named list of \code{\link[=bm_list]{bm_list()}} lists
 of twenty farming crops in five stages of growth plus a portrait as \code{\link[=bm_pixmap]{bm_pixmap()}} objects.
 }
 \details{

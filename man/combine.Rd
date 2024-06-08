@@ -4,6 +4,7 @@
 \alias{c.bm_bitmap}
 \alias{c.bm_font}
 \alias{c.bm_list}
+\alias{c.bm_pixmap}
 \title{Combine bitmap objects}
 \usage{
 \method{c}{bm_bitmap}(...)
@@ -11,6 +12,8 @@
 \method{c}{bm_font}(...)
 
 \method{c}{bm_list}(...)
+
+\method{c}{bm_pixmap}(...)
 }
 \arguments{
 \item{...}{\code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_list]{bm_list()}}, and/or \code{\link[=bm_font]{bm_font()}} objects to combine.}
@@ -20,7 +23,7 @@ Either a \code{\link[=bm_list]{bm_list()}} or \code{\link[=bm_font]{bm_font()}} 
 See Details for more info.
 }
 \description{
-\code{c()} combines bitmap objects into \code{bm_list()} or \code{bm_font()} objects.
+\code{c()} combines bitmap objects into \code{\link[=bm_list]{bm_list()}} or \code{\link[=bm_font]{bm_font()}} objects.
 In particular when using it to combine fonts the later fonts
 "update" the glyphs in the earlier fonts.
 }
@@ -28,15 +31,22 @@ In particular when using it to combine fonts the later fonts
 The various bitmap objects are "reduced" in the following ways:
 \tabular{lll}{
 First \tab Second \tab Result\cr
-\code{bm_bitmap()} \tab \code{bm_bitmap()} \tab \code{bm_list()}\cr
-\code{bm_bitmap()} \tab \code{bm_list()} \tab \code{bm_list()}\cr
-\code{bm_bitmap()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{bm_bitmap()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{bm_list()} \tab \code{bm_font()}\cr
-\code{bm_font()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
-\code{bm_list()} \tab \code{bm_bitmap()} \tab \code{bm_list()}\cr
-\code{bm_list()} \tab \code{bm_list()} \tab \code{bm_list()}\cr
-\code{bm_list()} \tab \code{bm_font()} \tab \code{bm_font()}\cr
+\code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_font]{bm_font()}}\cr
+\code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_font]{bm_font()}} \tab \code{ERROR}\cr
+\code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_font]{bm_font()}}\cr
+\code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_font]{bm_font()}}\cr
+\code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_font]{bm_font()}}\cr
+\code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{ERROR}\cr
+\code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_bitmap]{bm_bitmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_font]{bm_font()}} \tab \code{\link[=bm_font]{bm_font()}}\cr
+\code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
+\code{\link[=bm_list]{bm_list()}} \tab \code{\link[=bm_pixmap]{bm_pixmap()}} \tab \code{\link[=bm_list]{bm_list()}}\cr
 }
 When combining with a \code{bm_font()} object if any \code{bm_bitmap()} objects
 share the same name we only keep the last one.

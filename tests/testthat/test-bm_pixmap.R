@@ -61,3 +61,19 @@ test_that("`cbind()` and `rbind()`", {
        print( rbind(avocado, tulip), compress = "v")
     }, crayon = FALSE, unicode = TRUE)
 })
+
+test_that("`c()`", {
+    tulip <- farming_crops_16x16()$tulip$portrait
+    bml1 <- c(tulip, tulip)
+    bml2 <- c(tulip, tulip, tulip)
+    bml3 <- c(tulip, bml2)
+    bml4 <- c(bml2, bml3)
+    bml5 <- c(tulip)
+
+    expect_equal(length(bml1), 2L)
+    expect_equal(length(bml2), 3L)
+    expect_equal(length(bml3), 4L)
+    expect_equal(length(bml4), 7L)
+    expect_equal(length(bml5), 1L)
+    expect_true(all(vapply(bml4, is_bm_pixmap, logical(1L))))
+})

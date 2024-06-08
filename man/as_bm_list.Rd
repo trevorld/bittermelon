@@ -3,6 +3,7 @@
 \name{as_bm_list}
 \alias{as_bm_list}
 \alias{as_bm_list.default}
+\alias{as_bm_list.bm_list}
 \alias{as_bm_list.list}
 \alias{as_bm_list.character}
 \title{Coerce to bitmap list objects}
@@ -11,7 +12,9 @@ as_bm_list(x, ...)
 
 \method{as_bm_list}{default}(x, ...)
 
-\method{as_bm_list}{list}(x, ...)
+\method{as_bm_list}{bm_list}(x, ...)
+
+\method{as_bm_list}{list}(x, ..., FUN = identity)
 
 \method{as_bm_list}{character}(x, ..., font = bm_font())
 }
@@ -19,6 +22,9 @@ as_bm_list(x, ...)
 \item{x}{An object that can reasonably be coerced to a \code{\link[=bm_list]{bm_list()}} object.}
 
 \item{...}{Further arguments passed to or from other methods.}
+
+\item{FUN}{Function to apply to every element of a list such
+as \code{\link[=as_bm_bitmap]{as_bm_bitmap()}} or \code{\link[=as_bm_pixmap]{as_bm_pixmap()}}.}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object that contains all the characters within \code{x}.}
 }

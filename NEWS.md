@@ -123,6 +123,12 @@ New color utilities:
 * `col2hex()` standardize color strings into a unique hex color string.
 * `col2int()` and `int2col()` convert back and forth to (native) color integers.
 
+Following `bm_list()` upgrades (#69):
+
+* Can now contain `bm_bitmap()`, `bm_pixmap()`, "magick-image", "nativeRaster", or "raster" bitmaps.
+* `as_bm_list.list()` now supports `FUN` for a function which can be applied to each element of the list
+  such as `identity()`, `as_bm_bitmap()`, and `as_bm_pixmap()`.
+
 Bug fixes and minor improvements
 --------------------------------
 

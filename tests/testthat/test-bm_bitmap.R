@@ -41,10 +41,18 @@ test_that("as_bm_bitmap()", {
     verify_output("txt/maze_solution.txt",
                   print(maze2, px = px_ascii))
 
+    skip_if_not_installed("farver")
     bm0 <- bm_bitmap(matrix(integer(0L), nrow = 0L, ncol = 4L))
     bm1 <- as_bm_bitmap(as.raster(bm0))
     bm2 <- as_bm_bitmap(as.raster(bm0, native = TRUE))
     expect_equal(dim(bm0), c(0L, 4L))
     expect_equal(dim(bm1), c(0L, 4L))
     expect_equal(dim(bm2), c(0L, 4L))
+
+    skip_if_not_installed("magick")
+    tulip <- farming_crops_16x16()$tulip$portrait
+    mi <- magick::image_read(tulip)
+    bm0 <- as_bm_bitmap(tulip)
+    bm1 <- as_bm_bitmap(mi)
+    expect_equal(bm0, bm1)
 })

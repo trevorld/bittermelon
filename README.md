@@ -26,7 +26,7 @@
 * `{bittermelon}` provides functions for creating, modifying, and printing bitmaps.
 * It can pretty print bitmaps to the R terminal.
 * It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
-* There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write several more bitmap font formats.
+* There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write [several more bitmap font formats](https://github.com/robhagemans/monobit?tab=readme-ov-file#supported-bitmap-formats).
 * Besides supporting the builtin `bm_bitmap()` and `bm_pixmap()` objects it also supports modifying `{magick}`'s "magick-image" objects and base R's "nativeRaster" and "raster" objects.
 
 ## <a name="installation">Installation</a>
@@ -37,7 +37,7 @@ remotes::install_github("trevorld/bittermelon")
 ```
 
 * The functions `read_monobit()` and `write_monobit()` require that [monobit](https://github.com/robhagemans/monobit) is installed (i.e. `pip3 install monobit`).
-* The function `bm_distort()` requires the suggested package [magick]((https://github.com/ropensci/magick).
+* The function `bm_distort()` requires the suggested package [magick](https://github.com/ropensci/magick).
 * Support for "nativeRaster" objects requires the suggested package [farver](https://github.com/thomasp85/farver).
 
 ## <a name="examples">Examples</a>
@@ -289,7 +289,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ``` bitmap
    user  system elapsed 
-140.038   0.011 140.065 
+134.006   0.089 134.079 
 ```
 
 ``` r

@@ -27,6 +27,9 @@ reference:
           - bm_list
           - as_bm_list
           - is_bm_list
+          - bm_compose
+          - bm_lapply
+          - Summary.bm_list
     - title: "Bitmap fonts"
       desc: 'Bitmap font objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:
@@ -60,11 +63,8 @@ reference:
       desc: "Other bitmap/pixmap object utility functions"
       contents:
           - c.bm_list
-          - Summary.bm_list
           - bm_call
-          - bm_compose
           - bm_edit
-          - bm_lapply
           - bm_padding_lengths
           - bm_widths
           - farming_crops_16x16

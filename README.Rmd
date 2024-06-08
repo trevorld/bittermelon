@@ -36,7 +36,7 @@ remotes::install_github("trevorld/bittermelon")
 ```
 
 * The functions `read_monobit()` and `write_monobit()` require that [monobit](https://github.com/robhagemans/monobit) is installed (i.e. `pip3 install monobit`).
-* The function `bm_distort()` requires the suggested package [magick]((https://github.com/ropensci/magick).
+* The function `bm_distort()` requires the suggested package [magick](https://github.com/ropensci/magick).
 * Support for "nativeRaster" objects requires the suggested package [farver](https://github.com/thomasp85/farver).
 
 ## <a name="examples">Examples</a>

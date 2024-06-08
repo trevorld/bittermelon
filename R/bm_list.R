@@ -43,12 +43,6 @@ is_bm_list <- function(x) {
     inherits(x, "bm_list")
 }
 
-validate_bm_list <- function(x) {
-    if (!all(sapply(x, is_bm_bitmap)))
-        stop("Some elements were not `bm_bitmap()` objects")
-    invisible(NULL)
-}
-
 #' Modify bitmap lists
 #'
 #' `bm_lapply()` applies a function over a bitmap glyph list

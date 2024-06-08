@@ -25,15 +25,23 @@ as_bm_list <- function(x, ...) {
 #' @rdname as_bm_list
 #' @export
 as_bm_list.default <- function(x, ...) {
-    if (is_bm_list(x)) return(x)
-    as_bm_list.list(as.list(x))
+    as_bm_list.list(as.list(x, ...))
 }
 
 #' @rdname as_bm_list
 #' @export
-as_bm_list.list <- function(x, ...) {
-    if (is_bm_list(x)) return(x)
-    validate_bm_list(x)
+as_bm_list.bm_list <- function(x, ...) {
+    x
+}
+
+#' @rdname as_bm_list
+#' @param FUN Function to apply to every element of a list such
+#'            as [as_bm_bitmap()] or [as_bm_pixmap()].
+#' @export
+as_bm_list.list <- function(x, ..., FUN = identity) {
+    x <- lapply(x, FUN = FUN, ...)
+    all_bm <- all(vapply(x, is_supported_bitmap, FUN.VALUE = logical(1L)))
+    stopifnot(`Some elements were not supported bitmap objects` = all_bm)
     class(x) <- c("bm_list", class(x))
     x
 }
@@ -47,4 +55,8 @@ as_bm_list.character <- function(x, ..., font = bm_font()) {
     bml <- as_bm_list(font[ucp])
     stopifnot(!any(sapply(bml, is.null)))
     bml
+}
+
+is_supported_bitmap <- function(x) {
+    inherits(x, c("bm_bitmap", "bm_pixmap", "magick-image", "nativeRaster", "raster"))
 }
