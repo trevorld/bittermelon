@@ -22,11 +22,12 @@
 #' if (requireNamespace("mazing", quietly = TRUE) &&
 #'     cli::is_utf8_output() &&
 #'     cli::num_ansi_colors() >= 8L) {
+#'   pal <- grDevices::palette.colors()
 #'   pm <- as_bm_pixmap(mazing::maze(24L, 32L),
 #'                      start = "top", end = "bottom",
-#'                      col = c("#CD0BBC", "white", "black"))
-#'   pm <- bm_pad(pm, sides = 2L)
-#'   print(pm, compress = "v")
+#'                      col = c(pal[6], "white", pal[7], pal[5]))
+#'   pm <- bm_pad(pm, sides = 1L)
+#'   print(pm, compress = "v", bg = "white")
 #' }
 #' @export
 as_bm_pixmap <- function(x, ...) {
@@ -113,12 +114,13 @@ as_bm_pixmap.matrix <- function(x, ...) {
 }
 
 #' @rdname as_bm_pixmap
-#' @param walls If `TRUE` the values of 1 denote the walls and the values of 0 denote the paths.
-#' @param start,end If not `NULL` add the solution from `start` to `end` as value 2.  See [mazing::solve_maze()].
+#' @inheritParams as_bm_bitmap
 #' @export
 as_bm_pixmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
+                              solve = !is.null(start) && !is.null(end),
                               col = getOption("bittermelon.col", col_bitmap)) {
-    as_bm_pixmap.bm_bitmap(as_bm_bitmap.maze(x, walls = walls, start = start, end = end),
+    as_bm_pixmap.bm_bitmap(as_bm_bitmap.maze(x, walls = walls,
+                                             start = start, end = end, solve = solve),
                            col = col)
 }
 

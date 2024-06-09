@@ -40,6 +40,7 @@ as_bm_pixmap(x, ...)
   walls = FALSE,
   start = NULL,
   end = NULL,
+  solve = !is.null(start) && !is.null(end),
   col = getOption("bittermelon.col", col_bitmap)
 )
 
@@ -66,9 +67,13 @@ with a transparent background.  By default will use \code{\link[ragg:agg_png]{ra
 if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
 if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
 
-\item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
+\item{walls}{If \code{TRUE} the values of 1L denote the walls and the values of 0L denote the paths.}
 
-\item{start, end}{If not \code{NULL} add the solution from \code{start} to \code{end} as value 2.  See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
+\item{start, end}{If not \code{NULL} mark the \code{start} and \code{end} as value 2L.
+See \code{\link[mazing:find_maze_refpoint]{mazing::find_maze_refpoint()}}.}
+
+\item{solve}{If \code{TRUE} then mark the solution path from \code{start} to \code{end} as value 3L.
+See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
 }
 \value{
 A \code{\link[=bm_pixmap]{bm_pixmap()}} object.
@@ -92,11 +97,12 @@ if (requireNamespace("magick", quietly = TRUE)) {
 if (requireNamespace("mazing", quietly = TRUE) &&
     cli::is_utf8_output() &&
     cli::num_ansi_colors() >= 8L) {
+  pal <- grDevices::palette.colors()
   pm <- as_bm_pixmap(mazing::maze(24L, 32L),
                      start = "top", end = "bottom",
-                     col = c("#CD0BBC", "white", "black"))
-  pm <- bm_pad(pm, sides = 2L)
-  print(pm, compress = "v")
+                     col = c(pal[6], "white", pal[7], pal[5]))
+  pm <- bm_pad(pm, sides = 1L)
+  print(pm, compress = "v", bg = "white")
 }
 }
 \seealso{

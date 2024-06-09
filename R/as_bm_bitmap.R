@@ -259,8 +259,11 @@ as_bm_bitmap.matrix <- function(x, ...) {
 }
 
 #' @rdname as_bm_bitmap
-#' @param walls If `TRUE` the values of 1 denote the walls and the values of 0 denote the paths.
-#' @param start,end If not `NULL` add the solution from `start` to `end` as value 2.  See [mazing::solve_maze()].
+#' @param walls If `TRUE` the values of 1L denote the walls and the values of 0L denote the paths.
+#' @param start,end If not `NULL` mark the `start` and `end` as value 2L.
+#'                  See [mazing::find_maze_refpoint()].
+#' @param solve If `TRUE` then mark the solution path from `start` to `end` as value 3L.
+#'              See [mazing::solve_maze()].
 #' @examples
 #'  if (requireNamespace("mazing", quietly = TRUE)) {
 #'    m <- mazing::maze(16, 32)
@@ -268,28 +271,35 @@ as_bm_bitmap.matrix <- function(x, ...) {
 #'    print(bm, compress = "vertical")
 #'  }
 #' @export
-as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL) {
+as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
+                              solve = !is.null(start) && !is.null(end)) {
     stopifnot(requireNamespace("mazing", quietly = TRUE))
     b <- mazing::maze2binary(x)
     if (walls)
         b <- !b
     bm <- as_bm_bitmap.matrix(b)
-    if (!is.null(start) & !is.null(end)) {
-        path <- mazing::solve_maze(x, start = start, end = end)
+    if (!is.null(start) && !is.null(end)) {
+        if (solve) {
+            path <- mazing::solve_maze(x, start = start, end = end)
 
-        # Can get rid of this once `solve_maze()` supports `by = 0.5`
-        path2 <- matrix(0, nrow = 2L * nrow(path) - 1L, ncol = 2L)
-        path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 1L] <- path[, 1L]
-        path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 2L] <- path[, 2L]
-        for (i in seq_len(nrow(path) - 1)) {
-            path2[2L * i, 1L] <- mean(path[c(i, i+1L), 1L])
-            path2[2L * i, 2L] <- mean(path[c(i, i+1L), 2L])
-        }
-        path <- path2
+            # Can get rid of this once `solve_maze()` supports `by = 0.5`
+            path2 <- matrix(0, nrow = 2L * nrow(path) - 1L, ncol = 2L)
+            path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 1L] <- path[, 1L]
+            path2[seq.int(1L, 2L * nrow(path) - 1L, 2L), 2L] <- path[, 2L]
+            for (i in seq_len(nrow(path) - 1)) {
+                path2[2L * i, 1L] <- mean(path[c(i, i+1L), 1L])
+                path2[2L * i, 2L] <- mean(path[c(i, i+1L), 2L])
+            }
+            path <- path2
 
-        for (i in seq_len(nrow(path))) {
-            bm[2L * path[i, 2L], 2L * path[i, 1L]] <- 2L
+            for (i in seq_len(nrow(path))) {
+                bm[2L * path[i, 2L], 2L * path[i, 1L]] <- 3L
+            }
         }
+        yxs <- mazing::find_maze_refpoint(start, x)
+        yxe <- mazing::find_maze_refpoint(end, x)
+        bm[2 * yxs[2L], 2 * yxs[1L]] <- 2L
+        bm[2 * yxe[2L], 2 * yxe[1L]] <- 2L
     }
     bm
 }

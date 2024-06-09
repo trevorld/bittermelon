@@ -53,7 +53,14 @@ as_bm_bitmap(x, ...)
 
 \method{as_bm_bitmap}{matrix}(x, ...)
 
-\method{as_bm_bitmap}{maze}(x, ..., walls = FALSE, start = NULL, end = NULL)
+\method{as_bm_bitmap}{maze}(
+  x,
+  ...,
+  walls = FALSE,
+  start = NULL,
+  end = NULL,
+  solve = !is.null(start) && !is.null(end)
+)
 
 \method{as_bm_bitmap}{nativeRaster}(x, ..., threshold = 0.5)
 
@@ -107,9 +114,13 @@ with a transparent background.  By default will use \code{\link[ragg:agg_png]{ra
 if available else the \dQuote{cairo} version of \code{\link[grDevices:png]{grDevices::png()}}
 if available else just \code{\link[grDevices:png]{grDevices::png()}}.}
 
-\item{walls}{If \code{TRUE} the values of 1 denote the walls and the values of 0 denote the paths.}
+\item{walls}{If \code{TRUE} the values of 1L denote the walls and the values of 0L denote the paths.}
 
-\item{start, end}{If not \code{NULL} add the solution from \code{start} to \code{end} as value 2.  See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
+\item{start, end}{If not \code{NULL} mark the \code{start} and \code{end} as value 2L.
+See \code{\link[mazing:find_maze_refpoint]{mazing::find_maze_refpoint()}}.}
+
+\item{solve}{If \code{TRUE} then mark the solution path from \code{start} to \code{end} as value 3L.
+See \code{\link[mazing:solve_maze]{mazing::solve_maze()}}.}
 }
 \value{
 A \code{bm_bitmap()} object.

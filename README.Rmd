@@ -90,9 +90,10 @@ m |> as_bm_bitmap(walls = TRUE) |>
 ```
 ```{r plot_maze, fig.width = 6, fig.height = 3, fig.alt = "A maze"}
 # Can also visualize the maze solutions
+pal <- grDevices::palette.colors()
 m |> as_bm_pixmap(start = "top", end = "bottom",
-                  col = c("#CD0BBC", "white", "black")) |>
-   bm_pad(sides = 2L) |>
+                  col = c(pal[6L], "white", pal[7L], pal[5L])) |>
+   bm_pad(sides = 1L) |>
    plot()
 ```
 

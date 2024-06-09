@@ -174,9 +174,10 @@ m |> as_bm_bitmap(walls = TRUE) |>
 
 ``` r
 # Can also visualize the maze solutions
+pal <- grDevices::palette.colors()
 m |> as_bm_pixmap(start = "top", end = "bottom",
-                  col = c("#CD0BBC", "white", "black")) |>
-   bm_pad(sides = 2L) |>
+                  col = c(pal[6L], "white", pal[7L], pal[5L])) |>
+   bm_pad(sides = 1L) |>
    plot()
 ```
 
@@ -192,8 +193,10 @@ names(crops)
 ```
 
 ``` bitmap
- [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"   "eggplant"   "grapes"     "lemon"      "melon"      "orange"     "pineapple"  "potato"     "rice"      
-[14] "rose"       "strawberry" "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
+ [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"  
+ [6] "eggplant"   "grapes"     "lemon"      "melon"      "orange"    
+[11] "pineapple"  "potato"     "rice"       "rose"       "strawberry"
+[16] "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
 ```
 
 ``` r
@@ -289,7 +292,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ``` bitmap
    user  system elapsed 
-134.006   0.089 134.079 
+140.537   0.062 140.590 
 ```
 
 ``` r
