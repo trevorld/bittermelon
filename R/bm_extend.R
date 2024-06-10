@@ -114,6 +114,8 @@ bm_extend.bm_list <- function(x, ...) {
     bm_lapply(x, bm_extend, ...)
 }
 
+# A future `magick::image_splice()` may be used for simple extensions.
+
 #' @rdname bm_extend
 #' @export
 `bm_extend.magick-image` <- function(x, value = "transparent", sides = NULL,

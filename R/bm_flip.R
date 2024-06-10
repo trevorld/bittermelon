@@ -50,9 +50,7 @@ bm_flip.bm_matrix <- function(x, direction = "vertical", in_place = FALSE) {
 #' @export
 `bm_flip.magick-image` <- function(x, direction = "vertical", in_place = FALSE) {
     stopifnot(requireNamespace("magick", quietly = TRUE))
-    pm <- as_bm_pixmap(x)
-    pm <- bm_flip_bitmap(pm, direction, in_place)
-    magick::image_read(pm)
+    bm_flip_bitmap(x, direction, in_place)
 }
 
 #' @rdname bm_flip
@@ -78,12 +76,30 @@ bm_flip_bitmap <- function(x, direction = "v", in_place = in_place) {
         x <- bm_trim(x, sides = bmpl)
     }
     if (direction %in% c("h", "b")) {
-        x <- flip_matrix_horizontally(x)
+        x <- flip_bitmap_horizontally(x)
     }
     if (direction %in% c("v", "b")) {
-        x <- flip_matrix_vertically(x)
+        x <- flip_bitmap_vertically(x)
     }
     if (in_place)
         x <- bm_extend(x, sides = bmpl)
     x
+}
+
+# Doesn't handle nativeRaster... `nara::nr_fliph()`?
+flip_bitmap_horizontally <- function(x) {
+    if(inherits(x, "magick-image")) {
+        magick::image_flop(x)
+    } else {
+        flip_matrix_horizontally(x)
+    }
+}
+
+# Doesn't handle nativeRaster... `nara::nr_flipv()`?
+flip_bitmap_vertically <- function(x) {
+    if(inherits(x, "magick-image")) {
+        magick::image_flip(x)
+    } else {
+        flip_matrix_vertically(x)
+    }
 }

@@ -22,7 +22,7 @@ test_that("`bm_flip()`", {
         print(bm_flip(corn, "v"))
         print(bm_flip(corn, "b"))
         print(as_bm_pixmap(bm_flip(corn_r, "h")))
-        print(as_bm_pixmap(bm_flip(corn_mi, "h")))
+        print(as_bm_pixmap(bm_flip(corn_mi, "b")))
         print(as_bm_pixmap(bm_flip(corn_nr, "h")))
     }, crayon = FALSE, unicode = TRUE)
 
