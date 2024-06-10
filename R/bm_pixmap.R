@@ -31,8 +31,5 @@
 #' plot(pm)
 #' @export
 bm_pixmap <- function(x) {
-    if (is_bm_pixmap(x))
-        x
-    else
-        as_bm_pixmap(x)
+    as_bm_pixmap(x)
 }

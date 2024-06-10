@@ -57,13 +57,16 @@ New features
     - `as_bm_pixmap.array()`
     - `as_bm_pixmap.bm_bitmap()`
     - `as_bm_pixmap.default()`
-    - `as_bm_pixmap.glyph_bitmap()`
+    - `as_bm_pixmap.glyph_bitmap()` (from `{fontr}`)
     - `as_bm_pixmap.grob()`
-    - `as_bm_pixmap.magick-image()`
+    - `as_bm_pixmap.magick-image()` (from `{magick}`)
     - `as_bm_pixmap.matrix()`
-    - `as_bm_pixmap.maze()`
+    - `as_bm_pixmap.maze()` (from `{mazing}`)
     - `as_bm_pixmap.nativeRaster()`
-    - `as_bm_pixmap.pixeltrix()`
+    - `as_bm_pixmap.pixeltrix()` (from `{pixeltrix}`)
+    - `as_bm_pixmap.pixmapGrey()` (from `{pixmap}`)
+    - `as_bm_pixmap.pixmapIndexed()` (from `{pixmap}`)
+    - `as_bm_pixmap.pixmapRGB()` (from `{pixmap}`)
     - `as_bm_pixmap.raster()`
 
   * `is_bm_pixmap()`  returns `TRUE` for `bm_pixmap()` objects (or subclasses)
@@ -79,11 +82,14 @@ New features
 
   + `as_bm_bitmap.array()`
   + `as_bm_bitmap.bm_pixmap()`
-  + `as_bm_pixmap.glyph_bitmap()` coerces `{fontr}` "glyph\_bitmap" objects (#64).
-  + `as_bm_bitmap.magick-image()`
-  + `as_bm_bitmap.maze()` coerces `{mazing}` "maze" objects (#56).
+  + `as_bm_pixmap.glyph_bitmap()` (from `{fontr}`)
+  + `as_bm_bitmap.magick-image()` (from `{magick}`)
+  + `as_bm_bitmap.maze()` coerces (from `{mazing}`)
   + `as_bm_bitmap.nativeRaster()`
-  + `as_bm_pixmap.pixeltrix()`
+  + `as_bm_bitmap.pixeltrix()` (from `{pixeltrix}`)
+  + `as_bm_bitmap.pixmapGrey()` (from `{pixmap}`)
+  + `as_bm_bitmap.pixmapIndexed()` (from `{pixmap}`)
+  + `as_bm_bitmap.pixmapRGB()` (from `{pixmap}`)
   + `as_bm_bitmap.raster()`
 
 * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
@@ -116,6 +122,8 @@ The following functions are now S3 generics that have methods that support (at l
 
 New bitmap/pixmap manipulation function:
 
+* `bm_gray()` with alias `bm_grey()`
+* `bm_invert()`
 * `bm_replace()`
 
 New color utilities:

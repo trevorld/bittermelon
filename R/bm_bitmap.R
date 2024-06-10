@@ -32,8 +32,5 @@
 #' @seealso [as_bm_bitmap()], [is_bm_bitmap()]
 #' @export
 bm_bitmap <- function(x) {
-    if (is_bm_bitmap(x))
-        x
-    else
-        as_bm_bitmap(x)
+    as_bm_bitmap(x)
 }

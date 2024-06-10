@@ -17,9 +17,27 @@ as_bm_bitmap <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.array <- function(x, ..., threshold = 0.5) {
-    as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(as.raster(x)),
-                           threshold = threshold)
+as_bm_bitmap.array <- function(x, ..., 
+                               mode = c("alpha", "darkness", "luminance"),
+                               threshold = 0.5) {
+    # If no alpha channel then default to `mode <- "darkness"`
+    # One channel won't be dispatched by this so just worry about 3-channels
+    if (missing(mode) && dim(x)[3L] == 3L) { # RGB
+        mode <- "darkness"
+    } else {
+        mode <- match.arg(mode)
+    }
+    if (dim(x)[3L] == 2L) { # GA
+        grey <- as.double(x[, , 1L])
+        alpha <- as.double(x[, , 2L])
+        m <- matrix(grDevices::rgb(grey, grey, grey, alpha = alpha),
+                    nrow = nrow(x), ncol = ncol(x))
+        as_bm_bitmap.bm_pixmap(as_bm_pixmap.matrix(flip_matrix_vertically(m)),
+                               mode = mode, threshold)
+    } else { # RGB or RGBA
+        as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(as.raster(x)),
+                               mode = mode, threshold = threshold)
+    }
 }
 
 #' @rdname as_bm_bitmap
@@ -36,8 +54,14 @@ as_bm_bitmap.bm_bitmap <- function(x, ...) {
 
 #' @rdname as_bm_bitmap
 #' @export
-as_bm_bitmap.bm_pixmap <- function(x, ..., threshold = 0.5) {
-    opaque <- alpha_from_rgba(as.character(x)) / 255 > threshold
+as_bm_bitmap.bm_pixmap <- function(x, ..., 
+                                   mode = c("alpha", "darkness", "luminance"),
+                                   threshold = 0.5) {
+    mode <- match.arg(mode)
+    opaque <- switch(mode,
+                     alpha = hex2alpha(as.character(x)),
+                     darkness = hex2darkness(as.character(x)),
+                     luminance = hex2luminance(as.character(x))) >= threshold
     m <- matrix(as.integer(opaque), nrow = nrow(x), ncol = ncol(x))
     class(m) <- c("bm_bitmap", "bm_matrix", class(m))
     m
@@ -186,7 +210,15 @@ as_bm_bitmap.glyph_bitmap <- function(x, ..., threshold = 0.5) {
 #'                   with a transparent background.  By default will use [ragg::agg_png()]
 #'                   if available else the \dQuote{cairo} version of [grDevices::png()]
 #'                   if available else just [grDevices::png()].
-#' @param threshold  If the alpha channel weakly exceeds this threshold
+#' @param mode Method to determine the integer values of the `bm_bitmap()` object:
+#'
+#'             * "alpha" Higher alpha values get a `1L`
+#'             * "darkness" Higher darkness values get a `1L`.
+#'             * "index" Each color gets its own integer
+#'             * "luminance" Higher luminance values get a `1L`.
+#'
+#' @param threshold  If the alpha/darkness/luminance value 
+#'                   weakly exceeds this threshold
 #'                   (on an interval from zero to one)
 #'                   then the pixel is determined to be \dQuote{black}.
 #' @examples
@@ -315,6 +347,46 @@ as_bm_bitmap.nativeRaster <- function(x, ..., threshold = 0.5) {
 as_bm_bitmap.pixeltrix <- function(x, ...) {
     m <- matrix(as.integer(x), nrow = nrow(x), ncol = ncol(x))
     as_bm_bitmap(flip_matrix_vertically(m))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_bitmap.pixmapGrey <- function(x, ..., 
+                                    mode = c("darkness", "luminance"),
+                                    threshold = 0.5) {
+    mode <- match.arg(mode)
+    grey <- switch(mode,
+                   luminance = as.double(x@grey),
+                   darkness = 1 - as.double(x@grey)
+                   )
+    m <- flip_matrix_vertically(matrix(as.matrix(grey >= threshold),
+                                       nrow = x@size[1L], ncol = x@size[2L]))
+    as_bm_bitmap.matrix(m)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_bitmap.pixmapIndexed <- function(x, ...) {
+    as_bm_bitmap.matrix(flip_matrix_vertically(x@index - 1L))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_bitmap.pixmapRGB <- function(x, ...,
+                                   mode = c("darkness", "luminance"),
+                                   threshold = 0.5) {
+    mode <- match.arg(mode)
+    red <- as.double(x@red)
+    green <- as.double(x@green)
+    blue <- as.double(x@blue)
+    # make darker higher number
+    grey <- switch(mode,
+                   luminance = rgba2luminance(red, green, blue),
+                   darkness = rgba2darkness(red, green, blue) 
+                   )
+    m <- flip_matrix_vertically(matrix(as.matrix(grey >= threshold),
+                                       nrow = x@size[1L], ncol = x@size[2L]))
+    as_bm_bitmap.matrix(m)
 }
 
 #' @rdname as_bm_bitmap

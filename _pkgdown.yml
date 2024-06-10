@@ -49,6 +49,8 @@ reference:
           - bm_expand
           - bm_extend
           - bm_flip
+          - bm_gray
+          - bm_invert
           - bm_mask
           - bm_outline
           - bm_overlay

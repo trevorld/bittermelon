@@ -32,6 +32,10 @@ bm_distort <- function(x, width = NULL, height = NULL, ...) {
 }
 
 #' @rdname bm_distort
+#' @param threshold  When the alpha channel
+#'                   weakly exceeds this threshold
+#'                   (on an interval from zero to one)
+#'                   then the pixel is determined to be \dQuote{black}.
 #' @export
 bm_distort.bm_bitmap <- function(x, width = NULL, height = NULL, ...,
                                  filter = "Point", threshold = 0.50) {

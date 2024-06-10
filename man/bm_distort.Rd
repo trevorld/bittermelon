@@ -46,7 +46,8 @@ The default "Point" filter will maintain your sprite's color palette.
 \code{NULL} will give you the \code{magick}'s default filter which may work better
 if you are not trying to maintain a sprite color palette.}
 
-\item{threshold}{If the alpha channel weakly exceeds this threshold
+\item{threshold}{When the alpha channel
+weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
 }

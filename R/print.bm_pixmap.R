@@ -108,7 +108,7 @@ format_bmr_both <- function(x) {
 
 char_bmr_both <- function(x) {
     col <- c(x[2L, 1:2], x[1L, 1:2])
-    transparent <- alpha_from_rgba(col) < 128L
+    transparent <- hex2alpha255(col) < 128L
     col <- substr(col, 1, 7)
     which_transparent <- which(transparent)
     if (length(which_transparent))
@@ -208,22 +208,8 @@ char_bmr_both_4col <- function(col, transparent) {
     }
 }
 
-# From quick-and-dirty StackOverflow suggestion
-mean_col <- function (x) {
-    cols <- as.character(x)
-    m <- grDevices::col2rgb(cols) / 255
-    v <- apply(m, 1, quadratic_mean)
-    grDevices::rgb(v[1L], v[2L], v[3L])
-}
-quadratic_mean <- function (x) sqrt(mean(x^2))
-
-# From 0 to 255
-alpha_from_rgba <- function(col) {
-    as.integer(as.hexmode(substr(col, 8, 9)))
-}
-
 row_bmr_horizontal <- function(col) {
-    alpha <- alpha_from_rgba(col)
+    alpha <- hex2alpha255(col)
     fg <- substr(col, 1, 7)
     opaque <- as.logical(.bincode(alpha, breaks = c(-1, 127, 255)) - 1L)
     transparent <- !opaque

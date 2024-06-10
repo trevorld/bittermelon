@@ -51,8 +51,29 @@ test_that("as_bm_bitmap()", {
 
     skip_if_not_installed("magick")
     tulip <- farming_crops_16x16()$tulip$portrait
-    mi <- magick::image_read(tulip)
+    mi_rgba <- magick::image_read(tulip)
     bm0 <- as_bm_bitmap(tulip)
-    bm1 <- as_bm_bitmap(mi)
+    bm1 <- as_bm_bitmap(mi_rgba)
     expect_equal(bm0, bm1)
+
+    skip_on_cran()
+    f <- tempfile(fileext = ".png")
+    mi_g <- magick::image_read(as.raster(bm0, col = c("white", "black")))
+    magick::image_write(mi_g, f)
+    bm2 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "darkness")
+    expect_equal(bm0, bm2)
+
+    mi_ga <- magick::image_read(as.raster(bm0, col = c("transparent", "black")))
+    magick::image_write(mi_ga, f)
+    bm3 <- as_bm_bitmap(png::readPNG(f))
+    expect_equal(bm0, bm3)
+
+    mi_rgb <- magick::image_read(as.raster(bm0, col = c("white", "green4")))
+    magick::image_write(mi_rgb, f)
+    bm4 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "darkness")
+    bm5 <- as_bm_bitmap(png::readPNG(f))
+    bm6 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "luminance")
+    expect_equal(bm0, bm4)
+    expect_equal(bm_invert(bm4), bm6)
+    unlink(f)
 })

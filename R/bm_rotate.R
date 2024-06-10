@@ -51,9 +51,9 @@ bm_rotate.nativeRaster <- function(x, angle = 0L, clockwise = TRUE) {
 #' @export
 `bm_rotate.magick-image` <- function(x, angle = 0L, clockwise = TRUE) {
     stopifnot(requireNamespace("magick", quietly = TRUE))
-    pm <- `as_bm_pixmap.magick-image`(x)
-    pm <- bm_rotate_bitmap(pm, angle, clockwise)
-    magick::image_read(pm)
+    if (!clockwise)
+        angle <- -angle
+    magick::image_rotate(x, angle)
 }
 
 #' @rdname bm_rotate

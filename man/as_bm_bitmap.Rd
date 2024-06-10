@@ -19,13 +19,23 @@
 \usage{
 as_bm_bitmap(x, ...)
 
-\method{as_bm_bitmap}{array}(x, ..., threshold = 0.5)
+\method{as_bm_bitmap}{array}(
+  x,
+  ...,
+  mode = c("alpha", "darkness", "luminance"),
+  threshold = 0.5
+)
 
 \method{as_bm_bitmap}{default}(x, ...)
 
 \method{as_bm_bitmap}{bm_bitmap}(x, ...)
 
-\method{as_bm_bitmap}{bm_pixmap}(x, ..., threshold = 0.5)
+\method{as_bm_bitmap}{bm_pixmap}(
+  x,
+  ...,
+  mode = c("alpha", "darkness", "luminance"),
+  threshold = 0.5
+)
 
 \method{as_bm_bitmap}{character}(
   x,
@@ -73,7 +83,16 @@ as_bm_bitmap(x, ...)
 
 \item{...}{Further arguments passed to or from other methods.}
 
-\item{threshold}{If the alpha channel weakly exceeds this threshold
+\item{mode}{Method to determine the integer values of the \code{bm_bitmap()} object:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{        * "alpha" Higher alpha values get a `1L`
+        * "darkness" Higher darkness values get a `1L`.
+        * "index" Each color gets its own integer
+        * "luminance" Higher luminance values get a `1L`.
+}\if{html}{\out{</div>}}}
+
+\item{threshold}{If the alpha/darkness/luminance value
+weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
 

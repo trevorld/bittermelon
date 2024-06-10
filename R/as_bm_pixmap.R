@@ -109,7 +109,10 @@ as_bm_pixmap.matrix <- function(x, ...) {
         class(m) <- c("bm_pixmap", "bm_matrix", class(m))
         m
     } else {
-        as_bm_pixmap.bm_bitmap(as_bm_bitmap.matrix(x))
+        grey <- as.double(x)
+        m <- matrix(grDevices::rgb(grey, grey, grey),
+                    nrow = nrow(x), ncol = ncol(x))
+        as_bm_pixmap.matrix(flip_matrix_vertically(m))
     }
 }
 
@@ -122,6 +125,33 @@ as_bm_pixmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
     as_bm_pixmap.bm_bitmap(as_bm_bitmap.maze(x, walls = walls,
                                              start = start, end = end, solve = solve),
                            col = col)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.pixmapGrey <- function(x, ...) {
+    grey <- as.double(x@grey)
+    colors <- grDevices::rgb(grey, grey, grey)
+    m <- flip_matrix_vertically(matrix(colors, nrow = x@size[1L], ncol = x@size[2L]))
+    as_bm_pixmap.matrix(m)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.pixmapIndexed <- function(x, ...) {
+    bm <- as_bm_bitmap.pixmapIndexed(x)
+    as_bm_pixmap(bm, col = x@col)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.pixmapRGB <- function(x, ...) {
+    red <- as.double(x@red)
+    green <- as.double(x@green)
+    blue <- as.double(x@blue)
+    colors <- grDevices::rgb(red, green, blue)
+    m <- flip_matrix_vertically(matrix(colors, nrow = x@size[1L], ncol = x@size[2L]))
+    as_bm_pixmap.matrix(m)
 }
 
 # nativeRaster is same dimension as raster

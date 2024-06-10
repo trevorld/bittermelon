@@ -1,12 +1,3 @@
-modify_bm_bitmaps <- function(x, fn, ...) {
-    stopifnot(is_bm_list(x) || is_bm_matrix(x))
-    if (is_bm_list(x)) {
-        bm_lapply(x, fn, ...)
-    } else {
-        fn(x, ...)
-    }
-}
-
 #' Colors to standardized hex strings
 #'
 #' `col2hex()` standardizes R color strings
@@ -71,3 +62,67 @@ int2col <- function(x) {
 }
 
 `%||%` <- function(x, y) if (is.null(x)) y else x # nolint
+
+# Luminosity
+# Greyness
+# https://en.wikipedia.org/wiki/Relative_luminance
+# https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
+# https://www.baeldung.com/cs/convert-rgb-to-grayscale
+# https://drafts.fxtf.org/css-masking/#MaskValues
+
+rgb2grey <- function(red, green, blue) {
+    0.30 * red + 0.59 * green + 0.11 * blue
+}
+
+hex2grey <- function(col) {
+    rgb2grey(hex2red(col), hex2green(col), hex2blue(col))
+}
+
+rgba2luminance <- function(red, green, blue, alpha = 1) {
+    alpha * rgb2grey(red, green, blue)
+}
+
+hex2luminance <- function(col, alpha = NULL) {
+    alpha <- alpha %||% hex2alpha(col)
+    alpha * hex2grey(col)
+}
+
+rgba2darkness <- function(red, green, blue, alpha = 1) {
+    alpha * (1 - rgb2grey(red, green, blue))
+}
+
+hex2darkness <- function(col, alpha = NULL) {
+    alpha <- alpha %||% hex2alpha(col)
+    alpha * (1 - hex2grey(col))
+}
+
+# From quick-and-dirty StackOverflow suggestion
+mean_col <- function (x) {
+    cols <- as.character(x)
+    m <- grDevices::col2rgb(cols) / 255
+    v <- apply(m, 1, quadratic_mean)
+    grDevices::rgb(v[1L], v[2L], v[3L])
+}
+quadratic_mean <- function (x) sqrt(mean(x^2))
+
+# From 0 to 1
+hex2red <- function(col) {
+    as.double(as.hexmode(substr(col, 2, 3))) / 255
+}
+# From 0 to 1
+hex2green <- function(col) {
+    as.double(as.hexmode(substr(col, 4, 5))) / 255
+}
+# From 0 to 1
+hex2blue <- function(col) {
+    as.double(as.hexmode(substr(col, 6, 7))) / 255
+}
+# From 0 to 1
+hex2alpha <- function(col) {
+    as.double(as.hexmode(substr(col, 8, 9))) / 255
+}
+
+# From 0 to 255
+hex2alpha255 <- function(col) {
+    as.integer(as.hexmode(substr(col, 8, 9)))
+}

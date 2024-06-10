@@ -1,0 +1,23 @@
+test_that("`bm_gray()`", {
+    skip_if_not_installed("farver")
+    skip_if_not_installed("magick")
+    skip_if_not_installed("withr")
+    skip_if_not(cli::is_utf8_output())
+    withr::local_options(bm_options(default = TRUE))
+
+    corn <- farming_crops_16x16()$corn$portrait
+    corn_l <- bm_list(as_bm_bitmap(corn))
+    corn_r <- as.raster(corn)
+    corn_mi <- magick::image_read(corn_r)
+    corn_nr <- as.raster(corn, native = TRUE)
+
+    verify_output("txt/bm_gray.txt", {
+        print(corn)
+        print(bm_gray(corn))
+        print(bm_grey(corn_l))
+        print(as_bm_pixmap(bm_gray(corn_r)))
+        print(as_bm_pixmap(bm_gray(corn_mi)))
+        print(as_bm_pixmap(bm_gray(corn_nr)))
+    }, crayon = TRUE, unicode = TRUE)
+
+})
