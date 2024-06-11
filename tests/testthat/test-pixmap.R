@@ -23,7 +23,7 @@ test_that("{pixmap} import works", {
     bm_rgb <- as_bm_bitmap(xrgb)
     bm_gm <- as_bm_bitmap(xgm)
     bm_bm <- as_bm_bitmap(xbm)
-    bm_bm2 <- as_bm_bitmap(xbm, mode = "luminance")
+    bm_bm2 <- as_bm_bitmap(xbm, mode = "brightness")
 
     #### Better tests?
     expect_true(is_bm_bitmap(bm_i))

@@ -22,11 +22,11 @@
 \alias{as_bm_pixmap.raster}
 \title{Cast to a pixmap matrix object}
 \usage{
-\method{as_bm_bitmap}{pixmapGrey}(x, ..., mode = c("darkness", "luminance"), threshold = 0.5)
+\method{as_bm_bitmap}{pixmapGrey}(x, ..., mode = c("darkness", "brightness"), threshold = 0.5)
 
 \method{as_bm_bitmap}{pixmapIndexed}(x, ...)
 
-\method{as_bm_bitmap}{pixmapRGB}(x, ..., mode = c("darkness", "luminance"), threshold = 0.5)
+\method{as_bm_bitmap}{pixmapRGB}(x, ..., mode = c("darkness", "brightness"), threshold = 0.5)
 
 as_bm_pixmap(x, ...)
 
@@ -74,14 +74,13 @@ as_bm_pixmap(x, ...)
 \item{...}{Potentially passed to other methods e.g. \code{as_bm_pixmap.default()} passes \code{...} to \code{\link[=as.raster]{as.raster()}}.}
 
 \item{mode}{Method to determine the integer values of the \code{bm_bitmap()} object:
+\describe{
+\item{alpha}{Higher alpha values get a \code{1L}.}
+\item{darkness}{Higher darkness values get a \code{1L}.  \code{darkness = (1 - luma) * alpha}.}
+\item{brightness}{Higher brightness values get a \code{1L}.  \code{brightness = luma * alpha}.}
+}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{        * "alpha" Higher alpha values get a `1L`
-        * "darkness" Higher darkness values get a `1L`.
-        * "index" Each color gets its own integer
-        * "luminance" Higher luminance values get a `1L`.
-}\if{html}{\out{</div>}}}
-
-\item{threshold}{If the alpha/darkness/luminance value
+\item{threshold}{If the alpha/darkness/brightness value
 weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}

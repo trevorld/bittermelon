@@ -22,7 +22,7 @@ as_bm_bitmap(x, ...)
 \method{as_bm_bitmap}{array}(
   x,
   ...,
-  mode = c("alpha", "darkness", "luminance"),
+  mode = c("alpha", "darkness", "brightness"),
   threshold = 0.5
 )
 
@@ -33,7 +33,7 @@ as_bm_bitmap(x, ...)
 \method{as_bm_bitmap}{bm_pixmap}(
   x,
   ...,
-  mode = c("alpha", "darkness", "luminance"),
+  mode = c("alpha", "darkness", "brightness"),
   threshold = 0.5
 )
 
@@ -59,7 +59,12 @@ as_bm_bitmap(x, ...)
   threshold = 0.25
 )
 
-\method{as_bm_bitmap}{`magick-image`}(x, ..., threshold = 0.5)
+\method{as_bm_bitmap}{`magick-image`}(
+  x,
+  ...,
+  mode = c("alpha", "darkness", "brightness"),
+  threshold = 0.5
+)
 
 \method{as_bm_bitmap}{matrix}(x, ...)
 
@@ -72,11 +77,21 @@ as_bm_bitmap(x, ...)
   solve = !is.null(start) && !is.null(end)
 )
 
-\method{as_bm_bitmap}{nativeRaster}(x, ..., threshold = 0.5)
+\method{as_bm_bitmap}{nativeRaster}(
+  x,
+  ...,
+  mode = c("alpha", "darkness", "brightness"),
+  threshold = 0.5
+)
 
 \method{as_bm_bitmap}{pixeltrix}(x, ...)
 
-\method{as_bm_bitmap}{raster}(x, ..., threshold = 0.5)
+\method{as_bm_bitmap}{raster}(
+  x,
+  ...,
+  mode = c("alpha", "darkness", "brightness"),
+  threshold = 0.5
+)
 }
 \arguments{
 \item{x}{An object that can reasonably be coerced to a \code{bm_bitmap()} object.}
@@ -84,14 +99,13 @@ as_bm_bitmap(x, ...)
 \item{...}{Further arguments passed to or from other methods.}
 
 \item{mode}{Method to determine the integer values of the \code{bm_bitmap()} object:
+\describe{
+\item{alpha}{Higher alpha values get a \code{1L}.}
+\item{darkness}{Higher darkness values get a \code{1L}.  \code{darkness = (1 - luma) * alpha}.}
+\item{brightness}{Higher brightness values get a \code{1L}.  \code{brightness = luma * alpha}.}
+}}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{        * "alpha" Higher alpha values get a `1L`
-        * "darkness" Higher darkness values get a `1L`.
-        * "index" Each color gets its own integer
-        * "luminance" Higher luminance values get a `1L`.
-}\if{html}{\out{</div>}}}
-
-\item{threshold}{If the alpha/darkness/luminance value
+\item{threshold}{If the alpha/darkness/brightness value
 weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}

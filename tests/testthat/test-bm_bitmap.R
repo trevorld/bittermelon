@@ -72,7 +72,7 @@ test_that("as_bm_bitmap()", {
     magick::image_write(mi_rgb, f)
     bm4 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "darkness")
     bm5 <- as_bm_bitmap(png::readPNG(f))
-    bm6 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "luminance")
+    bm6 <- as_bm_bitmap(as_bm_pixmap(png::readPNG(f)), mode = "brightness")
     expect_equal(bm0, bm4)
     expect_equal(bm_invert(bm4), bm6)
     unlink(f)

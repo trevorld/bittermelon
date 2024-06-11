@@ -63,26 +63,22 @@ int2col <- function(x) {
 
 `%||%` <- function(x, y) if (is.null(x)) y else x # nolint
 
-# Luminosity
-# Greyness
-# https://en.wikipedia.org/wiki/Relative_luminance
-# https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
-# https://www.baeldung.com/cs/convert-rgb-to-grayscale
-# https://drafts.fxtf.org/css-masking/#MaskValues
-
+# Technically we convert to Luma value using BT. 601 as recommended by
+# https://poynton.ca/notes/colour_and_gamma/ColorFAQ.html
 rgb2grey <- function(red, green, blue) {
-    0.30 * red + 0.59 * green + 0.11 * blue
+    # 0.2126 * red + 0.7152 * green + 0.0722 * blue # BT. 709
+    0.299 * red + 0.587 * green + 0.114 * blue # BT. 601
 }
 
 hex2grey <- function(col) {
     rgb2grey(hex2red(col), hex2green(col), hex2blue(col))
 }
 
-rgba2luminance <- function(red, green, blue, alpha = 1) {
+rgba2brightness <- function(red, green, blue, alpha = 1) {
     alpha * rgb2grey(red, green, blue)
 }
 
-hex2luminance <- function(col, alpha = NULL) {
+hex2brightness <- function(col, alpha = NULL) {
     alpha <- alpha %||% hex2alpha(col)
     alpha * hex2grey(col)
 }
