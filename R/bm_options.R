@@ -20,6 +20,7 @@ bm_options <- function(..., default = FALSE) {
     bmo <- list(bittermelon.bg = FALSE,
                 bittermelon.col = col_bitmap,
                 bittermelon.compress = "none",
+                bittermelon.downscale = FALSE,
                 bittermelon.fg = FALSE,
                 bittermelon.monobit_path = "monobit-convert",
                 bittermelon.px = px_auto())

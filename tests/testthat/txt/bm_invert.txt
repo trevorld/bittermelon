@@ -56,7 +56,7 @@
 attr(,"class")
 [1] "bm_list" "list"   
 
-> print(as_bm_pixmap(bm_invert(corn_r)))
+> bm_print(bm_invert(corn_r))
                 
                 
      [37m█[39m[37m█[39m  [37m█[39m[37m█[39m     
@@ -74,7 +74,7 @@ attr(,"class")
                 
                 
 
-> print(as_bm_pixmap(bm_invert(corn_mi)))
+> bm_print(bm_invert(corn_mi))
                 
                 
      [37m█[39m[37m█[39m  [37m█[39m[37m█[39m     
@@ -92,7 +92,7 @@ attr(,"class")
                 
                 
 
-> print(as_bm_pixmap(bm_invert(corn_nr)))
+> bm_print(bm_invert(corn_nr))
                 
                 
      [37m█[39m[37m█[39m  [37m█[39m[37m█[39m     

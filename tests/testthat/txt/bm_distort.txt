@@ -1,4 +1,4 @@
-> print(corn_d, compress = "v")
+> print(corn_d, compress = "v", downscale = TRUE)
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -30,7 +30,7 @@
 attr(,"class")
 [1] "bm_list" "list"   
 
-> print(as_bm_pixmap(corn_rd), compress = "v")
+> bm_print(corn_rd, compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -40,7 +40,7 @@ attr(,"class")
               ▀▀████████▀▀      
                                 
 
-> print(as_bm_pixmap(corn_nrd), compress = "v")
+> bm_print(corn_nrd, compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        
@@ -50,7 +50,7 @@ attr(,"class")
               ▀▀████████▀▀      
                                 
 
-> print(as_bm_pixmap(corn_mid), compress = "v")
+> bm_print(corn_mid, compress = "v")
                                 
         ▄▄████▄▄▄▄████          
       ████████████████▄▄        

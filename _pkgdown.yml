@@ -68,6 +68,7 @@ reference:
           - bm_call
           - bm_edit
           - bm_padding_lengths
+          - bm_print
           - bm_widths
           - farming_crops_16x16
     - title: "Unicode utilities"

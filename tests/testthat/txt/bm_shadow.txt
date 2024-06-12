@@ -41,7 +41,7 @@ attr(,"class")
                  
 
 > rs <- bm_shadow(corn_r, "magenta")
-> print(as_bm_pixmap(rs))
+> bm_print(rs)
                  
                  
      [33m█[39m[33m█[39m  [33m█[39m[33m█[39m      
@@ -61,7 +61,7 @@ attr(,"class")
                  
 
 > nrs <- bm_shadow(corn_nr, "green")
-> print(as_bm_pixmap(nrs))
+> bm_print(nrs)
                  
                  
      [33m█[39m[33m█[39m  [33m█[39m[33m█[39m      
@@ -81,7 +81,7 @@ attr(,"class")
                  
 
 > mis <- bm_shadow(corn_mi, "blue")
-> print(as_bm_pixmap(mis))
+> bm_print(mis)
                  
                  
      [33m█[39m[33m█[39m  [33m█[39m[33m█[39m      
@@ -141,7 +141,7 @@ attr(,"class")
                  
 
 > rb <- bm_bold(corn_r, "magenta")
-> print(as_bm_pixmap(rb))
+> bm_print(rb)
                  
                  
      [33m█[39m[33m█[39m[35m█[39m [33m█[39m[33m█[39m[35m█[39m     
@@ -160,7 +160,7 @@ attr(,"class")
                  
 
 > nrb <- bm_bold(corn_nr, "green")
-> print(as_bm_pixmap(nrb))
+> bm_print(nrb)
                  
                  
      [33m█[39m[33m█[39m[32m█[39m [33m█[39m[33m█[39m[32m█[39m     
@@ -179,7 +179,7 @@ attr(,"class")
                  
 
 > mib <- bm_bold(corn_mi, "blue")
-> print(as_bm_pixmap(mib))
+> bm_print(mib)
                  
                  
      [33m█[39m[33m█[39m[34m█[39m [33m█[39m[33m█[39m[34m█[39m     
@@ -264,7 +264,7 @@ attr(,"class")
                   
 
 > rg <- bm_glow(corn_r, "magenta")
-> print(as_bm_pixmap(rg))
+> bm_print(rg)
                   
                   
       [35m█[39m[35m█[39m  [35m█[39m[35m█[39m      
@@ -285,7 +285,7 @@ attr(,"class")
                   
 
 > nrg <- bm_glow(corn_nr, "green")
-> print(as_bm_pixmap(nrg))
+> bm_print(nrg)
                   
                   
       [32m█[39m[32m█[39m  [32m█[39m[32m█[39m      
@@ -306,7 +306,7 @@ attr(,"class")
                   
 
 > mig <- bm_glow(corn_mi, "blue", corner = TRUE)
-> print(as_bm_pixmap(mig))
+> bm_print(mig)
                   
                   
      [34m█[39m[34m█[39m[34m█[39m[34m█[39m[34m█[39m[34m█[39m[34m█[39m[34m█[39m     

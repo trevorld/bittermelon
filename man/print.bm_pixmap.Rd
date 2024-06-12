@@ -9,14 +9,16 @@
   x,
   ...,
   bg = getOption("bittermelon.bg", FALSE),
-  compress = getOption("bittermelon.compress", "none")
+  compress = getOption("bittermelon.compress", "none"),
+  downscale = getOption("bittermelon.downscale", FALSE)
 )
 
 \method{format}{bm_pixmap}(
   x,
   ...,
   bg = getOption("bittermelon.bg", FALSE),
-  compress = getOption("bittermelon.compress", "none")
+  compress = getOption("bittermelon.compress", "none"),
+  downscale = getOption("bittermelon.downscale", FALSE)
 )
 }
 \arguments{
@@ -36,6 +38,13 @@ cli ANSI style function of class \code{cli_ansi_style}.
 * "horizontal" or "h" use one character per two horizontal pixels.
 * "both" or "b" use one character per four pixels
 (this will be a lossy conversion whenever there are more than two colors per four pixels).}
+
+\item{downscale}{If \code{TRUE} and the printed pixmap will be wider than \code{getOption("width")}
+then shrink the image to fit \code{getOption("width")} using \code{\link[=bm_downscale]{bm_downscale()}}.}
+}
+\value{
+A character vector of the string representation (\code{print.bm_pixmap()} does this invisibly).
+As a side effect \code{print.bm_pixmap()} prints out the string representation to the terminal.
 }
 \description{
 \code{print.bm_pixmap()} prints bittermelon pixmap objects to the terminal

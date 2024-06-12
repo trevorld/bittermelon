@@ -1,4 +1,4 @@
-> print(as_bm_pixmap.raster(corn), compress = "v")
+> bm_print(corn, compress = "v")
                 
     ▄██▄▄██     
    ████████▄    
@@ -12,14 +12,14 @@
 > print(inherits(corn_t, "raster"))
 [1] TRUE
 
-> print(as_bm_pixmap.raster(corn_t), compress = "v")
+> bm_print(corn_t, compress = "v")
  ▄████████████  
  ▀▀▀ ▀████████  
        ▀████▀   
                 
 
 > corn_r <- bm_trim(corn, right = 8L)
-> print(as_bm_pixmap.raster(corn_r), compress = "v")
+> bm_print(corn_r, compress = "v")
         
     ▄██▄
    █████
@@ -30,14 +30,14 @@
         
 
 > corn_b <- bm_trim(corn, bottom = 8L)
-> print(as_bm_pixmap.raster(corn_b), compress = "v")
+> bm_print(corn_b, compress = "v")
                 
     ▄██▄▄██     
    ████████▄    
    ▄█████████▄  
 
 > corn_l <- bm_trim(corn, left = 8L)
-> print(as_bm_pixmap.raster(corn_l), compress = "v")
+> bm_print(corn_l, compress = "v")
         
 ▄██     
 ███▄    

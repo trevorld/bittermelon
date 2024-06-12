@@ -54,7 +54,7 @@ New features
   * `format.bm_pixmap()` and `print.bm_pixmap()`
   * `as_bm_pixmap()` is a S3 method that coerces objects to `bm_pixmap()` objects
 
-    - `as_bm_pixmap.array()`
+    - `as_bm_pixmap.array()` (e.g. from `{png}`, `{jpeg}`, and `{webp}`)
     - `as_bm_pixmap.bm_bitmap()`
     - `as_bm_pixmap.default()`
     - `as_bm_pixmap.glyph_bitmap()` (from `{fontr}`)
@@ -73,14 +73,48 @@ New features
     and `FALSE` for all other objects.
   * Some of the "Ops" group generic operators such as `==` and `!=`.
 
-* `farming_crops_16x16()` returns a named list of lists
-  of twenty farming crops in five stages of growth plus a portrait as `bm_pixmap()` objects.
-* `bm_options()` returns a list of (current or default) `bittermelon` options values.
-* `px_auto()` determines which character vector to use for "pixels" based on
-  whether `cli::is_utf8_output()` is `TRUE` or not.
-* New `as_bm_bitmap` methods:
+* The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
 
-  + `as_bm_bitmap.array()`
+  * `bm_bold()`
+  * `bm_clamp()`
+  * `bm_compress()`
+  * `bm_distort()`
+  * `bm_expand()`
+  * `bm_extend()`
+  * `bm_flip()`
+  * `bm_glow()`
+  * `bm_heights()`
+  * `bm_mask()`
+  * `bm_outline()`
+  * `bm_overlay()`
+  * `bm_pad()`
+  * `bm_padding_lengths()`
+  * `bm_resize()`
+  * `bm_rotate()`
+  * `bm_shadow()`
+  * `bm_shift()`
+  * `bm_trim()`
+  * `bm_widths()`
+
+* New bitmap/pixmap manipulation function:
+
+  * `bm_downscale()`
+  * `bm_gray()` with alias `bm_grey()`
+  * `bm_invert()`
+  * `bm_replace()`
+
+* Other new functions:
+
+  * `bm_print()` can be used to pretty print bitmap objects to the terminal.
+  * `farming_crops_16x16()` returns a named list of lists
+    of twenty farming crops in five stages of growth plus a portrait as `bm_pixmap()` objects.
+  * `bm_options()` returns a list of (current or default) `bittermelon` options values.
+  * `px_auto()` determines which character vector to use for "pixels" based on
+    whether `cli::is_utf8_output()` is `TRUE` or not.
+
+* New `as_bm_bitmap()` class methods:
+
+  + `as_bm_bitmap.array()` (e.g. from `{png}`, `{jpeg}`, and `{webp}`)
   + `as_bm_bitmap.bm_pixmap()`
   + `as_bm_pixmap.glyph_bitmap()` (from `{fontr}`)
   + `as_bm_bitmap.magick-image()` (from `{magick}`)
@@ -92,50 +126,31 @@ New features
   + `as_bm_bitmap.pixmapRGB()` (from `{pixmap}`)
   + `as_bm_bitmap.raster()`
 
-* `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
-* `as.matrix.bm_bitmap()` now has a `first_row_is_top` argument to flip the rows
-  so that the first row represents the top of the bitmap instead of the bottom.
-* New `as.array.bm_bitmap()` function for writing bitmaps with `png::writePNG()` and friends.
+* New `"bm_bitmap"` class S3 generics features:
 
-The following functions are now S3 generics that have methods that support (at least) `bm_bitmap()` / `bm_pixmap()`, `bm_font()` / `bm_list()`, "magick-image", and "raster" / "nativeRaster" objects:
+  * `format.bm_bitmap()` and `print.bm_bitmap()` gain a `downscale` argument to downscale the image
+    to `getOption("width")` (if necessary to fit in terminal).
+  * `as.raster.bm_bitmap()` now has a `native` argument to cast to "nativeRaster" objects.
+  * `as.matrix.bm_bitmap()` now has a `first_row_is_top` argument to flip the rows
+    so that the first row represents the top of the bitmap instead of the bottom.
+  * New `as.array.bm_bitmap()` function for writing bitmaps with `png::writePNG()` and friends.
 
-* `bm_bold()`
-* `bm_clamp()`
-* `bm_compress()`
-* `bm_distort()`
-* `bm_expand()`
-* `bm_extend()`
-* `bm_flip()`
-* `bm_glow()`
-* `bm_heights()`
-* `bm_mask()`
-* `bm_outline()`
-* `bm_overlay()`
-* `bm_pad()`
-* `bm_padding_lengths()`
-* `bm_resize()`
-* `bm_rotate()`
-* `bm_shadow()`
-* `bm_shift()`
-* `bm_trim()`
-* `bm_widths()`
+* New color utilities:
 
-New bitmap/pixmap manipulation function:
+  * `col2hex()` standardize color strings into a unique hex color string.
+  * `col2int()` and `int2col()` convert back and forth to (native) color integers.
 
-* `bm_gray()` with alias `bm_grey()`
-* `bm_invert()`
-* `bm_replace()`
+* Following `bm_list()` upgrades (#69):
 
-New color utilities:
+  * Can now contain `bm_bitmap()`, `bm_pixmap()`, "magick-image", "nativeRaster", or "raster" bitmaps.
+  * `as_bm_list.list()` now supports `FUN` for a function which can be applied to each element of the list
+    such as `identity()`, `as_bm_bitmap()`, and `as_bm_pixmap()`.
 
-* `col2hex()` standardize color strings into a unique hex color string.
-* `col2int()` and `int2col()` convert back and forth to (native) color integers.
+* New package options:
 
-Following `bm_list()` upgrades (#69):
-
-* Can now contain `bm_bitmap()`, `bm_pixmap()`, "magick-image", "nativeRaster", or "raster" bitmaps.
-* `as_bm_list.list()` now supports `FUN` for a function which can be applied to each element of the list
-  such as `identity()`, `as_bm_bitmap()`, and `as_bm_pixmap()`.
+  * The `bittermelon.downscale` option can be used to change the default for
+    the `downscale` argument in `format.bm_bitmap()`, `print.bm_bitmap()`,
+    `format.bm_pixmap()`, and `print.bm_pixmap()`.
 
 Bug fixes and minor improvements
 --------------------------------

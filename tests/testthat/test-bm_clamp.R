@@ -49,8 +49,8 @@ test_that("bm_clamp()", {
     verify_output("txt/bm_clamp.txt", {
         print(corn_c, compress = "v")
         print(corn_lc)
-        print(as_bm_pixmap(corn_rc), compress = "v")
-        print(as_bm_pixmap(corn_nrc), compress = "v")
-        print(as_bm_pixmap(corn_mic), compress = "v")
+        bm_print(corn_rc, compress = "v")
+        bm_print(corn_nrc, compress = "v")
+        bm_print(corn_mic, compress = "v")
     }, unicode = TRUE, crayon = TRUE)
 })

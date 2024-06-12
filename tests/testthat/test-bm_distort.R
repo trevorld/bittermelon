@@ -11,6 +11,9 @@ test_that("`bm_distort()` works", {
     corn_nr <- as.raster(corn, native = TRUE)
     corn_mi <- magick::image_read(corn)
 
+    corn_ds <- bm_downscale(corn, width = 32L)
+    expect_equal(corn, corn_ds)
+
     corn_d <- bm_distort(corn, height = 16L, width = 32L)
     corn_ld <- bm_distort(corn_l, height = 16L, width = 32L)
     corn_rd <- bm_distort(corn_r, height = 16L, width = 32L)
@@ -29,10 +32,12 @@ test_that("`bm_distort()` works", {
     expect_equal(bm_widths(corn_mid), 32L)
 
     corn_d2 <- bm_distort(corn, width = 12L)
+    corn_ds2 <- bm_downscale(corn, width = 12L)
     corn_ld2 <- bm_distort(corn_l, width = 12L)
     corn_rd2 <- bm_distort(corn_r, width = 12L)
     corn_nrd2 <- bm_distort(corn_nr, width = 12L)
     corn_mid2 <- bm_distort(corn_mi, width = 12L)
+    expect_equal(corn_d2, corn_ds2)
     expect_equal(bm_heights(corn_d2), 12L)
     expect_equal(bm_heights(corn_ld2), 12L)
     expect_equal(bm_heights(corn_rd2), 12L)
@@ -61,11 +66,11 @@ test_that("`bm_distort()` works", {
     expect_equal(bm_widths(corn_mid3), 8L)
 
     verify_output("txt/bm_distort.txt", {
-        print(corn_d, compress = "v")
+        print(corn_d, compress = "v", downscale = TRUE)
         print(corn_ld)
-        print(as_bm_pixmap(corn_rd), compress = "v")
-        print(as_bm_pixmap(corn_nrd), compress = "v")
-        print(as_bm_pixmap(corn_mid), compress = "v")
+        bm_print(corn_rd, compress = "v")
+        bm_print(corn_nrd, compress = "v")
+        bm_print(corn_mid, compress = "v")
     }, unicode = TRUE, crayon = FALSE)
 
     font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

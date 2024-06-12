@@ -14,17 +14,25 @@ An object of class \code{character} of length 20.
 An object of class \code{character} of length 20.
 }
 \usage{
-\method{print}{bm_bitmap}(x, ...,
-                     px = getOption("bittermelon.px", px_auto()),
-                     fg = getOption("bittermelon.fg", FALSE),
-                     bg = getOption("bittermelon.bg", FALSE),
-                     compress = getOption("bittermelon.compress", "none"))
+\method{print}{bm_bitmap}(
+  x,
+  ...,
+  px = getOption("bittermelon.px", px_auto()),
+  fg = getOption("bittermelon.fg", FALSE),
+  bg = getOption("bittermelon.bg", FALSE),
+  compress = getOption("bittermelon.compress", "none"),
+  downscale = getOption("bittermelon.downscale", FALSE)
+)
 
-\method{format}{bm_bitmap}(x, ...,
-                      px = getOption("bittermelon.px", px_auto()),
-                      fg = getOption("bittermelon.fg", FALSE),
-                      bg = getOption("bittermelon.bg", FALSE),
-                      compress = getOption("bittermelon.compress", "none"))
+\method{format}{bm_bitmap}(
+  x,
+  ...,
+  px = getOption("bittermelon.px", px_auto()),
+  fg = getOption("bittermelon.fg", FALSE),
+  bg = getOption("bittermelon.bg", FALSE),
+  compress = getOption("bittermelon.compress", "none"),
+  downscale = getOption("bittermelon.downscale", FALSE)
+)
 
 px_unicode
 
@@ -55,6 +63,9 @@ Otherwise compress first with \code{\link[=bm_compress]{bm_compress()}} passing
 the value of \code{compress} as its \code{direction} argument
 (i.e. either "vertical" or "v", "horizontal" or "h",
 OR "both" or "b").}
+
+\item{downscale}{If \code{TRUE} and the printed bitmap will be wider than \code{getOption("width")}
+then shrink the image to fit \code{getOption("width")} using \code{\link[=bm_downscale]{bm_downscale()}}.}
 
 \item{unicode}{Character vector to use if \code{\link[cli:is_utf8_output]{cli::is_utf8_output()}} is \code{TRUE}.}
 

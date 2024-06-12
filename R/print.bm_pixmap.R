@@ -15,6 +15,10 @@
 #'          * "horizontal" or "h" use one character per two horizontal pixels.
 #'          * "both" or "b" use one character per four pixels
 #'            (this will be a lossy conversion whenever there are more than two colors per four pixels).
+#' @param downscale If `TRUE` and the printed pixmap will be wider than `getOption("width")`
+#'                  then shrink the image to fit `getOption("width")` using [bm_downscale()].
+#' @return A character vector of the string representation (`print.bm_pixmap()` does this invisibly).
+#'         As a side effect `print.bm_pixmap()` prints out the string representation to the terminal.
 #' @examples
 #' crops <- farming_crops_16x16()
 #' corn <- crops$corn$portrait
@@ -36,10 +40,11 @@
 #' @export
 print.bm_pixmap <- function(x, ...,
                             bg = getOption("bittermelon.bg", FALSE),
-                            compress = getOption("bittermelon.compress", "none")) {
+                            compress = getOption("bittermelon.compress", "none"),
+                            downscale = getOption("bittermelon.downscale", FALSE)) {
     # Avoid {cli} converting to ANSI style function if color string in `cli:::ansi_builtin_styles()`
     if (is.character(bg)) bg <- col2hex(bg)
-    s <- format(x, ..., bg = bg, compress = compress)
+    s <- format(x, ..., bg = bg, compress = compress, downscale = downscale)
     cat(s, sep = "\n")
     invisible(s)
 }
@@ -48,16 +53,22 @@ print.bm_pixmap <- function(x, ...,
 #' @export
 format.bm_pixmap <- function(x, ...,
                              bg = getOption("bittermelon.bg", FALSE),
-                             compress = getOption("bittermelon.compress", "none")) {
+                             compress = getOption("bittermelon.compress", "none"),
+                             downscale = getOption("bittermelon.downscale", FALSE)) {
     if (nrow(x) == 0L || ncol(x) == 0L)
         return(character(0L))
-
-    if (!cli::is_utf8_output() || cli::num_ansi_colors() == 1L)
-        return(format.bm_bitmap(as_bm_bitmap.bm_pixmap(x), bg = bg, compress = compress))
 
     direction <- match.arg(tolower(compress),
                            c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
+
+    if (downscale) {
+        x <- downscale_for_terminal(x, direction, filter = "Point")
+    }
+
+    if (!cli::is_utf8_output() || cli::num_ansi_colors() == 1L)
+        return(format.bm_bitmap(as_bm_bitmap.bm_pixmap(x), bg = bg, compress = compress))
+
     x <- as.matrix(x)
     s <- switch(direction,
            n = format_bmr_none(x),
@@ -69,8 +80,6 @@ format.bm_pixmap <- function(x, ...,
         s <- vapply(s, function(x) cli::make_ansi_style(bg, bg = TRUE)(x), character(1L))
     rev(s)
 }
-
-# img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
 
 format_bmr_none <- function(x) {
     as.character(apply(x, 1L, row_bmr_none))

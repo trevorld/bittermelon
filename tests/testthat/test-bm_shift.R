@@ -17,9 +17,9 @@ test_that("`bm_shift()`", {
     verify_output("txt/bm_shift.txt", {
         print(bm_shift(bm, right = 1L), bg = "cyan")
         print(bm_shift(bml, right = 1L))
-        print(as_bm_pixmap(bm_shift(corn, left = 1L)), bg = "cyan")
-        print(as_bm_pixmap(bm_shift(corn_r, top = 2L)), bg = "cyan")
-        print(as_bm_pixmap(bm_shift(corn_nr, right = 2L)), bg = "cyan")
-        print(as_bm_pixmap(bm_shift(corn_mi, bottom = 2L)), bg = "cyan")
+        bm_print(bm_shift(corn, left = 1L), bg = "cyan")
+        bm_print(bm_shift(corn_r, top = 2L), bg = "cyan")
+        bm_print(bm_shift(corn_nr, right = 2L), bg = "cyan")
+        bm_print(bm_shift(corn_mi, bottom = 2L), bg = "cyan")
     }, unicode = TRUE, crayon = TRUE)
 })

@@ -15,9 +15,9 @@ test_that("`bm_gray()`", {
         print(corn)
         print(bm_gray(corn))
         print(bm_grey(corn_l))
-        print(as_bm_pixmap(bm_gray(corn_r)))
-        print(as_bm_pixmap(bm_gray(corn_mi)))
-        print(as_bm_pixmap(bm_gray(corn_nr)))
+        bm_print(bm_gray(corn_r))
+        bm_print(bm_gray(corn_mi))
+        bm_print(bm_gray(corn_nr))
     }, crayon = TRUE, unicode = TRUE)
 
 })

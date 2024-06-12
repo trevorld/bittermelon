@@ -16,14 +16,14 @@ test_that("`bm_outline()` works as expected", {
     corn_mi <- magick::image_read(corn)
 
     verify_output("txt/bm_outline.txt", {
-        print(as_bm_bitmap(corn), compress = "v")
+        bm_print(as_bm_bitmap(corn), compress = "v")
         print(bm_outline(corn_l), compress = "v")
         print(bm_outline(corn, "red"), compress = "v")
         corn_ro <- bm_outline(corn_r, "blue")
-        print(as_bm_pixmap(corn_ro), compress = "v")
+        bm_print(corn_ro, compress = "v")
         corn_nro <- bm_outline(corn_nr, col2int("green"))
-        print(as_bm_pixmap(corn_nro), compress = "v")
+        bm_print(corn_nro, compress = "v")
         corn_mio <- bm_outline(corn_mi, "orange")
-        print(as_bm_pixmap(corn_mio), compress = "v")
+        bm_print(corn_mio, compress = "v")
     }, unicode = TRUE, crayon = TRUE)
 })

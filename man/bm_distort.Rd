@@ -2,6 +2,7 @@
 % Please edit documentation in R/bm_distort.R
 \name{bm_distort}
 \alias{bm_distort}
+\alias{bm_downscale}
 \alias{bm_distort.bm_bitmap}
 \alias{bm_distort.bm_list}
 \alias{bm_distort.bm_pixmap}
@@ -11,6 +12,8 @@
 \title{Resize bitmaps via distortion.}
 \usage{
 bm_distort(x, width = NULL, height = NULL, ...)
+
+bm_downscale(x, width = getOption("width"), ...)
 
 \method{bm_distort}{bm_bitmap}(
   x,
@@ -56,6 +59,8 @@ Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\lin
 }
 \description{
 \code{bm_distort()} resize bitmaps to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
+\code{bm_downscale()} is a wrapper to \code{bm_distort()} that downscales an image if (and only if) it is
+wider than a target width.
 }
 \examples{
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")

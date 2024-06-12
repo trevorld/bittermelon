@@ -2,11 +2,16 @@
 #'  The following `bittermelon` option may be set globally via [base::options()]:
 #'   \describe{
 #'     \item{bittermelon.bg}{Set new default `bg` argument value for
-#'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
+#'                           [format.bm_bitmap()], [format.bm_pixmap()], [print.bm_bitmap()],
+#'                           and [print.bm_pixmap()].}
 #'     \item{bittermelon.col}{Set new default `col` argument value for
 #'                           [as.raster.bm_bitmap()] and [plot.bm_bitmap()].}
 #'     \item{bittermelon.compress}{Set new default `compress` argument value for
-#'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
+#'                           [format.bm_bitmap()], [format.bm_pixmap()], [print.bm_bitmap()],
+#'                           and [print.bm_pixmap()].}
+#'     \item{bittermelon.downscale}{Set new default `downscale` argument value for
+#'                           [format.bm_bitmap()], [format.bm_pixmap()], [print.bm_bitmap()],
+#'                           and [print.bm_pixmap()].}
 #'     \item{bittermelon.fg}{Set new default `fg` argument value for
 #'                           [format.bm_bitmap()] and [print.bm_bitmap()].}
 #'     \item{bittermelon.monobit_path}{Set new default `monobit_path` argument value

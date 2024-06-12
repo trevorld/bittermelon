@@ -30,19 +30,16 @@
 #' @seealso [bm_bitmap()]
 #' @return A character vector of the string representation (`print.bm_bitmap()` does this invisibly).
 #'         As a side effect `print.bm_bitmap()` prints out the string representation to the terminal.
-#' @usage \method{print}{bm_bitmap}(x, ...,
-#'                      px = getOption("bittermelon.px", px_auto()),
-#'                      fg = getOption("bittermelon.fg", FALSE),
-#'                      bg = getOption("bittermelon.bg", FALSE),
-#'                      compress = getOption("bittermelon.compress", "none"))
 #' @export
 print.bm_bitmap <- function(x, ...,
                             px = getOption("bittermelon.px", px_auto()),
                             fg = getOption("bittermelon.fg", FALSE),
                             bg = getOption("bittermelon.bg", FALSE),
-                            compress = getOption("bittermelon.compress", "none")) {
+                            compress = getOption("bittermelon.compress", "none"),
+                            downscale = getOption("bittermelon.downscale", FALSE)) {
     x <- as_bm_bitmap(x)
-    s <- format(x, ..., px = px, fg = fg, bg = bg, compress = compress)
+    s <- format(x, ..., px = px, fg = fg, bg = bg,
+                compress = compress, downscale = downscale)
     cat(s, sep = "\n")
     invisible(s)
 }
@@ -63,25 +60,25 @@ print.bm_bitmap <- function(x, ...,
 #'                 the value of `compress` as its `direction` argument
 #'                 (i.e. either "vertical" or "v", "horizontal" or "h",
 #'                  OR "both" or "b").
-#' @usage \method{format}{bm_bitmap}(x, ...,
-#'                       px = getOption("bittermelon.px", px_auto()),
-#'                       fg = getOption("bittermelon.fg", FALSE),
-#'                       bg = getOption("bittermelon.bg", FALSE),
-#'                       compress = getOption("bittermelon.compress", "none"))
+#' @param downscale If `TRUE` and the printed bitmap will be wider than `getOption("width")`
+#'                  then shrink the image to fit `getOption("width")` using [bm_downscale()].
 #' @export
 format.bm_bitmap <- function(x, ...,
                              px = getOption("bittermelon.px", px_auto()),
                              fg = getOption("bittermelon.fg", FALSE),
                              bg = getOption("bittermelon.bg", FALSE),
-                             compress = getOption("bittermelon.compress", "none")) {
+                             compress = getOption("bittermelon.compress", "none"),
+                             downscale = getOption("bittermelon.downscale", FALSE)) {
     if (nrow(x) == 0L || ncol(x) == 0L)
         return(character(0L))
 
     direction <- match.arg(tolower(compress),
                            c("none", "n", "vertical", "v", "horizontal", "h", "both", "b"))
     direction <- substr(direction, 1L, 1L)
-    x <- as_bm_bitmap(x)
-    if (nrow(x) == 0L) return(character(0))
+
+    if (downscale) {
+        x <- downscale_for_terminal(x, direction, filter = "Point")
+    }
     if (direction != "n") {
         x <- bm_compress(x, direction = direction)
     }

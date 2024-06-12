@@ -38,7 +38,7 @@ $corn
 attr(,"class")
 [1] "bm_list" "list"   
 
-> print(as_bm_pixmap(bm_shift(corn, left = 1L)), bg = "cyan")
+> bm_print(bm_shift(corn, left = 1L), bg = "cyan")
 [46m                [49m
 [46m                [49m
 [46m    [33m█[39m[33m█[39m  [33m█[39m[33m█[39m      [49m
@@ -56,7 +56,7 @@ attr(,"class")
 [46m                [49m
 [46m                [49m
 
-> print(as_bm_pixmap(bm_shift(corn_r, top = 2L)), bg = "cyan")
+> bm_print(bm_shift(corn_r, top = 2L), bg = "cyan")
 [46m     [33m█[39m[33m█[39m  [33m█[39m[33m█[39m     [49m
 [46m    [33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m     [49m
 [46m   [33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m[33m█[39m     [49m
@@ -74,7 +74,7 @@ attr(,"class")
 [46m                [49m
 [46m                [49m
 
-> print(as_bm_pixmap(bm_shift(corn_nr, right = 2L)), bg = "cyan")
+> bm_print(bm_shift(corn_nr, right = 2L), bg = "cyan")
 [46m                [49m
 [46m                [49m
 [46m       [33m█[39m[33m█[39m  [33m█[39m[33m█[39m   [49m
@@ -92,7 +92,7 @@ attr(,"class")
 [46m                [49m
 [46m                [49m
 
-> print(as_bm_pixmap(bm_shift(corn_mi, bottom = 2L)), bg = "cyan")
+> bm_print(bm_shift(corn_mi, bottom = 2L), bg = "cyan")
 [46m                [49m
 [46m                [49m
 [46m                [49m

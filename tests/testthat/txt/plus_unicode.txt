@@ -1,4 +1,4 @@
-> print(bm_bitmap(plus_sign))
+> print(bm_bitmap(plus_sign), downscale = TRUE)
 ░░░░░░░░░
 ░░░░░░░░░
 ░░░░█░░░░

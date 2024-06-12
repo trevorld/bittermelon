@@ -21,7 +21,7 @@
 > print(p1, compress = "v")
 [31m▀[39m
 
-> print(p1, compress = "h")
+> print(p1, compress = "h", downscale = TRUE)
 [31m▌[39m
 
 > print(p1, compress = "b")

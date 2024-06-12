@@ -33,13 +33,14 @@ test_that("as_bm_bitmap()", {
 
     skip_if_not_installed("mazing")
     set.seed(42)
-    maze <- as_bm_bitmap(mazing::maze(12L, 12L))
-    verify_output("txt/maze.txt",
-                  print(maze, px = px_ascii))
+    maze <- mazing::maze(12L, 12)
+    verify_output("txt/maze.txt", {
+        print(as_bm_bitmap(maze), px = px_ascii)
+        print(as_bm_bitmap(maze, walls = TRUE), px = px_ascii)
+    }, unicode = FALSE)
 
     maze2 <- as_bm_bitmap(mazing::maze(12L, 12L), start = "top", end = "bottom")
-    verify_output("txt/maze_solution.txt",
-                  print(maze2, px = px_ascii))
+    verify_output("txt/maze_solution.txt", print(maze2, px = px_ascii))
 
     skip_if_not_installed("farver")
     bm0 <- bm_bitmap(matrix(integer(0L), nrow = 0L, ncol = 4L))

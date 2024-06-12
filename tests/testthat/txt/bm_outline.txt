@@ -1,4 +1,4 @@
-> print(as_bm_bitmap(corn), compress = "v")
+> bm_print(as_bm_bitmap(corn), compress = "v")
                 
     ▄██▄▄██     
    ████████▄    
@@ -33,7 +33,7 @@ attr(,"class")
                 
 
 > corn_ro <- bm_outline(corn_r, "blue")
-> print(as_bm_pixmap(corn_ro), compress = "v")
+> bm_print(corn_ro, compress = "v")
                 
     [34m▄[39m[34m▀[39m[34m▀[39m[34m▄[39m[34m▄[39m[34m▀[39m[34m█[39m     
    [34m█[39m      [34m▀[39m[34m▄[39m    
@@ -44,7 +44,7 @@ attr(,"class")
                 
 
 > corn_nro <- bm_outline(corn_nr, col2int("green"))
-> print(as_bm_pixmap(corn_nro), compress = "v")
+> bm_print(corn_nro, compress = "v")
                 
     [32m▄[39m[32m▀[39m[32m▀[39m[32m▄[39m[32m▄[39m[32m▀[39m[32m█[39m     
    [32m█[39m      [32m▀[39m[32m▄[39m    
@@ -55,7 +55,7 @@ attr(,"class")
                 
 
 > corn_mio <- bm_outline(corn_mi, "orange")
-> print(as_bm_pixmap(corn_mio), compress = "v")
+> bm_print(corn_mio, compress = "v")
                 
     [33m▄[39m[33m▀[39m[33m▀[39m[33m▄[39m[33m▄[39m[33m▀[39m[33m█[39m     
    [33m█[39m      [33m▀[39m[33m▄[39m    

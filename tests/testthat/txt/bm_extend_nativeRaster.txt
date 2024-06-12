@@ -2,7 +2,7 @@
 > r <- as.raster(as_bm_pixmap(m), native = TRUE)
 > int <- farver::encode_native("red")
 > rt <- bm_extend(r, value = int, top = 1L)
-> print(as_bm_pixmap.nativeRaster(rt))
+> bm_print(rt)
 [31m█[39m[31m█[39m
 [33m█[39m[33m█[39m
 [34m█[39m[34m█[39m
@@ -11,18 +11,18 @@
 [1] TRUE
 
 > rr <- bm_extend(r, value = int, right = 1L)
-> print(as_bm_pixmap.nativeRaster(rr))
+> bm_print(rr)
 [33m█[39m[33m█[39m[31m█[39m
 [34m█[39m[34m█[39m[31m█[39m
 
 > rb <- bm_extend(r, value = int, bottom = 1L)
-> print(as_bm_pixmap.nativeRaster(rb))
+> bm_print(rb)
 [33m█[39m[33m█[39m
 [34m█[39m[34m█[39m
 [31m█[39m[31m█[39m
 
 > rl <- bm_extend(r, value = int, left = 1L)
-> print(as_bm_pixmap.nativeRaster(rl))
+> bm_print(rl)
 [31m█[39m[33m█[39m[33m█[39m
 [31m█[39m[34m█[39m[34m█[39m
 

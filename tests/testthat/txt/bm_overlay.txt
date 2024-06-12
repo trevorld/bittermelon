@@ -114,7 +114,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_r, grapes_r)))
+> bm_print(bm_overlay(corn_r, grapes_r))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[35m█[39m[35m█[39m[35m█[39m [33m█[39m[33m█[39m     
@@ -132,7 +132,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_r, under = grapes_r)))
+> bm_print(bm_overlay(corn_r, under = grapes_r))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[33m█[39m[33m█[39m[35m█[39m [33m█[39m[33m█[39m     
@@ -150,7 +150,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_nr, grapes_nr)))
+> bm_print(bm_overlay(corn_nr, grapes_nr))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[35m█[39m[35m█[39m[35m█[39m [33m█[39m[33m█[39m     
@@ -168,7 +168,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_nr, under = grapes_nr)))
+> bm_print(bm_overlay(corn_nr, under = grapes_nr))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[33m█[39m[33m█[39m[35m█[39m [33m█[39m[33m█[39m     
@@ -186,7 +186,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_mi, grapes_mi)))
+> bm_print(bm_overlay(corn_mi, grapes_mi))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[35m█[39m[35m█[39m[35m█[39m [33m█[39m[33m█[39m     
@@ -204,7 +204,7 @@ attr(,"class")
           [35m█[39m[35m█[39m    
                 
 
-> print(as_bm_pixmap(bm_overlay(corn_mi, under = grapes_mi)))
+> bm_print(bm_overlay(corn_mi, under = grapes_mi))
                 
     [35m█[39m[35m█[39m[35m█[39m         
    [35m█[39m[35m█[39m[33m█[39m[33m█[39m[35m█[39m [33m█[39m[33m█[39m     

@@ -1,6 +1,8 @@
 #' Resize bitmaps via distortion.
 #'
 #' `bm_distort()` resize bitmaps to arbitrary width and height value via [magick::image_resize()].
+#' `bm_downscale()` is a wrapper to `bm_distort()` that downscales an image if (and only if) it is
+#' wider than a target width.
 #'
 #' @inheritParams bm_clamp
 #' @inheritParams as_bm_bitmap.grob
@@ -29,6 +31,24 @@
 #' @export
 bm_distort <- function(x, width = NULL, height = NULL, ...) {
     UseMethod("bm_distort")
+}
+
+#' @rdname bm_distort
+#' @export
+bm_downscale <- function(x, width = getOption("width"), ...) {
+    if (bm_widths(x) > width)
+        x <- bm_distort(x, width = width, ...)
+    else
+        x
+}
+
+downscale_for_terminal <- function(x, direction, filter = "Point") {
+    if (direction %in% c("h", "b")) {
+        multiplier <- 2L
+    } else {
+        multiplier <- 1L
+    }
+    bm_downscale(x, width = multiplier * getOption("width"), filter = filter)
 }
 
 #' @rdname bm_distort

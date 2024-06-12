@@ -20,7 +20,7 @@ test_that("print.bm_bitmap()", {
 
     skip_if(!cli::is_utf8_output())
     verify_output("txt/plus_unicode.txt", {
-        print(bm_bitmap(plus_sign))
+        print(bm_bitmap(plus_sign), downscale = TRUE)
     }, unicode = TRUE)
 
     plus_space_bt <- rbind(plus_sign, space_glyph, direction = "bottom-to-top")

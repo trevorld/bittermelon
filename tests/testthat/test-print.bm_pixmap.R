@@ -26,7 +26,7 @@ test_that("`print.bm_pixmap()` works as expected", {
         p1 <- as_bm_pixmap(matrix("red", 1L, 1L))
         print(p1, compress = "n")
         print(p1, compress = "v")
-        print(p1, compress = "h")
+        print(p1, compress = "h", downscale = TRUE)
         print(p1, compress = "b")
 
         # 2x2, one color
