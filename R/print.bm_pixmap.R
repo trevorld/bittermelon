@@ -2,6 +2,7 @@
 #'
 #' `print.bm_pixmap()` prints bittermelon pixmap objects to the terminal
 #' It is a wrapper around `format.bm_pixmap()`.
+#' @inheritSection bm_print Fonts and terminal settings
 #' @param x A [bm_pixmap()] object
 #' @param ... Currently ignored.
 #' @param bg R color string of background color to use and/or

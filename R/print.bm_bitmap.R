@@ -7,26 +7,28 @@
 #' argument (the former contains Unicode \dQuote{Block Elements} while the latter is purely ASCII).
 #' `px_auto()` chooses which character vector to use based on whether [cli::is_utf8_output()] is `TRUE` or not.
 #'
+#' @inheritSection bm_print Fonts and terminal settings
+#'
 #' @param x A `bm_bitmap()` object
 #' @param ... Further arguments passed to or from other methods.
 #' @examples
-#'   font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
-#'   font <- read_hex(font_file)
-#'   bm_R <- font[[str2ucp("R")]]
-#'   print(bm_R)
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font <- read_hex(font_file)
+#' bm_R <- font[[str2ucp("R")]]
+#' print(bm_R)
 #'
-#'   if (cli::is_utf8_output())
-#'     print(bm_R, px = px_unicode, compress = "vertical")
+#' if (cli::is_utf8_output())
+#'   print(bm_R, px = px_unicode, compress = "vertical")
 #'
-#'   bm_8 <- font[[str2ucp("8")]]
-#'   bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
-#'                                 sides = 1L, value = 2L)
-#'   print(bm_8_with_border, px = c(".", "@", "X"))
+#' bm_8 <- font[[str2ucp("8")]]
+#' bm_8_with_border <- bm_extend(bm_extend(bm_8, left = 1L),
+#'                               sides = 1L, value = 2L)
+#' print(bm_8_with_border, px = c(".", "@", "X"))
 #'
-#'   if (cli::num_ansi_colors() >= 16L) {
-#'     print(bm_8_with_border, px = " ",
-#'           bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_red))
-#'   }
+#' if (cli::num_ansi_colors() >= 16L) {
+#'   print(bm_8_with_border, px = " ",
+#'         bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_red))
+#' }
 #' @seealso [bm_bitmap()]
 #' @return A character vector of the string representation (`print.bm_bitmap()` does this invisibly).
 #'         As a side effect `print.bm_bitmap()` prints out the string representation to the terminal.

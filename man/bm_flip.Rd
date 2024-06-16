@@ -2,24 +2,37 @@
 % Please edit documentation in R/bm_flip.R
 \name{bm_flip}
 \alias{bm_flip}
+\alias{bm_flip.bm_bitmap}
 \alias{bm_flip.bm_list}
-\alias{bm_flip.bm_matrix}
+\alias{bm_flip.bm_pixmap}
 \alias{bm_flip.magick-image}
 \alias{bm_flip.nativeRaster}
 \alias{bm_flip.raster}
 \title{Flip (reflect) bitmaps}
 \usage{
-bm_flip(x, direction = "vertical", in_place = FALSE)
+bm_flip(x, direction = "vertical", in_place = FALSE, value)
+
+\method{bm_flip}{bm_bitmap}(x, direction = "vertical", in_place = FALSE, value = 0L)
 
 \method{bm_flip}{bm_list}(x, ...)
 
-\method{bm_flip}{bm_matrix}(x, direction = "vertical", in_place = FALSE)
+\method{bm_flip}{bm_pixmap}(
+  x,
+  direction = "vertical",
+  in_place = FALSE,
+  value = col2hex("transparent")
+)
 
-\method{bm_flip}{`magick-image`}(x, direction = "vertical", in_place = FALSE)
+\method{bm_flip}{`magick-image`}(x, direction = "vertical", in_place = FALSE, value = "transparent")
 
-\method{bm_flip}{nativeRaster}(x, direction = "vertical", in_place = FALSE)
+\method{bm_flip}{nativeRaster}(
+  x,
+  direction = "vertical",
+  in_place = FALSE,
+  value = col2int("transparent")
+)
 
-\method{bm_flip}{raster}(x, direction = "vertical", in_place = FALSE)
+\method{bm_flip}{raster}(x, direction = "vertical", in_place = FALSE, value = "transparent")
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
@@ -28,6 +41,8 @@ bm_flip(x, direction = "vertical", in_place = FALSE)
 OR "both" or "b".}
 
 \item{in_place}{If \code{TRUE} flip the glyphs in place (without changing any background padding).}
+
+\item{value}{Background padding value (to use if \code{in_place} is \code{TRUE})}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }

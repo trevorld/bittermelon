@@ -23,10 +23,9 @@
 
 ## <a name="overview">Overview</a>
 
-* `{bittermelon}` provides functions for creating, modifying, and printing bitmaps.
-* It can pretty print bitmaps to the R terminal.
-* It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
+* `{bittermelon}` features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
 * There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write [several more bitmap font formats](https://github.com/robhagemans/monobit?tab=readme-ov-file#supported-bitmap-formats).
+* It can print bitmaps to the R terminal.
 * Besides supporting the builtin `bm_bitmap()` and `bm_pixmap()` objects it also supports modifying `{magick}`'s "magick-image" objects and base R's "nativeRaster" and "raster" objects.
 
 ## <a name="installation">Installation</a>
@@ -128,8 +127,10 @@ print(bm)
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ```
 
+We can also print colored terminal output with help of `{cli}`:
+
+
 ``` r
-# Can also print colored terminal output with help of {cli}
 if (cli::num_ansi_colors() >= 16L)
     print(bm, px = " ",
           bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_cyan, cli::bg_red))
@@ -193,10 +194,8 @@ names(crops)
 ```
 
 ``` bitmap
- [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"  
- [6] "eggplant"   "grapes"     "lemon"      "melon"      "orange"    
-[11] "pineapple"  "potato"     "rice"       "rose"       "strawberry"
-[16] "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
+ [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"   "eggplant"   "grapes"     "lemon"      "melon"      "orange"     "pineapple"  "potato"    
+[13] "rice"       "rose"       "strawberry" "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
 ```
 
 ``` r
@@ -205,7 +204,12 @@ grapes <- crops$grapes$portrait
 orange <- crops$orange$stage5
 tulip <- crops$tulip$portrait
 pm <- cbind(corn, grapes, orange, tulip)
-# We can pretty print sprites to the terminal with help of {cli}
+```
+
+We can pretty print sprites to the terminal with help of `{cli}`:
+
+
+``` r
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L)
     print(pm, compress = "v", bg = "white")
 ```
@@ -286,13 +290,13 @@ The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper f
 
 
 ``` r
-library("hexfont") # remotes::install_github("trevorld/hexfont")
+library("hexfont")
 system.time(font <- unifont()) # Unifont is a **big** font
 ```
 
 ``` bitmap
    user  system elapsed 
-140.537   0.062 140.590 
+139.558   0.000 139.540 
 ```
 
 ``` r
@@ -312,8 +316,30 @@ object.size(font) |> format(units = "MB") # memory used
 ```
 
 ``` r
+# Faster to load from a cache
+saveRDS(font, "unifont.rds")
+system.time(font <- readRDS("unifont.rds"))
+```
+
+``` bitmap
+   user  system elapsed 
+  0.466   0.000   0.466 
+```
+
+``` r
+# Or just load the subset of GNU Unifont you need
+s <- "Ｒ很棒！"
+system.time(font_s <- unifont(ucp = str2ucp(s)))
+```
+
+``` bitmap
+   user  system elapsed 
+  0.653   0.000   0.653 
+```
+
+``` r
 # Mandarin Chinese
-as_bm_bitmap("Ｒ很棒！", font = font) |> bm_compress("v")
+as_bm_bitmap(s, font = font_s) |> bm_compress("v")
 ```
 
 ``` bitmap
@@ -342,6 +368,26 @@ as_bm_bitmap("🐭🐲🐵", font = font) |> bm_compress("v")
     ▀▀▄▄▄▀▀        ▄███   ████▀     ▀▀▄▄▄▄▀▀    
                   ▀▀▀     ▀▀▀                   
 ```
+
+``` r
+# Klingon
+as_bm_list("", font = font) |>
+    bm_pad(type = "trim", left = 1L, right = 1L) |>
+    bm_call(cbind) |>
+    bm_compress("v")
+```
+
+``` bitmap
+                                                                              
+    ▄█▄ ▄▄██▀▀  ▀▀████████               ▄▀       ▄█▄    ▄█▀  ▀█▄    ▄▄       
+ ▄▄██████▀            ▀██ ▀            ▄█▀       ███▀▀  ███    ██   ▀████████ 
+  ▀██  ██             ▄███    ▄█      ▄██       ██▀      ▀██▄▄█▀      ██▀ ▀██ 
+   ▀    █▄           ███      ███▄▄▄▄▄██      ▄███        ▀███▀      ▄█▀   █▀ 
+         █▄          ▀█▄      ██▀▀▀▀▀▀███    ▄██████▄       ▀█▄     ▄█▀   █▀  
+          ▀▄           ▀▀▄   ▄▀        ▀█▄         ▀▀▄        ▀▀▄  ▄▀    ▀    
+                                                                              
+```
+
 
 ## <a name="gamebit">Game Bit</a>
 

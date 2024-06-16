@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Bitmap Tools
-Version: 2.0.0-6
+Version: 2.0.1-0
 Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com",
                     comment = c(ORCID = "0000-0001-6341-4639")),
@@ -11,7 +11,7 @@ Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
                     comment = "Maintainer of included 'Fixed' font"),
              person("josehzz", role = "art",
                     comment = "Artist of included 'Farming Crops 16x16' sprites"))
-Description: Provides functions for creating, modifying, and displaying bitmaps.   There is a special emphasis on monochrome bitmap fonts and their glyphs as well as colored pixel art/sprites.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'monobit' <https://github.com/robhagemans/monobit> is installed can also read/write several additional bitmap font formats.
+Description: Provides functions for creating, modifying, and displaying bitmaps including printing them in the terminal.   There is a special emphasis on monochrome bitmap fonts and their glyphs as well as colored pixel art/sprites.  Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'monobit' <https://github.com/robhagemans/monobit> is installed can also read/write several additional bitmap font formats.
 URL: https://trevorldavis.com/R/bittermelon/
 BugReports: https://github.com/trevorld/bittermelon/issues
 License: MIT + file LICENSE
@@ -24,12 +24,16 @@ Imports:
     utils
 Suggests:
     farver,
+    hexfont,
+    knitr,
     magick,
     mazing,
     ragg,
+    rmarkdown,
     testthat,
     vdiffr,
     withr
+VignetteBuilder: knitr, rmarkdown
 SystemRequirements: 'monobit' for reading/writing additional bitmap font formats.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

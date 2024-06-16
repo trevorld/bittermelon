@@ -2,24 +2,59 @@
 % Please edit documentation in R/bm_print.R
 \name{bm_print}
 \alias{bm_print}
+\alias{bm_format}
 \title{Print bitmap objects}
 \usage{
 bm_print(x, ...)
+
+bm_format(x, ...)
 }
 \arguments{
 \item{x}{A bitmap object that can be cast by \code{\link[=as_bm_pixmap]{as_bm_pixmap()}} to a \code{\link[=bm_pixmap]{bm_pixmap()}} object.}
 
-\item{...}{Passed to \code{\link[=print.bm_pixmap]{print.bm_pixmap()}} or \code{\link[=print.bm_bitmap]{print.bm_bitmap()}} depending on the class of \code{x}.}
+\item{...}{Passed to \code{\link[=format.bm_pixmap]{format.bm_pixmap()}} or \code{\link[=format.bm_bitmap]{format.bm_bitmap()}} depending on the class of \code{x}.}
 }
 \value{
-A character vector of the string representation returned invisibly.
-As a side effect prints out the string representation to the terminal.
+A character vector of the string representation (\code{bm_print()} returns this invisibly).
+As a side effect \code{bm_print()} prints out the string representation to the terminal.
 }
 \description{
-\code{bm_print()} prints the bitmap object.
-It is a wrapper around \code{\link[=as_bm_bitmap]{as_bm_bitmap()}} / \code{\link[=as_bm_pixmap]{as_bm_pixmap()}} and
-\code{\link[=print.bm_bitmap]{print.bm_bitmap()}} / \code{\link[=print.bm_pixmap]{print.bm_pixmap()}}.
+\code{bm_print()} prints a representation of the bitmap object to the terminal while
+\code{bm_format()} returns just the character vector without printing it.
+They are wrappers around \code{\link[=as_bm_bitmap]{as_bm_bitmap()}} / \code{\link[=as_bm_pixmap]{as_bm_pixmap()}} and
+\code{\link[=format.bm_bitmap]{format.bm_bitmap()}} / \code{\link[=format.bm_pixmap]{format.bm_pixmap()}}.
 }
+\section{Fonts and terminal settings}{
+Printing bitmaps/pixmaps may or may not look great
+in your terminal depending on a variety of factors:
+\itemize{
+\item The terminal should support the Unicode - UTF-8 encoding.
+We use \code{\link[cli:is_utf8_output]{cli::is_utf8_output()}} to guess Unicode support
+which in turn looks at \code{getOption("cli.unicode")} and \code{\link[=l10n_info]{l10n_info()}}.
+\item The terminal should support ANSI sequences and if it does
+it should support many colors.
+\itemize{
+\item We use \code{\link[cli:num_ansi_colors]{cli::num_ansi_colors()}} to detect number of colors supported.
+\code{num_ansi_colors()} detection algorithm is complicated but it first looks at
+\code{getOption("cli.num_colors")}.
+}
+\itemize{
+\item If \code{cli::num_ansi_colors()} equals 16777216 then your terminal
+supports 24-bit ANSI colors.
+}
+\itemize{
+\item If using the Windows Command Prompt window you may need to enable
+ANSI sequences support by doing \verb{REG ADD HKCU\\CONSOLE /f /v VirtualTerminalLevel /t REG_DWORD /d 1}
+from the command-line or running \code{regedit} (Registry Editor) and go to
+\verb{Computer\\HKEY_CURRENT_USER\\Console} and set \code{VirtualTerminalLevel} to \code{1}.
+}
+\item The font used by the terminal should be a monoscale font that supports the
+\href{https://en.wikipedia.org/wiki/Block_Elements}{Block Elements} Unicode block.
+\item The terminal text settings should have a cell spacing around 1.00 times width and 1.00 times height.
+For terminals configured by CSS styles this means a \code{line-height} of around \code{1.0}.
+}
+}
+
 \examples{
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 font <- read_hex(font_file)
@@ -48,5 +83,5 @@ if (requireNamespace("magick", quietly = TRUE) &&
 }
 }
 \seealso{
-\code{\link[=.S3method]{.S3method()}} to register this as the print method for a target bitmap class.
+\code{\link[=.S3method]{.S3method()}} to register this as the print method for a non-bittermelon bitmap class.
 }

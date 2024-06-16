@@ -1,5 +1,5 @@
-bittermelon 2.0.0 (development)
-===============================
+bittermelon 2.0.1
+=================
 
 Breaking changes
 ----------------
@@ -105,7 +105,7 @@ New features
 
 * Other new functions:
 
-  * `bm_print()` can be used to pretty print bitmap objects to the terminal.
+  * `bm_print()` and `bm_format()` can be used to pretty print bitmap objects to the terminal.
   * `farming_crops_16x16()` returns a named list of lists
     of twenty farming crops in five stages of growth plus a portrait as `bm_pixmap()` objects.
   * `bm_options()` returns a list of (current or default) `bittermelon` options values.
@@ -168,6 +168,8 @@ Bug fixes and minor improvements
 * `hex2ucp()` now also calls `base::toupper()` on the input value.
 * `bm_bitmap()` objects now also have the class `"bm_matrix"` (as does the new `bm_pixmap()` objects).
 * `format.bm_bitmap(x)` no longer throws an error when `x` has zero columns (#68).
+* `bm_flip()` now has a `value` argument to set the background padding value to use
+  if `in_place` is `TRUE`.
 
 bittermelon 1.1.2
 =================

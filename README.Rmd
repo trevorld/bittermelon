@@ -23,10 +23,9 @@
 
 ## <a name="overview">Overview</a>
 
-* `{bittermelon}` provides functions for creating, modifying, and printing bitmaps.
-* It can pretty print bitmaps to the R terminal.
-* It features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
+* `{bittermelon}` features [over a dozen functions](https://trevorldavis.com/R/bittermelon/dev/reference/index.html#modify-bitmaps-and-pixmaps) that can modify individual bitmaps or every bitmap within a "bitmap list" or "bitmap font".
 * There is a special emphasis on bitmap fonts and their glyphs.  It provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if [monobit](https://github.com/robhagemans/monobit) is also installed then it can read/write [several more bitmap font formats](https://github.com/robhagemans/monobit?tab=readme-ov-file#supported-bitmap-formats).
+* It can print bitmaps to the R terminal.
 * Besides supporting the builtin `bm_bitmap()` and `bm_pixmap()` objects it also supports modifying `{magick}`'s "magick-image" objects and base R's "nativeRaster" and "raster" objects.
 
 ## <a name="installation">Installation</a>
@@ -69,8 +68,11 @@ bm <- bml |>
     bm_call(cbind) |>
     bm_pad(sides = 2L, value = 3L)
 print(bm)
+```
 
-# Can also print colored terminal output with help of {cli}
+We can also print colored terminal output with help of `{cli}`:
+
+```{r print_color, eval=FALSE}
 if (cli::num_ansi_colors() >= 16L)
     print(bm, px = " ",
           bg = c(cli::bg_br_white, cli::bg_blue, cli::bg_cyan, cli::bg_red))
@@ -81,14 +83,14 @@ plot(bm, col = c("white", "blue3", "cyan3", "red3"))
 
 ### <a name="ex-mazes">{mazing} mazes</a>
 
-```{r maze}
+```{r maze, eval=requireNamespace("mazing")}
 # Also supports {mazing} mazes
 set.seed(42)
 m <- mazing::maze(16L, 32L)
 m |> as_bm_bitmap(walls = TRUE) |>
     print(compress = "vertical")
 ```
-```{r plot_maze, fig.width = 6, fig.height = 3, fig.alt = "A maze"}
+```{r plot_maze, fig.width = 6, fig.height = 3, fig.alt = "A maze", eval=requireNamespace("mazing")}
 # Can also visualize the maze solutions
 pal <- grDevices::palette.colors()
 m |> as_bm_pixmap(start = "top", end = "bottom",
@@ -108,7 +110,11 @@ grapes <- crops$grapes$portrait
 orange <- crops$orange$stage5
 tulip <- crops$tulip$portrait
 pm <- cbind(corn, grapes, orange, tulip)
-# We can pretty print sprites to the terminal with help of {cli}
+```
+
+We can pretty print sprites to the terminal with help of `{cli}`:
+
+```{r print_crops, eval=FALSE}
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L)
     print(pm, compress = "v", bg = "white")
 ```
@@ -140,17 +146,34 @@ as_bm_bitmap("RSTATS", font = fixed_6x13) |> bm_compress("v")
 The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper function `unifont()` which loads several GNU Unifont hex fonts as a single `{bittermelon}` `bm_font()` object.  [GNU Unifont](https://unifoundry.com/unifont/index.html) is a monoscale bitmap font (8x16 and 16x16 glyphs) that pretty much covers all of the official Unicode glyphs plus several of the artificial scripts in the [(Under-)ConScript Unicode Registry](https://www.kreativekorp.com/ucsur/).
 
 
-```{r unifont}
-library("hexfont") # remotes::install_github("trevorld/hexfont")
+```{r unifont, eval=requireNamespace("hexfont")}
+library("hexfont")
 system.time(font <- unifont()) # Unifont is a **big** font
 length(font) |> prettyNum(big.mark = ",") # number of glyphs
 object.size(font) |> format(units = "MB") # memory used
 
+# Faster to load from a cache
+saveRDS(font, "unifont.rds")
+system.time(font <- readRDS("unifont.rds"))
+
+# Or just load the subset of GNU Unifont you need
+s <- "Ｒ很棒！"
+system.time(font_s <- unifont(ucp = str2ucp(s)))
+
 # Mandarin Chinese
-as_bm_bitmap("Ｒ很棒！", font = font) |> bm_compress("v")
+as_bm_bitmap(s, font = font_s) |> bm_compress("v")
 
 # Emoji
 as_bm_bitmap("🐭🐲🐵", font = font) |> bm_compress("v")
+
+# Klingon
+as_bm_list("", font = font) |>
+    bm_pad(type = "trim", left = 1L, right = 1L) |>
+    bm_call(cbind) |>
+    bm_compress("v")
+```
+```{r hidden2, echo = FALSE}
+unlink("unifont.rds")
 ```
 
 ## <a name="gamebit">Game Bit</a>
