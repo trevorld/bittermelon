@@ -13,7 +13,12 @@
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
 \alias{as_bm_bitmap.nativeRaster}
+\alias{as_bm_bitmap.pattern_square}
+\alias{as_bm_bitmap.pattern_weave}
 \alias{as_bm_bitmap.pixeltrix}
+\alias{as_bm_bitmap.pixmapGrey}
+\alias{as_bm_bitmap.pixmapIndexed}
+\alias{as_bm_bitmap.pixmapRGB}
 \alias{as_bm_bitmap.raster}
 \title{Cast to a bitmap matrix object}
 \usage{
@@ -84,7 +89,19 @@ as_bm_bitmap(x, ...)
   threshold = 0.5
 )
 
+\method{as_bm_bitmap}{pattern_square}(x, ...)
+
+\method{as_bm_bitmap}{pattern_weave}(x, ...)
+
+\method{as_bm_bitmap}{pattern_square}(x, ...)
+
 \method{as_bm_bitmap}{pixeltrix}(x, ...)
+
+\method{as_bm_bitmap}{pixmapGrey}(x, ..., mode = c("darkness", "brightness"), threshold = 0.5)
+
+\method{as_bm_bitmap}{pixmapIndexed}(x, ...)
+
+\method{as_bm_bitmap}{pixmapRGB}(x, ..., mode = c("darkness", "brightness"), threshold = 0.5)
 
 \method{as_bm_bitmap}{raster}(
   x,
@@ -162,29 +179,40 @@ A \code{bm_bitmap()} object.
 \code{as_bm_bitmap()} turns an existing object into a \code{bm_bitmap()} object.
 }
 \examples{
- space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
- space_glyph <- as_bm_bitmap(space_matrix)
- is_bm_bitmap(space_glyph)
-  font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
-  font <- read_yaff(font_file)
-  bm <- as_bm_bitmap("RSTATS", font = font)
-  print(bm)
-  bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
-  print(bm)
+space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
+space_glyph <- as_bm_bitmap(space_matrix)
+is_bm_bitmap(space_glyph)
+
+font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
+font <- read_yaff(font_file)
+bm <- as_bm_bitmap("RSTATS", font = font)
+print(bm)
+
+bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
+print(bm)
+
 if (require("grid") && capabilities("png")) {
   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
   print(circle)
 }
+
 if (require("grid") && capabilities("png")) {
   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
                                        width = 8L, height = 16L)
   print(inverted_exclamation)
 }
- if (requireNamespace("mazing", quietly = TRUE)) {
-   m <- mazing::maze(16, 32)
-   bm <- as_bm_bitmap(m, walls = TRUE)
-   print(bm, compress = "vertical")
- }
+
+if (requireNamespace("mazing", quietly = TRUE)) {
+  m <- mazing::maze(16, 32)
+  bm <- as_bm_bitmap(m, walls = TRUE)
+  print(bm, compress = "vertical")
+}
+
+if (requireNamespace("gridpattern", quietly = TRUE)) {
+  w <- gridpattern::pattern_weave("twill_herringbone", nrow=14L, ncol = 40L)
+  bm <- as_bm_bitmap(w)
+  print(bm, compress = "vertical")
+}
 }
 \seealso{
 \code{\link[=bm_bitmap]{bm_bitmap()}}

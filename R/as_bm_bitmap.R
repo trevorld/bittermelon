@@ -5,10 +5,6 @@
 #' @param x An object that can reasonably be coerced to a `bm_bitmap()` object.
 #' @param ... Further arguments passed to or from other methods.
 #' @return A `bm_bitmap()` object.
-#' @examples
-#'  space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
-#'  space_glyph <- as_bm_bitmap(space_matrix)
-#'  is_bm_bitmap(space_glyph)
 #' @seealso [bm_bitmap()]
 #' @export
 as_bm_bitmap <- function(x, ...) {
@@ -90,12 +86,40 @@ as_bm_bitmap.bm_pixmap <- function(x, ...,
 #' @param compose Compose graphemes using [bm_compose()].
 #' @param pua_combining Passed to [bm_compose()].
 #' @examples
-#'   font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
-#'   font <- read_yaff(font_file)
-#'   bm <- as_bm_bitmap("RSTATS", font = font)
-#'   print(bm)
-#'   bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
-#'   print(bm)
+#' space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
+#' space_glyph <- as_bm_bitmap(space_matrix)
+#' is_bm_bitmap(space_glyph)
+#'
+#' font_file <- system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon")
+#' font <- read_yaff(font_file)
+#' bm <- as_bm_bitmap("RSTATS", font = font)
+#' print(bm)
+#'
+#' bm <- as_bm_bitmap("RSTATS", direction = "top-to-bottom", font = font)
+#' print(bm)
+#'
+#' if (require("grid") && capabilities("png")) {
+#'   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
+#'   print(circle)
+#' }
+#'
+#' if (require("grid") && capabilities("png")) {
+#'   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
+#'                                        width = 8L, height = 16L)
+#'   print(inverted_exclamation)
+#' }
+#'
+#' if (requireNamespace("mazing", quietly = TRUE)) {
+#'   m <- mazing::maze(16, 32)
+#'   bm <- as_bm_bitmap(m, walls = TRUE)
+#'   print(bm, compress = "vertical")
+#' }
+#'
+#' if (requireNamespace("gridpattern", quietly = TRUE)) {
+#'   w <- gridpattern::pattern_weave("twill_herringbone", nrow=14L, ncol = 40L)
+#'   bm <- as_bm_bitmap(w)
+#'   print(bm, compress = "vertical")
+#' }
 #' @export
 as_bm_bitmap.character <- function(x, ...,
                                    direction = "left-to-right, top-to-bottom",
@@ -220,16 +244,6 @@ as_bm_bitmap.glyph_bitmap <- function(x, ..., threshold = 0.5) {
 #'                   weakly exceeds this threshold
 #'                   (on an interval from zero to one)
 #'                   then the pixel is determined to be \dQuote{black}.
-#' @examples
-#' if (require("grid") && capabilities("png")) {
-#'   circle <- as_bm_bitmap(circleGrob(r = 0.25), width = 16L, height = 16L)
-#'   print(circle)
-#' }
-#' if (require("grid") && capabilities("png")) {
-#'   inverted_exclamation <- as_bm_bitmap(textGrob("!", rot = 180),
-#'                                        width = 8L, height = 16L)
-#'   print(inverted_exclamation)
-#' }
 #' @importFrom grid gpar grob grid.draw pushViewport popViewport viewport
 #' @export
 as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
@@ -299,12 +313,6 @@ as_bm_bitmap.matrix <- function(x, ...) {
 #'                  See [mazing::find_maze_refpoint()].
 #' @param solve If `TRUE` then mark the solution path from `start` to `end` as value 3L.
 #'              See [mazing::solve_maze()].
-#' @examples
-#'  if (requireNamespace("mazing", quietly = TRUE)) {
-#'    m <- mazing::maze(16, 32)
-#'    bm <- as_bm_bitmap(m, walls = TRUE)
-#'    print(bm, compress = "vertical")
-#'  }
 #' @export
 as_bm_bitmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
                               solve = !is.null(start) && !is.null(end)) {
@@ -349,6 +357,35 @@ as_bm_bitmap.nativeRaster <- function(x, ...,
                            mode = mode, threshold = threshold)
 }
 
+# #' @rdname as_bm_bitmap
+# #' @export
+# as_bm_bitmap.pattern_hex <- function(x, ...) {
+#     m <- matrix(as.integer(x), nrow = nrow(x), ncol = ncol(x))
+#     as_bm_bitmap(m)
+# }
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.pattern_square <- function(x, ...) {
+    m <- matrix(as.integer(x) - 1L, nrow = nrow(x), ncol = ncol(x))
+    as_bm_bitmap(m)
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.pattern_weave <- function(x, ...) {
+    m <- matrix(as.integer(x), nrow = nrow(x), ncol = ncol(x))
+    as_bm_bitmap(m)
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.pattern_square <- function(x, ...) {
+    m <- x - 1L
+    class(m) <- c("bm_bitmap", "bm_matrix", class(matrix()))
+    m
+}
+
 #' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.pixeltrix <- function(x, ...) {
@@ -356,7 +393,7 @@ as_bm_bitmap.pixeltrix <- function(x, ...) {
     as_bm_bitmap(flip_matrix_vertically(m))
 }
 
-#' @rdname as_bm_pixmap
+#' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.pixmapGrey <- function(x, ...,
                                     mode = c("darkness", "brightness"),
@@ -371,13 +408,13 @@ as_bm_bitmap.pixmapGrey <- function(x, ...,
     as_bm_bitmap.matrix(m)
 }
 
-#' @rdname as_bm_pixmap
+#' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.pixmapIndexed <- function(x, ...) {
     as_bm_bitmap.matrix(flip_matrix_vertically(x@index - 1L))
 }
 
-#' @rdname as_bm_pixmap
+#' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.pixmapRGB <- function(x, ...,
                                    mode = c("darkness", "brightness"),
