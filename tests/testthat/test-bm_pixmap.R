@@ -43,7 +43,7 @@ test_that("`as_bm_pixmap()`", {
     expect_equal(dim(pm2), c(0L, 4L))
     expect_equal(dim(pm3), c(0L, 4L))
 
-    grob <- grid::circleGrob(r=0.4, gp=grid::gpar(fill="red", lwd=2, col="black"))
+    grob <- grid::circleGrob(r = 0.4, gp = grid::gpar(fill = "red", lwd = 2, col = "black"))
     pm <- as_bm_pixmap(grob)
     expect_equal(dim(pm), c(16L, 16L))
 })

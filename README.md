@@ -11,6 +11,7 @@
 * [Examples](#examples)
 
   - [Bitmap font glyphs](#ex-glyphs)
+  - [{gridpattern} matrices](#ex-gridpattern)
   - [{mazing} mazes](#ex-mazes)
   - [Sprites](#ex-sprites)
 
@@ -142,6 +143,35 @@ plot(bm, col = c("white", "blue3", "cyan3", "red3"))
 
 <img src="man/figures/README-plot-1.png" alt="Stylized bitmap image that says 'RSTATS`."  />
 
+### <a name="ex-gridpattern">{gridpattern} matrices</a>
+
+
+``` r
+# Also supports {gridpattern} matrices
+gridpattern::pattern_weave("twill_herringbone", nrow=14L, ncol = 50L) |>
+    as_bm_bitmap() |>
+    print(compress = "vertical")
+```
+
+``` bitmap
+ █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  
+  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█ 
+█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█  █▄ ▀█
+▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀▀▄▄▀▄▄▀
+ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ 
+██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ █
+█ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██ ▄█▀ ██
+```
+
+
+``` r
+gridpattern::pattern_square(subtype=8L, nrow=8L, ncol = 50L) |>
+    as_bm_pixmap(s, col = grDevices::rainbow(8L)) |>
+    plot()
+```
+
+<img src="man/figures/README-plot_gridpattern-1.png" alt="Rainbow squares"  />
+
 ### <a name="ex-mazes">{mazing} mazes</a>
 
 
@@ -194,8 +224,10 @@ names(crops)
 ```
 
 ``` bitmap
- [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"   "eggplant"   "grapes"     "lemon"      "melon"      "orange"     "pineapple"  "potato"    
-[13] "rice"       "rose"       "strawberry" "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
+ [1] "avocado"    "cassava"    "coffee"     "corn"       "cucumber"  
+ [6] "eggplant"   "grapes"     "lemon"      "melon"      "orange"    
+[11] "pineapple"  "potato"     "rice"       "rose"       "strawberry"
+[16] "sunflower"  "tomato"     "tulip"      "turnip"     "wheat"     
 ```
 
 ``` r
@@ -296,7 +328,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ``` bitmap
    user  system elapsed 
-139.558   0.000 139.540 
+152.565   0.027 152.621 
 ```
 
 ``` r
@@ -323,7 +355,7 @@ system.time(font <- readRDS("unifont.rds"))
 
 ``` bitmap
    user  system elapsed 
-  0.466   0.000   0.466 
+  0.497   0.004   0.501 
 ```
 
 ``` r
@@ -334,7 +366,7 @@ system.time(font_s <- unifont(ucp = str2ucp(s)))
 
 ``` bitmap
    user  system elapsed 
-  0.653   0.000   0.653 
+  0.725   0.000   0.725 
 ```
 
 ``` r

@@ -1,7 +1,7 @@
 Package: bittermelon
 Type: Package
 Title: Bitmap Tools
-Version: 2.0.1-0
+Version: 2.0.2
 Authors@R: c(person("Trevor L.", "Davis", role = c("aut", "cre"),
                     email = "trevor.l.davis@gmail.com",
                     comment = c(ORCID = "0000-0001-6341-4639")),
@@ -24,6 +24,7 @@ Imports:
     utils
 Suggests:
     farver,
+    gridpattern,
     hexfont,
     knitr,
     magick,

@@ -1,4 +1,4 @@
-bittermelon 2.0.1
+bittermelon 2.0.2
 =================
 
 Breaking changes
@@ -63,6 +63,8 @@ New features
     - `as_bm_pixmap.matrix()`
     - `as_bm_pixmap.maze()` (from `{mazing}`)
     - `as_bm_pixmap.nativeRaster()`
+    - `as_bm_pixmap.pattern_square()` (from `{gridpattern}`)
+    - `as_bm_pixmap.pattern_weave()` (from `{gridpattern}`)
     - `as_bm_pixmap.pixeltrix()` (from `{pixeltrix}`)
     - `as_bm_pixmap.pixmapGrey()` (from `{pixmap}`)
     - `as_bm_pixmap.pixmapIndexed()` (from `{pixmap}`)
@@ -120,6 +122,8 @@ New features
   + `as_bm_bitmap.magick-image()` (from `{magick}`)
   + `as_bm_bitmap.maze()` coerces (from `{mazing}`)
   + `as_bm_bitmap.nativeRaster()`
+  + `as_bm_bitmap.pattern_square()` (from `{gridpattern}`)
+  + `as_bm_bitmap.pattern_weave()` (from `{gridpattern}`)
   + `as_bm_bitmap.pixeltrix()` (from `{pixeltrix}`)
   + `as_bm_bitmap.pixmapGrey()` (from `{pixmap}`)
   + `as_bm_bitmap.pixmapIndexed()` (from `{pixmap}`)

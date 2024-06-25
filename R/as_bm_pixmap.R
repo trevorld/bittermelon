@@ -29,6 +29,13 @@
 #'   pm <- bm_pad(pm, sides = 1L)
 #'   print(pm, compress = "v", bg = "white")
 #' }
+#' if (requireNamespace("gridpattern", quietly = TRUE) &&
+#'     cli::is_utf8_output() &&
+#'     cli::num_ansi_colors() >= 256L) {
+#'   s <- gridpattern::pattern_square(subtype = 8L, nrow = 8L, ncol = 50L)
+#'   pm <- as_bm_pixmap(s, col = grDevices::rainbow(8L))
+#'   print(pm, compress = "vertical")
+#' }
 #' @export
 as_bm_pixmap <- function(x, ...) {
     UseMethod("as_bm_pixmap")
@@ -125,6 +132,24 @@ as_bm_pixmap.maze <- function(x, ..., walls = FALSE, start = NULL, end = NULL,
     as_bm_pixmap.bm_bitmap(as_bm_bitmap.maze(x, walls = walls,
                                              start = start, end = end, solve = solve),
                            col = col)
+}
+
+# #' @rdname as_bm_pixmap
+# #' @export
+# as_bm_pixmap.pattern_hex <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) {
+#     as_bm_pixmap.bm_bitmap(as_bm_bitmap.pattern_hex(x), col = col)
+# }
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.pattern_square <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) {
+    as_bm_pixmap.bm_bitmap(as_bm_bitmap.pattern_square(x), col = col)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.pattern_weave <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) {
+    as_bm_pixmap.bm_bitmap(as_bm_bitmap.pattern_weave(x), col = col)
 }
 
 #' @rdname as_bm_pixmap

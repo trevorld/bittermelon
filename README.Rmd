@@ -11,6 +11,7 @@
 * [Examples](#examples)
 
   - [Bitmap font glyphs](#ex-glyphs)
+  - [{gridpattern} matrices](#ex-gridpattern)
   - [{mazing} mazes](#ex-mazes)
   - [Sprites](#ex-sprites)
 
@@ -79,6 +80,21 @@ if (cli::num_ansi_colors() >= 16L)
 ```
 ```{r plot, fig.width = 6, fig.height = 2, fig.alt = "Stylized bitmap image that says 'RSTATS`."}
 plot(bm, col = c("white", "blue3", "cyan3", "red3"))
+```
+
+### <a name="ex-gridpattern">{gridpattern} matrices</a>
+
+```{r gridpattern, eval=requireNamespace("gridpattern")}
+# Also supports {gridpattern} matrices
+gridpattern::pattern_weave("twill_herringbone", nrow=14L, ncol = 50L) |>
+    as_bm_bitmap() |>
+    print(compress = "vertical")
+```
+
+```{r plot_gridpattern, fig.width = 6, fig.height = 1.5, fig.alt = "Rainbow squares", eval=requireNamespace("gridpattern")}
+gridpattern::pattern_square(subtype=8L, nrow=8L, ncol = 50L) |>
+    as_bm_pixmap(s, col = grDevices::rainbow(8L)) |>
+    plot()
 ```
 
 ### <a name="ex-mazes">{mazing} mazes</a>
