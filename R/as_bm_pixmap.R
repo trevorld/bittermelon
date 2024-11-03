@@ -103,6 +103,12 @@ as_bm_pixmap.grob <- function(x, ..., width = 16L, height = 16L,
 
 #' @rdname as_bm_pixmap
 #' @export
+`as_bm_pixmap.lofi-matrix` <- function(x, ..., col = getOption("bittermelon.col", col_bitmap)) {
+    as_bm_pixmap.bm_bitmap(`as_bm_bitmap.lofi-matrix`(x), col = col)
+}
+
+#' @rdname as_bm_pixmap
+#' @export
 `as_bm_pixmap.magick-image` <- function(x, ...) {
     as_bm_pixmap.raster(grDevices::as.raster(x, ...))
 }

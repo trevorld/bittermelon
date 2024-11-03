@@ -269,6 +269,13 @@ as_bm_bitmap.grob <- function(x, ..., width = 8L, height = 16L,
     as_bm_bitmap.array(a, threshold = threshold)
 }
 
+#' @rdname as_bm_bitmap
+#' @export
+`as_bm_bitmap.lofi-matrix` <- function(x, ...) {
+    bm <- as_bm_bitmap.matrix(unclass(x))
+    bm_flip(bm)
+}
+
 default_png_device <- function() {
     if (requireNamespace("ragg", quietly = TRUE)) {
         function(filename, width, height)

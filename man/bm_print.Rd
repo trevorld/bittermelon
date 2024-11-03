@@ -76,7 +76,8 @@ if (requireNamespace("magick", quietly = TRUE) &&
 \dontrun{# Change other bitmap classes' `print()` to use `bm_print()` instead
   options(bittermelon.compress = "vertical",
           bittermelon.downscale = requireNamespace("magick", quietly = TRUE))
-  for (cl in c("glyph_bitmap", "magick-image", "nativeRaster", "pixeltrix",
+  for (cl in c("glyph_bitmap", "lofi-matrix", "magick-image",
+               "nativeRaster", "pixeltrix",
                "pixmapGrey", "pixmapIndexed", "pixmapRGB", "raster")) {
     .S3method("print", cl, bittermelon::bm_print)
   }

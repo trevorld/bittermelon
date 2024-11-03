@@ -53,7 +53,8 @@
 #' \dontrun{# Change other bitmap classes' `print()` to use `bm_print()` instead
 #'   options(bittermelon.compress = "vertical",
 #'           bittermelon.downscale = requireNamespace("magick", quietly = TRUE))
-#'   for (cl in c("glyph_bitmap", "magick-image", "nativeRaster", "pixeltrix",
+#'   for (cl in c("glyph_bitmap", "lofi-matrix", "magick-image",
+#'                "nativeRaster", "pixeltrix",
 #'                "pixmapGrey", "pixmapIndexed", "pixmapRGB", "raster")) {
 #'     .S3method("print", cl, bittermelon::bm_print)
 #'   }
@@ -72,7 +73,7 @@ bm_print <- function(x, ...) {
 #' @rdname bm_print
 #' @export
 bm_format <- function(x, ...) {
-    if (inherits(x, c("bm_bitmap", "glyph_bitmap"))) {
+    if (inherits(x, c("bm_bitmap", "glyph_bitmap", "lofi-matrix"))) {
         x <- as_bm_bitmap(x)
     } else {
         x <- as_bm_pixmap(x)
