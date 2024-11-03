@@ -87,6 +87,12 @@ format.bm_bitmap <- function(x, ...,
     n <- max(x) + 1L
     px <- rep_len(px, n)
     if (!isFALSE(fg)) {
+        if (is.function(fg)) {
+            fg <- list(fg)
+        # Avoid {cli} converting to function if color string in `cli:::ansi_builtin_styles()`
+        } else if (is.character(fg)) {
+            fg <- col2hex(fg)
+        }
         fgl <- lapply(fg, function(col) cli::make_ansi_style(col))
         if (length(fgl) == 1) {
             fgl <- rep_len(fgl, n)
@@ -98,8 +104,12 @@ format.bm_bitmap <- function(x, ...,
     }
     if (!isFALSE(bg)) {
 
-        # Avoid {cli} converting to ANSI style function if color string in `cli:::ansi_builtin_styles()`
-        if (is.character(bg)) bg <- col2hex(bg)
+        if (is.function(bg)) { 
+            bg <- list(bg)
+        # Avoid {cli} converting to function if color string in `cli:::ansi_builtin_styles()`
+        } else if (is.character(bg)) {
+            bg <- col2hex(bg)
+        }
         bgl <- lapply(bg, function(col) cli::make_ansi_style(col, bg = TRUE))
         if (length(bgl) == 1) {
             bgl <- rep_len(bgl, n)

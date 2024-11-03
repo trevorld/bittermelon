@@ -1,9 +1,20 @@
 bittermelon 2.0.3 (development)
 ===============================
 
+New features
+------------
+
 * New `as_bm_bitmap()` / `as_bm_pixmap()` class methods:
 
   * `as_bm_bitmap.lofi-matrix()` / `as_bm_pixmap.lofi-matrix()` (from `{lofifonts}`)
+
+Bug fixes and minor improvements
+--------------------------------
+
+* The `bg` and `fg` arguments of `format.bm_bitmap()` and `print.bm_bitmap()`
+  now accept a (single) `{cli}` ANSI style function
+  in addition to lists of `{cli}` ANSI style functions
+  and character vectors of R color strings.
 
 bittermelon 2.0.2
 =================

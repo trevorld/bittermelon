@@ -30,7 +30,7 @@ test_that("print.bm_bitmap()", {
 
     plus_space_rl <- cbind(plus_sign, space_glyph, direction = "right-to-left")
     verify_output("txt/plus_space_rl.txt", {
-        print(bm_bitmap(plus_space_rl))
+        print(bm_bitmap(plus_space_rl), fg = cli::col_none, bg = cli::bg_none)
     }, unicode = TRUE)
 
     verify_output("txt/plus_unicode_color_char.txt", {

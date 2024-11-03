@@ -1,4 +1,4 @@
-> print(bm_bitmap(plus_space_rl))
+> print(bm_bitmap(plus_space_rl), fg = cli::col_none, bg = cli::bg_none)
 ░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░░░░░░
 ░░░░░░░░░░░░░█░░░░
