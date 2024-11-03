@@ -1,3 +1,10 @@
+bittermelon 2.0.3 (development)
+===============================
+
+* New `as_bm_bitmap()` / `as_bm_pixmap()` class methods:
+
+  * `as_bm_bitmap.lofi-matrix()` / `as_bm_pixmap.lofi-matrix()` (from `{lofifonts}`)
+
 bittermelon 2.0.2
 =================
 

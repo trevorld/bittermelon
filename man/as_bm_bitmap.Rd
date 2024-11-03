@@ -9,6 +9,7 @@
 \alias{as_bm_bitmap.character}
 \alias{as_bm_bitmap.glyph_bitmap}
 \alias{as_bm_bitmap.grob}
+\alias{as_bm_bitmap.lofi-matrix}
 \alias{as_bm_bitmap.magick-image}
 \alias{as_bm_bitmap.matrix}
 \alias{as_bm_bitmap.maze}
@@ -63,6 +64,8 @@ as_bm_bitmap(x, ...)
   png_device = NULL,
   threshold = 0.25
 )
+
+\method{as_bm_bitmap}{`lofi-matrix`}(x, ...)
 
 \method{as_bm_bitmap}{`magick-image`}(
   x,
