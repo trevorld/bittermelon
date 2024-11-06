@@ -1,8 +1,12 @@
-bittermelon 2.0.3 (development)
+bittermelon 2.1.0 (development)
 ===============================
 
 New features
 ------------
+
+* New `as.data.frame.bm_bitmap()` and `as.data.frame.bm_pixmap()` which returns
+  a data frame with (x,y) coordinates for the bitmap pixels (#78).
+  Thanks @coolbutuseless for suggestion.
 
 * New `as_bm_bitmap()` / `as_bm_pixmap()` class methods:
 

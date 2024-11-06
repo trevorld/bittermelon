@@ -15,6 +15,7 @@ reference:
           - as_bm_pixmap
           - is_bm_pixmap
           - starts_with("\\[")
+          - as.data.frame.bm_bitmap
           - as.matrix.bm_matrix
           - as.array.bm_bitmap
           - cbind.bm_bitmap
