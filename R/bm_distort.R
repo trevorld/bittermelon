@@ -37,7 +37,7 @@ bm_distort <- function(x, width = NULL, height = NULL, ...) {
 #' @export
 bm_downscale <- function(x, width = getOption("width"), ...) {
     if (bm_widths(x) > width)
-        x <- bm_distort(x, width = width, ...)
+        bm_distort(x, width = width, ...)
     else
         x
 }
