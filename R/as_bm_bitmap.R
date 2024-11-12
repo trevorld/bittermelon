@@ -31,7 +31,7 @@ as_bm_bitmap.array <- function(x, ...,
         as_bm_bitmap.bm_pixmap(as_bm_pixmap.matrix(flip_matrix_vertically(m)),
                                mode = mode, threshold = threshold)
     } else { # RGB or RGBA
-        as_bm_bitmap.bm_pixmap(as_bm_pixmap.raster(as.raster(x)),
+        as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x),
                                mode = mode, threshold = threshold)
     }
 }
@@ -39,7 +39,11 @@ as_bm_bitmap.array <- function(x, ...,
 #' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.default <- function(x, ...) {
-    as_bm_bitmap.matrix(as.matrix(x))
+    # "bitmap" "rgba" array from `pdftools::pdf_render_page()`
+    if (is.array(x) && is.raw(x))
+        as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x), ...)
+    else
+        as_bm_bitmap.matrix(as.matrix(x))
 }
 
 #' @rdname as_bm_bitmap

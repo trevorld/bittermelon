@@ -19,7 +19,9 @@ tests/testthat/txt/fontr.txt
 tests/testthat/test-fontr.R
 tests/testthat/txt/lofifonts.txt
 tests/testthat/test-lofifonts.R
+tests/testthat/test-pdftools.R
 tests/testthat/txt/pixeltrix.txt
 tests/testthat/test-pixeltrix.R
 tests/testthat/txt/pixmap.txt
 tests/testthat/test-pixmap.R
+tests/testthat/test-webp.R
