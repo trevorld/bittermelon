@@ -19,6 +19,9 @@ Bug fixes and minor improvements
   now accept a (single) `{cli}` ANSI style function
   in addition to lists of `{cli}` ANSI style functions
   and character vectors of R color strings.
+* `bm_downscale()` no longer returns invisibly.
+* `as_bm_bitmap.array()` / `as_bm_pixmap.array()` can now handle "raw"
+  arrays as returned by `pdftools::pdf_render_page(numeric = FALSE)` and `webp::read_webp(numeric = FALSE)` (#83).
 
 bittermelon 2.0.2
 =================
