@@ -7,6 +7,9 @@ New features
 * New `as.data.frame.bm_bitmap()` and `as.data.frame.bm_pixmap()` which returns
   a data frame with (x,y) coordinates for the bitmap pixels (#78).
   Thanks @coolbutuseless for suggestion.
+* `bm_pixel_picker()` lets you use an interactive graphics device
+   to click on a bitmap's pixels and learn the column/row coordinates
+   for the clicked pixel and its integer/color value (#85).
 
 * New `as_bm_bitmap()` / `as_bm_pixmap()` class methods:
 

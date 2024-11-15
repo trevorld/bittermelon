@@ -38,3 +38,10 @@ test_that("`as.data.frame.bm_pixmap`()", {
                       gp = grid::gpar(fill = df$value), default.units = 'cm')
     )
 })
+
+test_that("`bm_pixel_picker_plot()`", {
+  corn <- farming_crops_16x16()$corn$portrait
+  expect_doppelganger("bm_pixel_picker_plot", function()
+    bm_pixel_picker_plot(corn)
+    )
+})
