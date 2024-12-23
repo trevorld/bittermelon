@@ -57,7 +57,11 @@ as.array.bm_bitmap <- function(x, ..., first_row_is_top = TRUE,
 #' @export
 as.array.bm_pixmap <- function(x, ..., first_row_is_top = TRUE) {
     m <- as.matrix(x, first_row_is_top = first_row_is_top)
-    rgba <- grDevices::col2rgb(as.character(m), alpha = TRUE) / 255
+    if (requireNamespace("colorfast", quietly = TRUE)) {
+        rgba <- colorfast::col_to_rgb(as.character(m)) / 255
+    } else {
+        rgba <- grDevices::col2rgb(as.character(m), alpha = TRUE) / 255
+    }
     a <- array(numeric(nrow(x) * ncol(x) * 4L), dim = c(nrow(x), ncol(x), 4L))
     a[seq_len(nrow(x)), seq_len(ncol(x)), 1L] <- rgba[1L, ]
     a[seq_len(nrow(x)), seq_len(ncol(x)), 2L] <- rgba[2L, ]

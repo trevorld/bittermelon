@@ -16,14 +16,18 @@
 #' col2hex("#00000000")
 #' @export
 col2hex <- function(x) {
-    rgb <- grDevices::col2rgb(x, alpha = TRUE)
-    which_transparent <- which(rgb[4, ] == 0L)
-    if (length(which_transparent)) {
-        rgb[1, which_transparent] <- 255L
-        rgb[2, which_transparent] <- 255L
-        rgb[3, which_transparent] <- 255L
+    if (requireNamespace("colorfast", quietly = TRUE)) {
+        rgba <- colorfast::col_to_rgb(x)
+    } else {
+        rgba <- grDevices::col2rgb(x, alpha = TRUE)
     }
-    grDevices::rgb(rgb[1, ], rgb[2, ], rgb[3, ], rgb[4, ],
+    which_transparent <- which(rgba[4, ] == 0L)
+    if (length(which_transparent)) {
+        rgba[1, which_transparent] <- 255L
+        rgba[2, which_transparent] <- 255L
+        rgba[3, which_transparent] <- 255L
+    }
+    grDevices::rgb(rgba[1, ], rgba[2, ], rgba[3, ], rgba[4, ],
                    maxColorValue = 255)
 }
 
@@ -33,7 +37,8 @@ col2hex <- function(x) {
 #' `int2col()` converts (native) color integers to color strings.
 #'
 #' * Colors are also standardized by [col2hex()].
-#' * Requires the [farver][farver::farver] package.
+#' * Requires either the [colorfast](https://cran.r-project.org/package=colorfast) or
+#'   the [farver][farver::farver] package.
 #' @param x Color value to convert.
 #' @return `col2int()` returns an integer.  `int2col()` returns a (hex) color string.
 #' @examples
@@ -42,8 +47,13 @@ col2hex <- function(x) {
 #' }
 #' @export
 col2int <- function(x) {
-    stopifnot(requireNamespace("farver", quietly = TRUE))
-    farver::encode_native(col2hex(x))
+    stopifnot(requireNamespace("colorfast", quietly = TRUE) ||
+              requireNamespace("farver", quietly = TRUE))
+    if (requireNamespace("colorfast", quietly = TRUE)) {
+        colorfast::col_to_int(col2hex(x))
+    } else {
+        farver::encode_native(col2hex(x))
+    }
 }
 
 as_native <- function(x) {
@@ -55,6 +65,7 @@ as_native <- function(x) {
 }
 
 #' @rdname col2int
+#' @importFrom utils packageVersion
 #' @export
 int2col <- function(x) {
     stopifnot(requireNamespace("farver", quietly = TRUE))
