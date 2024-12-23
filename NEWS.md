@@ -25,6 +25,9 @@ Bug fixes and minor improvements
 * `bm_downscale()` no longer returns invisibly.
 * `as_bm_bitmap.array()` / `as_bm_pixmap.array()` can now handle "raw"
   arrays as returned by `pdftools::pdf_render_page(numeric = FALSE)` and `webp::read_webp(numeric = FALSE)` (#83).
+* `col2int()` now uses `{colorfast}` to make the conversion if available.
+  If `{colorfast}` is unavailable will fall back to `{farver}` if available.
+  If neither are available will throw an error (#66).
 
 bittermelon 2.0.2
 =================
