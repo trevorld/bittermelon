@@ -162,7 +162,7 @@ as_bm_bitmap("RSTATS", font = fixed_6x13) |> bm_compress("v")
 The [{hexfont}](https://github.com/trevorld/hexfont) package includes a helper function `unifont()` which loads several GNU Unifont hex fonts as a single `{bittermelon}` `bm_font()` object.  [GNU Unifont](https://unifoundry.com/unifont/index.html) is a monoscale bitmap font (8x16 and 16x16 glyphs) that pretty much covers all of the official Unicode glyphs plus several of the artificial scripts in the [(Under-)ConScript Unicode Registry](https://www.kreativekorp.com/ucsur/).
 
 
-```{r unifont, eval=requireNamespace("hexfont")}
+```{r unifont, eval=requireNamespace("hexfont") && file.exists(hexfont:::unifont_cache_filename())}
 library("hexfont")
 system.time(font <- unifont()) # Unifont is a **big** font
 length(font) |> prettyNum(big.mark = ",") # number of glyphs
@@ -186,9 +186,6 @@ as_bm_list("", font = font) |>
     bm_pad(type = "trim", left = 1L, right = 1L) |>
     bm_call(cbind) |>
     bm_compress("v")
-```
-```{r hidden2, echo = FALSE}
-unlink("unifont.rds")
 ```
 
 ## <a name="gamebit">Game Bit</a>
