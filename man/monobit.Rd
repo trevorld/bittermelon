@@ -47,7 +47,7 @@ the yaff font format which this package can natively read/write from/to.
 }
 \examples{
 \donttest{# May take more than 5 seconds on CRAN servers
-if (Sys.which("monobit-convert") != "") {
+if (nzchar(Sys.which("monobit-convert"))) {
   try({
     font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
     font <- read_monobit(font_file)

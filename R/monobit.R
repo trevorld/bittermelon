@@ -16,7 +16,7 @@
 #' @param quietly If `TRUE` suppress any standard output/error from `monobit-convert`.
 #' @examples
 #' \donttest{# May take more than 5 seconds on CRAN servers
-#' if (Sys.which("monobit-convert") != "") {
+#' if (nzchar(Sys.which("monobit-convert"))) {
 #'   try({
 #'     font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'     font <- read_monobit(font_file)
@@ -37,7 +37,7 @@
 read_monobit <- function(file, quietly = FALSE,
                          monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")) {
     monobit <- Sys.which(monobit_path)
-    stopifnot(!missing(file), monobit != "")
+    stopifnot(!missing(file), nzchar(monobit))
     if (quietly)
         stdout <- stderr <- FALSE
     else
@@ -55,7 +55,7 @@ read_monobit <- function(file, quietly = FALSE,
 write_monobit <- function(font, file, quietly = FALSE,
                           monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")) {
     monobit <- Sys.which(monobit_path)
-    stopifnot(!missing(font), !missing(file), monobit != "")
+    stopifnot(!missing(font), !missing(file), nzchar(monobit))
     if (quietly)
         stdout <- stderr <- FALSE
     else
