@@ -328,7 +328,7 @@ system.time(font <- unifont()) # Unifont is a **big** font
 
 ``` bitmap
    user  system elapsed 
-152.565   0.027 152.621 
+104.772   0.196 104.999
 ```
 
 ``` r
@@ -336,7 +336,7 @@ length(font) |> prettyNum(big.mark = ",") # number of glyphs
 ```
 
 ``` bitmap
-[1] "123,234"
+[1] "125,472"
 ```
 
 ``` r
@@ -344,18 +344,17 @@ object.size(font) |> format(units = "MB") # memory used
 ```
 
 ``` bitmap
-[1] "196.5 Mb"
+[1] "198.7 Mb"
 ```
 
 ``` r
 # Faster to load from a cache
-saveRDS(font, "unifont.rds")
-system.time(font <- readRDS("unifont.rds"))
+system.time(font <- unifont(cache = TRUE))
 ```
 
 ``` bitmap
    user  system elapsed 
-  0.497   0.004   0.501 
+  0.700   0.012   0.712
 ```
 
 ``` r
@@ -366,7 +365,7 @@ system.time(font_s <- unifont(ucp = str2ucp(s)))
 
 ``` bitmap
    user  system elapsed 
-  0.725   0.000   0.725 
+  0.648   0.004   0.652
 ```
 
 ``` r

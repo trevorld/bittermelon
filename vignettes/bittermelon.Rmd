@@ -165,8 +165,7 @@ length(font) |> prettyNum(big.mark = ",") # number of glyphs
 object.size(font) |> format(units = "MB") # memory used
 
 # Faster to load from a cache
-saveRDS(font, "unifont.rds")
-system.time(font <- readRDS("unifont.rds"))
+system.time(font <- unifont(cache = TRUE))
 
 # Or just load the subset of GNU Unifont you need
 s <- "Ｒ很棒！"

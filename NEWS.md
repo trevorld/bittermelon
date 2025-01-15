@@ -1,5 +1,5 @@
-bittermelon 2.1.0 (development)
-===============================
+bittermelon 2.1.1
+=================
 
 New features
 ------------
@@ -212,7 +212,7 @@ bittermelon 1.1.2
 Bug fixes and minor improvements
 --------------------------------
 
-* Updates `is_combining_character()` so it will continue to work after a breaking change 
+* Updates `is_combining_character()` so it will continue to work after a breaking change
   in `Unicode::u_char_property()`'s behavior introduced in `{Unicode}` v15.1.0-1 (#55).
 
 bittermelon 1.1.1
@@ -221,7 +221,7 @@ bittermelon 1.1.1
 New features
 ------------
 
-* `read_hex()` has new argument `ucp`.  
+* `read_hex()` has new argument `ucp`.
   Character vector of Unicode Code Points: glyphs not in this vector won't be read in.
   If `NULL` (default) read every glyph in the font (#52).
 
@@ -254,12 +254,12 @@ New features
   in the Private Use Area of a font).  Defaults to `character(0)`.
 * We now include the 5x8 Fixed font (in addition to the 4x6 and 6x13 Fixed fonts already included in earlier version).
 * `read_monobit()` and `write_monobit()` take new argument `monobit_path` indicating
-  the directory path containing `monobit` to use.  
+  the directory path containing `monobit` to use.
   Default will be to look in `file.path(rappdirs::user_config_dir("bittermelon"), "monobit")`,
   `file.path(rappdirs::site_config_dir("bittermelon"), "monobit")`, and
   `system.file("monobit", package = "bittermelon")` (in that order).
   New package option `bittermelon.monobit_path` can be used to set a new default. (#48)
-* New function `update_monobit()` which downloads the most up to date (upstream) version of 
+* New function `update_monobit()` which downloads the most up to date (upstream) version of
   [monobit](https://github.com/robhagemans/monobit).
   Although we continue to embed an older, more compact version of `monobit` in this package
   the newest versions of `monobit` are too large to embed within this package and
@@ -269,19 +269,19 @@ Bug fixes and minor improvements
 --------------------------------
 
 * Updates the embedded version of [monobit](https://github.com/robhagemans/monobit).
-  In particular `monobit` should now better handle Amiga, [AngelCode BMFont](http://www.angelcode.com/products/bmfont/), X11/Adobe BDF, and C/C++ source code bitmap fonts and be able to natively read/write 
+  In particular `monobit` should now better handle Amiga, [AngelCode BMFont](https://www.angelcode.com/products/bmfont/), X11/Adobe BDF, and C/C++ source code bitmap fonts and be able to natively read/write
   bzip2, gzip, or lzma compressed fonts.
-* Fixes bug in `is_combining_character()`.  
+* Fixes bug in `is_combining_character()`.
   Now "combining enclosing" characters are correctly classified as combining characters.
 * Fixes bug in `bm_expand()` for bitmaps with zero columns/rows.
 
 bittermelon 0.1.3
 =================
 
-* `bm_bitmap()` creates a S3 object representing bitmaps (#1). 
+* `bm_bitmap()` creates a S3 object representing bitmaps (#1).
   Intended to represent bitmap font glyphs but can be used
   to represent more complicated bitmaps.
-  Non-binary bitmaps are allowed 
+  Non-binary bitmaps are allowed
   (but we are unlikely to ever support exporting color bitmap fonts).
   It supports the following S3 methods:
 
@@ -292,7 +292,7 @@ bittermelon 0.1.3
   * `format.bm_bitmap()` and `print.bm_bitmap()` (#2)
   * `which.bm_bitmap()` (with `which()` redefined as a S3 generic that defaults to `base::which()`)
   * `as_bm_bitmap()` is a S3 method that coerces objects to `bm_bitmap()` objects
-  
+
     * `as_bm_bitmap.default()`
     * `as_bm_bitmap.grob()` (#10)
     * `as_bm_bitmap.matrix()`
@@ -310,8 +310,8 @@ bittermelon 0.1.3
   * `as_bm_list()` is a S3 method that coerces objects to `bm_list()` objects
 
     * `as_bm_list.character()` (#28)
-    * `as_bm_list.default()` 
-    * `as_bm_list.list()` 
+    * `as_bm_list.default()`
+    * `as_bm_list.list()`
 
   * `is_bm_list()`  returns `TRUE` for `bm_list()` objects (or subclasses)
     and `FALSE` for all other objects.
@@ -322,12 +322,12 @@ bittermelon 0.1.3
   * `as_bm_font()` is a S3 method that coerces objects to `bm_font()` objects
 
     * `as_bm_font.default()`
-    * `as_bm_font.list()` 
+    * `as_bm_font.list()`
 
   * `is_bm_font()` returns `TRUE` for `bm_font()` objects (or subclasses)
     and `FALSE` for all other objects.
 
-* The following functions can modify `bm_bitmap()` objects 
+* The following functions can modify `bm_bitmap()` objects
   as well as all the bitmaps in `bm_list()` objects (including `bm_font()`):
 
   * All the "Ops" group generic operators such as `!`.
@@ -338,7 +338,7 @@ bittermelon 0.1.3
   * `bm_distort()` resizes bitmaps via distortion.
   * `bm_expand()` expands bitmap(s) by repeating each row and/or column (#19).
   * `bm_extend()` extends the bitmap by a specified value in specified directions (#11).
-  * `bm_flip()` flips (reflects) bitmaps (or just their glyphs in place) 
+  * `bm_flip()` flips (reflects) bitmaps (or just their glyphs in place)
     vertically, horizontally, or both.
   * `bm_glow()` adds a basic "glow" effect (#17)
   * `bm_mask()` uses a `mask` bitmap to set certain pixels in a `base` bitmap to zero (#21).
@@ -381,6 +381,6 @@ bittermelon 0.1.3
   * `block2ucp()`, `hex2ucp()`, `int2ucp()`, `name2ucp()`, `range2ucp()`, and `str2ucp()`
     return Unicode code points as character vectors.
   * `ucp2label()` returns Unicode code labels as character vectors.
-  * `is_combining_character()` returns `TRUE` or `FALSE` if Unicode 
+  * `is_combining_character()` returns `TRUE` or `FALSE` if Unicode
      code point refers to a combining character.
   * `ucp_sort()` sorts Unicode code points
