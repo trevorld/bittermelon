@@ -34,37 +34,46 @@
 #'          as a side effect writes `file`.
 #' @rdname monobit
 #' @export
-read_monobit <- function(file, quietly = FALSE,
-                         monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")) {
-    monobit <- Sys.which(monobit_path)
-    stopifnot(!missing(file), nzchar(monobit))
-    if (quietly)
-        stdout <- stderr <- FALSE
-    else
-        stdout <- stderr <- ""
+read_monobit <- function(
+	file,
+	quietly = FALSE,
+	monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
+) {
+	monobit <- Sys.which(monobit_path)
+	stopifnot(!missing(file), nzchar(monobit))
+	if (quietly) {
+		stdout <- stderr <- FALSE
+	} else {
+		stdout <- stderr <- ""
+	}
 
-    tfile <- tempfile(fileext = ".yaff.gz")
-    on.exit(unlink(tfile))
+	tfile <- tempfile(fileext = ".yaff.gz")
+	on.exit(unlink(tfile))
 
-    system2(monobit, c(file, tfile), stdout = stdout, stderr = stderr)
-    read_yaff(tfile)
+	system2(monobit, c(file, tfile), stdout = stdout, stderr = stderr)
+	read_yaff(tfile)
 }
 
 #' @rdname monobit
 #' @export
-write_monobit <- function(font, file, quietly = FALSE,
-                          monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")) {
-    monobit <- Sys.which(monobit_path)
-    stopifnot(!missing(font), !missing(file), nzchar(monobit))
-    if (quietly)
-        stdout <- stderr <- FALSE
-    else
-        stdout <- stderr <- ""
+write_monobit <- function(
+	font,
+	file,
+	quietly = FALSE,
+	monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
+) {
+	monobit <- Sys.which(monobit_path)
+	stopifnot(!missing(font), !missing(file), nzchar(monobit))
+	if (quietly) {
+		stdout <- stderr <- FALSE
+	} else {
+		stdout <- stderr <- ""
+	}
 
-    tfile <- tempfile(fileext = ".yaff.gz")
-    on.exit(unlink(tfile))
+	tfile <- tempfile(fileext = ".yaff.gz")
+	on.exit(unlink(tfile))
 
-    write_yaff(font, gzfile(tfile))
-    system2(monobit, c(tfile, file), stdout = stdout, stderr = stderr)
-    invisible(NULL)
+	write_yaff(font, gzfile(tfile))
+	system2(monobit, c(tfile, file), stdout = stdout, stderr = stderr)
+	invisible(NULL)
 }

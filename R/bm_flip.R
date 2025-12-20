@@ -32,85 +32,97 @@
 #' @inherit bm_clamp return
 #' @export
 bm_flip <- function(x, direction = "vertical", in_place = FALSE, value) {
-    UseMethod("bm_flip")
+	UseMethod("bm_flip")
 }
 
 #' @rdname bm_flip
 #' @export
 bm_flip.bm_bitmap <- function(x, direction = "vertical", in_place = FALSE, value = 0L) {
-    bm_flip_bitmap(x, direction, in_place, value)
+	bm_flip_bitmap(x, direction, in_place, value)
 }
 
 #' @rdname bm_flip
 #' @export
 bm_flip.bm_list <- function(x, ...) {
-    bm_lapply(x, bm_flip, ...)
+	bm_lapply(x, bm_flip, ...)
 }
 
 #' @rdname bm_flip
 #' @export
-bm_flip.bm_pixmap <- function(x, direction = "vertical", in_place = FALSE, 
-                              value = col2hex("transparent")) {
-    bm_flip_bitmap(x, direction, in_place, value)
+bm_flip.bm_pixmap <- function(
+	x,
+	direction = "vertical",
+	in_place = FALSE,
+	value = col2hex("transparent")
+) {
+	bm_flip_bitmap(x, direction, in_place, value)
 }
 
 #' @rdname bm_flip
 #' @export
-`bm_flip.magick-image` <- function(x, direction = "vertical", in_place = FALSE, 
-                                   value = "transparent") {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    bm_flip_bitmap(x, direction, in_place, value)
+`bm_flip.magick-image` <- function(
+	x,
+	direction = "vertical",
+	in_place = FALSE,
+	value = "transparent"
+) {
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	bm_flip_bitmap(x, direction, in_place, value)
 }
 
 #' @rdname bm_flip
 #' @export
-bm_flip.nativeRaster <- function(x, direction = "vertical", in_place = FALSE,
-                                 value = col2int("transparent")) {
-    pm <- as_bm_pixmap(x)
-    value <- int2col(as_native(value))
-    pm <- bm_flip_bitmap(pm, direction, in_place, value)
-    as.raster(pm, native = TRUE)
+bm_flip.nativeRaster <- function(
+	x,
+	direction = "vertical",
+	in_place = FALSE,
+	value = col2int("transparent")
+) {
+	pm <- as_bm_pixmap(x)
+	value <- int2col(as_native(value))
+	pm <- bm_flip_bitmap(pm, direction, in_place, value)
+	as.raster(pm, native = TRUE)
 }
 
 #' @rdname bm_flip
 #' @export
 bm_flip.raster <- function(x, direction = "vertical", in_place = FALSE, value = "transparent") {
-    bm_flip_bitmap(x, direction, in_place, value)
+	bm_flip_bitmap(x, direction, in_place, value)
 }
 
 bm_flip_bitmap <- function(x, direction, in_place, value) {
-    direction <- match.arg(tolower(direction),
-                           c("vertical", "v", "horizontal", "h", "both", "b"))
-    direction <- substr(direction, 1L, 1L)
-    if (in_place) {
-        bmpl <- bm_padding_lengths(x, value)
-        x <- bm_trim(x, sides = bmpl)
-    }
-    if (direction %in% c("h", "b")) {
-        x <- flip_bitmap_horizontally(x)
-    }
-    if (direction %in% c("v", "b")) {
-        x <- flip_bitmap_vertically(x)
-    }
-    if (in_place)
-        x <- bm_extend(x, value, sides = bmpl)
-    x
+	direction <- match.arg(tolower(direction), c("vertical", "v", "horizontal", "h", "both", "b"))
+	direction <- substr(direction, 1L, 1L)
+	if (in_place) {
+		bmpl <- bm_padding_lengths(x, value)
+		x <- bm_trim(x, sides = bmpl)
+	}
+	if (direction %in% c("h", "b")) {
+		x <- flip_bitmap_horizontally(x)
+	}
+	if (direction %in% c("v", "b")) {
+		x <- flip_bitmap_vertically(x)
+	}
+	if (in_place) {
+		x <- bm_extend(x, value, sides = bmpl)
+	}
+	x
 }
 
 # Doesn't handle nativeRaster... `nara::nr_fliph()`?
 flip_bitmap_horizontally <- function(x) {
-    if(inherits(x, "magick-image")) {
-        magick::image_flop(x)
-    } else {
-        flip_matrix_horizontally(x)
-    }
+	if (inherits(x, "magick-image")) {
+		magick::image_flop(x)
+	} else {
+		flip_matrix_horizontally(x)
+	}
 }
 
 # Doesn't handle nativeRaster... `nara::nr_flipv()`?
 flip_bitmap_vertically <- function(x) {
-    if(inherits(x, "magick-image")) {
-        magick::image_flip(x)
-    } else {
-        flip_matrix_vertically(x)
-    }
+	if (inherits(x, "magick-image")) {
+		magick::image_flip(x)
+	} else {
+		flip_matrix_vertically(x)
+	}
 }

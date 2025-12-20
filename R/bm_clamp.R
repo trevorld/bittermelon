@@ -33,85 +33,86 @@
 #' @return Depending on `x` either a [bm_bitmap()], [bm_font()], [bm_list()], [magick-image][magick::image_read()], "nativeRaster", [bm_pixmap()], or [raster][grDevices::as.raster()]  object.
 #' @export
 bm_clamp <- function(x, ...) {
-    UseMethod("bm_clamp")
+	UseMethod("bm_clamp")
 }
 
 #' @rdname bm_clamp
 #' @export
 bm_clamp.bm_bitmap <- function(x, lower = 0L, upper = 1L, value = upper, ...) {
-    stopifnot(length(value) > 0L, length(value) < 3L)
-    if (length(value) == 2L) {
-        value_lower <- value[2L]
-        value_upper <- value[2L]
-    } else {
-        value_lower <- lower
-        value_upper <- value
-    }
-    bm_clamp_bitmap(x, lower = lower, upper = upper,
-                    value_lower = value_lower, value_upper = value_upper)
+	stopifnot(length(value) > 0L, length(value) < 3L)
+	if (length(value) == 2L) {
+		value_lower <- value[2L]
+		value_upper <- value[2L]
+	} else {
+		value_lower <- lower
+		value_upper <- value
+	}
+	bm_clamp_bitmap(
+		x,
+		lower = lower,
+		upper = upper,
+		value_lower = value_lower,
+		value_upper = value_upper
+	)
 }
 
 #' @rdname bm_clamp
 #' @param ... Additional arguments to be passed to or from methods.
 #' @export
 bm_clamp.bm_list <- function(x, ...) {
-    bm_lapply(x, bm_clamp, ...)
+	bm_lapply(x, bm_clamp, ...)
 }
 
 #' @rdname bm_clamp
 #' @export
-bm_clamp.bm_pixmap <- function(x, value = col2hex("black"), 
-                               bg = col2hex("transparent"), ...) {
-    value <- col2hex(value)
-    bg <- col2hex(bg)
-    w <- which(as.character(x) != bg)
-    if (length(w))
-        x[w] <- value
-    x
+bm_clamp.bm_pixmap <- function(x, value = col2hex("black"), bg = col2hex("transparent"), ...) {
+	value <- col2hex(value)
+	bg <- col2hex(bg)
+	w <- which(as.character(x) != bg)
+	if (length(w)) {
+		x[w] <- value
+	}
+	x
 }
 
 #' @rdname bm_clamp
 #' @export
-`bm_clamp.magick-image` <- function(x, value = "black", 
-                                    bg = "transparent", ...) {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    value <- col2hex(value)
-    bg <- col2hex(bg)
-    pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
-    magick::image_read(pm)
+`bm_clamp.magick-image` <- function(x, value = "black", bg = "transparent", ...) {
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	value <- col2hex(value)
+	bg <- col2hex(bg)
+	pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
+	magick::image_read(pm)
 }
 
 #' @rdname bm_clamp
 #' @param bg Bitmap background value.
 #' @export
-bm_clamp.nativeRaster <- function(x, value = col2int("black"), 
-                                  bg = col2int("transparent"), ...) {
-    value <- int2col(as_native(value))
-    bg <- int2col(as_native(bg))
-    pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
-    as.raster(pm, native = TRUE)
+bm_clamp.nativeRaster <- function(x, value = col2int("black"), bg = col2int("transparent"), ...) {
+	value <- int2col(as_native(value))
+	bg <- int2col(as_native(bg))
+	pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
+	as.raster(pm, native = TRUE)
 }
 
 #' @rdname bm_clamp
 #' @export
-bm_clamp.raster <- function(x, value = "black", 
-                               bg = "transparent", ...) {
-    value <- col2hex(value)
-    bg <- col2hex(bg)
-    pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
-    as.raster(pm)
+bm_clamp.raster <- function(x, value = "black", bg = "transparent", ...) {
+	value <- col2hex(value)
+	bg <- col2hex(bg)
+	pm <- bm_clamp(as_bm_pixmap(x), value = value, bg = bg)
+	as.raster(pm)
 }
 
-bm_clamp_bitmap <- function(x, lower = 0L, upper = 1L,
-                            value_lower = lower, value_upper = upper) {
-    stopifnot(lower <= upper)
-    indices <- which(as.logical(x < lower))
-    if (length(indices)) {
-        x[indices] <- value_lower
-    }
-    indices <- which(as.logical(x > upper))
-    if (length(indices)) {
-        x[indices] <- value_upper
-    }
-    x
+bm_clamp_bitmap <- function(x, lower = 0L, upper = 1L, value_lower = lower, value_upper = upper) {
+	stopifnot(lower <= upper)
+	indices <- which(as.logical(x < lower))
+	if (length(indices)) {
+		x[indices] <- value_lower
+	}
+	indices <- which(as.logical(x > upper))
+	if (length(indices)) {
+		x[indices] <- value_upper
+	}
+	x
 }

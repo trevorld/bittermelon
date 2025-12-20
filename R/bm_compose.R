@@ -22,24 +22,26 @@
 #'   print(bm_compose(bml))
 #' @export
 bm_compose <- function(bml, pua_combining = character(0), ...) {
-    if (length(bml) < 2L) return(bml)
+	if (length(bml) < 2L) {
+		return(bml)
+	}
 
-    n_orig <- length(bml)
-    i_combining <- is_combining_character(names(bml), pua_combining = pua_combining)
-    n_combining <- sum(i_combining)
-    bml_new <- vector("list", n_orig - n_combining)
-    bml_new[[1L]] <-  bml[[1L]]
-    names(bml_new)[1L] <- names(bml)[1L]
-    i_new <- 1L
-    for (i in seq.int(2L, n_orig)) {
-        if (i_combining[i]) {
-            bml_new[[i_new]] <- bm_overlay(bml_new[[i_new]], bml[[i]], ...)
-            names(bml_new)[i_new] <- paste(names(bml_new)[i_new], names(bml)[i])
-        } else {
-            i_new <- i_new + 1L
-            bml_new[[i_new]] <- bml[[i]]
-            names(bml_new)[i_new] <- names(bml)[i]
-        }
-    }
-    as_bm_list.list(bml_new)
+	n_orig <- length(bml)
+	i_combining <- is_combining_character(names(bml), pua_combining = pua_combining)
+	n_combining <- sum(i_combining)
+	bml_new <- vector("list", n_orig - n_combining)
+	bml_new[[1L]] <- bml[[1L]]
+	names(bml_new)[1L] <- names(bml)[1L]
+	i_new <- 1L
+	for (i in seq.int(2L, n_orig)) {
+		if (i_combining[i]) {
+			bml_new[[i_new]] <- bm_overlay(bml_new[[i_new]], bml[[i]], ...)
+			names(bml_new)[i_new] <- paste(names(bml_new)[i_new], names(bml)[i])
+		} else {
+			i_new <- i_new + 1L
+			bml_new[[i_new]] <- bml[[i]]
+			names(bml_new)[i_new] <- names(bml)[i]
+		}
+	}
+	as_bm_list.list(bml_new)
 }

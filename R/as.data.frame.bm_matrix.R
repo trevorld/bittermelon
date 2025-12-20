@@ -28,37 +28,45 @@
 #' @rdname as.data.frame.bm_matrix
 #' @export
 as.data.frame.bm_bitmap <- function(x, ..., filtrate = FALSE) {
-    if (isFALSE(filtrate)) {
-        df <- data.frame(
-          x = rep(seq_len(ncol(x)), each = nrow(x)),
-          y = rep.int(seq_len(nrow(x)), times = ncol(x)),
-          value = as.integer(x)
-        )
-    } else {
-        filtrate <- as.integer(filtrate)
-        mat <- arrayInd(which(as.logical(x == filtrate)), dim(x),
-                        .dimnames = list(y=NULL, x=NULL), useNames = TRUE)
-        df <- as.data.frame(mat)[, c("x", "y")]
-        df$value <- rep_len(filtrate, nrow(mat))
-    }
-    df
+	if (isFALSE(filtrate)) {
+		df <- data.frame(
+			x = rep(seq_len(ncol(x)), each = nrow(x)),
+			y = rep.int(seq_len(nrow(x)), times = ncol(x)),
+			value = as.integer(x)
+		)
+	} else {
+		filtrate <- as.integer(filtrate)
+		mat <- arrayInd(
+			which(as.logical(x == filtrate)),
+			dim(x),
+			.dimnames = list(y = NULL, x = NULL),
+			useNames = TRUE
+		)
+		df <- as.data.frame(mat)[, c("x", "y")]
+		df$value <- rep_len(filtrate, nrow(mat))
+	}
+	df
 }
 
 #' @rdname as.data.frame.bm_matrix
 #' @export
 as.data.frame.bm_pixmap <- function(x, ..., filtrate = FALSE) {
-    if (isFALSE(filtrate)) {
-        df <- data.frame(
-          x = rep(seq_len(ncol(x)), each = nrow(x)),
-          y = rep.int(seq_len(nrow(x)), times = ncol(x)),
-          value = as.character(x)
-        )
-    } else {
-        filtrate <- col2hex(filtrate)
-        mat <- arrayInd(which(as.logical(x == filtrate)), dim(x),
-                        .dimnames = list(y=NULL, x=NULL), useNames = TRUE)
-        df <- as.data.frame(mat)[, c("x", "y")]
-        df$value <- rep_len(filtrate, nrow(mat))
-    }
-    df
+	if (isFALSE(filtrate)) {
+		df <- data.frame(
+			x = rep(seq_len(ncol(x)), each = nrow(x)),
+			y = rep.int(seq_len(nrow(x)), times = ncol(x)),
+			value = as.character(x)
+		)
+	} else {
+		filtrate <- col2hex(filtrate)
+		mat <- arrayInd(
+			which(as.logical(x == filtrate)),
+			dim(x),
+			.dimnames = list(y = NULL, x = NULL),
+			useNames = TRUE
+		)
+		df <- as.data.frame(mat)[, c("x", "y")]
+		df$value <- rep_len(filtrate, nrow(mat))
+	}
+	df
 }

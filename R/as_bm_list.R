@@ -19,19 +19,19 @@
 #' @seealso [bm_list()]
 #' @export
 as_bm_list <- function(x, ...) {
-    UseMethod("as_bm_list")
+	UseMethod("as_bm_list")
 }
 
 #' @rdname as_bm_list
 #' @export
 as_bm_list.default <- function(x, ...) {
-    as_bm_list.list(as.list(x, ...))
+	as_bm_list.list(as.list(x, ...))
 }
 
 #' @rdname as_bm_list
 #' @export
 as_bm_list.bm_list <- function(x, ...) {
-    x
+	x
 }
 
 #' @rdname as_bm_list
@@ -39,24 +39,26 @@ as_bm_list.bm_list <- function(x, ...) {
 #'            as [as_bm_bitmap()] or [as_bm_pixmap()].
 #' @export
 as_bm_list.list <- function(x, ..., FUN = identity) {
-    x <- lapply(x, FUN = FUN, ...)
-    all_bm <- all(vapply(x, is_supported_bitmap, FUN.VALUE = logical(1L)))
-    stopifnot(`Some elements were not supported bitmap objects` = all_bm)
-    class(x) <- c("bm_list", class(x))
-    x
+	x <- lapply(x, FUN = FUN, ...)
+	all_bm <- all(vapply(x, is_supported_bitmap, FUN.VALUE = logical(1L)))
+	stopifnot(`Some elements were not supported bitmap objects` = all_bm)
+	class(x) <- c("bm_list", class(x))
+	x
 }
 
 #' @rdname as_bm_list
 #' @export
 as_bm_list.character <- function(x, ..., font = bm_font()) {
-    x <- paste(x, collapse = "")
-    if (nchar(x) == 0) return(bm_list())
-    ucp <- str2ucp(x)
-    bml <- as_bm_list(font[ucp])
-    stopifnot(!any(sapply(bml, is.null)))
-    bml
+	x <- paste(x, collapse = "")
+	if (nchar(x) == 0) {
+		return(bm_list())
+	}
+	ucp <- str2ucp(x)
+	bml <- as_bm_list(font[ucp])
+	stopifnot(!any(sapply(bml, is.null)))
+	bml
 }
 
 is_supported_bitmap <- function(x) {
-    inherits(x, c("bm_bitmap", "bm_pixmap", "magick-image", "nativeRaster", "raster"))
+	inherits(x, c("bm_bitmap", "bm_pixmap", "magick-image", "nativeRaster", "raster"))
 }

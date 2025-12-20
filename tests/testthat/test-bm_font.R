@@ -8,14 +8,13 @@ space_glyph <- bm_bitmap(matrix(0L, nrow = 9L, ncol = 9L))
 space_code_point <- name2ucp("SPACE") # code point U+0020
 
 test_that("bm_font()", {
-    expect_error(bm_font(2), "Some elements were not")
+	expect_error(bm_font(2), "Some elements were not")
 
-    l <- list()
-    l[[plus_sign_code_point]] <- plus_sign_glyph
-    l[[space_code_point]] <- space_glyph
-    font <- as_bm_font(l)
-    expect_true(is_bm_font(font))
-    expect_equal(font, bm_font(font))
-    expect_equal(font, as_bm_font(font))
-
+	l <- list()
+	l[[plus_sign_code_point]] <- plus_sign_glyph
+	l[[space_code_point]] <- space_glyph
+	font <- as_bm_font(l)
+	expect_true(is_bm_font(font))
+	expect_equal(font, bm_font(font))
+	expect_equal(font, as_bm_font(font))
 })

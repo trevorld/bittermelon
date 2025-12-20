@@ -30,56 +30,58 @@
 #' @inherit bm_clamp return
 #' @export
 bm_rotate <- function(x, angle = 0L, clockwise = TRUE) {
-    UseMethod("bm_rotate")
+	UseMethod("bm_rotate")
 }
 
 #' @rdname bm_rotate
 #' @export
 bm_rotate.bm_matrix <- function(x, angle = 0L, clockwise = TRUE) {
-    bm_rotate_bitmap(x, angle, clockwise)
+	bm_rotate_bitmap(x, angle, clockwise)
 }
 
 #' @rdname bm_rotate
 #' @export
 bm_rotate.nativeRaster <- function(x, angle = 0L, clockwise = TRUE) {
-    pm <- as_bm_pixmap.nativeRaster(x)
-    pm <- bm_rotate_bitmap(pm, angle, clockwise)
-    as.raster(pm, native = TRUE)
+	pm <- as_bm_pixmap.nativeRaster(x)
+	pm <- bm_rotate_bitmap(pm, angle, clockwise)
+	as.raster(pm, native = TRUE)
 }
 
 #' @rdname bm_rotate
 #' @export
 `bm_rotate.magick-image` <- function(x, angle = 0L, clockwise = TRUE) {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    if (!clockwise)
-        angle <- -angle
-    magick::image_rotate(x, angle)
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	if (!clockwise) {
+		angle <- -angle
+	}
+	magick::image_rotate(x, angle)
 }
 
 #' @rdname bm_rotate
 #' @export
 bm_rotate.raster <- function(x, angle = 0L, clockwise = TRUE) {
-    as.raster(bm_rotate_bitmap(x, angle, !clockwise))
+	as.raster(bm_rotate_bitmap(x, angle, !clockwise))
 }
 
 #' @rdname bm_rotate
 #' @export
 bm_rotate.bm_list <- function(x, ...) {
-    bm_lapply(x, bm_rotate, ...)
+	bm_lapply(x, bm_rotate, ...)
 }
 
 bm_rotate_bitmap <- function(x, angle = 0, clockwise = TRUE) {
-    angle <- as.integer(angle)
-    if (clockwise)
-        angle <- -angle
-    angle <- angle %% 360L
-    stopifnot(angle %in% c(0L, 90L, 180L, 270L))
-    if (angle == 90L) {
-        x <- flip_matrix_horizontally(t(x))
-    } else if (angle == 180L) {
-        x <- flip_matrix_horizontally(flip_matrix_vertically(x))
-    } else if (angle == 270L) {
-        x <- flip_matrix_vertically(t(x))
-    } # No change if angle == 0L
-    x
+	angle <- as.integer(angle)
+	if (clockwise) {
+		angle <- -angle
+	}
+	angle <- angle %% 360L
+	stopifnot(angle %in% c(0L, 90L, 180L, 270L))
+	if (angle == 90L) {
+		x <- flip_matrix_horizontally(t(x))
+	} else if (angle == 180L) {
+		x <- flip_matrix_horizontally(flip_matrix_vertically(x))
+	} else if (angle == 270L) {
+		x <- flip_matrix_vertically(t(x))
+	} # No change if angle == 0L
+	x
 }

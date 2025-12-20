@@ -31,5 +31,5 @@
 #' plot(pm)
 #' @export
 bm_pixmap <- function(x) {
-    as_bm_pixmap(x)
+	as_bm_pixmap(x)
 }

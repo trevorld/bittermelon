@@ -28,94 +28,90 @@
 #'           by adding pixels to their sides.
 #' @export
 bm_expand <- function(x, width = 1L, height = width) {
-    UseMethod("bm_expand")
+	UseMethod("bm_expand")
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.bm_bitmap <- function(x, width = 1L, height = width) {
-    if (nrow(x) == 0L || ncol(x) == 0L || width == 0L || height == 0L) {
-        nr <- height * nrow(x)
-        nc <- width * ncol(x)
-        return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
-    } else {
-        bm_expand_bitmap(x, width = width, height = height)
-    }
+	if (nrow(x) == 0L || ncol(x) == 0L || width == 0L || height == 0L) {
+		nr <- height * nrow(x)
+		nc <- width * ncol(x)
+		return(bm_bitmap(matrix(integer(), nrow = nr, ncol = nc)))
+	} else {
+		bm_expand_bitmap(x, width = width, height = height)
+	}
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.bm_list <- function(x, ...) {
-    bm_lapply(x, bm_expand, ...)
+	bm_lapply(x, bm_expand, ...)
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.bm_pixmap <- function(x, width = 1L, height = width) {
-    if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
-        nr <- height * nrow(x)
-        nc <- width * ncol(x)
-        return(bm_pixmap(matrix(character(), nrow = nr, ncol = nc)))
-    } else {
-        bm_expand_bitmap(x, width = width, height = height)
-    }
+	if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
+		nr <- height * nrow(x)
+		nc <- width * ncol(x)
+		return(bm_pixmap(matrix(character(), nrow = nr, ncol = nc)))
+	} else {
+		bm_expand_bitmap(x, width = width, height = height)
+	}
 }
 
 #' @rdname bm_expand
 #' @export
 `bm_expand.magick-image` <- function(x, width = 1L, height = width) {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    pm <- as_bm_pixmap(x)
-    pm <- bm_expand(pm, width = width, height = height)
-    magick::image_read(pm)
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	pm <- as_bm_pixmap(x)
+	pm <- bm_expand(pm, width = width, height = height)
+	magick::image_read(pm)
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.nativeRaster <- function(x, width = 1L, height = width) {
-    pm <- as_bm_pixmap(x)
-    pm <- bm_expand(pm, width = width, height = height)
-    as.raster(pm, native = TRUE)
+	pm <- as_bm_pixmap(x)
+	pm <- bm_expand(pm, width = width, height = height)
+	as.raster(pm, native = TRUE)
 }
 
 #' @rdname bm_expand
 #' @export
 bm_expand.raster <- function(x, width = 1L, height = width) {
-    if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
-        nr <- height * nrow(x)
-        nc <- width * ncol(x)
-        return(as.raster(matrix(character(), nrow = nr, ncol = nc)))
-    } else {
-        # The `height` logic is a bit different from `bm_expand_bitmap()`
-        x <- as.matrix(x)
-        if (width != 1L) {
-            l <- lapply(seq_len(ncol(x)),
-                        function(j) x[, j, drop = FALSE])
-            l <- rep(l, each = width)
-            x <- do.call(cbind, l)
-        }
-        if (height != 1L) {
-            l <- lapply(seq_len(nrow(x)),
-                        function(i) x[i, , drop = FALSE])
-            l <- rep(l, each = height)
-            x <- do.call(rbind, l)
-        }
-        as.raster(x)
-    }
+	if (nrow(x) == 0L || ncol(x) == 0L || height == 0L || width == 0L) {
+		nr <- height * nrow(x)
+		nc <- width * ncol(x)
+		return(as.raster(matrix(character(), nrow = nr, ncol = nc)))
+	} else {
+		# The `height` logic is a bit different from `bm_expand_bitmap()`
+		x <- as.matrix(x)
+		if (width != 1L) {
+			l <- lapply(seq_len(ncol(x)), function(j) x[, j, drop = FALSE])
+			l <- rep(l, each = width)
+			x <- do.call(cbind, l)
+		}
+		if (height != 1L) {
+			l <- lapply(seq_len(nrow(x)), function(i) x[i, , drop = FALSE])
+			l <- rep(l, each = height)
+			x <- do.call(rbind, l)
+		}
+		as.raster(x)
+	}
 }
 
 bm_expand_bitmap <- function(x, width = 1L, height = width) {
-    if (width != 1L) {
-        l <- lapply(seq_len(ncol(x)),
-                    function(j) x[, j, drop = FALSE])
-        l <- rep(l, each = width)
-        x <- do.call(cbind, l)
-    }
-    if (height != 1L) {
-        l <- lapply(seq.int(nrow(x), 1L, -1L),
-                    function(i) x[i, , drop = FALSE])
-        l <- rep(l, each = height)
-        x <- do.call(rbind, l)
-    }
-    x
+	if (width != 1L) {
+		l <- lapply(seq_len(ncol(x)), function(j) x[, j, drop = FALSE])
+		l <- rep(l, each = width)
+		x <- do.call(cbind, l)
+	}
+	if (height != 1L) {
+		l <- lapply(seq.int(nrow(x), 1L, -1L), function(i) x[i, , drop = FALSE])
+		l <- rep(l, each = height)
+		x <- do.call(rbind, l)
+	}
+	x
 }
