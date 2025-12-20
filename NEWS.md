@@ -1,3 +1,11 @@
+bittermelon 2.2.0 (development)
+===============================
+
+New features
+------------
+
+* `is_supported_bitmap()` tests whether the object is one of the bitmap formats supported by the functions in this package (i.e. `bm_bitmap`, `bm_pixmap`, `magick-image`, `nativeRaster`, or `raster`.
+
 bittermelon 2.1.1
 =================
 

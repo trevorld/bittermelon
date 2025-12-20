@@ -63,14 +63,14 @@ bm_print(capital_r)
 
 corn_r <- as.raster(farming_crops_16x16()$corn$portrait)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
-  bm_print(corn_r, compress = "v") 
+  bm_print(corn_r, compress = "v")
 }
 
 if (requireNamespace("magick", quietly = TRUE) &&
-    cli::is_utf8_output() && 
+    cli::is_utf8_output() &&
     cli::num_ansi_colors() > 256L) {
   rose_mi <- magick::image_read("rose:")
-  bm_print(rose_mi, compress = "v") 
+  bm_print(rose_mi, compress = "v")
 }
 
 \dontrun{# Change other bitmap classes' `print()` to use `bm_print()` instead

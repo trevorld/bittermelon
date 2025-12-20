@@ -18,7 +18,7 @@ Note this function \strong{does not} set option values itself but
 this list can be passed to \code{\link[=options]{options()}}, \code{\link[withr:with_options]{withr::local_options()}}, or \code{\link[withr:with_options]{withr::with_options()}}.
 }
 \description{
-\code{bm_options()} returns the \code{bittermelon} packages global options.
+\code{bm_options()} returns the \code{bittermelon} package's global options.
 }
 \examples{
   bm_options()

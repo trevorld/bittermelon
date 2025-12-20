@@ -69,7 +69,7 @@ print(bm_compress(r, "both"))
 
 img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))
 logo <- as_bm_pixmap(img)
-if (cli::is_utf8_output() && 
+if (cli::is_utf8_output() &&
     cli::num_ansi_colors() > 256L &&
     requireNamespace("magick", quietly = TRUE)) {
   logo_c <- bm_compress(pm, "both", filter = NULL)

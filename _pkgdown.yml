@@ -22,6 +22,7 @@ reference:
           - plot.bm_matrix
           - print.bm_bitmap
           - print.bm_pixmap
+          - is_supported_bitmap
     - title: "Bitmap list objects"
       desc: 'Bitmap list objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
       contents:

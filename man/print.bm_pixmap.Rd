@@ -92,7 +92,7 @@ if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
   print(corn, compress = "v", bg = cli::bg_br_white)
 }
 
-if (cli::is_utf8_output() && 
+if (cli::is_utf8_output() &&
     cli::num_ansi_colors() > 256L &&
     getOption("width") >= 100L) {
   img <- png::readPNG(system.file("img", "Rlogo.png", package="png"))

@@ -59,6 +59,18 @@ as_bm_list.character <- function(x, ..., font = bm_font()) {
 	bml
 }
 
+#' Test if the object is a bitmap object supported by the methods in this package
+#'
+#' `is_supported_bitmap()` returns `TRUE` for `bm_bitmap`, `bm_pixmap`, `magick-image`, `nativeRaster`, and `raster` objects (or subclasses)
+#' and `FALSE` for all other objects.
+#' @param x An object
+#' @return `TRUE` or `FALSE`
+#' @examples
+#' space_matrix <- matrix(0L, nrow = 16L, ncol = 16L)
+#' space_glyph <- bm_bitmap(space_matrix)
+#' is_supported_bitmap(space_glyph)
+#' @seealso [is_bm_bitmap()], [is_bm_pixmap()], [grDevices::is.raster()]
+#' @export
 is_supported_bitmap <- function(x) {
 	inherits(x, c("bm_bitmap", "bm_pixmap", "magick-image", "nativeRaster", "raster"))
 }
