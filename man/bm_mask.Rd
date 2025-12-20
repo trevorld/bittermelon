@@ -146,7 +146,7 @@ if (capabilities("png")) {
   rainbow <- bm_expand(as_bm_pixmap(m), 2L)
   circle_rainbow <- bm_mask(rainbow, circle_large, mode = "alpha")
 }
-if (cli::is_utf8_output() && 
+if (cli::is_utf8_output() &&
     cli::num_ansi_colors() >= 256L &&
     capabilities("png")) {
   print(circle_rainbow, compress = "v")

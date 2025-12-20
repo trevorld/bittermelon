@@ -74,7 +74,7 @@ if (requireNamespace("magick", quietly = TRUE)) {
 crops <- farming_crops_16x16()
 corn <- crops$corn$portrait
 dim(corn) # 16 x 16
-if (cli::is_utf8_output() && 
+if (cli::is_utf8_output() &&
     cli::num_ansi_colors() >= 256L &&
     requireNamespace("magick", quietly = TRUE)) {
   corn_24x24 <- bm_distort(corn, width = 24L)
