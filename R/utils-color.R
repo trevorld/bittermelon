@@ -46,14 +46,12 @@ col2hex <- function(x) {
 #' }
 #' @export
 col2int <- function(x) {
-	stopifnot(
-		requireNamespace("colorfast", quietly = TRUE) ||
-			requireNamespace("farver", quietly = TRUE)
-	)
 	if (requireNamespace("colorfast", quietly = TRUE)) {
 		colorfast::col_to_int(col2hex(x))
-	} else {
+	} else if (requireNamespace("farver", quietly = TRUE)) {
 		farver::encode_native(col2hex(x))
+	} else {
+		stop("Requires either the `{colorfast}` or `{farver}` packages")
 	}
 }
 
@@ -69,8 +67,13 @@ as_native <- function(x) {
 #' @importFrom utils packageVersion
 #' @export
 int2col <- function(x) {
-	stopifnot(requireNamespace("farver", quietly = TRUE))
-	col2hex(farver::decode_native(x))
+	if (requireNamespace("colorfast", quietly = TRUE) && packageVersion("colorfast") >= "1.0.1") {
+		col2hex(colorfast::int_to_col(x))
+	} else if (requireNamespace("farver", quietly = TRUE)) {
+		col2hex(farver::decode_native(x))
+	} else {
+		stop("Requires either the `{colorfast}` or `{farver}` packages")
+	}
 }
 
 `%||%` <- function(x, y) if (is.null(x)) y else x # nolint
