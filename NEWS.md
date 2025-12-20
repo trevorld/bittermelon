@@ -6,6 +6,12 @@ New features
 
 * `is_supported_bitmap()` tests whether the object is one of the bitmap formats supported by the functions in this package (i.e. `bm_bitmap`, `bm_pixmap`, `magick-image`, `nativeRaster`, or `raster`.
 
+Bug fixes and minor improvements
+--------------------------------
+
+* `int2col()` can now also use the suggested `{colorfast}` package (>= 1.0.1) (#66).
+
+
 bittermelon 2.1.1
 =================
 

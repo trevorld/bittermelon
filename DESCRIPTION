@@ -23,7 +23,7 @@ Imports:
     Unicode,
     utils
 Suggests:
-    colorfast,
+    colorfast (>= 1.0.1),
     farver,
     gridpattern,
     hexfont (>= 0.5.1),
