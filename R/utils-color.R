@@ -64,10 +64,12 @@ as_native <- function(x) {
 }
 
 #' @rdname col2int
-#' @importFrom utils packageVersion
 #' @export
 int2col <- function(x) {
-	if (requireNamespace("colorfast", quietly = TRUE) && packageVersion("colorfast") >= "1.0.1") {
+	if (
+		requireNamespace("colorfast", quietly = TRUE) &&
+			exists("int_to_col", getNamespace("colorfast"))
+	) {
 		col2hex(colorfast::int_to_col(x))
 	} else if (requireNamespace("farver", quietly = TRUE)) {
 		col2hex(farver::decode_native(x))
