@@ -22,11 +22,12 @@
 #' @aliases as.matrix.bm_bitmap as.matrix.bm_pixmap
 #' @export
 as.matrix.bm_matrix <- function(x, first_row_is_top = FALSE, ...) {
-    class(x) <- NULL
-    if (first_row_is_top)
-        flip_matrix_vertically(x)
-    else
-        x
+	class(x) <- NULL
+	if (first_row_is_top) {
+		flip_matrix_vertically(x)
+	} else {
+		x
+	}
 }
 
 #' Cast bitmap/pixmap objects to an array
@@ -48,40 +49,44 @@ as.matrix.bm_matrix <- function(x, first_row_is_top = FALSE, ...) {
 #' f <- tempfile(fileext = ".png")
 #' png::writePNG(a, f)
 #' @export
-as.array.bm_bitmap <- function(x, ..., first_row_is_top = TRUE,
-                               col = getOption("bittermelon.col", col_bitmap)) {
-    as.array(as_bm_pixmap(x, col = col), first_row_is_top = first_row_is_top)
+as.array.bm_bitmap <- function(
+	x,
+	...,
+	first_row_is_top = TRUE,
+	col = getOption("bittermelon.col", col_bitmap)
+) {
+	as.array(as_bm_pixmap(x, col = col), first_row_is_top = first_row_is_top)
 }
 
 #' @rdname as.array.bm_matrix
 #' @export
 as.array.bm_pixmap <- function(x, ..., first_row_is_top = TRUE) {
-    m <- as.matrix(x, first_row_is_top = first_row_is_top)
-    if (requireNamespace("colorfast", quietly = TRUE)) {
-        rgba <- colorfast::col_to_rgb(as.character(m)) / 255
-    } else {
-        rgba <- grDevices::col2rgb(as.character(m), alpha = TRUE) / 255
-    }
-    a <- array(numeric(nrow(x) * ncol(x) * 4L), dim = c(nrow(x), ncol(x), 4L))
-    a[seq_len(nrow(x)), seq_len(ncol(x)), 1L] <- rgba[1L, ]
-    a[seq_len(nrow(x)), seq_len(ncol(x)), 2L] <- rgba[2L, ]
-    a[seq_len(nrow(x)), seq_len(ncol(x)), 3L] <- rgba[3L, ]
-    a[seq_len(nrow(x)), seq_len(ncol(x)), 4L] <- rgba[4L, ]
-    a
+	m <- as.matrix(x, first_row_is_top = first_row_is_top)
+	if (requireNamespace("colorfast", quietly = TRUE)) {
+		rgba <- colorfast::col_to_rgb(as.character(m)) / 255
+	} else {
+		rgba <- grDevices::col2rgb(as.character(m), alpha = TRUE) / 255
+	}
+	a <- array(numeric(nrow(x) * ncol(x) * 4L), dim = c(nrow(x), ncol(x), 4L))
+	a[seq_len(nrow(x)), seq_len(ncol(x)), 1L] <- rgba[1L, ]
+	a[seq_len(nrow(x)), seq_len(ncol(x)), 2L] <- rgba[2L, ]
+	a[seq_len(nrow(x)), seq_len(ncol(x)), 3L] <- rgba[3L, ]
+	a[seq_len(nrow(x)), seq_len(ncol(x)), 4L] <- rgba[4L, ]
+	a
 }
 
 flip_matrix_vertically <- function(x) {
-    if (nrow(x) > 1L) {
-        x[seq.int(nrow(x), 1L, -1L),  , drop = FALSE]
-    } else {
-        x
-    }
+	if (nrow(x) > 1L) {
+		x[seq.int(nrow(x), 1L, -1L), , drop = FALSE]
+	} else {
+		x
+	}
 }
 
 flip_matrix_horizontally <- function(x) {
-    if (ncol(x) > 1L) {
-        x[, seq.int(ncol(x), 1L, -1L), drop = FALSE]
-    } else {
-        x
-    }
+	if (ncol(x) > 1L) {
+		x[, seq.int(ncol(x), 1L, -1L), drop = FALSE]
+	} else {
+		x
+	}
 }

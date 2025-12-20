@@ -24,24 +24,27 @@
 #' @aliases [.bm_bitmap [.bm_pixmap
 #' @export
 `[.bm_matrix` <- function(x, i, j, ..., drop = TRUE) {
-    v <- NextMethod()
-    if (is.matrix(v) && !is_bm_matrix(v))
-        class(v) <- class(x)
-    v
+	v <- NextMethod()
+	if (is.matrix(v) && !is_bm_matrix(v)) {
+		class(v) <- class(x)
+	}
+	v
 }
 
 #' @rdname Extract.bm_matrix
 #' @export
-`[<-.bm_bitmap` <- function(x, i, j, ..., value) { # nolint
-    value <- as.integer(value)
-    x <- NextMethod()
-    x
+`[<-.bm_bitmap` <- function(x, i, j, ..., value) {
+	# nolint
+	value <- as.integer(value)
+	x <- NextMethod()
+	x
 }
 
 #' @rdname Extract.bm_matrix
 #' @export
-`[<-.bm_pixmap` <- function(x, i, j, ..., value) { # nolint
-    value <- col2hex(value)
-    x <- NextMethod()
-    x
+`[<-.bm_pixmap` <- function(x, i, j, ..., value) {
+	# nolint
+	value <- col2hex(value)
+	x <- NextMethod()
+	x
 }

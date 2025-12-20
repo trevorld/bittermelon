@@ -29,67 +29,75 @@
 #' @rdname bm_bind
 #' @export
 cbind.bm_bitmap <- function(..., direction = "left-to-right", vjust = "center-top") {
-    is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))
-    is_rtl <- c(tolower(direction) %in% c("right-to-left", "rtl", "rl"))
-    stopifnot(is_ltr || is_rtl)
-    bml <- list(...)
-    bml <- lapply(bml, as_bm_bitmap)
-    heights <- unique(vapply(bml, nrow, integer(1L)))
-    if (length(heights) > 1L)
-        bml <- lapply(bml, bm_extend, height = max(heights), vjust = vjust)
-    l <- lapply(bml, as.matrix)
-    if (is_rtl)
-        l <- rev(l)
-    as_bm_bitmap.matrix(do.call(cbind, l))
+	is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))
+	is_rtl <- c(tolower(direction) %in% c("right-to-left", "rtl", "rl"))
+	stopifnot(is_ltr || is_rtl)
+	bml <- list(...)
+	bml <- lapply(bml, as_bm_bitmap)
+	heights <- unique(vapply(bml, nrow, integer(1L)))
+	if (length(heights) > 1L) {
+		bml <- lapply(bml, bm_extend, height = max(heights), vjust = vjust)
+	}
+	l <- lapply(bml, as.matrix)
+	if (is_rtl) {
+		l <- rev(l)
+	}
+	as_bm_bitmap.matrix(do.call(cbind, l))
 }
 
 #' @rdname bm_bind
 #' @export
 rbind.bm_bitmap <- function(..., direction = "top-to-bottom", hjust = "center-left") {
-    is_ttb <- c(tolower(direction) %in% c("top-to-bottom", "ttb", "tb"))
-    is_bbt <- c(tolower(direction) %in% c("bottom-to-top", "bbt", "bt"))
-    stopifnot(is_ttb || is_bbt)
-    bml <- list(...)
-    bml <- lapply(bml, as_bm_bitmap)
-    widths <- unique(vapply(bml, ncol, integer(1L)))
-    if (length(widths) > 1L)
-        bml <- lapply(bml, bm_extend, width = max(widths), hjust = hjust)
-    l <- lapply(bml, as.matrix)
-    if (is_ttb)
-        l <- rev(l)
-    as_bm_bitmap.matrix(do.call(rbind, l))
+	is_ttb <- c(tolower(direction) %in% c("top-to-bottom", "ttb", "tb"))
+	is_bbt <- c(tolower(direction) %in% c("bottom-to-top", "bbt", "bt"))
+	stopifnot(is_ttb || is_bbt)
+	bml <- list(...)
+	bml <- lapply(bml, as_bm_bitmap)
+	widths <- unique(vapply(bml, ncol, integer(1L)))
+	if (length(widths) > 1L) {
+		bml <- lapply(bml, bm_extend, width = max(widths), hjust = hjust)
+	}
+	l <- lapply(bml, as.matrix)
+	if (is_ttb) {
+		l <- rev(l)
+	}
+	as_bm_bitmap.matrix(do.call(rbind, l))
 }
 
 #' @rdname bm_bind
 #' @export
 cbind.bm_pixmap <- function(..., direction = "left-to-right", vjust = "center-top") {
-    is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))
-    is_rtl <- c(tolower(direction) %in% c("right-to-left", "rtl", "rl"))
-    stopifnot(is_ltr || is_rtl)
-    bml <- list(...)
-    bml <- lapply(bml, as_bm_pixmap)
-    heights <- unique(vapply(bml, nrow, integer(1L)))
-    if (length(heights) > 1L)
-        bml <- lapply(bml, bm_extend, height = max(heights), vjust = vjust)
-    l <- lapply(bml, as.matrix)
-    if (is_rtl)
-        l <- rev(l)
-    as_bm_pixmap.matrix(do.call(cbind, l))
+	is_ltr <- c(tolower(direction) %in% c("left-to-right", "ltr", "lr"))
+	is_rtl <- c(tolower(direction) %in% c("right-to-left", "rtl", "rl"))
+	stopifnot(is_ltr || is_rtl)
+	bml <- list(...)
+	bml <- lapply(bml, as_bm_pixmap)
+	heights <- unique(vapply(bml, nrow, integer(1L)))
+	if (length(heights) > 1L) {
+		bml <- lapply(bml, bm_extend, height = max(heights), vjust = vjust)
+	}
+	l <- lapply(bml, as.matrix)
+	if (is_rtl) {
+		l <- rev(l)
+	}
+	as_bm_pixmap.matrix(do.call(cbind, l))
 }
 
 #' @rdname bm_bind
 #' @export
 rbind.bm_pixmap <- function(..., direction = "top-to-bottom", hjust = "center-left") {
-    is_ttb <- c(tolower(direction) %in% c("top-to-bottom", "ttb", "tb"))
-    is_bbt <- c(tolower(direction) %in% c("bottom-to-top", "bbt", "bt"))
-    stopifnot(is_ttb || is_bbt)
-    bml <- list(...)
-    bml <- lapply(bml, as_bm_pixmap)
-    widths <- unique(vapply(bml, ncol, integer(1L)))
-    if (length(widths) > 1L)
-        bml <- lapply(bml, bm_extend, width = max(widths), hjust = hjust)
-    l <- lapply(bml, as.matrix)
-    if (is_ttb)
-        l <- rev(l)
-    as_bm_pixmap.matrix(do.call(rbind, l))
+	is_ttb <- c(tolower(direction) %in% c("top-to-bottom", "ttb", "tb"))
+	is_bbt <- c(tolower(direction) %in% c("bottom-to-top", "bbt", "bt"))
+	stopifnot(is_ttb || is_bbt)
+	bml <- list(...)
+	bml <- lapply(bml, as_bm_pixmap)
+	widths <- unique(vapply(bml, ncol, integer(1L)))
+	if (length(widths) > 1L) {
+		bml <- lapply(bml, bm_extend, width = max(widths), hjust = hjust)
+	}
+	l <- lapply(bml, as.matrix)
+	if (is_ttb) {
+		l <- rev(l)
+	}
+	as_bm_pixmap.matrix(do.call(rbind, l))
 }

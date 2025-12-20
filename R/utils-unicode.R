@@ -20,13 +20,13 @@
 #' @rdname unicode_utilities
 #' @export
 ucp2label <- function(x) {
-    Unicode::u_char_label(x)
+	Unicode::u_char_label(x)
 }
 
 #' @rdname unicode_utilities
 #' @export
 ucp_sort <- function(x, decreasing = FALSE) {
-    int2ucp(sort(as.integer(Unicode::as.u_char(x)), decreasing = decreasing))
+	int2ucp(sort(as.integer(Unicode::as.u_char(x)), decreasing = decreasing))
 }
 
 #' @rdname unicode_utilities
@@ -35,8 +35,8 @@ ucp_sort <- function(x, decreasing = FALSE) {
 #'                      defined in the Private Use Area (PUA) of a font.
 #' @export
 is_combining_character <- function(x, pua_combining = character(0)) {
-    x <- (Unicode::u_char_property(x, "Canonical_Combining_Class") > 0L) |
-        (Unicode::u_char_property(x, "General_Category") == "Me") |
-        (x %in% pua_combining)
-    vapply(x, isTRUE, logical(1))
+	x <- (Unicode::u_char_property(x, "Canonical_Combining_Class") > 0L) |
+		(Unicode::u_char_property(x, "General_Category") == "Me") |
+		(x %in% pua_combining)
+	vapply(x, isTRUE, logical(1))
 }

@@ -43,66 +43,80 @@
 #' @seealso [base::Ops]
 #' @export
 Ops.bm_bitmap <- function(e1, e2) {
-   as_bm_bitmap.matrix(NextMethod())
+	as_bm_bitmap.matrix(NextMethod())
 }
 
 
 #' @rdname Ops.bm_object
 #' @export
 Ops.bm_pixmap <- function(e1, e2) {
-   as_bm_bitmap.matrix(NextMethod())
+	as_bm_bitmap.matrix(NextMethod())
 }
 
 #' @rdname Ops.bm_object
 #' @export
 Ops.bm_list <- function(e1, e2) {
-    if (missing(e2)) {
-        switch(.Generic,
-               "!" = bm_lapply(e1, function(o) !o),
-               "+" = e1,
-               "-" = bm_lapply(e1, function(o) -o),
-               stop(paste0("unary operation '", .Generic, "' not defined for `bm_list()` objects")))
-    } else {
-        if (is_bm_list(e1)) {
-            bml <- e1
-            n <- e2
-            switch(.Generic,
-                   "+" = bm_lapply(bml, function(o) o + n),
-                   "-" = bm_lapply(bml, function(o) o - n),
-                   "*" = bm_lapply(bml, function(o) o * n),
-                   "/" = bm_lapply(bml, function(o) o / n),
-                   "^" = bm_lapply(bml, function(o) o ^ n),
-                   "%%" = bm_lapply(bml, function(o) o %% n),
-                   "%/%" = bm_lapply(bml, function(o) o %/% n),
-                   "&" = bm_lapply(bml, function(o) o & n),
-                   "|" = bm_lapply(bml, function(o) o | n),
-                   "==" = bm_lapply(bml, function(o) o == n),
-                   "!=" = bm_lapply(bml, function(o) o != n),
-                   "<" = bm_lapply(bml, function(o) o < n),
-                   "<=" = bm_lapply(bml, function(o) o <= n),
-                   ">=" = bm_lapply(bml, function(o) o >= n),
-                   ">" = bm_lapply(bml, function(o) o > n),
-                   stop(paste0("binary operation '", .Generic, "' not defined for `bm_list()` objects")))
-        } else {
-            n <- e1
-            bml <- e2
-            switch(.Generic,
-                   "+" = bm_lapply(bml, function(o) n + o),
-                   "-" = bm_lapply(bml, function(o) n - o),
-                   "*" = bm_lapply(bml, function(o) n * o),
-                   "/" = bm_lapply(bml, function(o) n / o),
-                   "^" = bm_lapply(bml, function(o) n ^ o),
-                   "%%" = bm_lapply(bml, function(o) n %% o),
-                   "%/%" = bm_lapply(bml, function(o) n %/% o),
-                   "&" = bm_lapply(bml, function(o) n & o),
-                   "|" = bm_lapply(bml, function(o) n | o),
-                   "==" = bm_lapply(bml, function(o) n == o),
-                   "!=" = bm_lapply(bml, function(o) n != o),
-                   "<" = bm_lapply(bml, function(o) n < o),
-                   "<=" = bm_lapply(bml, function(o) n <= o),
-                   ">=" = bm_lapply(bml, function(o) n >= o),
-                   ">" = bm_lapply(bml, function(o) n > o),
-                   stop(paste0("binary operation '", .Generic, "' not defined for `bm_list()` objects")))
-        }
-    }
+	if (missing(e2)) {
+		switch(
+			.Generic,
+			"!" = bm_lapply(e1, function(o) !o),
+			"+" = e1,
+			"-" = bm_lapply(e1, function(o) -o),
+			stop(paste0("unary operation '", .Generic, "' not defined for `bm_list()` objects"))
+		)
+	} else {
+		if (is_bm_list(e1)) {
+			bml <- e1
+			n <- e2
+			switch(
+				.Generic,
+				"+" = bm_lapply(bml, function(o) o + n),
+				"-" = bm_lapply(bml, function(o) o - n),
+				"*" = bm_lapply(bml, function(o) o * n),
+				"/" = bm_lapply(bml, function(o) o / n),
+				"^" = bm_lapply(bml, function(o) o^n),
+				"%%" = bm_lapply(bml, function(o) o %% n),
+				"%/%" = bm_lapply(bml, function(o) o %/% n),
+				"&" = bm_lapply(bml, function(o) o & n),
+				"|" = bm_lapply(bml, function(o) o | n),
+				"==" = bm_lapply(bml, function(o) o == n),
+				"!=" = bm_lapply(bml, function(o) o != n),
+				"<" = bm_lapply(bml, function(o) o < n),
+				"<=" = bm_lapply(bml, function(o) o <= n),
+				">=" = bm_lapply(bml, function(o) o >= n),
+				">" = bm_lapply(bml, function(o) o > n),
+				stop(paste0(
+					"binary operation '",
+					.Generic,
+					"' not defined for `bm_list()` objects"
+				))
+			)
+		} else {
+			n <- e1
+			bml <- e2
+			switch(
+				.Generic,
+				"+" = bm_lapply(bml, function(o) n + o),
+				"-" = bm_lapply(bml, function(o) n - o),
+				"*" = bm_lapply(bml, function(o) n * o),
+				"/" = bm_lapply(bml, function(o) n / o),
+				"^" = bm_lapply(bml, function(o) n^o),
+				"%%" = bm_lapply(bml, function(o) n %% o),
+				"%/%" = bm_lapply(bml, function(o) n %/% o),
+				"&" = bm_lapply(bml, function(o) n & o),
+				"|" = bm_lapply(bml, function(o) n | o),
+				"==" = bm_lapply(bml, function(o) n == o),
+				"!=" = bm_lapply(bml, function(o) n != o),
+				"<" = bm_lapply(bml, function(o) n < o),
+				"<=" = bm_lapply(bml, function(o) n <= o),
+				">=" = bm_lapply(bml, function(o) n >= o),
+				">" = bm_lapply(bml, function(o) n > o),
+				stop(paste0(
+					"binary operation '",
+					.Generic,
+					"' not defined for `bm_list()` objects"
+				))
+			)
+		}
+	}
 }

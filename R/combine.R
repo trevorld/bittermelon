@@ -42,104 +42,104 @@
 #' @rdname combine
 #' @export
 c.bm_bitmap <- function(...) {
-    l <- list(...)
-    stopifnot(length(l) > 0L)
-    if (length(l) == 1L) {
-        r <- bm_list(...)
-    } else {
-        second <- l[[2L]]
-        stopifnot(is_bm_matrix(second) || is_bm_list(second))
-        if (is_bm_matrix(second)) {
-            r <- as_bm_list.list(l[1:2])
-        } else if (is_bm_font(second)) {
-            r <- c.bm_font(as_bm_font(as_bm_list.list(l[1L])), second)
-        } else {
-            r <- c.bm_list(as_bm_list.list(l[1L]), second)
-        }
-    }
-    if (length(l) > 2L) {
-        do.call(c, c(list(r), l[c(-1L, -2L)]))
-    } else {
-        r
-    }
+	l <- list(...)
+	stopifnot(length(l) > 0L)
+	if (length(l) == 1L) {
+		r <- bm_list(...)
+	} else {
+		second <- l[[2L]]
+		stopifnot(is_bm_matrix(second) || is_bm_list(second))
+		if (is_bm_matrix(second)) {
+			r <- as_bm_list.list(l[1:2])
+		} else if (is_bm_font(second)) {
+			r <- c.bm_font(as_bm_font(as_bm_list.list(l[1L])), second)
+		} else {
+			r <- c.bm_list(as_bm_list.list(l[1L]), second)
+		}
+	}
+	if (length(l) > 2L) {
+		do.call(c, c(list(r), l[c(-1L, -2L)]))
+	} else {
+		r
+	}
 }
 
 #' @rdname combine
 #' @export
 c.bm_font <- function(...) {
-    l <- list(...)
-    stopifnot(length(l) > 0L)
-    if (length(l) == 1L) {
-        r <- l[[1]]
-    } else {
-        r <- l[[1]]
-        second <- l[[2L]]
-        stopifnot(is_bm_bitmap(second) || is_bm_list(second))
-        if (is_bm_bitmap(second)) {
-            ucp <- names(l)[2L]
-            stopifnot(!is.null(ucp), is_ucp(ucp))
-            r[[ucp]] <- l[[2]]
-        } else {
-            ucps <- unique(names(l[[2]]))
-            stopifnot(!is.null(ucps), all(is_ucp(ucps)))
-            for (ucp in ucps)
-                r[[ucp]] <- l[[2]][[ucp]]
-        }
-    }
-    if (length(l) > 2L) {
-        do.call(c, c(list(r), l[c(-1L, -2L)]))
-    } else {
-        r
-    }
+	l <- list(...)
+	stopifnot(length(l) > 0L)
+	if (length(l) == 1L) {
+		r <- l[[1]]
+	} else {
+		r <- l[[1]]
+		second <- l[[2L]]
+		stopifnot(is_bm_bitmap(second) || is_bm_list(second))
+		if (is_bm_bitmap(second)) {
+			ucp <- names(l)[2L]
+			stopifnot(!is.null(ucp), is_ucp(ucp))
+			r[[ucp]] <- l[[2]]
+		} else {
+			ucps <- unique(names(l[[2]]))
+			stopifnot(!is.null(ucps), all(is_ucp(ucps)))
+			for (ucp in ucps) {
+				r[[ucp]] <- l[[2]][[ucp]]
+			}
+		}
+	}
+	if (length(l) > 2L) {
+		do.call(c, c(list(r), l[c(-1L, -2L)]))
+	} else {
+		r
+	}
 }
 
 #' @rdname combine
 #' @export
 c.bm_list <- function(...) {
-    l <- list(...)
-    stopifnot(length(l) > 0L)
-    if (length(l) == 1L) {
-        r <- l[[1]]
-    } else {
-        second <- l[[2L]]
-        stopifnot(is_bm_matrix(second) || is_bm_list(second))
-        if (is_bm_matrix(second)) {
-            r <- c.bm_list(l[[1]], as_bm_list.list(l[2L]))
-        } else if (is_bm_font(second)) {
-            r <- c(as.list(l[[1]]), as.list(l[[2]]))
-            r <- r[unique(names(r))]
-            r <- as_bm_font.list(r)
-        } else {
-            r <- as_bm_list.list(c(as.list(l[[1]]), as.list(l[[2]])))
-        }
-    }
-    if (length(l) > 2L) {
-        do.call(c, c(list(r), l[c(-1L, -2L)]))
-    } else {
-        r
-    }
+	l <- list(...)
+	stopifnot(length(l) > 0L)
+	if (length(l) == 1L) {
+		r <- l[[1]]
+	} else {
+		second <- l[[2L]]
+		stopifnot(is_bm_matrix(second) || is_bm_list(second))
+		if (is_bm_matrix(second)) {
+			r <- c.bm_list(l[[1]], as_bm_list.list(l[2L]))
+		} else if (is_bm_font(second)) {
+			r <- c(as.list(l[[1]]), as.list(l[[2]]))
+			r <- r[unique(names(r))]
+			r <- as_bm_font.list(r)
+		} else {
+			r <- as_bm_list.list(c(as.list(l[[1]]), as.list(l[[2]])))
+		}
+	}
+	if (length(l) > 2L) {
+		do.call(c, c(list(r), l[c(-1L, -2L)]))
+	} else {
+		r
+	}
 }
 
 #' @rdname combine
 #' @export
 c.bm_pixmap <- function(...) {
-    l <- list(...)
-    stopifnot(length(l) > 0L)
-    if (length(l) == 1L) {
-        r <- bm_list(...)
-    } else {
-        second <- l[[2L]]
-        stopifnot(is_bm_matrix(second) || is_bm_list(second),
-                  !is_bm_font(second))
-        if (is_bm_matrix(second)) {
-            r <- as_bm_list.list(l[1:2])
-        } else {
-            r <- c.bm_list(as_bm_list.list(l[1L]), second)
-        }
-    }
-    if (length(l) > 2L) {
-        do.call(c, c(list(r), l[c(-1L, -2L)]))
-    } else {
-        r
-    }
+	l <- list(...)
+	stopifnot(length(l) > 0L)
+	if (length(l) == 1L) {
+		r <- bm_list(...)
+	} else {
+		second <- l[[2L]]
+		stopifnot(is_bm_matrix(second) || is_bm_list(second), !is_bm_font(second))
+		if (is_bm_matrix(second)) {
+			r <- as_bm_list.list(l[1:2])
+		} else {
+			r <- c.bm_list(as_bm_list.list(l[1L]), second)
+		}
+	}
+	if (length(l) > 2L) {
+		do.call(c, c(list(r), l[c(-1L, -2L)]))
+	} else {
+		r
+	}
 }

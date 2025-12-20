@@ -42,57 +42,57 @@
 #' @rdname unicode_code_points
 #' @export
 hex2ucp <- function(x) {
-    x <- as.character(Unicode::as.u_char(toupper(x)))
-    ifelse(x == "<NA>", NA_character_, x)
+	x <- as.character(Unicode::as.u_char(toupper(x)))
+	ifelse(x == "<NA>", NA_character_, x)
 }
 
 #' @rdname unicode_code_points
 #' @export
 int2ucp <- function(x) {
-    x <- as.character(Unicode::as.u_char(as.integer(x)))
-    ifelse(x == "<NA>", NA_character_, x)
+	x <- as.character(Unicode::as.u_char(as.integer(x)))
+	ifelse(x == "<NA>", NA_character_, x)
 }
 
 #' @rdname unicode_code_points
 #' @export
 str2ucp <- function(x) {
-    unlist(lapply(x, function(s) int2ucp(utf8ToInt(s))))
+	unlist(lapply(x, function(s) int2ucp(utf8ToInt(s))))
 }
 
 #' @rdname unicode_code_points
 #' @export
 name2ucp <- function(x, type = c("exact", "grep"), ...) {
-    as.character(Unicode::u_char_from_name(toupper(x), type = type, ...))
+	as.character(Unicode::u_char_from_name(toupper(x), type = type, ...))
 }
 
 #' @rdname unicode_code_points
 #' @export
 is_ucp <- function(x) {
-    grepl("^U\\+[1-9A-F]*[0-9A-F]{4}$", x)
+	grepl("^U\\+[1-9A-F]*[0-9A-F]{4}$", x)
 }
 
 #' @rdname unicode_code_points
 #' @export
 block2ucp <- function(x, omit_unnamed = TRUE) {
-    f <- function(x) as.character(Unicode::as.u_char(x))
-    ucp <- unlist(lapply(Unicode::u_blocks(x), f))
-    names(ucp) <- NULL
+	f <- function(x) as.character(Unicode::as.u_char(x))
+	ucp <- unlist(lapply(Unicode::u_blocks(x), f))
+	names(ucp) <- NULL
 
-    if (omit_unnamed) {
-        n <- Unicode::u_char_name(ucp)
-        ucp <- ucp[which(!is.na(n) & n != "")]
-    }
-    ucp
+	if (omit_unnamed) {
+		n <- Unicode::u_char_name(ucp)
+		ucp <- ucp[which(!is.na(n) & n != "")]
+	}
+	ucp
 }
 
 #' @rdname unicode_code_points
 #' @export
 range2ucp <- function(x, omit_unnamed = TRUE) {
-    r <- Unicode::as.u_char_range(x)
-    ucp <- as.character(Unicode::as.u_char(r))
-    if (omit_unnamed) {
-        n <- Unicode::u_char_name(ucp)
-        ucp <- ucp[which(!is.na(n) & n != "")]
-    }
-    ucp
+	r <- Unicode::as.u_char_range(x)
+	ucp <- as.character(Unicode::as.u_char(r))
+	if (omit_unnamed) {
+		n <- Unicode::u_char_name(ucp)
+		ucp <- ucp[which(!is.na(n) & n != "")]
+	}
+	ucp
 }

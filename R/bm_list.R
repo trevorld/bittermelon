@@ -24,7 +24,7 @@
 #' @seealso [is_bm_list()], [as_bm_list()]
 #' @export
 bm_list <- function(...) {
-    as_bm_list(list(...))
+	as_bm_list(list(...))
 }
 
 #' Test if the object is a bitmap glyph list object
@@ -40,7 +40,7 @@ bm_list <- function(...) {
 #' @seealso [bm_list()]
 #' @export
 is_bm_list <- function(x) {
-    inherits(x, "bm_list")
+	inherits(x, "bm_list")
 }
 
 #' Modify bitmap lists
@@ -57,26 +57,27 @@ is_bm_list <- function(x) {
 #' @return A modified bitmap glyph list.
 #' @seealso [base::lapply()], [bm_list()], [bm_font()], [bm_bitmap()]
 #' @export
-bm_lapply <- function(X, FUN, ...) { # nolint
-    stopifnot(is_bm_list(X))
-    l2 <- lapply(X, FUN, ...)
-    class(l2) <- class(X)
-    attr(l2, "comments") <- attr(X, "comments")
-    attr(l2, "properties") <- attr(X, "properties")
-    l2
+bm_lapply <- function(X, FUN, ...) {
+	# nolint
+	stopifnot(is_bm_list(X))
+	l2 <- lapply(X, FUN, ...)
+	class(l2) <- class(X)
+	attr(l2, "comments") <- attr(X, "comments")
+	attr(l2, "properties") <- attr(X, "properties")
+	l2
 }
 
 #' @export
 as.list.bm_list <- function(x, ...) {
-    n <- names(x)
-    attributes(x) <- NULL
-    names(x) <- n
-    x
+	n <- names(x)
+	attributes(x) <- NULL
+	names(x) <- n
+	x
 }
 
 #' @export
 `[.bm_list` <- function(x, i) {
-    l <- NextMethod()
-    class(l) <- c("bm_list", class(l))
-    l
+	l <- NextMethod()
+	class(l) <- c("bm_list", class(l))
+	l
 }

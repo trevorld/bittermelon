@@ -16,10 +16,13 @@
 #'   range(font)
 #' @return An integer vector.
 #' @export
-Summary.bm_list <- function(..., na.rm = FALSE) { # nolint
-    switch(.Generic,
-           "min" = min(sapply(..., function(o) min(o, na.rm = na.rm))),
-           "max" = max(sapply(..., function(o) max(o, na.rm = na.rm))),
-           "range" = c(min(..., na.rm = na.rm), max(..., na.rm = na.rm)),
-           stop(paste0("Summary function '", .Generic, "' not defined for `bm_list()` objects")))
+Summary.bm_list <- function(..., na.rm = FALSE) {
+	# nolint
+	switch(
+		.Generic,
+		"min" = min(sapply(..., function(o) min(o, na.rm = na.rm))),
+		"max" = max(sapply(..., function(o) max(o, na.rm = na.rm))),
+		"range" = c(min(..., na.rm = na.rm), max(..., na.rm = na.rm)),
+		stop(paste0("Summary function '", .Generic, "' not defined for `bm_list()` objects"))
+	)
 }

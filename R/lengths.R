@@ -21,81 +21,83 @@
 #' @rdname lengths
 #' @export
 bm_heights <- function(x, ...) {
-    UseMethod("bm_heights")
+	UseMethod("bm_heights")
 }
 
 #' @rdname lengths
 #' @export
 bm_heights.bm_matrix <- function(x, ...) {
-    nrow(x)
+	nrow(x)
 }
 
 #' @rdname lengths
 #' @export
 bm_heights.bm_list <- function(x, unique = TRUE, ...) {
-    nr <- vapply(x, nrow, integer(1L))
-    if (unique)
-        base::unique(nr)
-    else
-        nr
+	nr <- vapply(x, nrow, integer(1L))
+	if (unique) {
+		base::unique(nr)
+	} else {
+		nr
+	}
 }
 
 #' @rdname lengths
 #' @export
 `bm_heights.magick-image` <- function(x, ...) {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    magick::image_info(x)$height
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	magick::image_info(x)$height
 }
 
 #' @rdname lengths
 #' @export
 bm_heights.nativeRaster <- function(x, ...) {
-    nrow(x)
+	nrow(x)
 }
 
 #' @rdname lengths
 #' @export
 bm_heights.raster <- function(x, ...) {
-    nrow(x)
+	nrow(x)
 }
 
 #' @rdname lengths
 #' @export
 bm_widths <- function(x, ...) {
-    UseMethod("bm_widths")
+	UseMethod("bm_widths")
 }
 
 #' @rdname lengths
 #' @export
 bm_widths.bm_matrix <- function(x, ...) {
-    ncol(x)
+	ncol(x)
 }
 
 #' @rdname lengths
 #' @export
 bm_widths.bm_list <- function(x, unique = TRUE, ...) {
-    nc <- vapply(x, ncol, integer(1L))
-    if (unique)
-        base::unique(nc)
-    else
-        nc
+	nc <- vapply(x, ncol, integer(1L))
+	if (unique) {
+		base::unique(nc)
+	} else {
+		nc
+	}
 }
 
 #' @rdname lengths
 #' @export
 `bm_widths.magick-image` <- function(x, ...) {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    magick::image_info(x)$width
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	magick::image_info(x)$width
 }
 
 #' @rdname lengths
 #' @export
 bm_widths.nativeRaster <- function(x, ...) {
-    ncol(x)
+	ncol(x)
 }
 
 #' @rdname lengths
 #' @export
 bm_widths.raster <- function(x, ...) {
-    ncol(x)
+	ncol(x)
 }

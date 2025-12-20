@@ -25,10 +25,11 @@
 #' @seealso [is_bm_font()], [as_bm_font()], [hex2ucp()]
 #' @export
 bm_font <- function(x = bm_list(), comments = NULL, properties = NULL) {
-    if (is_bm_font(x))
-        x
-    else
-        as_bm_font(x, comments = comments, properties = properties)
+	if (is_bm_font(x)) {
+		x
+	} else {
+		as_bm_font(x, comments = comments, properties = properties)
+	}
 }
 
 #' Test if the object is a bitmap font object
@@ -44,7 +45,7 @@ bm_font <- function(x = bm_list(), comments = NULL, properties = NULL) {
 #' @seealso [bm_font()]
 #' @export
 is_bm_font <- function(x) {
-    inherits(x, "bm_font")
+	inherits(x, "bm_font")
 }
 
 #' Coerce to bitmap font objects
@@ -72,36 +73,43 @@ is_bm_font <- function(x) {
 #' @seealso [bm_font()]
 #' @export
 as_bm_font <- function(x, ..., comments = NULL, properties = NULL) {
-    UseMethod("as_bm_font")
+	UseMethod("as_bm_font")
 }
 
 #' @rdname as_bm_font
 #' @export
 as_bm_font.default <- function(x, ..., comments = NULL, properties = NULL) {
-    if (is_bm_font(x)) return(x)
-    as_bm_font.list(as.list(x), comments = comments, properties = properties)
+	if (is_bm_font(x)) {
+		return(x)
+	}
+	as_bm_font.list(as.list(x), comments = comments, properties = properties)
 }
 
 #' @rdname as_bm_font
 #' @export
 as_bm_font.list <- function(x, ..., comments = NULL, properties = NULL) {
-    if (is_bm_font(x)) return(x)
-    x <- as_bm_list(x)
-    if (length(x) == 0L)
-        names(x) <- character(0)
-    validate_bm_font(x)
-    names(x) <- hex2ucp(names(x))
-    attr(x, "comments") <- comments
-    attr(x, "properties") <- properties
-    class(x) <- c("bm_font", class(x))
-    x
+	if (is_bm_font(x)) {
+		return(x)
+	}
+	x <- as_bm_list(x)
+	if (length(x) == 0L) {
+		names(x) <- character(0)
+	}
+	validate_bm_font(x)
+	names(x) <- hex2ucp(names(x))
+	attr(x, "comments") <- comments
+	attr(x, "properties") <- properties
+	class(x) <- c("bm_font", class(x))
+	x
 }
 
 validate_bm_font <- function(x) {
-    if (is.null(names(x)) || any(names(x) == ""))
-        stop("'x' must be a **named** list (with Unicode code point names)")
-    codepoints <- hex2ucp(names(x))
-    if (any(is.na(codepoints)))
-        stop("Some names were not coercible by `Unicode::as_u_char()`")
-    invisible(NULL)
+	if (is.null(names(x)) || any(names(x) == "")) {
+		stop("'x' must be a **named** list (with Unicode code point names)")
+	}
+	codepoints <- hex2ucp(names(x))
+	if (any(is.na(codepoints))) {
+		stop("Some names were not coercible by `Unicode::as_u_char()`")
+	}
+	invisible(NULL)
 }

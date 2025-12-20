@@ -23,14 +23,14 @@
 #' @return A [bm_bitmap()] object.
 #' @export
 bm_edit <- function(bitmap, editor = getOption("editor")) {
-    file <- tempfile(fileext = ".yaff")
-    on.exit(unlink(file))
+	file <- tempfile(fileext = ".yaff")
+	on.exit(unlink(file))
 
-    bitmap <- bm_clamp(bitmap)
-    s <- format(bitmap, px = c(".", "@"))
-    cat(s, sep = "\n", file = file)
+	bitmap <- bm_clamp(bitmap)
+	s <- format(bitmap, px = c(".", "@"))
+	cat(s, sep = "\n", file = file)
 
-    utils::file.edit(file, editor = editor)
+	utils::file.edit(file, editor = editor)
 
-    as_bm_bitmap_yaff(readLines(file))
+	as_bm_bitmap_yaff(readLines(file))
 }

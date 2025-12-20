@@ -45,139 +45,209 @@
 #'   circle_minus_lower_left <- bm_mask(circle_large, square_minus_lower_left, mode = "alpha")
 #'   print(circle_minus_lower_left)
 #' }
-#' 
+#'
 #' if (capabilities("png")) {
 #'   m <- matrix(grDevices::rainbow(8L), byrow = TRUE, ncol = 8L, nrow = 8L)
 #'   rainbow <- bm_expand(as_bm_pixmap(m), 2L)
 #'   circle_rainbow <- bm_mask(rainbow, circle_large, mode = "alpha")
 #' }
-#' if (cli::is_utf8_output() && 
+#' if (cli::is_utf8_output() &&
 #'     cli::num_ansi_colors() >= 256L &&
 #'     capabilities("png")) {
 #'   print(circle_rainbow, compress = "v")
 #' }
 #' @export
-bm_mask <- function(x, mask = NULL, base = NULL,
-                    mode = c("luminance", "alpha"),
-                    hjust = "center-left", vjust = "center-top") {
-    stopifnot(is.null(mask) || is.null(base))
-    if (!is.null(base))
-        bm_mask(base, mask = x, mode = mode, hjust = hjust, vjust = vjust)
-    else
-        UseMethod("bm_mask")
+bm_mask <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	stopifnot(is.null(mask) || is.null(base))
+	if (!is.null(base)) {
+		bm_mask(base, mask = x, mode = mode, hjust = hjust, vjust = vjust)
+	} else {
+		UseMethod("bm_mask")
+	}
 }
 
 #' @rdname bm_mask
 #' @export
-bm_mask.bm_bitmap <- function(x, mask = NULL, base = NULL,
-                              mode = c("luminance", "alpha"),
-                              hjust = "center-left", vjust = "center-top") {
-    mode <- match.arg(mode, c("luminance", "alpha"))
-    if (is.null(mask)) {
-        mask <- x
-    } else {
-        base <- x
-    }
-    base <- as_bm_bitmap(base)
-    bm_mask_bitmap(mask = mask, base = base, mode = mode,
-                   hjust = hjust, vjust = vjust, bg = 0L)
+bm_mask.bm_bitmap <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	mode <- match.arg(mode, c("luminance", "alpha"))
+	if (is.null(mask)) {
+		mask <- x
+	} else {
+		base <- x
+	}
+	base <- as_bm_bitmap(base)
+	bm_mask_bitmap(mask = mask, base = base, mode = mode, hjust = hjust, vjust = vjust, bg = 0L)
 }
 
 #' @rdname bm_mask
 #' @export
-bm_mask.bm_pixmap <- function(x, mask = NULL, base = NULL,
-                              mode = c("luminance", "alpha"),
-                              hjust = "center-left", vjust = "center-top") {
-    mode <- match.arg(mode, c("luminance", "alpha"))
-    if (is.null(mask)) {
-        mask <- x
-    } else {
-        base <- x
-    }
-    base <- as_bm_pixmap(base)
-    bm_mask_bitmap(mask = mask, base = base, mode = mode,
-                   hjust = hjust, vjust = vjust, bg = "#FFFFFF00")
+bm_mask.bm_pixmap <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	mode <- match.arg(mode, c("luminance", "alpha"))
+	if (is.null(mask)) {
+		mask <- x
+	} else {
+		base <- x
+	}
+	base <- as_bm_pixmap(base)
+	bm_mask_bitmap(
+		mask = mask,
+		base = base,
+		mode = mode,
+		hjust = hjust,
+		vjust = vjust,
+		bg = "#FFFFFF00"
+	)
 }
 
 #' @rdname bm_mask
 #' @export
-`bm_mask.magick-image` <- function(x, mask = NULL, base = NULL,
-                                   mode = c("luminance", "alpha"),
-                                   hjust = "center-left", vjust = "center-top") {
-    stopifnot(requireNamespace("magick", quietly = TRUE))
-    mode <- match.arg(mode, c("luminance", "alpha"))
-    if (is.null(mask)) {
-        mask <- x
-    } else {
-        base <- x
-    }
-    base <- as_bm_pixmap(base)
-    pm <- bm_mask_bitmap(mask = mask, base = base, mode = mode,
-                         hjust = hjust, vjust = vjust, bg = "#FFFFFF00")
-    magick::image_read(pm)
+`bm_mask.magick-image` <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	stopifnot(requireNamespace("magick", quietly = TRUE))
+	mode <- match.arg(mode, c("luminance", "alpha"))
+	if (is.null(mask)) {
+		mask <- x
+	} else {
+		base <- x
+	}
+	base <- as_bm_pixmap(base)
+	pm <- bm_mask_bitmap(
+		mask = mask,
+		base = base,
+		mode = mode,
+		hjust = hjust,
+		vjust = vjust,
+		bg = "#FFFFFF00"
+	)
+	magick::image_read(pm)
 }
 
 #' @rdname bm_mask
 #' @export
-bm_mask.nativeRaster <- function(x, mask = NULL, base = NULL,
-                                 mode = c("luminance", "alpha"),
-                                 hjust = "center-left", vjust = "center-top") {
-    mode <- match.arg(mode, c("luminance", "alpha"))
-    if (is.null(mask)) {
-        mask <- x
-    } else {
-        base <- x
-    }
-    base <- as_bm_pixmap(base)
-    pm <- bm_mask_bitmap(mask = mask, base = base, mode = mode,
-                         hjust = hjust, vjust = vjust, bg = "#FFFFFF00")
-    as.raster(pm, native = TRUE)
+bm_mask.nativeRaster <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	mode <- match.arg(mode, c("luminance", "alpha"))
+	if (is.null(mask)) {
+		mask <- x
+	} else {
+		base <- x
+	}
+	base <- as_bm_pixmap(base)
+	pm <- bm_mask_bitmap(
+		mask = mask,
+		base = base,
+		mode = mode,
+		hjust = hjust,
+		vjust = vjust,
+		bg = "#FFFFFF00"
+	)
+	as.raster(pm, native = TRUE)
 }
 
 #' @rdname bm_mask
 #' @export
-bm_mask.raster <- function(x, mask = NULL, base = NULL,
-                              mode = c("luminance", "alpha"),
-                              hjust = "center-left", vjust = "center-top") {
-    mode <- match.arg(mode, c("luminance", "alpha"))
-    if (is.null(mask)) {
-        mask <- x
-    } else {
-        base <- x
-    }
-    base <- as_bm_pixmap(base)
-    pm <- bm_mask_bitmap(mask = mask, base = base, mode = mode,
-                         hjust = hjust, vjust = vjust, bg = "#FFFFFF00")
-    as.raster(pm)
+bm_mask.raster <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	mode <- match.arg(mode, c("luminance", "alpha"))
+	if (is.null(mask)) {
+		mask <- x
+	} else {
+		base <- x
+	}
+	base <- as_bm_pixmap(base)
+	pm <- bm_mask_bitmap(
+		mask = mask,
+		base = base,
+		mode = mode,
+		hjust = hjust,
+		vjust = vjust,
+		bg = "#FFFFFF00"
+	)
+	as.raster(pm)
 }
 
 #' @rdname bm_mask
 #' @export
-bm_mask.bm_list <- function(x, mask = NULL, base = NULL,
-                            mode = c("luminance", "alpha"),
-                            hjust = "center-left", vjust = "center-top") {
-    bm_lapply(x, bm_mask,
-              mask = mask, base = base, mode = mode,
-              hjust = hjust, vjust = vjust)
+bm_mask.bm_list <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = c("luminance", "alpha"),
+	hjust = "center-left",
+	vjust = "center-top"
+) {
+	bm_lapply(x, bm_mask, mask = mask, base = base, mode = mode, hjust = hjust, vjust = vjust)
 }
 
-bm_mask_bitmap <- function(x, mask = NULL, base = NULL, mode = "luminance",
-                           hjust = "center-left", vjust = "center-top", bg = 0L) {
-    mask <- bm_clamp(as_bm_bitmap(mask)) # coerce to binary bitmap
-    if (ncol(mask) > ncol(base))
-        base <- bm_extend(base, value = bg, width = ncol(mask), hjust = hjust)
-    if (ncol(base) > ncol(mask))
-        mask <- bm_extend(mask, width = ncol(base), hjust = hjust)
-    if (nrow(mask) > nrow(base))
-        base <- bm_extend(base, value = bg, height = nrow(mask), vjust = vjust)
-    if (nrow(base) > nrow(mask))
-        mask <- bm_extend(mask, height = nrow(base), vjust = vjust)
+bm_mask_bitmap <- function(
+	x,
+	mask = NULL,
+	base = NULL,
+	mode = "luminance",
+	hjust = "center-left",
+	vjust = "center-top",
+	bg = 0L
+) {
+	mask <- bm_clamp(as_bm_bitmap(mask)) # coerce to binary bitmap
+	if (ncol(mask) > ncol(base)) {
+		base <- bm_extend(base, value = bg, width = ncol(mask), hjust = hjust)
+	}
+	if (ncol(base) > ncol(mask)) {
+		mask <- bm_extend(mask, width = ncol(base), hjust = hjust)
+	}
+	if (nrow(mask) > nrow(base)) {
+		base <- bm_extend(base, value = bg, height = nrow(mask), vjust = vjust)
+	}
+	if (nrow(base) > nrow(mask)) {
+		mask <- bm_extend(mask, height = nrow(base), vjust = vjust)
+	}
 
-
-    if (mode == "luminance") # 'luminance' mode then > 0 hidden
-        indices <- which(as.logical(mask == 1L))
-    else # 'alpha' mode then < 1 hidden
-        indices <- which(as.logical(mask == 0L))
-    base[indices] <- bg
-    base
+	if (mode == "luminance") {
+		# 'luminance' mode then > 0 hidden
+		indices <- which(as.logical(mask == 1L))
+	} else {
+		# 'alpha' mode then < 1 hidden
+		indices <- which(as.logical(mask == 0L))
+	}
+	base[indices] <- bg
+	base
 }

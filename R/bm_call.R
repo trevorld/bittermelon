@@ -17,8 +17,9 @@
 #'   print(bm)
 #' @export
 bm_call <- function(x, .f, ...) {
-    if (!is.list(x))
-        x <- list(x)
-    l <- c(as.list(x), list(...))
-    do.call(.f, l)
+	if (!is.list(x)) {
+		x <- list(x)
+	}
+	l <- c(as.list(x), list(...))
+	do.call(.f, l)
 }
