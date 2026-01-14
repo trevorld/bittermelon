@@ -50,6 +50,7 @@ reference:
           - bm_distort
           - bm_expand
           - bm_extend
+          - bm_extract
           - bm_flip
           - bm_gray
           - bm_invert
