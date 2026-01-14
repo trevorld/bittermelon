@@ -5,6 +5,13 @@
 #'
 #' @inheritParams bm_clamp
 #' @seealso [`[.bm_matrix`()], [bm_trim()]
+#' @examples
+#' corn <- farming_crops_16x16()$corn$portrait
+#' corn_top <- bm_extract(corn, rows = 9:16)
+#' all.equal(corn_top, corn[9:16, ])
+#' if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+#'   print(corn_top, bg = "cyan", compress = "v")
+#' }
 #' @export
 bm_extract <- function(x, ...) {
 	UseMethod("bm_extract")

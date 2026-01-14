@@ -33,6 +33,14 @@ Rows are indexed from the \strong{bottom} of the image.}
 \code{bm_extract()} can be used to extract part of a bitmap.
 For \code{\link[=bm_bitmap]{bm_bitmap()}} and \code{\link[=bm_pixmap]{bm_pixmap()}} objects it is a wrapper around [\code{[}()] with \code{drop = FALSE} for convenience in pipes.
 }
+\examples{
+corn <- farming_crops_16x16()$corn$portrait
+corn_top <- bm_extract(corn, rows = 9:16)
+all.equal(corn_top, corn[9:16, ])
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(corn_top, bg = "cyan", compress = "v")
+}
+}
 \seealso{
 [\verb{[.bm_matrix}()], \code{\link[=bm_trim]{bm_trim()}}
 }
