@@ -234,6 +234,6 @@ I wrote `{bittermelon}` in order to help create [Game Bit](https://github.com/tr
 * [bitmap-fonts](https://github.com/Tecate/bitmap-fonts)
 * Embedded in `{bdftools}` package:
 
-  * [Cozette](https://github.com/slavfox/Cozette)
+  * [Cozette](https://github.com/the-moonwitch/Cozette)
   * [Creep2](https://github.com/raymond-w-ko/creep2)
   * [Spleen](https://github.com/fcambus/spleen)
