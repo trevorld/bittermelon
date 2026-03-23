@@ -30,6 +30,7 @@ bm_pixel_picker.bm_bitmap <- function(
 	col = getOption("bittermelon.col", col_bitmap),
 	silent = FALSE
 ) {
+	chkDots(...)
 	stopifnot(grDevices::dev.interactive(orNone = TRUE))
 	nc <- bm_widths(x)
 	nr <- bm_heights(x)
@@ -42,6 +43,7 @@ bm_pixel_picker.bm_bitmap <- function(
 #' @rdname bm_pixel_picker
 #' @export
 bm_pixel_picker.bm_pixmap <- function(x, ..., silent = FALSE) {
+	chkDots(...)
 	stopifnot(grDevices::dev.interactive(orNone = TRUE))
 	nc <- bm_widths(x)
 	nr <- bm_heights(x)
@@ -54,6 +56,7 @@ bm_pixel_picker.bm_pixmap <- function(x, ..., silent = FALSE) {
 #' @rdname bm_pixel_picker
 #' @export
 bm_pixel_picker.raster <- function(x, ..., silent = FALSE) {
+	chkDots(...)
 	stopifnot(grDevices::dev.interactive(orNone = TRUE))
 	nc <- bm_widths(x)
 	nr <- bm_heights(x)

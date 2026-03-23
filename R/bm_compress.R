@@ -44,6 +44,7 @@ bm_compress <- function(x, direction = "vertical", ...) {
 #' @rdname bm_compress
 #' @export
 bm_compress.bm_bitmap <- function(x, direction = "vertical", ...) {
+	chkDots(...)
 	direction <- match.arg(tolower(direction), c("vertical", "v", "horizontal", "h", "both", "b"))
 	direction <- substr(direction, 1L, 1L)
 	bm_compress_bitmap(x, direction = direction)
@@ -52,24 +53,28 @@ bm_compress.bm_bitmap <- function(x, direction = "vertical", ...) {
 #' @rdname bm_compress
 #' @export
 bm_compress.bm_pixmap <- function(x, direction = "vertical", ..., filter = "Point") {
+	chkDots(...)
 	bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
 #' @export
 `bm_compress.magick-image` <- function(x, direction = "vertical", ..., filter = "Point") {
+	chkDots(...)
 	bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
 #' @export
 bm_compress.nativeRaster <- function(x, direction = "vertical", ..., filter = "Point") {
+	chkDots(...)
 	bm_compress_pixmap(x, direction, filter)
 }
 
 #' @rdname bm_compress
 #' @export
 bm_compress.raster <- function(x, direction = "vertical", ..., filter = "Point") {
+	chkDots(...)
 	bm_compress_pixmap(x, direction, filter)
 }
 

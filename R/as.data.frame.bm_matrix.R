@@ -28,6 +28,7 @@
 #' @rdname as.data.frame.bm_matrix
 #' @export
 as.data.frame.bm_bitmap <- function(x, ..., filtrate = FALSE) {
+	chkDots(...)
 	if (isFALSE(filtrate)) {
 		df <- data.frame(
 			x = rep(seq_len(ncol(x)), each = nrow(x)),
@@ -51,6 +52,7 @@ as.data.frame.bm_bitmap <- function(x, ..., filtrate = FALSE) {
 #' @rdname as.data.frame.bm_matrix
 #' @export
 as.data.frame.bm_pixmap <- function(x, ..., filtrate = FALSE) {
+	chkDots(...)
 	if (isFALSE(filtrate)) {
 		df <- data.frame(
 			x = rep(seq_len(ncol(x)), each = nrow(x)),

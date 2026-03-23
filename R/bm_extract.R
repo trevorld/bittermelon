@@ -22,6 +22,7 @@ bm_extract <- function(x, ...) {
 #'   Rows are indexed from the **bottom** of the image.
 #' @export
 bm_extract.bm_matrix <- function(x, rows = seq_len(nrow(x)), cols = seq_len(ncol(x)), ...) {
+	chkDots(...)
 	x[rows, cols, drop = FALSE]
 }
 
@@ -39,6 +40,7 @@ bm_extract.bm_list <- function(x, ...) {
 	cols = seq_len(bm_widths(x)),
 	...
 ) {
+	chkDots(...)
 	pm <- as_bm_pixmap(x)
 	pm <- pm[rows, cols, drop = FALSE]
 	magick::image_read(pm)
@@ -47,6 +49,7 @@ bm_extract.bm_list <- function(x, ...) {
 #' @rdname bm_extract
 #' @export
 bm_extract.nativeRaster <- function(x, rows = seq_len(nrow(x)), cols = seq_len(ncol(x)), ...) {
+	chkDots(...)
 	pm <- as_bm_pixmap.nativeRaster(x)
 	pm <- pm[rows, cols, drop = FALSE]
 	as.raster(pm, native = TRUE)
@@ -55,6 +58,7 @@ bm_extract.nativeRaster <- function(x, rows = seq_len(nrow(x)), cols = seq_len(n
 #' @rdname bm_extract
 #' @export
 bm_extract.raster <- function(x, rows = seq_len(nrow(x)), cols = seq_len(ncol(x)), ...) {
+	chkDots(...)
 	pm <- as_bm_pixmap.raster(x)
 	pm <- pm[rows, cols, drop = FALSE]
 	as.raster(pm, native = FALSE)
