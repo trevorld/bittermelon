@@ -38,6 +38,7 @@ test_that("bm_list()", {
 
 test_that("as_bm_list()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	# Test 'as_bm_list.character()'
 	bml <- as_bm_list("RSTATS", font = font)
@@ -100,6 +101,7 @@ test_that("Summary.bm_list()", {
 
 test_that("bm_overlay()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	grave <- font[[str2ucp("`")]]
 	a <- font[[str2ucp("a")]]
@@ -109,6 +111,7 @@ test_that("bm_overlay()", {
 
 test_that("bm_flip()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	verify_output("txt/capital_r_flip.txt", print(bm_flip(capital_r), px = px_ascii))
 
@@ -123,6 +126,7 @@ test_that("bm_flip()", {
 
 test_that("bm_expand()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	verify_output(
 		"txt/capital_r_expand_2w.txt",
@@ -146,6 +150,7 @@ test_that("bm_expand()", {
 
 test_that("bm_compress()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	verify_output(
 		"txt/capital_r_compress_v.txt",
@@ -165,6 +170,7 @@ test_that("bm_compress()", {
 
 test_that("as_bm_bitmap.character()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	verify_output(
 		"txt/abbc.txt",

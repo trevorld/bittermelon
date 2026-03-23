@@ -2,7 +2,7 @@ test_that("`bm_flip()`", {
 	skip_if_not_installed("farver")
 	skip_if_not_installed("magick")
 	skip_if_not_installed("withr")
-	skip_if_not(cli::is_utf8_output())
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	corn <- farming_crops_16x16()$corn$portrait
@@ -49,6 +49,18 @@ test_that("`bm_flip()`", {
 			bm_print(bm_rotate(corn_mi, 90L))
 			bm_print(bm_rotate(corn_mi, 90L, clockwise = FALSE))
 			bm_print(bm_rotate(corn_nr, 90L))
+		},
+		crayon = FALSE,
+		unicode = TRUE
+	)
+
+	verify_output(
+		"txt/bm_rotate_in_place.txt",
+		{
+			print(bm_rotate(corn, 90L, in_place = TRUE))
+			bm_print(bm_rotate(corn_r, 90L, in_place = TRUE))
+			bm_print(bm_rotate(corn_mi, 90L, in_place = TRUE))
+			bm_print(bm_rotate(corn_nr, 90L, in_place = TRUE))
 		},
 		crayon = FALSE,
 		unicode = TRUE

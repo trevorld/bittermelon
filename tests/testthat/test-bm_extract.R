@@ -1,8 +1,8 @@
 test_that("bm_extract()", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
-	skip_if_not(cli::is_utf8_output())
 	crops <- farming_crops_16x16()
 	corn <- crops$corn$portrait
 

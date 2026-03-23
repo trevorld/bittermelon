@@ -5,5 +5,6 @@ docs/
 data-raw/fonts
 pkgdown/favicon
 README.html
+tests/testthat/_problems/
 tmp/
 unifont-13.0.06.hex.gz

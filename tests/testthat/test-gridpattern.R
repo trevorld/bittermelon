@@ -3,7 +3,7 @@ test_that("`gridpattern` import works", {
 	skip_on_cran()
 	skip_if_not_installed("gridpattern")
 	skip_if_not_installed("withr")
-	skip_if_not(cli::is_utf8_output())
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(

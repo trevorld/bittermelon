@@ -2,24 +2,51 @@
 % Please edit documentation in R/bm_rotate.R
 \name{bm_rotate}
 \alias{bm_rotate}
-\alias{bm_rotate.bm_matrix}
-\alias{bm_rotate.nativeRaster}
-\alias{bm_rotate.magick-image}
-\alias{bm_rotate.raster}
+\alias{bm_rotate.bm_bitmap}
 \alias{bm_rotate.bm_list}
+\alias{bm_rotate.bm_pixmap}
+\alias{bm_rotate.magick-image}
+\alias{bm_rotate.nativeRaster}
+\alias{bm_rotate.raster}
 \title{Rotate bitmaps 0, 90, 180, or 270 degrees}
 \usage{
-bm_rotate(x, angle = 0L, clockwise = TRUE)
+bm_rotate(x, angle = 0L, clockwise = TRUE, in_place = FALSE, value)
 
-\method{bm_rotate}{bm_matrix}(x, angle = 0L, clockwise = TRUE)
-
-\method{bm_rotate}{nativeRaster}(x, angle = 0L, clockwise = TRUE)
-
-\method{bm_rotate}{`magick-image`}(x, angle = 0L, clockwise = TRUE)
-
-\method{bm_rotate}{raster}(x, angle = 0L, clockwise = TRUE)
+\method{bm_rotate}{bm_bitmap}(x, angle = 0L, clockwise = TRUE, in_place = FALSE, value = 0L)
 
 \method{bm_rotate}{bm_list}(x, ...)
+
+\method{bm_rotate}{bm_pixmap}(
+  x,
+  angle = 0L,
+  clockwise = TRUE,
+  in_place = FALSE,
+  value = col2hex("transparent")
+)
+
+\method{bm_rotate}{`magick-image`}(
+  x,
+  angle = 0L,
+  clockwise = TRUE,
+  in_place = FALSE,
+  value = "transparent"
+)
+
+\method{bm_rotate}{nativeRaster}(
+  x,
+  angle = 0L,
+  clockwise = TRUE,
+  in_place = FALSE,
+  value = col2int("transparent")
+)
+
+\method{bm_rotate}{raster}(
+  x,
+  angle = 0L,
+  clockwise = TRUE,
+  in_place = FALSE,
+  value = "transparent"
+)
 }
 \arguments{
 \item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
@@ -30,6 +57,10 @@ bm_rotate(x, angle = 0L, clockwise = TRUE)
 Note Unicode's convention is to rotate glyphs clockwise
 i.e. the top of the "BLACK CHESS PAWN ROTATED NINETY DEGREES" glyph points right.}
 
+\item{in_place}{If \code{TRUE} rotate the glyphs in place (without changing any background padding).}
+
+\item{value}{Background padding value (to use if \code{in_place} is \code{TRUE})}
+
 \item{...}{Additional arguments to be passed to or from methods.}
 }
 \value{
@@ -37,7 +68,8 @@ Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\lin
 }
 \description{
 \code{bm_rotate()} losslessly rotates bitmaps by 0, 90, 180, or 270 degrees.
-If \code{90} or \code{270} degrees are indicated the width and height of the bitmap will be flipped.
+If \code{90} or \code{270} degrees are indicated the width and height of the bitmap will be flipped
+unless \code{in_place} is \code{TRUE}.
 }
 \examples{
 # as_bm_list.character()
@@ -58,6 +90,4 @@ if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
 \seealso{
 \code{\link[=bm_distort]{bm_distort()}} can do other (distorted) rotations by careful
 use of its \code{vp} \code{\link[grid:viewport]{grid::viewport()}} argument.
-\code{\link[=bm_flip]{bm_flip()}} with \code{direction} "both" and \code{in_place} \code{TRUE} can
-rotate glyphs 180 degrees in place.
 }

@@ -2,7 +2,7 @@ test_that("`lofifonts` import works", {
 	skip_if_not_installed("lofifonts", "0.1.1")
 
 	skip_if_not_installed("withr")
-	skip_if_not(cli::is_utf8_output())
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(

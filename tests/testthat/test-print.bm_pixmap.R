@@ -1,11 +1,11 @@
 test_that("`print.bm_pixmap()` works as expected", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	expect_equal(format(as_bm_pixmap(matrix("transparent", 0L, 0L))), character(0L))
 	expect_equal(format(as_bm_pixmap(matrix("transparent", 1L, 0L))), character(0L))
 	expect_equal(format(as_bm_pixmap(matrix("transparent", 0L, 1L))), character(0L))
 
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("mazing")
 	test_pixmap <- function(bg = "transparent", ul = bg, ur = bg, bl = bg, br = bg) {
 		as_bm_pixmap(matrix(c(bl, br, ul, ur), byrow = TRUE, ncol = 2L))

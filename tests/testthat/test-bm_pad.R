@@ -51,6 +51,7 @@ test_that("`bm_padding_lengths()`", {
 
 test_that("`bm_pad()`", {
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	capital_r_padded <- bm_pad(capital_r, sides = 2L)
 	verify_output("txt/capital_r_padded.txt", print(capital_r_padded, px = c(".", "#")))

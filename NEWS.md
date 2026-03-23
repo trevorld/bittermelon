@@ -1,5 +1,7 @@
-bittermelon 2.2.2 (development)
+bittermelon 2.3.0 (development)
 ===============================
+
+* `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).
 
 bittermelon 2.2.1
 =================
