@@ -22,6 +22,7 @@
 #' @aliases as.matrix.bm_bitmap as.matrix.bm_pixmap
 #' @export
 as.matrix.bm_matrix <- function(x, first_row_is_top = FALSE, ...) {
+	chkDots(...)
 	class(x) <- NULL
 	if (first_row_is_top) {
 		flip_matrix_vertically(x)
@@ -55,12 +56,14 @@ as.array.bm_bitmap <- function(
 	first_row_is_top = TRUE,
 	col = getOption("bittermelon.col", col_bitmap)
 ) {
+	chkDots(...)
 	as.array(as_bm_pixmap(x, col = col), first_row_is_top = first_row_is_top)
 }
 
 #' @rdname as.array.bm_matrix
 #' @export
 as.array.bm_pixmap <- function(x, ..., first_row_is_top = TRUE) {
+	chkDots(...)
 	m <- as.matrix(x, first_row_is_top = first_row_is_top)
 	if (requireNamespace("colorfast", quietly = TRUE)) {
 		rgba <- colorfast::col_to_rgb(as.character(m)) / 255

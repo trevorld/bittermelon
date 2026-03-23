@@ -60,6 +60,7 @@ as.raster.bm_bitmap <- function(
 	...,
 	col = getOption("bittermelon.col", col_bitmap)
 ) {
+	chkDots(...)
 	# nolint
 	if (native) {
 		as_native_raster.bm_bitmap(x, col = col)
@@ -91,6 +92,7 @@ as_native_raster.bm_bitmap <- function(x, col = getOption("bittermelon.col", col
 #' @importFrom grDevices as.raster
 #' @export
 as.raster.bm_pixmap <- function(x, native = FALSE, ...) {
+	chkDots(...)
 	# nolint
 	if (native) {
 		as_native_raster.bm_pixmap(x)
