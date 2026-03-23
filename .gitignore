@@ -1,7 +1,8 @@
+.claude/
 *.swp
 codecov.yml
 docs/
-raw-data/fonts
+data-raw/fonts
 pkgdown/favicon
 README.html
 tmp/

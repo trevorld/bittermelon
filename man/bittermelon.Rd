@@ -12,7 +12,7 @@ Provides functions for creating, modifying, and displaying bitmaps including pri
 }
 \section{Package options}{
 
-The following \code{bittermelon} option may be set globally via \code{\link[base:options]{base::options()}}:
+The following \code{bittermelon} options may be set globally via \code{\link[base:options]{base::options()}}:
 \describe{
 \item{bittermelon.bg}{Set new default \code{bg} argument value for
 \code{\link[=format.bm_bitmap]{format.bm_bitmap()}}, \code{\link[=format.bm_pixmap]{format.bm_pixmap()}}, \code{\link[=print.bm_bitmap]{print.bm_bitmap()}},

@@ -1,5 +1,5 @@
 #' @section Package options:
-#'  The following `bittermelon` option may be set globally via [base::options()]:
+#'  The following `bittermelon` options may be set globally via [base::options()]:
 #'   \describe{
 #'     \item{bittermelon.bg}{Set new default `bg` argument value for
 #'                           [format.bm_bitmap()], [format.bm_pixmap()], [print.bm_bitmap()],
