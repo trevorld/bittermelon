@@ -1,3 +1,6 @@
+bittermelon 2.2.2 (development)
+===============================
+
 bittermelon 2.2.1
 =================
 
