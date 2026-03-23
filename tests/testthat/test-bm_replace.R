@@ -2,7 +2,7 @@ test_that("`bm_replace()`", {
 	skip_if_not_installed("farver")
 	skip_if_not_installed("magick")
 	skip_if_not_installed("withr")
-	skip_if_not(cli::is_utf8_output())
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	m <- matrix(1L, ncol = 2L, nrow = 2L)

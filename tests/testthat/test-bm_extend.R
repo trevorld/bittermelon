@@ -33,8 +33,8 @@ test_that("bm_extend()", {
 	expect_equal(nrow(bm_extend(plus_sign, left = 2L)), 9L)
 	expect_equal(ncol(bm_extend(plus_sign, left = 2L)), 11L)
 
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	verify_output(
 		"txt/plus_sign_left_and_width.txt",
@@ -99,8 +99,8 @@ test_that("bm_extend()", {
 })
 
 test_that("`bm_extend.bm_pixmap()`", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(
@@ -119,9 +119,9 @@ test_that("`bm_extend.bm_pixmap()`", {
 })
 
 test_that("`bm_extend.image-magick()`", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("magick")
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(
@@ -145,8 +145,8 @@ test_that("`bm_extend.image-magick()`", {
 })
 
 test_that("`bm_extend.raster()`", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(
@@ -170,9 +170,9 @@ test_that("`bm_extend.raster()`", {
 })
 
 test_that("`bm_extend.nativeRaster()`", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("farver")
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	verify_output(

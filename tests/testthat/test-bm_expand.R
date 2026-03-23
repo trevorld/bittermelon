@@ -1,8 +1,8 @@
 test_that("`bm_expand()` works", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("farver")
 	skip_if_not_installed("magick")
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	corn <- farming_crops_16x16()$corn$portrait

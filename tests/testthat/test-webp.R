@@ -2,7 +2,7 @@ test_that("`webp::read_webp()` import works", {
 	skip_if_not_installed("webp")
 
 	skip_if_not_installed("withr")
-	skip_if_not(cli::is_utf8_output())
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 
 	filename <- tempfile(fileext = ".webp")

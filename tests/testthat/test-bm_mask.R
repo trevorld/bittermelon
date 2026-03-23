@@ -2,10 +2,10 @@ font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermel
 font <- read_hex(font_file)
 
 test_that("bm_mask()", {
-	skip_if_not(cli::is_utf8_output())
 	skip_if_not_installed("farver")
 	skip_if_not_installed("magick")
 	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
 	one <- font[[str2ucp("1")]]
 	circle_large <- as_bm_bitmap(grid::circleGrob(r = 0.50), width = 16L, height = 16L)
