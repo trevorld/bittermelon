@@ -17,4 +17,35 @@ test_that("bm_font()", {
 	expect_true(is_bm_font(font))
 	expect_equal(font, bm_font(font))
 	expect_equal(font, as_bm_font(font))
+
+	l <- list()
+	class(l) <- "bm_font"
+	expect_snapshot(validate_bm_font(l), error = TRUE)
+	l$foo <- "bananaslug"
+	expect_snapshot(validate_bm_font(l), error = TRUE)
+})
+
+test_that("summary.bm_font()", {
+	l <- list()
+	l[[plus_sign_code_point]] <- plus_sign_glyph
+	l[[space_code_point]] <- space_glyph
+	font <- as_bm_font(l)
+
+	s <- summary(font)
+	expect_s3_class(s, "summary_bm_font")
+	expect_null(s$name)
+	expect_equal(s$n_chars, 2L)
+	expect_equal(s$coverage$block, "Basic Latin")
+	expect_equal(s$coverage$n, 2L)
+
+	expect_snapshot(print(s))
+})
+
+test_that("summary.bm_font() snapshot with empty font", {
+	expect_snapshot(print(summary(bm_font())))
+})
+
+test_that("summary.bm_font() snapshot with fixed 4x6 font", {
+	font <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon"))
+	expect_snapshot(print(summary(font)))
 })
