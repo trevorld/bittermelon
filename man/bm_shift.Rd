@@ -10,9 +10,25 @@
 \alias{bm_shift.raster}
 \title{Shift elements within bitmaps}
 \usage{
-bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
+bm_shift(
+  x,
+  value,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  overflow = "clip"
+)
 
-\method{bm_shift}{bm_bitmap}(x, value = 0L, top = NULL, right = NULL, bottom = NULL, left = NULL)
+\method{bm_shift}{bm_bitmap}(
+  x,
+  value = 0L,
+  top = NULL,
+  right = NULL,
+  bottom = NULL,
+  left = NULL,
+  overflow = "clip"
+)
 
 \method{bm_shift}{bm_list}(x, ...)
 
@@ -22,7 +38,8 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
   top = NULL,
   right = NULL,
   bottom = NULL,
-  left = NULL
+  left = NULL,
+  overflow = "clip"
 )
 
 \method{bm_shift}{`magick-image`}(
@@ -31,7 +48,8 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
   top = NULL,
   right = NULL,
   bottom = NULL,
-  left = NULL
+  left = NULL,
+  overflow = "clip"
 )
 
 \method{bm_shift}{nativeRaster}(
@@ -40,7 +58,8 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
   top = NULL,
   right = NULL,
   bottom = NULL,
-  left = NULL
+  left = NULL,
+  overflow = "clip"
 )
 
 \method{bm_shift}{raster}(
@@ -49,7 +68,8 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
   top = NULL,
   right = NULL,
   bottom = NULL,
-  left = NULL
+  left = NULL,
+  overflow = "clip"
 )
 }
 \arguments{
@@ -64,6 +84,13 @@ bm_shift(x, value, top = NULL, right = NULL, bottom = NULL, left = NULL)
 \item{bottom}{Number of pixels to shift towards the bottom side.}
 
 \item{left}{Number of pixels to shift towards the left side.}
+
+\item{overflow}{How to handle shifts that would push content off the bitmap.
+One of \code{"clip"}, \code{"error"}, or \code{"wrap"}.
+If \code{"clip"} (the default) then content that is pushed off the bitmap is silently lost.
+If \code{"error"} then an error is thrown if the shift would clip any non-padding content.
+If \code{"wrap"} then content that is pushed off one side of the bitmap
+wraps around to the other side.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }
@@ -89,6 +116,10 @@ print(bm_padding_lengths(corn))
 corn_shifted <- bm_shift(corn, left = 1L, top = 2L)
 if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
   print(corn_shifted, bg = "cyan", compress = "v")
+}
+corn_wrapped <- bm_shift(corn, right = 4L, overflow = "wrap")
+if (cli::is_utf8_output() && cli::num_ansi_colors() >= 256L) {
+  print(corn_wrapped, bg = "cyan", compress = "v")
 }
 }
 \seealso{

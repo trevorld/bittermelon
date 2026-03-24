@@ -2,6 +2,7 @@ bittermelon 2.3.0 (development)
 ===============================
 
 * `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).
+* `bm_shift()` gains an `overflow` argument. The default `overflow = "clip"` silently clips content that would be pushed off the bitmap (matching the previous behavior). Use `overflow = "error"` to throw an error if non-padding content would be clipped, or `overflow = "wrap"` to wrap content around to the other side (#74).
 
 bittermelon 2.2.1
 =================
