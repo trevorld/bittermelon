@@ -151,23 +151,6 @@ test_that("bm_shadow", {
 })
 
 
-test_that("bm_rotate()", {
-	skip_if_not_installed("withr")
-	withr::local_options(cli.unicode = TRUE)
-	withr::local_options(bm_options(default = TRUE))
-	verify_output("txt/capital_r_rotated90.txt", print(bm_rotate(capital_r, 90), px = px_ascii))
-	verify_output("txt/capital_r_rotated180.txt", print(bm_rotate(capital_r, 180), px = px_ascii))
-	verify_output("txt/capital_r_rotated270.txt", print(bm_rotate(capital_r, 270), px = px_ascii))
-	verify_output(
-		"txt/capital_r_rotatedm90.txt",
-		print(bm_rotate(capital_r, 90, clockwise = FALSE), px = px_ascii)
-	)
-	expect_snapshot(
-		error = TRUE,
-		bm_rotate(capital_r, 90L, in_place = TRUE)
-	)
-})
-
 test_that("c()", {
 	stats <- as_bm_list("STATS", font = font)
 

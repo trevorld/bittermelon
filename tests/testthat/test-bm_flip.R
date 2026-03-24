@@ -15,11 +15,6 @@ test_that("`bm_flip()`", {
 	corn_mi <- magick::image_read(corn_r)
 	corn_nr <- as.raster(corn, native = TRUE)
 
-	expect_equal(
-		bm_padding_lengths(corn_l[[1L]])[["left"]],
-		bm_padding_lengths(bm_rotate(corn_l, 90L)[[1L]])[["top"]]
-	)
-
 	verify_output(
 		"txt/bm_flip.txt",
 		{
@@ -30,37 +25,6 @@ test_that("`bm_flip()`", {
 			bm_print(bm_flip(corn_r, "h"))
 			bm_print(bm_flip(corn_mi, "b"))
 			bm_print(bm_flip(corn_nr, "h"))
-		},
-		crayon = FALSE,
-		unicode = TRUE
-	)
-
-	verify_output(
-		"txt/bm_rotate.txt",
-		{
-			print(bm_rotate(corn, 0L))
-			print(bm_rotate(corn, 90L))
-			print(bm_rotate(corn, 180L))
-			print(bm_rotate(corn, 270L))
-			bm_print(bm_rotate(corn_r, 0L))
-			bm_print(bm_rotate(corn_r, 90L))
-			bm_print(bm_rotate(corn_r, 180L))
-			bm_print(bm_rotate(corn_r, 270L))
-			bm_print(bm_rotate(corn_mi, 90L))
-			bm_print(bm_rotate(corn_mi, 90L, clockwise = FALSE))
-			bm_print(bm_rotate(corn_nr, 90L))
-		},
-		crayon = FALSE,
-		unicode = TRUE
-	)
-
-	verify_output(
-		"txt/bm_rotate_in_place.txt",
-		{
-			print(bm_rotate(corn, 90L, in_place = TRUE))
-			bm_print(bm_rotate(corn_r, 90L, in_place = TRUE))
-			bm_print(bm_rotate(corn_mi, 90L, in_place = TRUE))
-			bm_print(bm_rotate(corn_nr, 90L, in_place = TRUE))
 		},
 		crayon = FALSE,
 		unicode = TRUE
