@@ -38,6 +38,7 @@ reference:
           - bm_font
           - as_bm_font
           - is_bm_font
+          - summary.bm_font
           - read_hex
           - read_monobit
           - read_yaff
