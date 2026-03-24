@@ -21,7 +21,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 
 \method{bm_extend}{bm_bitmap}(
@@ -35,7 +37,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 
 \method{bm_extend}{bm_pixmap}(
@@ -49,7 +53,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 
 \method{bm_extend}{bm_list}(x, ...)
@@ -65,7 +71,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 
 \method{bm_extend}{nativeRaster}(
@@ -79,7 +87,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 
 \method{bm_extend}{raster}(
@@ -93,7 +103,9 @@ bm_extend(
   width = NULL,
   height = NULL,
   hjust = "center-left",
-  vjust = "center-top"
+  vjust = "center-top",
+  width_multiples_of = NULL,
+  height_multiples_of = NULL
 )
 }
 \arguments{
@@ -136,6 +148,21 @@ place in "center" if possible but if not possible will bias
 it one pixel down or up respectively.
 "centre", "center", and "centre-top" are aliases for "center-top".
 "centre-bottom" is an alias for "center-bottom".}
+
+\item{width_multiples_of}{If not \code{NULL} an integer: pad the bitmap's width
+to the smallest multiple of this value that is greater than or
+equal to the current width (e.g. \code{width_multiples_of = 8L}
+ensures the width is 8, 16, 24, …).
+Use with the \code{hjust} argument to control which side receives
+the extra pixels.
+Cannot be combined with \code{sides} or \code{width}.}
+
+\item{height_multiples_of}{If not \code{NULL} an integer: pad the bitmap's height
+to the smallest multiple of this value that is greater than or
+equal to the current height.
+Use with the \code{vjust} argument to control which side receives
+the extra pixels.
+Cannot be combined with \code{sides} or \code{height}.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }

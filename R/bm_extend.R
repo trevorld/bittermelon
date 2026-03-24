@@ -21,6 +21,19 @@
 #'              Use with the `hjust` argument or just one of either the `left` or `right` arguments.
 #' @param height How many pixels tall should the new bitmap be.
 #'              Use with the `vjust` argument or just one of either the `top` or `bottom` arguments.
+#' @param width_multiples_of If not `NULL` an integer: pad the bitmap's width
+#'              to the smallest multiple of this value that is greater than or
+#'              equal to the current width (e.g. `width_multiples_of = 8L`
+#'              ensures the width is 8, 16, 24, …).
+#'              Use with the `hjust` argument to control which side receives
+#'              the extra pixels.
+#'              Cannot be combined with `sides` or `width`.
+#' @param height_multiples_of If not `NULL` an integer: pad the bitmap's height
+#'              to the smallest multiple of this value that is greater than or
+#'              equal to the current height.
+#'              Use with the `vjust` argument to control which side receives
+#'              the extra pixels.
+#'              Cannot be combined with `sides` or `height`.
 #' @param hjust One of "left", "center-left", "center-right", "right".
 #'              "center-left" and "center-right" will attempt to
 #'              place in "center" if possible but if not possible will bias
@@ -62,7 +75,9 @@ bm_extend <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	stopifnot(missing(sides) || missing(top))
 	stopifnot(missing(sides) || missing(right))
@@ -74,6 +89,8 @@ bm_extend <- function(
 	stopifnot(missing(width) || (missing(left)) || missing(right))
 	stopifnot(missing(hjust) || (missing(left) && missing(right)))
 	stopifnot(missing(vjust) || (missing(left) && missing(right)))
+	stopifnot(missing(width_multiples_of) || missing(width))
+	stopifnot(missing(height_multiples_of) || missing(height))
 	UseMethod("bm_extend")
 }
 
@@ -90,7 +107,9 @@ bm_extend.bm_bitmap <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	bm_extend_bitmap(
 		x,
@@ -103,7 +122,9 @@ bm_extend.bm_bitmap <- function(
 		width = width,
 		height = height,
 		hjust = hjust,
-		vjust = vjust
+		vjust = vjust,
+		width_multiples_of = width_multiples_of,
+		height_multiples_of = height_multiples_of
 	)
 }
 
@@ -120,7 +141,9 @@ bm_extend.bm_pixmap <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	value <- col2hex(value)
 	bm_extend_bitmap(
@@ -134,7 +157,9 @@ bm_extend.bm_pixmap <- function(
 		width = width,
 		height = height,
 		hjust = hjust,
-		vjust = vjust
+		vjust = vjust,
+		width_multiples_of = width_multiples_of,
+		height_multiples_of = height_multiples_of
 	)
 }
 
@@ -172,7 +197,9 @@ bm_extend.bm_list <- function(x, ...) {
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	stopifnot(requireNamespace("magick", quietly = TRUE))
 	pm <- `as_bm_pixmap.magick-image`(x)
@@ -188,7 +215,9 @@ bm_extend.bm_list <- function(x, ...) {
 		width = width,
 		height = height,
 		hjust = hjust,
-		vjust = vjust
+		vjust = vjust,
+		width_multiples_of = width_multiples_of,
+		height_multiples_of = height_multiples_of
 	)
 	magick::image_read(pm)
 }
@@ -206,7 +235,9 @@ bm_extend.nativeRaster <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	value <- int2col(as_native(value))
 	pm <- bm_extend_bitmap(
@@ -220,7 +251,9 @@ bm_extend.nativeRaster <- function(
 		width = width,
 		height = height,
 		hjust = hjust,
-		vjust = vjust
+		vjust = vjust,
+		width_multiples_of = width_multiples_of,
+		height_multiples_of = height_multiples_of
 	)
 	as.raster(pm, native = TRUE)
 }
@@ -238,7 +271,9 @@ bm_extend.raster <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	bm_extend_bitmap(
 		x,
@@ -251,7 +286,9 @@ bm_extend.raster <- function(
 		width = width,
 		height = height,
 		hjust = hjust,
-		vjust = vjust
+		vjust = vjust,
+		width_multiples_of = width_multiples_of,
+		height_multiples_of = height_multiples_of
 	)
 }
 
@@ -266,7 +303,9 @@ bm_extend_bitmap <- function(
 	width = NULL,
 	height = NULL,
 	hjust = "center-left",
-	vjust = "center-top"
+	vjust = "center-top",
+	width_multiples_of = NULL,
+	height_multiples_of = NULL
 ) {
 	d <- list(
 		top = top %||% 0L,
@@ -277,6 +316,12 @@ bm_extend_bitmap <- function(
 
 	if (!is.null(sides)) {
 		d <- adjust_d_sides(sides, d)
+	}
+	if (!is.null(width_multiples_of)) {
+		width <- ceiling((ncol(x) + d$left + d$right) / width_multiples_of) * width_multiples_of
+	}
+	if (!is.null(height_multiples_of)) {
+		height <- ceiling((nrow(x) + d$top + d$bottom) / height_multiples_of) * height_multiples_of
 	}
 	if (!is.null(width)) {
 		d <- adjust_d_width_extend(x, width, hjust, d, left, right)

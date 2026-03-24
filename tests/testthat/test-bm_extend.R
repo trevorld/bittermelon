@@ -98,6 +98,25 @@ test_that("bm_extend()", {
 	)
 })
 
+test_that("`width_multiples_of` and `height_multiples_of`", {
+	plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
+	plus_sign[5L, 3:7] <- 1L
+	plus_sign[3:7, 5L] <- 1L
+	plus_sign <- bm_bitmap(plus_sign)
+
+	expect_equal(ncol(bm_extend(plus_sign, width_multiples_of = 8L)), 16L)
+	expect_equal(nrow(bm_extend(plus_sign, height_multiples_of = 8L)), 16L)
+
+	# already a multiple — no change
+	expect_equal(ncol(bm_extend(plus_sign, width_multiples_of = 9L)), 9L)
+	expect_equal(nrow(bm_extend(plus_sign, height_multiples_of = 9L)), 9L)
+
+	# both at once
+	result <- bm_extend(plus_sign, width_multiples_of = 8L, height_multiples_of = 8L)
+	expect_equal(ncol(result), 16L)
+	expect_equal(nrow(result), 16L)
+})
+
 test_that("`bm_extend.bm_pixmap()`", {
 	skip_if_not_installed("withr")
 	withr::local_options(cli.unicode = TRUE)
