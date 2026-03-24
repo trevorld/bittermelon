@@ -46,6 +46,7 @@ reference:
       desc: "Functions to modify bitmaps, bitmap lists, and pixmaps"
       contents:
           - Ops.bm_list
+          - bm_bytepad
           - bm_clamp
           - bm_compress
           - bm_distort
