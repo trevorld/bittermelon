@@ -20,6 +20,8 @@
 A \code{summary_bm_font} object (a list) with the following components:
 \describe{
 \item{name}{Font name string, or \code{NULL} if not available.}
+\item{bitmap_class}{The bitmap class of the glyphs (e.g. \code{"bm_bitmap"}
+or \code{"bm_pixmap"}), or \code{NULL} if the font is empty.}
 \item{n_chars}{Number of characters in the font.}
 \item{coverage}{A data frame with columns \code{block} (Unicode block name),
 \code{n} (number of font characters in that block), and \code{total}
