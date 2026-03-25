@@ -92,11 +92,11 @@ as_bm_font.list <- function(x, ..., comments = NULL, properties = NULL) {
 	if (length(x) == 0L) {
 		names(x) <- character(0)
 	}
+	class(x) <- c("bm_font", class(x))
 	validate_bm_font(x)
 	names(x) <- hex2ucp(names(x))
 	attr(x, "comments") <- comments
 	attr(x, "properties") <- properties
-	class(x) <- c("bm_font", class(x))
 	x
 }
 
@@ -202,6 +202,7 @@ print.summary_bm_font <- function(x, ...) {
 }
 
 validate_bm_font <- function(x) {
+	stopifnot(is_bm_font(x))
 	if (is.null(names(x)) || any(names(x) == "")) {
 		stop("'x' must be a **named** list (with Unicode code point names)")
 	}

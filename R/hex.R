@@ -69,9 +69,21 @@ write_hex <- function(font, con = stdout()) {
 	validate_bm_font(font)
 
 	# hex fonts only support black-and-white glyphs
-	if (any(sapply(font, function(x) max(x) > 1L))) {
-		message("Multi-colored glyphs detected, casting to black-and-white.")
-		font <- bm_clamp(font)
+	if (!is_bm_list(font, class = "bm_bitmap")) {
+		cli::cli_abort(
+			c(
+				"{.fn write_hex} only supports {.cls bm_bitmap} glyphs.",
+				i = "Use {.code bm_lapply(font, as_bm_bitmap)} to cast glyphs."
+			)
+		)
+	}
+	if (any(vapply(font, function(x) max(x) > 1L, logical(1L)))) {
+		cli::cli_abort(
+			c(
+				"{.fn write_hex} doesn't support multi-colored glyphs.",
+				i = "Use {.fn bm_clamp} to cast to black-and-white glyphs."
+			)
+		)
 	}
 
 	contents <- c()

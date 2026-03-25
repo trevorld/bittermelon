@@ -17,6 +17,13 @@ test_that("read_yaff() and write_yaff()", {
 	unlink(f)
 
 	expect_equal(yaff[[plus_cp]], yaff2[[plus_cp]])
+
+	pixmap_font <- bm_lapply(yaff[plus_cp], as_bm_pixmap)
+	expect_snapshot(write_yaff(pixmap_font, tempfile()), error = TRUE)
+
+	multi <- yaff
+	multi[[plus_cp]] <- 2L * yaff[[plus_cp]]
+	expect_snapshot(write_yaff(multi, tempfile()), error = TRUE)
 })
 
 test_that("is_combining_character()", {
