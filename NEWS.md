@@ -16,7 +16,7 @@ New features
 * `bm_extend()` gains `width_multiples_of` and `height_multiples_of` arguments that pad the bitmap's width or height to the nearest multiple of a given integer (#43).
 * `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).
 * `bm_shift()` gains an `overflow` argument. The default `overflow = "clip"` silently clips content that would be pushed off the bitmap (matching the previous behavior). Use `overflow = "error"` to throw an error if non-padding content would be clipped, or `overflow = "wrap"` to wrap content around to the other side (#74).
-* `summary.bm_font()` summarizes a `bm_font()` object, showing the font name (if available), the number of characters, and coverage of Unicode blocks (#35).
+* `summary.bm_font()` summarizes a `bm_font()` object, showing the font name (if available), the bitmap class, the number of characters, and coverage of Unicode blocks (#35).
 
 Bug fixes and minor improvements
 ---------------------------------

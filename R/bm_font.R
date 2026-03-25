@@ -111,6 +111,8 @@ as_bm_font.list <- function(x, ..., comments = NULL, properties = NULL) {
 #' @return A `summary_bm_font` object (a list) with the following components:
 #'   \describe{
 #'     \item{name}{Font name string, or `NULL` if not available.}
+#'     \item{bitmap_class}{The bitmap class of the glyphs (e.g. `"bm_bitmap"`
+#'       or `"bm_pixmap"`), or `NULL` if the font is empty.}
 #'     \item{n_chars}{Number of characters in the font.}
 #'     \item{coverage}{A data frame with columns `block` (Unicode block name),
 #'       `n` (number of font characters in that block), and `total`
@@ -129,6 +131,7 @@ summary.bm_font <- function(object, ...) {
 
 	ucps <- names(object)
 	n_chars <- length(ucps)
+	bitmap_class <- if (n_chars > 0L) class(object[[1L]])[1L] else NULL
 
 	if (n_chars > 0L) {
 		# Only count named code points for block coverage
@@ -162,7 +165,7 @@ summary.bm_font <- function(object, ...) {
 	}
 
 	structure(
-		list(name = name, n_chars = n_chars, coverage = coverage),
+		list(name = name, bitmap_class = bitmap_class, n_chars = n_chars, coverage = coverage),
 		class = "summary_bm_font"
 	)
 }
@@ -175,6 +178,9 @@ print.summary_bm_font <- function(x, ...) {
 		cat("Bitmap font:", x$name, "\n")
 	} else {
 		cat("Bitmap font\n")
+	}
+	if (!is.null(x$bitmap_class)) {
+		cat("Bitmap class:", x$bitmap_class, "\n")
 	}
 	cat("Total characters:", x$n_chars, "\n")
 

@@ -20,6 +20,7 @@
       print(s)
     Output
       Bitmap font
+      Bitmap class: bm_bitmap 
       Total characters: 2 
       Unicode block coverage (n / named chars in block):
         Basic Latin  2/95
@@ -38,6 +39,7 @@
       print(summary(font))
     Output
       Bitmap font: Fixed Medium 6 
+      Bitmap class: bm_bitmap 
       Total characters: 919 
       Unicode block coverage (n / named chars in block):
         Basic Latin                   95/ 95
