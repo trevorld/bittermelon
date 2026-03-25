@@ -4,10 +4,14 @@
 \alias{is_bm_list}
 \title{Test if the object is a bitmap glyph list object}
 \usage{
-is_bm_list(x)
+is_bm_list(x, class = NULL)
 }
 \arguments{
 \item{x}{An object}
+
+\item{class}{If \code{NULL} (the default) don't check the class of the elements.
+Otherwise a character vector: returns \code{TRUE} only if all elements (if any)
+of \code{x} inherit from at least one of the classes in \code{class}.}
 }
 \value{
 \code{TRUE} or \code{FALSE}
@@ -19,7 +23,9 @@ and \code{FALSE} for all other objects.
 \examples{
  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
  font <- read_hex(font_file)
- is_bm_font(font)
+ is_bm_list(font)
+ is_bm_list(font, class = "bm_bitmap")
+ is_bm_list(font, class = "bm_pixmap")
 }
 \seealso{
 \code{\link[=bm_list]{bm_list()}}

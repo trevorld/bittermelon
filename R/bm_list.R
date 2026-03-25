@@ -32,15 +32,27 @@ bm_list <- function(...) {
 #' `is_bm_list()` returns `TRUE` for [bm_list()] objects (or subclasses)
 #' and `FALSE` for all other objects.
 #' @param x An object
+#' @param class If `NULL` (the default) don't check the class of the elements.
+#'   Otherwise a character vector: returns `TRUE` only if all elements (if any)
+#'   of `x` inherit from at least one of the classes in `class`.
 #' @return `TRUE` or `FALSE`
 #' @examples
 #'  font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #'  font <- read_hex(font_file)
-#'  is_bm_font(font)
+#'  is_bm_list(font)
+#'  is_bm_list(font, class = "bm_bitmap")
+#'  is_bm_list(font, class = "bm_pixmap")
 #' @seealso [bm_list()]
 #' @export
-is_bm_list <- function(x) {
-	inherits(x, "bm_list")
+is_bm_list <- function(x, class = NULL) {
+	if (!inherits(x, "bm_list")) {
+		return(FALSE)
+	}
+	if (is.null(class)) {
+		TRUE
+	} else {
+		all(vapply(x, inherits, logical(1L), what = class))
+	}
 }
 
 #' Modify bitmap lists
@@ -51,8 +63,9 @@ is_bm_list <- function(x) {
 #' `bm_lapply()` is a wrapper around `base::lapply()` that
 #' preserves the classes and metadata of the original bitmap glyph list.
 #' @param X A bitmap glyph list object such as [bm_list()] or [bm_font()].
-#' @param FUN A function that takes a [bm_bitmap()] object as its first argument
-#'            and returns a [bm_bitmap()] object.
+#' @param FUN A function that takes a bitmap object supported by
+#'            [is_supported_bitmap()] as its first argument and returns
+#'            a bitmap object supported by [is_supported_bitmap()].
 #' @param ... Additional arguments to pass to `FUN`.
 #' @return A modified bitmap glyph list.
 #' @seealso [base::lapply()], [bm_list()], [bm_font()], [bm_bitmap()]

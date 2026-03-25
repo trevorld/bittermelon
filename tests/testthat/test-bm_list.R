@@ -22,6 +22,10 @@ test_that("bm_list()", {
 	l[[space_code_point]] <- space_glyph
 	glyph_list <- as_bm_list(l)
 	expect_true(is_bm_list(glyph_list))
+	expect_true(is_bm_list(glyph_list, class = "bm_bitmap"))
+	expect_false(is_bm_list(glyph_list, class = "bm_pixmap"))
+	expect_true(is_bm_list(bm_list(), class = "bm_bitmap"))
+	expect_true(is_bm_list(bm_list(), class = "bm_pixmap"))
 
 	glyph_list <- bm_clamp(glyph_list)
 	expect_true(is_bm_list(glyph_list))

@@ -1,6 +1,7 @@
 bittermelon 2.3.0 (development)
 ===============================
 
+* `is_bm_list()` gains a `class` argument to optionally check that all elements inherit from at least one of the specified classes.
 * `bm_bytepad()` pads bitmap widths to the nearest multiple of 8 (i.e. nearest byte) by adding pixels on the right (e.g. as required by the BDF font format) (#43).
 * `bm_extend()` gains `width_multiples_of` and `height_multiples_of` arguments that pad the bitmap's width or height to the nearest multiple of a given integer (#43).
 * `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).
