@@ -91,6 +91,8 @@ as.list.bm_list <- function(x, ...) {
 #' @export
 `[.bm_list` <- function(x, i) {
 	l <- NextMethod()
-	class(l) <- c("bm_list", class(l))
+	class(l) <- class(x)
+	attr(l, "comments") <- attr(x, "comments")
+	attr(l, "properties") <- attr(x, "properties")
 	l
 }

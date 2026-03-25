@@ -31,6 +31,13 @@ test_that("read_hex() and write_hex()", {
 
 	expect_equal(length(read_hex(textConnection(""))), 0L)
 
+	pixmap_font <- bm_lapply(font[plus_sign_code_point], as_bm_pixmap)
+	expect_snapshot(write_hex(pixmap_font, tempfile()), error = TRUE)
+
+	multi <- font
+	multi[[plus_sign_code_point]] <- 2L * font[[plus_sign_code_point]]
+	expect_snapshot(write_hex(multi, tempfile()), error = TRUE)
+
 	skip_if_not_installed("withr")
 	withr::local_options(cli.unicode = TRUE)
 	withr::local_options(bm_options(default = TRUE))
