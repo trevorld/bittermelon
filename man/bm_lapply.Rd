@@ -9,8 +9,9 @@ bm_lapply(X, FUN, ...)
 \arguments{
 \item{X}{A bitmap glyph list object such as \code{\link[=bm_list]{bm_list()}} or \code{\link[=bm_font]{bm_font()}}.}
 
-\item{FUN}{A function that takes a \code{\link[=bm_bitmap]{bm_bitmap()}} object as its first argument
-and returns a \code{\link[=bm_bitmap]{bm_bitmap()}} object.}
+\item{FUN}{A function that takes a bitmap object supported by
+\code{\link[=is_supported_bitmap]{is_supported_bitmap()}} as its first argument and returns
+a bitmap object supported by \code{\link[=is_supported_bitmap]{is_supported_bitmap()}}.}
 
 \item{...}{Additional arguments to pass to \code{FUN}.}
 }
