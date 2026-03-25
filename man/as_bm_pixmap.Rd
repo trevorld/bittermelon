@@ -2,6 +2,7 @@
 % Please edit documentation in R/as_bm_pixmap.R
 \name{as_bm_pixmap}
 \alias{as_bm_pixmap}
+\alias{as_bm_pixmap.character}
 \alias{as_bm_pixmap.default}
 \alias{as_bm_pixmap.array}
 \alias{as_bm_pixmap.bm_bitmap}
@@ -23,6 +24,17 @@
 \title{Cast to a pixmap matrix object}
 \usage{
 as_bm_pixmap(x, ...)
+
+\method{as_bm_pixmap}{character}(
+  x,
+  ...,
+  direction = "left-to-right, top-to-bottom",
+  font = bm_font(),
+  hjust = "left",
+  vjust = "top",
+  compose = TRUE,
+  pua_combining = character(0)
+)
 
 \method{as_bm_pixmap}{default}(x, ...)
 
@@ -72,6 +84,33 @@ as_bm_pixmap(x, ...)
 \item{x}{an Object}
 
 \item{...}{Potentially passed to other methods e.g. \code{as_bm_pixmap.default()} passes \code{...} to \code{\link[=as.raster]{as.raster()}}.}
+
+\item{direction}{For purely horizontal binding either "left-to-right" (default) or its aliases "ltr" and "lr"
+OR "right-to-left" or its aliases "rtl" and "rl".
+For purley vertical binding either "top-to-bottom" (default) or its aliases "ttb" and "tb"
+OR "bottom-to-top" or its aliases "btt" and "bt".
+For character vectors of length greater than one: for first horizontal binding within
+values in the vector
+and then vertical binding across values in the vector "left-to-right, top-to-bottom" (default)
+or its aliases "lrtb" and "lr-tb"; "left-to-right, bottom-to-top" or its aliases "lrbt" and "lr-bt";
+"right-to-left, top-to-bottom" or its aliases "rltb" and "rl-tb"; or
+"right-to-left, bottom-to-top" or its aliases "rlbt" and "rl-bt".
+For first vertical binding within values in the vector and then horizontal binding across values
+"top-to-bottom, left-to-right" or its aliases "tblr" and "tb-lr";
+"top-to-bottom, right-to-left" or its aliases "tbrl" and "tb-rl";
+"bottom-to-top, left-to-right" or its aliases "btlr" and "bt-lr"; or
+"bottom-to-top, right-to-left" or its aliases "btrl" and "bt-rl".
+The \code{direction} argument is not case-sensitive.}
+
+\item{font}{A \code{\link[=bm_font]{bm_font()}} object that contains all the characters within \code{x}.}
+
+\item{hjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap widths are different.}
+
+\item{vjust}{Used by \code{\link[=bm_extend]{bm_extend()}} if bitmap heights are different.}
+
+\item{compose}{Compose graphemes using \code{\link[=bm_compose]{bm_compose()}}.}
+
+\item{pua_combining}{Passed to \code{\link[=bm_compose]{bm_compose()}}.}
 
 \item{col}{Character vector of R color specifications.}
 

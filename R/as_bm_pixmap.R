@@ -4,6 +4,7 @@
 #'
 #' @param x an Object
 #' @param ... Potentially passed to other methods e.g. `as_bm_pixmap.default()` passes `...` to [as.raster()].
+#' @inheritParams as_bm_bitmap.character
 #' @seealso [bm_pixmap()], [is_bm_pixmap()]
 #' @return A [bm_pixmap()] object.
 #' @examples
@@ -39,6 +40,30 @@
 #' @export
 as_bm_pixmap <- function(x, ...) {
 	UseMethod("as_bm_pixmap")
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.character <- function(
+	x,
+	...,
+	direction = "left-to-right, top-to-bottom",
+	font = bm_font(),
+	hjust = "left",
+	vjust = "top",
+	compose = TRUE,
+	pua_combining = character(0)
+) {
+	bm <- as_bm_object_character(
+		x,
+		direction = direction,
+		font = font,
+		hjust = hjust,
+		vjust = vjust,
+		compose = compose,
+		pua_combining = pua_combining
+	)
+	as_bm_pixmap(bm, ...)
 }
 
 #' @rdname as_bm_pixmap

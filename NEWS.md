@@ -11,6 +11,7 @@ Breaking changes
 New features
 ------------
 
+* `as_bm_pixmap()` gains a `character` method analogous to `as_bm_bitmap.character()` for rendering strings from a `bm_font()` font.
 * `bm_bytepad()` pads bitmap widths to the nearest multiple of 8 (i.e. nearest byte) by adding pixels on the right (e.g. as required by the BDF font format) (#43).
 * `bm_extend()` gains `width_multiples_of` and `height_multiples_of` arguments that pad the bitmap's width or height to the nearest multiple of a given integer (#43).
 * `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).

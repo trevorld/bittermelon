@@ -1,5 +1,6 @@
 font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 font <- read_hex(font_file)
+color_font <- bm_lapply(font, as_bm_pixmap)
 capital_r <- font[[str2ucp("R")]]
 space <- font[[str2ucp(" ")]]
 
@@ -170,6 +171,20 @@ test_that("bm_compress()", {
 		"txt/capital_r_compress_b.txt",
 		print(bm_compress(capital_r, direction = "both"), px = px_ascii)
 	)
+})
+
+test_that("as_bm_pixmap.character()", {
+	skip_if_not_installed("withr")
+	withr::local_options(cli.unicode = TRUE)
+	withr::local_options(bm_options(default = TRUE))
+	bm <- as_bm_pixmap("RSTATS", font = color_font, direction = "lr")
+	expect_true(is_bm_pixmap(bm))
+	bm <- as_bm_pixmap("RSTATS", font = color_font, direction = "ttb")
+	expect_true(is_bm_pixmap(bm))
+	bm <- as_bm_pixmap(c("RSTATS", "IS COOL!"), font = color_font, direction = "rlbt")
+	expect_true(is_bm_pixmap(bm))
+	bm <- as_bm_pixmap(c("RSTATS", "IS COOL!"), font = color_font, direction = "tbrl")
+	expect_true(is_bm_pixmap(bm))
 })
 
 test_that("as_bm_bitmap.character()", {
