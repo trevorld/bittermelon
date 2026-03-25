@@ -149,6 +149,27 @@ as_bm_bitmap.character <- function(
 	compose = TRUE,
 	pua_combining = character(0)
 ) {
+	bm <- as_bm_object_character(
+		x,
+		direction = direction,
+		font = font,
+		hjust = hjust,
+		vjust = vjust,
+		compose = compose,
+		pua_combining = pua_combining
+	)
+	as_bm_bitmap(bm, ...)
+}
+
+as_bm_object_character <- function(
+	x,
+	direction = "left-to-right, top-to-bottom",
+	font = bm_font(),
+	hjust = "left",
+	vjust = "top",
+	compose = TRUE,
+	pua_combining = character(0)
+) {
 	direction <- tolower(direction)
 	check_direction(direction)
 	direction_type <- get_direction_type(direction)
