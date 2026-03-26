@@ -188,6 +188,27 @@ test_that("`bm_extend.raster()`", {
 	)
 })
 
+test_that("`bm_extend()` mode = 'edge'", {
+	m <- matrix(c(1L, 2L, 3L, 4L), nrow = 2L, ncol = 2L)
+	bm <- bm_bitmap(m)
+
+	r <- bm_extend(bm, right = 2L, mode = "edge")
+	expect_equal(as.matrix(r)[1L, ], c(1L, 3L, 3L, 3L))
+	expect_equal(as.matrix(r)[2L, ], c(2L, 4L, 4L, 4L))
+
+	l <- bm_extend(bm, left = 1L, mode = "edge")
+	expect_equal(as.matrix(l)[1L, ], c(1L, 1L, 3L))
+	expect_equal(as.matrix(l)[2L, ], c(2L, 2L, 4L))
+
+	t <- bm_extend(bm, top = 2L, mode = "edge")
+	expect_equal(as.matrix(t)[1L, ], c(1L, 3L))
+	expect_equal(as.matrix(t)[4L, ], c(2L, 4L))
+
+	b <- bm_extend(bm, bottom = 1L, mode = "edge")
+	expect_equal(as.matrix(b)[1L, ], c(1L, 3L))
+	expect_equal(as.matrix(b)[2L, ], c(1L, 3L))
+})
+
 test_that("`bm_extend.nativeRaster()`", {
 	skip_if_not_installed("farver")
 	skip_if_not_installed("withr")

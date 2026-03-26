@@ -23,7 +23,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 
 \method{bm_extend}{bm_bitmap}(
@@ -39,7 +40,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 
 \method{bm_extend}{bm_pixmap}(
@@ -55,7 +57,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 
 \method{bm_extend}{bm_list}(x, ...)
@@ -73,7 +76,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 
 \method{bm_extend}{nativeRaster}(
@@ -89,7 +93,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 
 \method{bm_extend}{raster}(
@@ -105,7 +110,8 @@ bm_extend(
   hjust = "center-left",
   vjust = "center-top",
   width_multiples_of = NULL,
-  height_multiples_of = NULL
+  height_multiples_of = NULL,
+  mode = c("constant", "edge")
 )
 }
 \arguments{
@@ -163,6 +169,9 @@ equal to the current height.
 Use with the \code{vjust} argument to control which side receives
 the extra pixels.
 Cannot be combined with \code{sides} or \code{height}.}
+
+\item{mode}{Either "constant" (default) to fill new pixels with \code{value},
+or "edge" to fill with the nearest edge pixel.}
 
 \item{...}{Additional arguments to be passed to or from methods.}
 }
