@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 pre {
-    font-family: Dejavu Sans Mono,FreeMono,monospace;
+    font-family: "Source Code Pro", "DejaVu Sans Mono", FreeMono, monospace;
     line-height: 1.0;
     font-size: 100%;
+    letter-spacing: 0;
 }
