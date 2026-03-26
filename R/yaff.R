@@ -6,7 +6,13 @@
 #' @param con A connection object or a character string of a filename.
 #'            See [base::readLines()] or [base::writeLines()] for more info.
 #'            If it is a connection it will be explicitly closed.
-#'
+#' @param ... Currently ignored.
+#' @param fg Foreground color used when reading greyscale fonts (i.e. when the
+#'           yaff `levels` property is greater than 2).
+#'           An R color string in any format accepted by [col2hex()].
+#'           Its RGB values are used for the pixel color and its alpha
+#'           is multiplied by the level fraction to determine pixel alpha.
+#'           Default is `"#000000FF"` (opaque black).
 #' @param font A [bm_font()] object.
 #' @examples
 #'  \donttest{# May take more than 5 seconds on CRAN servers
@@ -25,7 +31,8 @@
 #'         of the yaff font file it wrote to `con` as a side effect.
 #' @seealso [bm_font()] for information about bitmap font objects.
 #'     For more information about yaff font format see <https://github.com/robhagemans/monobit#the-yaff-format>.
-read_yaff <- function(con) {
+read_yaff <- function(con, ..., fg = "#000000FF") {
+	chkDots(...)
 	if (inherits(con, "connection")) {
 		on.exit(close(con))
 	}
@@ -36,8 +43,16 @@ read_yaff <- function(con) {
 	comments <- capture_comments(contents)
 	contents <- grep("^#", contents, value = TRUE, invert = TRUE)
 
+	# quick scan for levels property before glyph capture
+	levels_match <- grep("^levels:[[:space:]]*([[:digit:]]+)", contents, value = TRUE)
+	levels <- if (length(levels_match) > 0L) {
+		as.integer(sub("^levels:[[:space:]]*", "", levels_match[1L]))
+	} else {
+		2L
+	}
+
 	# capture glyphs
-	gl_contents <- capture_yaff_glyphs(contents)
+	gl_contents <- capture_yaff_glyphs(contents, levels = levels, fg = fg)
 	gl <- gl_contents$glyphs
 	contents <- gl_contents$contents
 
@@ -97,8 +112,15 @@ capture_yaff_properties <- function(contents) {
 
 last <- function(v) v[length(v)]
 
-capture_yaff_glyphs <- function(contents) {
-	glyph_token <- "^[[:space:]]+(-{1}|[@\\.]+)[[:space:]]*$"
+capture_yaff_glyphs <- function(contents, levels = 2L, fg = "#000000FF") {
+	glyph_chars <- if (levels == 2L) {
+		"@\\."
+	} else if (levels == 4L) {
+		"@\\.12"
+	} else {
+		"@\\.0-9A-Fa-f"
+	}
+	glyph_token <- paste0("^[[:space:]]+(-{1}|[", glyph_chars, "]+)[[:space:]]*$")
 	indices_glyphs <- grep(glyph_token, contents)
 	if (length(indices_glyphs) == 0) {
 		return(list(glyphs = bm_list(), contents = contents))
@@ -111,7 +133,11 @@ capture_yaff_glyphs <- function(contents) {
 	for (i in seq_along(indices_first)) {
 		first <- indices_first[i]
 		last <- indices_last[i]
-		glyph <- as_bm_bitmap_yaff(contents[first:last])
+		glyph <- if (levels <= 2L) {
+			as_bm_bitmap_yaff(contents[first:last])
+		} else {
+			as_bm_pixmap_yaff(contents[first:last], levels = levels, fg = fg)
+		}
 		labels <- get_yaff_labels(contents, first)
 		indices_glyphs <- append(indices_glyphs, seq.int(first - length(labels) - 1L, first - 1L))
 		ucp <- label2ucp(labels)
@@ -184,13 +210,84 @@ as_bm_bitmap_yaff <- function(glyph) {
 		return(bm_bitmap(matrix(0L, nrow = 0L, ncol = 0L)))
 	}
 
-	glyph <- gsub("\\.", "0", glyph)
-	glyph <- gsub("@", "1", glyph)
-	binary <- as.integer(strsplit(paste(glyph, collapse = ""), "")[[1]])
+	chars <- strsplit(paste(glyph, collapse = ""), "")[[1]]
+	int_map <- c("." = 0L, "@" = 1L)
+	ints <- int_map[chars]
 	nr <- length(glyph)
-	nc <- nchar(glyph[1])
-	m <- matrix(binary, nrow = nr, ncol = nc, byrow = TRUE)
+	nc <- nchar(glyph[1L])
+	m <- matrix(ints, nrow = nr, ncol = nc, byrow = TRUE)
 	bm_bitmap(m)
+}
+
+as_bm_pixmap_yaff <- function(glyph, levels, fg = "#000000FF") {
+	glyph <- rev(glyph)
+	glyph <- gsub("[[:space:]]", "", glyph)
+
+	if (length(glyph) == 1L && glyph == "-") {
+		return(bm_pixmap(matrix(character(0L), nrow = 0L, ncol = 0L)))
+	}
+
+	fg_hex <- col2hex(fg)
+	fg_r <- strtoi(substr(fg_hex, 2L, 3L), 16L)
+	fg_g <- strtoi(substr(fg_hex, 4L, 5L), 16L)
+	fg_b <- strtoi(substr(fg_hex, 6L, 7L), 16L)
+	fg_a <- strtoi(substr(fg_hex, 8L, 9L), 16L)
+
+	if (levels == 4L) {
+		# one char per pixel: . = 0, 1 = lighter grey, 2 = darker grey, @ = 3
+		level_map <- c("." = 0L, "1" = 1L, "2" = 2L, "@" = 3L)
+		chars <- strsplit(paste(glyph, collapse = ""), "")[[1L]]
+		level_ints <- level_map[chars]
+		nr <- length(glyph)
+		nc <- nchar(glyph[1L])
+	} else if (levels == 16L) {
+		# one char per pixel: . = 0, 1-E = 1-14, @ = 15
+		level_map <- c(
+			"." = 0L,
+			"1" = 1L,
+			"2" = 2L,
+			"3" = 3L,
+			"4" = 4L,
+			"5" = 5L,
+			"6" = 6L,
+			"7" = 7L,
+			"8" = 8L,
+			"9" = 9L,
+			"A" = 10L,
+			"a" = 10L,
+			"B" = 11L,
+			"b" = 11L,
+			"C" = 12L,
+			"c" = 12L,
+			"D" = 13L,
+			"d" = 13L,
+			"E" = 14L,
+			"e" = 14L,
+			"@" = 15L
+		)
+		chars <- strsplit(paste(glyph, collapse = ""), "")[[1L]]
+		level_ints <- level_map[chars]
+		nr <- length(glyph)
+		nc <- nchar(glyph[1L])
+	} else {
+		# levels == 256L: two chars per pixel: .. = 0, @@ = 255, 01-FE = hex alpha
+		all_chars <- strsplit(paste(glyph, collapse = ""), "")[[1L]]
+		pair_i <- seq(1L, length(all_chars) - 1L, by = 2L)
+		pairs <- paste0(all_chars[pair_i], all_chars[pair_i + 1L])
+		level_ints <- ifelse(pairs == "..", 0L, ifelse(pairs == "@@", 255L, strtoi(pairs, 16L)))
+		nr <- length(glyph)
+		nc <- nchar(glyph[1L]) / 2L
+	}
+
+	max_level <- levels - 1L
+	alpha <- as.integer(round(fg_a * level_ints / max_level))
+	colors <- ifelse(
+		alpha == 0L,
+		"#FFFFFF00",
+		sprintf("#%02X%02X%02X%02X", fg_r, fg_g, fg_b, alpha)
+	)
+	m <- matrix(colors, nrow = nr, ncol = nc, byrow = TRUE)
+	bm_pixmap(m)
 }
 
 #' @rdname yaff_font
