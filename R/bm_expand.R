@@ -65,9 +65,11 @@ bm_expand.bm_pixmap <- function(x, width = 1L, height = width) {
 #' @export
 `bm_expand.magick-image` <- function(x, width = 1L, height = width) {
 	stopifnot(requireNamespace("magick", quietly = TRUE))
-	pm <- as_bm_pixmap(x)
-	pm <- bm_expand(pm, width = width, height = height)
-	magick::image_read(pm)
+	info <- magick::image_info(x)
+	new_w <- width * info$width
+	new_h <- height * info$height
+	geometry <- paste0(new_w, "x", new_h, "!")
+	magick::image_sample(x, geometry)
 }
 
 #' @rdname bm_expand
