@@ -16,3 +16,11 @@
       ! `write_yaff()` doesn't support multi-colored glyphs.
       i Use `bm_clamp()` to cast to black-and-white glyphs.
 
+# read_yaff() unrecognizable label errors
+
+    Code
+      read_yaff(textConnection(c("U+ZZZZZ:", "    .@.")))
+    Condition
+      Error in `label2ucp()`:
+      ! Couldn't determine Unicode code point from labels: U+ZZZZZ
+

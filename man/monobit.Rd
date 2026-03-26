@@ -7,6 +7,7 @@
 \usage{
 read_monobit(
   file,
+  ...,
   quietly = FALSE,
   monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
 )
@@ -20,6 +21,8 @@ write_monobit(
 }
 \arguments{
 \item{file}{A character string of a filename.}
+
+\item{...}{Further arguments passed to \code{\link[=read_yaff]{read_yaff()}}.}
 
 \item{quietly}{If \code{TRUE} suppress any standard output/error from \code{monobit-convert}.}
 
