@@ -5,7 +5,7 @@
 \alias{write_yaff}
 \title{Read and write yaff bitmap font files}
 \usage{
-read_yaff(con)
+read_yaff(con, ..., fg = "#000000FF")
 
 write_yaff(font, con = stdout())
 }
@@ -13,6 +13,15 @@ write_yaff(font, con = stdout())
 \item{con}{A connection object or a character string of a filename.
 See \code{\link[base:readLines]{base::readLines()}} or \code{\link[base:writeLines]{base::writeLines()}} for more info.
 If it is a connection it will be explicitly closed.}
+
+\item{...}{Currently ignored.}
+
+\item{fg}{Foreground color used when reading greyscale fonts (i.e. when the
+yaff \code{levels} property is greater than 2).
+An R color string in any format accepted by \code{\link[=col2hex]{col2hex()}}.
+Its RGB values are used for the pixel color and its alpha
+is multiplied by the level fraction to determine pixel alpha.
+Default is \code{"#000000FF"} (opaque black).}
 
 \item{font}{A \code{\link[=bm_font]{bm_font()}} object.}
 }

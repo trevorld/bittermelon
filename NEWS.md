@@ -12,6 +12,7 @@ New features
 ------------
 
 * `as_bm_pixmap()` gains a `character` method analogous to `as_bm_bitmap.character()` for rendering strings from a `bm_font()` font.
+* `read_yaff()` now supports the experimental `levels` property for greyscale fonts returning a `bm_font()` with `bm_pixmap()` glyphs. Uninked pixels are encoded as `"#FFFFFF00"` (transparent). `read_yaff()` gains a `fg` argument (default `"#000000FF"`) to control the foreground color; its RGB values are used for inked pixels and its alpha is multiplied by the level fraction to set pixel transparency.
 * `bm_bytepad()` pads bitmap widths to the nearest multiple of 8 (i.e. nearest byte) by adding pixels on the right (e.g. as required by the BDF font format) (#43).
 * `bm_extend()` gains `width_multiples_of` and `height_multiples_of` arguments that pad the bitmap's width or height to the nearest multiple of a given integer (#43).
 * `bm_rotate()` gains `in_place` and `value` arguments to rotate the glyph in place without changing the background padding (#70).
