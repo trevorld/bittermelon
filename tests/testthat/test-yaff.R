@@ -74,6 +74,67 @@ test_that("read_yaff() greyscale levels", {
 	expect_equal(g256[2L, 2L], "#00000080") # 80 = hex 0x80
 })
 
+test_that("read_yaff() all-comment file (no blank lines)", {
+	font <- read_yaff(textConnection(c("# just a comment", "# another comment")))
+	expect_equal(length(font), 0L)
+	expect_equal(attr(font, "comments"), c("just a comment", "another comment"))
+})
+
+test_that("read_yaff() multi-line property", {
+	plus_cp <- name2ucp("PLUS SIGN")
+	font <- read_yaff(textConnection(c(
+		"name: MyFont",
+		"notice:",
+		"    line 1",
+		"    line 2",
+		"",
+		"u+002B:",
+		"    .@."
+	)))
+	expect_equal(attr(font, "properties")$name, "MyFont")
+	expect_equal(attr(font, "properties")$notice, "line 1\nline 2")
+	expect_equal(nrow(font[[plus_cp]]), 1L)
+})
+
+test_that("read_yaff() alternative label formats", {
+	plus_cp <- name2ucp("PLUS SIGN")
+
+	font_0x <- read_yaff(textConnection(c("0x002B:", "    .@.")))
+	expect_equal(nrow(font_0x[[plus_cp]]), 1L)
+
+	font_0o <- read_yaff(textConnection(c("0o53:", "    .@.")))
+	expect_equal(nrow(font_0o[[plus_cp]]), 1L)
+
+	font_dec <- read_yaff(textConnection(c("43:", "    .@.")))
+	expect_equal(nrow(font_dec[[plus_cp]]), 1L)
+})
+
+test_that("read_yaff() unrecognizable label errors", {
+	expect_snapshot(
+		read_yaff(textConnection(c("U+ZZZZZ:", "    .@."))),
+		error = TRUE
+	)
+})
+
+test_that("read_yaff() empty glyph (-)", {
+	plus_cp <- name2ucp("PLUS SIGN")
+
+	font_bm <- read_yaff(textConnection(c("u+002B:", "    -")))
+	expect_equal(nrow(font_bm[[plus_cp]]), 0L)
+	expect_equal(ncol(font_bm[[plus_cp]]), 0L)
+
+	font_pm <- read_yaff(textConnection(c("levels: 4", "", "u+002B:", "    -")))
+	expect_equal(nrow(font_pm[[plus_cp]]), 0L)
+	expect_equal(ncol(font_pm[[plus_cp]]), 0L)
+})
+
+test_that("write_yaff() multi-line property", {
+	font <- bm_font(list(), properties = list(notice = "line 1\nline 2"))
+	lines <- write_yaff(font, tempfile())
+	expect_true(any(grepl("^notice:$", lines)))
+	expect_true(any(grepl("^    line 1$", lines)))
+})
+
 test_that("is_combining_character()", {
 	expect_false(is_combining_character(str2ucp("a")))
 	expect_true(is_combining_character("U+0300"))

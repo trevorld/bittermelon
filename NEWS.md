@@ -23,6 +23,9 @@ Bug fixes and minor improvements
 ---------------------------------
 
 * `is_bm_list()` gains a `class` argument to optionally check that all elements inherit from at least one of the specified classes.
+* `read_monobit()` gains a `...` argument that is passed on to `read_yaff()`, allowing use of arguments such as `fg`.
+* `read_yaff()` now correctly reads multi-line property values; they are stored as a length-one character string with embedded newlines. Previously, a bug caused incorrect indices to be used when computing value ranges, and the values were stored as a character vector.
+* `read_yaff()` now correctly captures global comments from files where every line is a comment (no blank lines). Previously, line indices were returned instead of the comment strings.
 * Slicing a `bm_font()` or `bm_list()` with `[` now preserves the class and attributes (including `comments` and `properties`) of the original object.
 
 bittermelon 2.2.1

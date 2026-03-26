@@ -72,7 +72,7 @@ capture_comments <- function(contents) {
 			comments <- character()
 		}
 	} else {
-		comments <- grep("^#", contents)
+		comments <- grep("^#", contents, value = TRUE)
 	}
 	comments <- gsub("# {0,1}", "", comments)
 	if (length(comments) == 0L) {
@@ -99,12 +99,12 @@ capture_yaff_properties <- function(contents) {
 	i_keys <- grep(".*:$", multi_line)
 	keys <- gsub(":$", "", multi_line[i_keys])
 	i_values_start <- i_keys + 1L
-	i_values_end <- c(i_keys[2:length(i_keys)] + 1L, length(multi_line))
+	i_values_end <- c(i_keys[-1L] - 1L, length(multi_line))
 	for (i in seq_along(keys)) {
 		value <- multi_line[i_values_start[i]:i_values_end[i]]
 		value <- gsub("^[[:space:]]+", "", value)
 		value <- gsub("[[:space:]]+$", "", value)
-		properties[[keys[i]]] <- value
+		properties[[keys[i]]] <- paste(value, collapse = "\n")
 	}
 
 	properties
@@ -347,10 +347,11 @@ write_yaff <- function(font, con = stdout()) {
 }
 
 as_yaff_property <- function(key, value) {
-	if (length(value) == 1) {
+	if (!grepl("\n", value, fixed = TRUE)) {
 		paste0(key, ": ", value)
 	} else {
-		c(paste0(key, ":"), paste0("    ", value))
+		lines <- strsplit(value, "\n", fixed = TRUE)[[1L]]
+		c(paste0(key, ":"), paste0("    ", lines))
 	}
 }
 

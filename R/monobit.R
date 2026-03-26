@@ -12,6 +12,7 @@
 #'
 #' @param file A character string of a filename.
 #' @param font A [bm_font()] object.
+#' @param ... Further arguments passed to [read_yaff()].
 #' @param monobit_path Path/name of `monobit-convert` to use.  Passed to [base::Sys.which()].
 #' @param quietly If `TRUE` suppress any standard output/error from `monobit-convert`.
 #' @examples
@@ -36,6 +37,7 @@
 #' @export
 read_monobit <- function(
 	file,
+	...,
 	quietly = FALSE,
 	monobit_path = getOption("bittermelon.monobit_path", "monobit-convert")
 ) {
@@ -51,7 +53,7 @@ read_monobit <- function(
 	on.exit(unlink(tfile))
 
 	system2(monobit, c(file, tfile), stdout = stdout, stderr = stderr)
-	read_yaff(tfile)
+	read_yaff(tfile, ...)
 }
 
 #' @rdname monobit
