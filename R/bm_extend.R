@@ -34,6 +34,8 @@
 #'              Use with the `vjust` argument to control which side receives
 #'              the extra pixels.
 #'              Cannot be combined with `sides` or `height`.
+#' @param mode Either "constant" (default) to fill new pixels with `value`,
+#'              or "edge" to fill with the nearest edge pixel.
 #' @param hjust One of "left", "center-left", "center-right", "right".
 #'              "center-left" and "center-right" will attempt to
 #'              place in "center" if possible but if not possible will bias
@@ -77,8 +79,10 @@ bm_extend <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
+	mode <- match.arg(mode)
 	stopifnot(missing(sides) || missing(top))
 	stopifnot(missing(sides) || missing(right))
 	stopifnot(missing(sides) || missing(bottom))
@@ -109,7 +113,8 @@ bm_extend.bm_bitmap <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
 	bm_extend_bitmap(
 		x,
@@ -124,7 +129,8 @@ bm_extend.bm_bitmap <- function(
 		hjust = hjust,
 		vjust = vjust,
 		width_multiples_of = width_multiples_of,
-		height_multiples_of = height_multiples_of
+		height_multiples_of = height_multiples_of,
+		mode = mode
 	)
 }
 
@@ -143,7 +149,8 @@ bm_extend.bm_pixmap <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
 	value <- col2hex(value)
 	bm_extend_bitmap(
@@ -159,7 +166,8 @@ bm_extend.bm_pixmap <- function(
 		hjust = hjust,
 		vjust = vjust,
 		width_multiples_of = width_multiples_of,
-		height_multiples_of = height_multiples_of
+		height_multiples_of = height_multiples_of,
+		mode = mode
 	)
 }
 
@@ -199,7 +207,8 @@ bm_extend.bm_list <- function(x, ...) {
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
 	stopifnot(requireNamespace("magick", quietly = TRUE))
 	pm <- `as_bm_pixmap.magick-image`(x)
@@ -217,7 +226,8 @@ bm_extend.bm_list <- function(x, ...) {
 		hjust = hjust,
 		vjust = vjust,
 		width_multiples_of = width_multiples_of,
-		height_multiples_of = height_multiples_of
+		height_multiples_of = height_multiples_of,
+		mode = mode
 	)
 	magick::image_read(pm)
 }
@@ -237,7 +247,8 @@ bm_extend.nativeRaster <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
 	value <- int2col(as_native(value))
 	pm <- bm_extend_bitmap(
@@ -253,7 +264,8 @@ bm_extend.nativeRaster <- function(
 		hjust = hjust,
 		vjust = vjust,
 		width_multiples_of = width_multiples_of,
-		height_multiples_of = height_multiples_of
+		height_multiples_of = height_multiples_of,
+		mode = mode
 	)
 	as.raster(pm, native = TRUE)
 }
@@ -273,7 +285,8 @@ bm_extend.raster <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
 	bm_extend_bitmap(
 		x,
@@ -288,7 +301,8 @@ bm_extend.raster <- function(
 		hjust = hjust,
 		vjust = vjust,
 		width_multiples_of = width_multiples_of,
-		height_multiples_of = height_multiples_of
+		height_multiples_of = height_multiples_of,
+		mode = mode
 	)
 }
 
@@ -305,8 +319,10 @@ bm_extend_bitmap <- function(
 	hjust = "center-left",
 	vjust = "center-top",
 	width_multiples_of = NULL,
-	height_multiples_of = NULL
+	height_multiples_of = NULL,
+	mode = c("constant", "edge")
 ) {
+	mode <- match.arg(mode)
 	d <- list(
 		top = top %||% 0L,
 		right = right %||% 0L,
@@ -332,89 +348,168 @@ bm_extend_bitmap <- function(
 	stopifnot(min(unlist(d)) >= 0L)
 
 	if (d$top > 0L) {
-		x <- bm_extend_helper(x, d$top, value, "top")
+		x <- bm_extend_helper(x, d$top, value, "top", mode)
 	}
 	if (d$right > 0L) {
-		x <- bm_extend_helper(x, d$right, value, "right")
+		x <- bm_extend_helper(x, d$right, value, "right", mode)
 	}
 	if (d$bottom > 0L) {
-		x <- bm_extend_helper(x, d$bottom, value, "bottom")
+		x <- bm_extend_helper(x, d$bottom, value, "bottom", mode)
 	}
 	if (d$left > 0L) {
-		x <- bm_extend_helper(x, d$left, value, "left")
+		x <- bm_extend_helper(x, d$left, value, "left", mode)
 	}
 	x
 }
 
-bm_extend_helper <- function(x, n, value, direction) {
+bm_extend_helper <- function(x, n, value, direction, mode = "constant") {
 	UseMethod("bm_extend_helper")
 }
 
 #' @export
-bm_extend_helper.bm_bitmap <- function(x, n = 1L, value = 0L, direction = "top") {
+bm_extend_helper.bm_bitmap <- function(
+	x,
+	n = 1L,
+	value = 0L,
+	direction = "top",
+	mode = c("constant", "edge")
+) {
+	mode <- match.arg(mode)
 	switch(
 		direction,
 		top = {
-			new <- as_bm_bitmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+			new_val <- if (mode == "edge") x[nrow(x), ] else rep.int(value, ncol(x))
+			new <- as_bm_bitmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			))
 			rbind.bm_bitmap(new, x)
 		},
 		right = {
-			new <- as_bm_bitmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+			new_val <- if (mode == "edge") x[, ncol(x)] else rep.int(value, nrow(x))
+			new <- as_bm_bitmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = nrow(x),
+				ncol = n
+			))
 			cbind.bm_bitmap(x, new)
 		},
 		bottom = {
-			new <- as_bm_bitmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+			new_val <- if (mode == "edge") x[1L, ] else rep.int(value, ncol(x))
+			new <- as_bm_bitmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			))
 			rbind.bm_bitmap(x, new)
 		},
 		left = {
-			new <- as_bm_bitmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+			new_val <- if (mode == "edge") x[, 1L] else rep.int(value, nrow(x))
+			new <- as_bm_bitmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = nrow(x),
+				ncol = n
+			))
 			cbind.bm_bitmap(new, x)
 		}
 	)
 }
 
 #' @export
-bm_extend_helper.bm_pixmap <- function(x, n = 1L, value = 0L, direction = "top") {
+bm_extend_helper.bm_pixmap <- function(
+	x,
+	n = 1L,
+	value = 0L,
+	direction = "top",
+	mode = c("constant", "edge")
+) {
+	mode <- match.arg(mode)
 	switch(
 		direction,
 		top = {
-			new <- as_bm_pixmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+			new_val <- if (mode == "edge") x[nrow(x), ] else rep.int(value, ncol(x))
+			new <- as_bm_pixmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			))
 			rbind.bm_pixmap(new, x)
 		},
 		right = {
-			new <- as_bm_pixmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+			new_val <- if (mode == "edge") x[, ncol(x)] else rep.int(value, nrow(x))
+			new <- as_bm_pixmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = nrow(x),
+				ncol = n
+			))
 			cbind.bm_pixmap(x, new)
 		},
 		bottom = {
-			new <- as_bm_pixmap.matrix(matrix(value, nrow = n, ncol = ncol(x)))
+			new_val <- if (mode == "edge") x[1L, ] else rep.int(value, ncol(x))
+			new <- as_bm_pixmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			))
 			rbind.bm_pixmap(x, new)
 		},
 		left = {
-			new <- as_bm_pixmap.matrix(matrix(value, nrow = nrow(x), ncol = n))
+			new_val <- if (mode == "edge") x[, 1L] else rep.int(value, nrow(x))
+			new <- as_bm_pixmap.matrix(matrix(
+				rep.int(new_val, n),
+				nrow = nrow(x),
+				ncol = n
+			))
 			cbind.bm_pixmap(new, x)
 		}
 	)
 }
 
 #' @export
-bm_extend_helper.raster <- function(x, n = 1L, value = "transparent", direction = "top") {
+bm_extend_helper.raster <- function(
+	x,
+	n = 1L,
+	value = "transparent",
+	direction = "top",
+	mode = c("constant", "edge")
+) {
+	mode <- match.arg(mode)
 	x <- as.matrix(x)
 	x <- switch(
 		direction,
 		top = {
-			new <- matrix(value, nrow = n, ncol = ncol(x))
+			new_val <- if (mode == "edge") x[nrow(x), ] else rep.int(value, ncol(x))
+			new <- matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			)
 			rbind(new, x)
 		},
 		right = {
-			new <- matrix(value, nrow = nrow(x), ncol = n)
+			new_val <- if (mode == "edge") x[, ncol(x)] else rep.int(value, nrow(x))
+			new <- matrix(rep.int(new_val, n), nrow = nrow(x), ncol = n)
 			cbind(x, new)
 		},
 		bottom = {
-			new <- matrix(value, nrow = n, ncol = ncol(x))
+			new_val <- if (mode == "edge") x[1L, ] else rep.int(value, ncol(x))
+			new <- matrix(
+				rep.int(new_val, n),
+				nrow = n,
+				ncol = ncol(x),
+				byrow = TRUE
+			)
 			rbind(x, new)
 		},
 		left = {
-			new <- matrix(value, nrow = nrow(x), ncol = n)
+			new_val <- if (mode == "edge") x[, 1L] else rep.int(value, nrow(x))
+			new <- matrix(rep.int(new_val, n), nrow = nrow(x), ncol = n)
 			cbind(new, x)
 		}
 	)
