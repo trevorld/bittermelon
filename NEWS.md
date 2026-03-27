@@ -1,5 +1,5 @@
-bittermelon 2.3.0 (development)
-===============================
+bittermelon 2.3.1
+=================
 
 Breaking changes
 ----------------
