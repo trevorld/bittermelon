@@ -19,9 +19,11 @@
 #'         If `unique` is `TRUE` then any duplicates will have been removed.
 #' @seealso [bm_widths()] and [bm_heights()].
 #' @examples
-#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
+#' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz",
+#'   package = "bittermelon"
+#' )
 #' font <- read_hex(font_file)
-#' bm_orientations(font) # every glyph in the font is 8 pixels wide and 16 pixels high
+#' bm_orientations(font) # every glyph is 8 pixels wide and 16 pixels high
 #' bm_orientations(bm_rotate(font, 90))
 #' corn <- farming_crops_16x16()$corn$portrait
 #' bm_orientations(corn) # 16 pixels wide and 16 pixels high
@@ -34,10 +36,15 @@ bm_orientations <- function(x, square = c("square", "portrait", "landscape"), ..
 
 #' @rdname bm_orientations
 #' @export
-bm_orientations.bm_matrix <- function(x, square = c("square", "portrait", "landscape"), ...) {
+bm_orientations.default <- function(x, square = c("square", "portrait", "landscape"), ...) {
 	chkDots(...)
 	square <- match.arg(square)
-	orientation(ncol(x), nrow(x), square)
+	width <- bm_widths(x)
+	height <- bm_heights(x)
+	o <- rep_len(square, length(width))
+	o[width > height] <- "landscape"
+	o[width < height] <- "portrait"
+	o
 }
 
 #' @rdname bm_orientations
@@ -50,43 +57,10 @@ bm_orientations.bm_list <- function(
 ) {
 	chkDots(...)
 	square <- match.arg(square)
-	o <- vapply(x, function(bm) orientation(ncol(bm), nrow(bm), square), character(1L))
+	o <- vapply(x, bm_orientations, character(1L), square = square)
 	if (unique) {
 		base::unique(o)
 	} else {
 		o
 	}
-}
-
-#' @rdname bm_orientations
-#' @export
-`bm_orientations.magick-image` <- function(x, square = c("square", "portrait", "landscape"), ...) {
-	chkDots(...)
-	square <- match.arg(square)
-	stopifnot(requireNamespace("magick", quietly = TRUE))
-	info <- magick::image_info(x)
-	orientation(info$width, info$height, square)
-}
-
-#' @rdname bm_orientations
-#' @export
-bm_orientations.nativeRaster <- function(x, square = c("square", "portrait", "landscape"), ...) {
-	chkDots(...)
-	square <- match.arg(square)
-	orientation(ncol(x), nrow(x), square)
-}
-
-#' @rdname bm_orientations
-#' @export
-bm_orientations.raster <- function(x, square = c("square", "portrait", "landscape"), ...) {
-	chkDots(...)
-	square <- match.arg(square)
-	orientation(ncol(x), nrow(x), square)
-}
-
-orientation <- function(width, height, square) {
-	o <- rep_len(square, length(width))
-	o[width > height] <- "landscape"
-	o[width < height] <- "portrait"
-	o
 }

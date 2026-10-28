@@ -65,3 +65,6 @@ corn <- farming_crops_16x16()$corn$portrait
 bm_widths(corn)
 bm_heights(corn)
 }
+\seealso{
+\code{\link[=bm_orientations]{bm_orientations()}}.
+}
