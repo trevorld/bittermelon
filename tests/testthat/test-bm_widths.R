@@ -25,3 +25,16 @@ test_that("`bm_widths()` and `bm_heights()`", {
 	expect_equal(bm_widths(mi), 16L)
 	expect_equal(bm_heights(mi), 16L)
 })
+
+test_that("bm_widths() and bm_heights() dispatch per element of a bm_list()", {
+	corn <- farming_crops_16x16()$corn$portrait
+	bml <- bm_list(corn, bm_extend(corn, width = 20L))
+	expect_equal(bm_widths(bml), c(16L, 20L))
+	expect_equal(bm_heights(bml), 16L)
+	expect_equal(bm_heights(bml, unique = FALSE), c(16L, 16L))
+
+	skip_if_not_installed("magick")
+	bml_magick <- bm_lapply(bml, magick::image_read)
+	expect_equal(bm_widths(bml_magick), c(16L, 20L))
+	expect_equal(bm_heights(bml_magick), 16L)
+})
