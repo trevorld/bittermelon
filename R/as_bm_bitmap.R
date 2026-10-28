@@ -26,7 +26,17 @@ as_bm_bitmap.array <- function(
 	} else {
 		mode <- match.arg(mode)
 	}
-	as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x), mode = mode, threshold = threshold)
+	rgba <- array_to_rgba(x)
+	value <- switch(
+		mode,
+		alpha = rgba[, 4L],
+		darkness = rgba2darkness(rgba[, 1L], rgba[, 2L], rgba[, 3L], rgba[, 4L]),
+		brightness = rgba2brightness(rgba[, 1L], rgba[, 2L], rgba[, 3L], rgba[, 4L])
+	)
+	m <- matrix(as.integer(value >= threshold), nrow = nrow(x), ncol = ncol(x))
+	m <- flip_matrix_vertically(m)
+	class(m) <- c("bm_bitmap", "bm_matrix", class(m))
+	m
 }
 
 #' @rdname as_bm_bitmap

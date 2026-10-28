@@ -82,6 +82,21 @@ test_that("as_bm_bitmap()", {
 	unlink(f)
 })
 
+test_that("`as_bm_bitmap.array()` matches the `bm_pixmap` path", {
+	skip_if_not_installed("withr")
+	a <- withr::with_seed(42L, array(stats::runif(20L * 10L * 4L), dim = c(20L, 10L, 4L)))
+	pm <- as_bm_pixmap(a)
+	for (mode in c("alpha", "darkness", "brightness")) {
+		for (threshold in c(0.25, 0.5, 0.75)) {
+			expect_equal(
+				as_bm_bitmap(a, mode = mode, threshold = threshold),
+				as_bm_bitmap(pm, mode = mode, threshold = threshold)
+			)
+		}
+	}
+	expect_equal(as_bm_bitmap(a[,, 1:3]), as_bm_bitmap(as_bm_pixmap(a[,, 1:3]), mode = "darkness"))
+})
+
 test_that("`as_bm_bitmap.bitmap()`", {
 	skip_if_not_installed("magick")
 	tulip <- farming_crops_16x16()$tulip$portrait

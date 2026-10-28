@@ -48,6 +48,17 @@ test_that("`as_bm_pixmap()`", {
 	expect_equal(dim(pm), c(16L, 16L))
 })
 
+test_that("`as_bm_pixmap.array()` matches the `raster` path", {
+	skip_if_not_installed("withr")
+	a <- withr::with_seed(42L, array(stats::runif(20L * 10L * 4L), dim = c(20L, 10L, 4L)))
+	expect_equal(as_bm_pixmap(a), as_bm_pixmap(as.raster(a)))
+	expect_equal(as_bm_pixmap(a[,, 1:3]), as_bm_pixmap(as.raster(a[,, 1:3])))
+	a255 <- floor(255 * a)
+	expect_equal(as_bm_pixmap(a255, max = 255), as_bm_pixmap(a255 / 255))
+	a[,, 4L] <- 0
+	expect_all_equal(as.character(as_bm_pixmap(a)), "#FFFFFF00")
+})
+
 test_that("`as_bm_pixmap.bitmap()`", {
 	skip_if_not_installed("magick")
 	corn <- farming_crops_16x16()$corn$portrait
