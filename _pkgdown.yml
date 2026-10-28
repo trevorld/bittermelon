@@ -72,6 +72,7 @@ reference:
           - c.bm_list
           - bm_call
           - bm_edit
+          - bm_orientations
           - bm_padding_lengths
           - bm_pixel_picker
           - bm_print
