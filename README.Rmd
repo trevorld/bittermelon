@@ -203,6 +203,8 @@ I wrote `{bittermelon}` in order to help create [Game Bit](https://github.com/tr
   Allows `{bittermelon}` to convert to/from "nativeRaster" objects.
 * [fontr](https://github.com/yixuan/fontr) allows one to extract character glyphs from a specific font (which itself may not be a bitmap font) as a bitmap.
 * [hexfont](https://github.com/trevorld/hexfont) provides [GNU Unifont](https://www.unifoundry.com/unifont/index.html) as `{bittermelon}` font objects.
+* [lofifonts](https://github.com/coolbutuseless/lofifonts) renders text using bitmap and vector fonts,
+  outputting pixel or stroke coordinates as data frames.
 * [magick](https://github.com/ropensci/magick) bindings to ImageMagick.
   Powers `{bittermelon}`'s `bm_distort()` method.
 * [mazing](https://github.com/kstreet13/mazing) generates mazes.

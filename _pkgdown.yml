@@ -4,6 +4,7 @@ development:
     mode: auto
 template:
   bootstrap: 5
+llm-docs: false
 reference:
     - title: "Bittermelon bitmap and pixmap objects"
       desc: 'Bittermelon bitmap and pixmap objects and methods.  See also "Modify bitmaps" and "Other bitmap object utilities".'
