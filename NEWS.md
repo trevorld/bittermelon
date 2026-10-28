@@ -9,7 +9,7 @@ New features
 Bug fixes and minor improvements
 --------------------------------
 
-* `as_bm_bitmap()` and `as_bm_pixmap()` gain a `bitmap` method for the raw `c("bitmap", "<channels>")` arrays returned by `pdftools::pdf_render_page()` and `magick::image_data()`. Previously conversion of such arrays gave scrambled pixels whenever `{magick}` had been loaded in the session because its `as.double.bitmap()` method intercepted the internal `as.numeric()` call. The new methods support the `"rgba"`, `"rgb"`, `"gray"`, `"graya"`, `"cmyk"`, and `"cmyka"` channel layouts.
+* `as_bm_bitmap()` and `as_bm_pixmap()` gain a `bitmap` method for the raw `c("bitmap", "<channels>")` arrays returned by `pdftools::pdf_render_page()` and `magick::image_data()`. Previously conversion of such arrays gave scrambled pixels whenever `{magick}` had been loaded in the session because its `as.double.bitmap()` method intercepted the internal `as.numeric()` call. The new methods support the `"rgba"`, `"rgb"`, `"gray"`, `"graya"`, `"cmyk"`, and `"cmyka"` channel layouts (#83).
 * `as_bm_bitmap()` and `as_bm_pixmap()` are several times faster for array inputs (e.g. from `png::readPNG()` or `pdftools::pdf_render_page()`) because they now threshold and encode the numeric channels directly instead of round-tripping through color strings.
 * `as_bm_bitmap()` and `as_bm_pixmap()` `array` methods gain a `max_color_value` argument (default `1`) for numeric arrays whose channels range from 0 to some other maximum such as `255` (analogous to the `maxColorValue` argument of `grDevices::rgb()`).
 * `as_bm_pixmap()` now supports numeric arrays with one (grey) or two (grey plus alpha) channels like `as_bm_bitmap()` already did.
