@@ -54,7 +54,7 @@ test_that("`as_bm_pixmap.array()` matches the `raster` path", {
 	expect_equal(as_bm_pixmap(a), as_bm_pixmap(as.raster(a)))
 	expect_equal(as_bm_pixmap(a[,, 1:3]), as_bm_pixmap(as.raster(a[,, 1:3])))
 	a255 <- floor(255 * a)
-	expect_equal(as_bm_pixmap(a255, max = 255), as_bm_pixmap(a255 / 255))
+	expect_equal(as_bm_pixmap(a255, max_color_value = 255), as_bm_pixmap(a255 / 255))
 	a[,, 4L] <- 0
 	expect_all_equal(as.character(as_bm_pixmap(a)), "#FFFFFF00")
 })

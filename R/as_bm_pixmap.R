@@ -72,15 +72,10 @@ as_bm_pixmap.default <- function(x, ...) {
 	as_bm_pixmap.raster(grDevices::as.raster(x, ...))
 }
 
-#' @param max Maximum color value of numeric arrays (e.g. `255`). Numeric
-#'   arrays are divided by `max`. Raw arrays always range from 0 to 255.
 #' @rdname as_bm_pixmap
 #' @export
-as_bm_pixmap.array <- function(x, ..., max = 1) {
-	if (!is.raw(x) && max != 1) {
-		x <- x / max
-	}
-	x <- normalize_image_array(x)
+as_bm_pixmap.array <- function(x, ..., max_color_value = 1) {
+	x <- normalize_image_array(x, max_color_value)
 	rgba <- array_to_rgba(x)
 	# Standardize fully transparent pixels to transparent white like `col2hex()`
 	rgba[rgba[, 4L] == 0, 1:3] <- 1
@@ -98,9 +93,11 @@ as_bm_pixmap.bitmap <- function(x, ...) {
 
 # Normalize image arrays to numeric height x width x channels arrays (0 to 1)
 # with either 3 (RGB) or 4 (RGBA) channels (as expected by `as.raster()`)
-normalize_image_array <- function(x) {
+normalize_image_array <- function(x, max_color_value = 1) {
 	if (is.raw(x)) {
 		x <- raw_array_to_numeric(x)
+	} else if (max_color_value != 1) {
+		x <- x / max_color_value
 	}
 	switch(
 		as.character(dim(x)[3L]),

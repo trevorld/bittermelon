@@ -95,6 +95,8 @@ test_that("`as_bm_bitmap.array()` matches the `bm_pixmap` path", {
 		}
 	}
 	expect_equal(as_bm_bitmap(a[,, 1:3]), as_bm_bitmap(as_bm_pixmap(a[,, 1:3]), mode = "darkness"))
+	a255 <- floor(255 * a)
+	expect_equal(as_bm_bitmap(a255, max_color_value = 255), as_bm_bitmap(a255 / 255))
 })
 
 test_that("`as_bm_bitmap.bitmap()`", {

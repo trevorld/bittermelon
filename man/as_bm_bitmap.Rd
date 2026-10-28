@@ -30,7 +30,8 @@ as_bm_bitmap(x, ...)
   x,
   ...,
   mode = c("alpha", "darkness", "brightness"),
-  threshold = 0.5
+  threshold = 0.5,
+  max_color_value = 1
 )
 
 \method{as_bm_bitmap}{default}(x, ...)
@@ -132,6 +133,11 @@ as_bm_bitmap(x, ...)
 weakly exceeds this threshold
 (on an interval from zero to one)
 then the pixel is determined to be \dQuote{black}.}
+
+\item{max_color_value}{Maximum color value of numeric arrays (e.g. \code{255}).
+Numeric arrays are divided by \code{max_color_value} (analogous to the
+\code{maxColorValue} argument of \code{\link[grDevices:rgb]{grDevices::rgb()}}). Raw arrays always range
+from 0 to 255.}
 
 \item{direction}{For purely horizontal binding either "left-to-right" (default) or its aliases "ltr" and "lr"
 OR "right-to-left" or its aliases "rtl" and "rl".
