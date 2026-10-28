@@ -39,7 +39,7 @@ as_bm_pixmap(x, ...)
 
 \method{as_bm_pixmap}{default}(x, ...)
 
-\method{as_bm_pixmap}{array}(x, ..., max = 1)
+\method{as_bm_pixmap}{array}(x, ..., max_color_value = 1)
 
 \method{as_bm_pixmap}{bitmap}(x, ...)
 
@@ -115,8 +115,10 @@ The \code{direction} argument is not case-sensitive.}
 
 \item{pua_combining}{Passed to \code{\link[=bm_compose]{bm_compose()}}.}
 
-\item{max}{Maximum color value of numeric arrays (e.g. \code{255}). Numeric
-arrays are divided by \code{max}. Raw arrays always range from 0 to 255.}
+\item{max_color_value}{Maximum color value of numeric arrays (e.g. \code{255}).
+Numeric arrays are divided by \code{max_color_value} (analogous to the
+\code{maxColorValue} argument of \code{\link[grDevices:rgb]{grDevices::rgb()}}). Raw arrays always range
+from 0 to 255.}
 
 \item{col}{Character vector of R color specifications.}
 

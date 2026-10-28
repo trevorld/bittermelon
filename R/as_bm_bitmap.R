@@ -11,15 +11,20 @@ as_bm_bitmap <- function(x, ...) {
 	UseMethod("as_bm_bitmap")
 }
 
+#' @param max_color_value Maximum color value of numeric arrays (e.g. `255`).
+#'   Numeric arrays are divided by `max_color_value` (analogous to the
+#'   `maxColorValue` argument of [grDevices::rgb()]). Raw arrays always range
+#'   from 0 to 255.
 #' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.array <- function(
 	x,
 	...,
 	mode = c("alpha", "darkness", "brightness"),
-	threshold = 0.5
+	threshold = 0.5,
+	max_color_value = 1
 ) {
-	x <- normalize_image_array(x)
+	x <- normalize_image_array(x, max_color_value)
 	# If no alpha channel then default to `mode <- "darkness"`
 	if (missing(mode) && dim(x)[3L] == 3L) {
 		mode <- "darkness"
