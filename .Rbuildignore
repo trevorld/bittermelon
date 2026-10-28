@@ -19,10 +19,13 @@
 ^tmp$
 ^unifont-13.0.06.hex.gz$
 tests/testthat/test-fontr.R
+tests/testthat/test-jpeg.R
 tests/testthat/test-lofifonts.R
 tests/testthat/test-pdftools.R
 tests/testthat/test-pixeltrix.R
 tests/testthat/test-pixmap.R
+tests/testthat/test-rsvg.R
+tests/testthat/test-tiff.R
 tests/testthat/test-webp.R
 tests/testthat/txt/fontr.txt
 tests/testthat/txt/lofifonts.txt
