@@ -47,5 +47,8 @@ test_that("summary.bm_font() snapshot with empty font", {
 
 test_that("summary.bm_font() snapshot with fixed 4x6 font", {
 	font <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon"))
-	expect_snapshot(print(summary(font)))
+	expect_snapshot(
+		print(summary(font)),
+		transform = function(x) sub("/ *[0-9]+$", "/<total>", x)
+	)
 })

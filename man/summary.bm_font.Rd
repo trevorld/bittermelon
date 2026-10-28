@@ -26,6 +26,8 @@ or \code{"bm_pixmap"}), or \code{NULL} if the font is empty.}
 \item{coverage}{A data frame with columns \code{block} (Unicode block name),
 \code{n} (number of font characters in that block), and \code{total}
 (total number of named code points in that block).
+\code{total} depends on the version of the Unicode Character Database
+bundled with the installed version of the \code{{Unicode}} package.
 Rows are sorted in Unicode code point order and include only
 blocks with at least one character in the font.}
 }

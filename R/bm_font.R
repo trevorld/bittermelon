@@ -117,6 +117,8 @@ as_bm_font.list <- function(x, ..., comments = NULL, properties = NULL) {
 #'     \item{coverage}{A data frame with columns `block` (Unicode block name),
 #'       `n` (number of font characters in that block), and `total`
 #'       (total number of named code points in that block).
+#'       `total` depends on the version of the Unicode Character Database
+#'       bundled with the installed version of the `{Unicode}` package.
 #'       Rows are sorted in Unicode code point order and include only
 #'       blocks with at least one character in the font.}
 #'   }
