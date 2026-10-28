@@ -23,7 +23,7 @@
       Bitmap class: bm_bitmap 
       Total characters: 2 
       Unicode block coverage (n / named chars in block):
-        Basic Latin  2/95
+        Basic Latin  2/<total>
 
 # summary.bm_font() snapshot with empty font
 

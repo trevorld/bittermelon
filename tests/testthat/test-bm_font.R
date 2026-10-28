@@ -1,3 +1,5 @@
+mask_totals <- function(x) sub("/ *[0-9]+$", "/<total>", x)
+
 plus_sign <- matrix(0L, nrow = 9L, ncol = 9L)
 plus_sign[5L, 3:7] <- 1L
 plus_sign[3:7, 5L] <- 1L
@@ -37,18 +39,16 @@ test_that("summary.bm_font()", {
 	expect_equal(s$n_chars, 2L)
 	expect_equal(s$coverage$block, "Basic Latin")
 	expect_equal(s$coverage$n, 2L)
+	expect_equal(s$coverage$total, 95L)
 
-	expect_snapshot(print(s))
+	expect_snapshot(print(s), transform = mask_totals)
 })
 
 test_that("summary.bm_font() snapshot with empty font", {
-	expect_snapshot(print(summary(bm_font())))
+	expect_snapshot(print(summary(bm_font())), transform = mask_totals)
 })
 
 test_that("summary.bm_font() snapshot with fixed 4x6 font", {
 	font <- read_yaff(system.file("fonts/fixed/4x6.yaff.gz", package = "bittermelon"))
-	expect_snapshot(
-		print(summary(font)),
-		transform = function(x) sub("/ *[0-9]+$", "/<total>", x)
-	)
+	expect_snapshot(print(summary(font)), transform = mask_totals)
 })
