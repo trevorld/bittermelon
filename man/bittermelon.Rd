@@ -6,7 +6,7 @@
 \alias{bittermelon}
 \title{bittermelon: Bitmap Tools}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
 Provides functions for creating, modifying, and displaying bitmaps including printing them in the terminal. There is a special emphasis on monochrome bitmap fonts and their glyphs as well as colored pixel art/sprites. Provides native read/write support for the 'hex' and 'yaff' bitmap font formats and if 'monobit' \url{https://github.com/robhagemans/monobit} is installed can also read/write several additional bitmap font formats.
 }
@@ -52,6 +52,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Trevor L. Davis \email{trevor.l.davis@gmail.com} (\href{https://orcid.org/0000-0001-6341-4639}{ORCID})
+
+Authors:
+\itemize{
+  \item Trevor L. Davis \email{trevor.l.davis@gmail.com} (\href{https://orcid.org/0000-0001-6341-4639}{ORCID})
+}
 
 Other contributors:
 \itemize{

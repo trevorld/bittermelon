@@ -8,7 +8,7 @@ bm_font(x = bm_list(), comments = NULL, properties = NULL)
 }
 \arguments{
 \item{x}{Named list of \code{\link[=bm_bitmap]{bm_bitmap()}} objects.
-Names must be coercible by \code{\link[Unicode:u_char_basics]{Unicode::as.u_char()}}.}
+Names must be coercible by \code{\link[Unicode:as.u_char]{Unicode::as.u_char()}}.}
 
 \item{comments}{An optional character vector of (global) font comments.}
 

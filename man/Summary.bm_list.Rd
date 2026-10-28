@@ -17,7 +17,7 @@ An integer vector.
 \description{
 \code{max()}, \code{min()}, and \code{range()} will provide the  maximum and minimum
 integer values found in the \code{bm_bitmap()}, \code{bm_list()}, or \code{bm_list()} objects.
-The other four S3 \link[base:groupGeneric]{base::Summary} methods - \code{all()}, \code{any()}, \code{sum}, and \code{prod} -
+The other four S3 \link[base:Summary]{base::Summary} methods - \code{all()}, \code{any()}, \code{sum}, and \code{prod} -
 are only supported for \code{bm_bitmap()} objects
 (which are subclasses of integer matrices).
 }

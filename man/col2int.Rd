@@ -23,7 +23,7 @@ int2col(x)
 \itemize{
 \item Colors are also standardized by \code{\link[=col2hex]{col2hex()}}.
 \item Requires either the \href{https://cran.r-project.org/package=colorfast}{colorfast} or
-the \link[farver:farver-package]{farver} package.
+the \link[farver:farver]{farver} package.
 }
 }
 \examples{
