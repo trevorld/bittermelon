@@ -72,10 +72,22 @@ as_bm_pixmap.default <- function(x, ...) {
 	as_bm_pixmap.raster(grDevices::as.raster(x, ...))
 }
 
+#' @param max Maximum color value of numeric arrays (e.g. `255`). Numeric
+#'   arrays are divided by `max`. Raw arrays always range from 0 to 255.
 #' @rdname as_bm_pixmap
 #' @export
-as_bm_pixmap.array <- function(x, ...) {
-	as_bm_pixmap.raster(grDevices::as.raster(normalize_image_array(x), ...))
+as_bm_pixmap.array <- function(x, ..., max = 1) {
+	if (!is.raw(x) && max != 1) {
+		x <- x / max
+	}
+	x <- normalize_image_array(x)
+	rgba <- array_to_rgba(x)
+	# Standardize fully transparent pixels to transparent white like `col2hex()`
+	rgba[rgba[, 4L] == 0, 1:3] <- 1
+	hex <- grDevices::rgb(rgba[, 1L], rgba[, 2L], rgba[, 3L], rgba[, 4L])
+	m <- flip_matrix_vertically(matrix(hex, nrow = nrow(x), ncol = ncol(x)))
+	class(m) <- c("bm_pixmap", "bm_matrix", class(m))
+	m
 }
 
 #' @rdname as_bm_pixmap
@@ -96,6 +108,19 @@ normalize_image_array <- function(x) {
 		"2" = x[,, c(1L, 1L, 1L, 2L), drop = FALSE], # GA
 		x
 	)
+}
+
+# Convert a numeric height x width x {3, 4} array (0 to 1) to a
+# (height * width) x 4 matrix of red, green, blue, alpha (0 to 1)
+# quantized to 8 bits per channel just like `grDevices::rgb()` would
+array_to_rgba <- function(x) {
+	d <- dim(x)
+	m <- matrix(x, nrow = d[1L] * d[2L], ncol = d[3L])
+	m <- floor(m * 255 + 0.5) / 255
+	if (d[3L] == 3L) {
+		m <- cbind(m, 1)
+	}
+	m
 }
 
 # Convert a raw channels x width x height array (0 to 255)
