@@ -39,12 +39,7 @@ bm_orientations <- function(x, square = c("square", "portrait", "landscape"), ..
 bm_orientations.default <- function(x, square = c("square", "portrait", "landscape"), ...) {
 	chkDots(...)
 	square <- match.arg(square)
-	width <- bm_widths(x)
-	height <- bm_heights(x)
-	o <- rep_len(square, length(width))
-	o[width > height] <- "landscape"
-	o[width < height] <- "portrait"
-	o
+	orientations(bm_widths(x), bm_heights(x), square)
 }
 
 #' @rdname bm_orientations
@@ -57,10 +52,18 @@ bm_orientations.bm_list <- function(
 ) {
 	chkDots(...)
 	square <- match.arg(square)
-	o <- vapply(x, bm_orientations, character(1L), square = square)
+	o <- orientations(bm_widths(x, unique = FALSE), bm_heights(x, unique = FALSE), square)
 	if (unique) {
 		base::unique(o)
 	} else {
 		o
 	}
+}
+
+orientations <- function(width, height, square) {
+	o <- rep_len(square, length(width))
+	names(o) <- names(width)
+	o[width > height] <- "landscape"
+	o[width < height] <- "portrait"
+	o
 }
