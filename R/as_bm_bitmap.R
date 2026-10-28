@@ -19,39 +19,26 @@ as_bm_bitmap.array <- function(
 	mode = c("alpha", "darkness", "brightness"),
 	threshold = 0.5
 ) {
+	x <- normalize_image_array(x)
 	# If no alpha channel then default to `mode <- "darkness"`
-	# One channel won't be dispatched by this so just worry about 3-channels
 	if (missing(mode) && dim(x)[3L] == 3L) {
-		# RGB
 		mode <- "darkness"
 	} else {
 		mode <- match.arg(mode)
 	}
-	if (dim(x)[3L] == 2L) {
-		# GA
-		grey <- as.double(x[,, 1L])
-		alpha <- as.double(x[,, 2L])
-		m <- matrix(grDevices::rgb(grey, grey, grey, alpha = alpha), nrow = nrow(x), ncol = ncol(x))
-		as_bm_bitmap.bm_pixmap(
-			as_bm_pixmap.matrix(flip_matrix_vertically(m)),
-			mode = mode,
-			threshold = threshold
-		)
-	} else {
-		# RGB or RGBA
-		as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x), mode = mode, threshold = threshold)
-	}
+	as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x), mode = mode, threshold = threshold)
 }
 
 #' @rdname as_bm_bitmap
 #' @export
 as_bm_bitmap.default <- function(x, ...) {
-	# "bitmap" "rgba" array from `pdftools::pdf_render_page()`
-	if (is.array(x) && is.raw(x)) {
-		as_bm_bitmap.bm_pixmap(as_bm_pixmap.array(x), ...)
-	} else {
-		as_bm_bitmap.matrix(as.matrix(x))
-	}
+	as_bm_bitmap.matrix(as.matrix(x))
+}
+
+#' @rdname as_bm_bitmap
+#' @export
+as_bm_bitmap.bitmap <- function(x, ...) {
+	as_bm_bitmap.array(bitmap_to_array(x), ...)
 }
 
 #' @rdname as_bm_bitmap

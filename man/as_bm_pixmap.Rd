@@ -5,6 +5,7 @@
 \alias{as_bm_pixmap.character}
 \alias{as_bm_pixmap.default}
 \alias{as_bm_pixmap.array}
+\alias{as_bm_pixmap.bitmap}
 \alias{as_bm_pixmap.bm_bitmap}
 \alias{as_bm_pixmap.bm_pixmap}
 \alias{as_bm_pixmap.glyph_bitmap}
@@ -39,6 +40,8 @@ as_bm_pixmap(x, ...)
 \method{as_bm_pixmap}{default}(x, ...)
 
 \method{as_bm_pixmap}{array}(x, ...)
+
+\method{as_bm_pixmap}{bitmap}(x, ...)
 
 \method{as_bm_pixmap}{bm_bitmap}(x, ..., col = getOption("bittermelon.col", col_bitmap))
 

@@ -69,21 +69,80 @@ as_bm_pixmap.character <- function(
 #' @rdname as_bm_pixmap
 #' @export
 as_bm_pixmap.default <- function(x, ...) {
-	# "bitmap" "rgba" array from `pdftools::pdf_render_page()`
-	if (is.array(x) && is.raw(x)) {
-		as_bm_pixmap.array(x)
-	} else {
-		as_bm_pixmap.raster(grDevices::as.raster(x, ...))
-	}
+	as_bm_pixmap.raster(grDevices::as.raster(x, ...))
 }
 
 #' @rdname as_bm_pixmap
 #' @export
 as_bm_pixmap.array <- function(x, ...) {
+	as_bm_pixmap.raster(grDevices::as.raster(normalize_image_array(x), ...))
+}
+
+#' @rdname as_bm_pixmap
+#' @export
+as_bm_pixmap.bitmap <- function(x, ...) {
+	as_bm_pixmap.array(bitmap_to_array(x), ...)
+}
+
+# Normalize image arrays to numeric height x width x channels arrays (0 to 1)
+# with either 3 (RGB) or 4 (RGBA) channels (as expected by `as.raster()`)
+normalize_image_array <- function(x) {
 	if (is.raw(x)) {
-		x <- aperm(structure(as.numeric(x) / 255, dim = dim(x)))
+		x <- raw_array_to_numeric(x)
 	}
-	as_bm_pixmap.raster(grDevices::as.raster(x, ...))
+	switch(
+		as.character(dim(x)[3L]),
+		"1" = x[,, c(1L, 1L, 1L), drop = FALSE], # G
+		"2" = x[,, c(1L, 1L, 1L, 2L), drop = FALSE], # GA
+		x
+	)
+}
+
+# Convert a raw channels x width x height array (0 to 255)
+# to a numeric height x width x channels array (0 to 1).
+# `unclass()` first so foreign S3 methods for `as.double()`
+# such as `magick:::as.double.bitmap()` (which transposes and rescales)
+# can't intercept the `as.numeric()` call.
+raw_array_to_numeric <- function(x) {
+	x <- aperm(unclass(x))
+	d <- dim(x)
+	x <- as.numeric(x) / 255
+	dim(x) <- d
+	x
+}
+
+# Convert a `c("bitmap", "<channels>")` raw array
+# from `pdftools::pdf_render_page()` or `magick::image_data()`
+# to a numeric height x width x channels array in G(A) or RGB(A) layout.
+bitmap_to_array <- function(x) {
+	channels <- class(x)[2L]
+	if (is.na(channels)) {
+		stop(
+			"`bitmap` object is missing its channel layout e.g. `c(\"bitmap\", \"rgba\")`",
+			call. = FALSE
+		)
+	}
+	a <- raw_array_to_numeric(x)
+	switch(
+		channels,
+		rgba = ,
+		rgb = ,
+		gray = ,
+		graya = a,
+		cmyk = ,
+		cmyka = cmyk_array_to_rgb(a),
+		stop(
+			sprintf("Don't know how to handle `bitmap` channel layout '%s'", channels),
+			call. = FALSE
+		)
+	)
+}
+
+# Drop the K plane and keep any trailing alpha plane
+cmyk_array_to_rgb <- function(a) {
+	rgb <- a[,, -4L, drop = FALSE]
+	rgb[,, 1:3] <- (1 - a[,, 1:3, drop = FALSE]) * (1 - as.vector(a[,, 4L]))
+	rgb
 }
 
 #' @param col Character vector of R color specifications.

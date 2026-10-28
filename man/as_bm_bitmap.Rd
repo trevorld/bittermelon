@@ -4,6 +4,7 @@
 \alias{as_bm_bitmap}
 \alias{as_bm_bitmap.array}
 \alias{as_bm_bitmap.default}
+\alias{as_bm_bitmap.bitmap}
 \alias{as_bm_bitmap.bm_bitmap}
 \alias{as_bm_bitmap.bm_pixmap}
 \alias{as_bm_bitmap.character}
@@ -33,6 +34,8 @@ as_bm_bitmap(x, ...)
 )
 
 \method{as_bm_bitmap}{default}(x, ...)
+
+\method{as_bm_bitmap}{bitmap}(x, ...)
 
 \method{as_bm_bitmap}{bm_bitmap}(x, ...)
 
