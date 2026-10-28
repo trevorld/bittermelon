@@ -48,6 +48,37 @@ test_that("`as_bm_pixmap()`", {
 	expect_equal(dim(pm), c(16L, 16L))
 })
 
+test_that("`as_bm_pixmap.bitmap()`", {
+	skip_if_not_installed("magick")
+	corn <- farming_crops_16x16()$corn$portrait
+	img <- magick::image_read(corn)
+	expect_equal(as_bm_pixmap(magick::image_data(img, "rgba")), corn)
+	expect_equal(as_bm_pixmap(img[[1L]]), corn)
+
+	opaque <- as_bm_pixmap(as_bm_bitmap(corn), col = c("white", "green4"))
+	img <- magick::image_read(opaque)
+	expect_equal(as_bm_pixmap(magick::image_data(img, "rgb")), opaque)
+	expect_equal(as_bm_pixmap(magick::image_data(img, "cmyk")), opaque)
+	expect_equal(as_bm_pixmap(magick::image_data(img, "cmyka")), opaque)
+
+	img_gray <- magick::image_convert(img, colorspace = "gray")
+	grey <- as_bm_pixmap(magick::image_data(img_gray, "gray"))
+	expect_equal(dim(grey), dim(opaque))
+	expect_equal(grey[1L, 1L], "#FFFFFFFF")
+	graya <- as_bm_pixmap(magick::image_data(img_gray, "graya"))
+	expect_equal(graya, grey)
+
+	# 1 and 2 channel numeric arrays
+	a <- as.array(corn)
+	expect_equal(as_bm_pixmap(a[,, c(1L, 4L)]), as_bm_pixmap(a[,, c(1L, 1L, 1L, 4L)]))
+	expect_equal(as_bm_pixmap(a[,, 1L, drop = FALSE]), as_bm_pixmap(a[,, c(1L, 1L, 1L)]))
+
+	bad <- structure(array(as.raw(0L), dim = c(3L, 2L, 2L)), class = c("bitmap", "hsl"))
+	expect_snapshot(as_bm_pixmap(bad), error = TRUE)
+	class(bad) <- "bitmap"
+	expect_snapshot(as_bm_pixmap(bad), error = TRUE)
+})
+
 test_that("`cbind()` and `rbind()`", {
 	skip_if_not_installed("withr")
 	withr::local_options(cli.unicode = TRUE)

@@ -81,3 +81,23 @@ test_that("as_bm_bitmap()", {
 	expect_equal(bm_invert(bm4), bm6)
 	unlink(f)
 })
+
+test_that("`as_bm_bitmap.bitmap()`", {
+	skip_if_not_installed("magick")
+	tulip <- farming_crops_16x16()$tulip$portrait
+	bm0 <- as_bm_bitmap(tulip)
+	img <- magick::image_read(tulip)
+	expect_equal(as_bm_bitmap(magick::image_data(img, "rgba")), bm0)
+	expect_equal(as_bm_bitmap(magick::image_data(img, "cmyka")), bm0)
+	img_gray <- magick::image_convert(img, colorspace = "gray")
+	expect_equal(as_bm_bitmap(magick::image_data(img_gray, "graya")), bm0)
+
+	img <- magick::image_read(as.raster(bm0, col = c("white", "black")))
+	expect_equal(as_bm_bitmap(magick::image_data(img, "rgb")), bm0)
+	expect_equal(as_bm_bitmap(magick::image_data(img, "gray")), bm0)
+	expect_equal(as_bm_bitmap(magick::image_data(img, "cmyk")), bm0)
+
+	# untagged raw arrays e.g. `rsvg::rsvg_raw()`
+	expect_equal(as_bm_bitmap(unclass(magick::image_data(img, "rgb"))), bm0)
+	expect_equal(as_bm_bitmap(unclass(magick::image_data(img, "rgba")), mode = "darkness"), bm0)
+})

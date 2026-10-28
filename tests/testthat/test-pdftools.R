@@ -18,7 +18,6 @@ test_that("`pdftools::pdf_render_page()` import works", {
 	bm <- as_bm_bitmap(array_num)
 	expect_equal(bm[1L, 1L], 1L)
 
-	skip("`pdf_render_page(numeric = FALSE)` randomly fails")
 	array_raw <- pdftools::pdf_render_page(filename, 1L, numeric = FALSE)
 	pm <- as_bm_pixmap(array_raw)
 	expect_equal(pm[1L, 1L], col2hex("blue"))
