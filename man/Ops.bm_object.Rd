@@ -59,5 +59,5 @@ corn <- crops$corn$portrait
 print(corn == col2hex("transparent"))
 }
 \seealso{
-\link[base:groupGeneric]{base::Ops}
+\link[base:Ops]{base::Ops}
 }

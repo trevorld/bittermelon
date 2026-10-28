@@ -32,12 +32,14 @@ cli ANSI style function of class \code{cli_ansi_style}.
 (i.e. use default terminal background).}
 
 \item{compress}{How to print the image:
-* "none" (default) or "n" use one character per pixel.
-* "vertical" or "v" use one character per two vertical pixels
+\itemize{
+\item "none" (default) or "n" use one character per pixel.
+\item "vertical" or "v" use one character per two vertical pixels
 (makes pixels look closest to square in typical terminal).
-* "horizontal" or "h" use one character per two horizontal pixels.
-* "both" or "b" use one character per four pixels
-(this will be a lossy conversion whenever there are more than two colors per four pixels).}
+\item "horizontal" or "h" use one character per two horizontal pixels.
+\item "both" or "b" use one character per four pixels
+(this will be a lossy conversion whenever there are more than two colors per four pixels).
+}}
 
 \item{downscale}{If \code{TRUE} and the printed pixmap will be wider than \code{getOption("width")}
 then shrink the image to fit \code{getOption("width")} using \code{\link[=bm_downscale]{bm_downscale()}}.}

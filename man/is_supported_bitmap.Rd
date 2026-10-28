@@ -22,5 +22,5 @@ space_glyph <- bm_bitmap(space_matrix)
 is_supported_bitmap(space_glyph)
 }
 \seealso{
-\code{\link[=is_bm_bitmap]{is_bm_bitmap()}}, \code{\link[=is_bm_pixmap]{is_bm_pixmap()}}, \code{\link[grDevices:as.raster]{grDevices::is.raster()}}
+\code{\link[=is_bm_bitmap]{is_bm_bitmap()}}, \code{\link[=is_bm_pixmap]{is_bm_pixmap()}}, \code{\link[grDevices:is.raster]{grDevices::is.raster()}}
 }

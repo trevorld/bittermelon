@@ -26,10 +26,10 @@ range2ucp(x, omit_unnamed = TRUE)
 }
 \arguments{
 \item{x}{R objects coercible to the respective Unicode character data types.
-See \code{\link[Unicode:u_char_basics]{Unicode::as.u_char()}} for \code{hex2ucp()} and \code{int2ucp()},
-\code{\link[base:utf8Conversion]{base::utf8ToInt()}} for \code{str2ucp()},
-\code{\link[Unicode:u_char_names]{Unicode::u_char_from_name()}} for \code{name2ucp()},
-\code{\link[Unicode:u_char_basics]{Unicode::as.u_char_range()}} for \code{range2ucp()},
+See \code{\link[Unicode:as.u_char]{Unicode::as.u_char()}} for \code{hex2ucp()} and \code{int2ucp()},
+\code{\link[base:utf8ToInt]{base::utf8ToInt()}} for \code{str2ucp()},
+\code{\link[Unicode:u_char_from_name]{Unicode::u_char_from_name()}} for \code{name2ucp()},
+\code{\link[Unicode:as.u_char_range]{Unicode::as.u_char_range()}} for \code{range2ucp()},
 and \code{\link[Unicode:u_blocks]{Unicode::u_blocks()}} for \code{block2ucp()}.}
 
 \item{type}{one of \code{"exact"} or \code{"grep"}, or an abbreviation

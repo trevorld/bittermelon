@@ -35,7 +35,7 @@ bm_downscale(x, width = getOption("width"), ...)
 \method{bm_distort}{raster}(x, width = NULL, height = NULL, ..., filter = "Point")
 }
 \arguments{
-\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
+\item{x}{Either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:image_read]{"magick-image"}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{"raster"}  object.}
 
 \item{width}{Desired width of bitmap}
 
@@ -43,8 +43,8 @@ bm_downscale(x, width = getOption("width"), ...)
 
 \item{...}{Additional arguments to be passed to or from methods.}
 
-\item{filter}{Passed to \code{\link[magick:transform]{magick::image_resize()}}.
-Use \code{\link[magick:options]{magick::filter_types()}} for list of supported filters.
+\item{filter}{Passed to \code{\link[magick:image_resize]{magick::image_resize()}}.
+Use \code{\link[magick:filter_types]{magick::filter_types()}} for list of supported filters.
 The default "Point" filter will maintain your sprite's color palette.
 \code{NULL} will give you the \code{magick}'s default filter which may work better
 if you are not trying to maintain a sprite color palette.}
@@ -55,10 +55,10 @@ weakly exceeds this threshold
 then the pixel is determined to be \dQuote{black}.}
 }
 \value{
-Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:editing]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
+Depending on \code{x} either a \code{\link[=bm_bitmap]{bm_bitmap()}}, \code{\link[=bm_font]{bm_font()}}, \code{\link[=bm_list]{bm_list()}}, \link[magick:image_read]{magick-image}, "nativeRaster", \code{\link[=bm_pixmap]{bm_pixmap()}}, or \link[grDevices:as.raster]{raster}  object.
 }
 \description{
-\code{bm_distort()} resize bitmaps to arbitrary width and height value via \code{\link[magick:transform]{magick::image_resize()}}.
+\code{bm_distort()} resize bitmaps to arbitrary width and height value via \code{\link[magick:image_resize]{magick::image_resize()}}.
 \code{bm_downscale()} is a wrapper to \code{bm_distort()} that downscales an image if (and only if) it is
 wider than a target width.
 }
