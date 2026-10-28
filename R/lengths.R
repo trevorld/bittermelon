@@ -10,6 +10,7 @@
 #' @return A integer vector of the relevant length of each
 #'         of the bitmap objects in `x`.
 #'         If `unique` is `TRUE` then any duplicates will have been removed.
+#' @seealso [bm_orientations()].
 #' @examples
 #' font_file <- system.file("fonts/spleen/spleen-8x16.hex.gz", package = "bittermelon")
 #' font <- read_hex(font_file)
