@@ -6,6 +6,11 @@ New features
 
 * `bm_orientations()` returns the orientations (`"landscape"`, `"portrait"`, or `"square"`) of bitmap objects (#102).
 
+Bug fixes and minor improvements
+--------------------------------
+
+* `bm_heights()` and `bm_widths()` now support `bm_list()` objects whose elements are `magick-image` objects.
+
 bittermelon 2.3.1
 =================
 

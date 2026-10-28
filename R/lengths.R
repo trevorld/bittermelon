@@ -35,7 +35,7 @@ bm_heights.bm_matrix <- function(x, ...) {
 #' @export
 bm_heights.bm_list <- function(x, unique = TRUE, ...) {
 	chkDots(...)
-	nr <- vapply(x, nrow, integer(1L))
+	nr <- vapply(x, bm_heights, integer(1L))
 	if (unique) {
 		base::unique(nr)
 	} else {
@@ -82,7 +82,7 @@ bm_widths.bm_matrix <- function(x, ...) {
 #' @export
 bm_widths.bm_list <- function(x, unique = TRUE, ...) {
 	chkDots(...)
-	nc <- vapply(x, ncol, integer(1L))
+	nc <- vapply(x, bm_widths, integer(1L))
 	if (unique) {
 		base::unique(nc)
 	} else {
