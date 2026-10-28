@@ -170,8 +170,10 @@ test_that("`print.bm_pixmap()` works as expected", {
 			print(p2, compress = "h")
 			print(p2, compress = "b")
 
-			withr::local_seed(42L)
-			pmm <- as_bm_pixmap(mazing::maze(14, 14), col = c("red", "white"))
+			pmm <- as_bm_pixmap(
+				withr::with_seed(42L, mazing::maze(14, 14)),
+				col = c("red", "white")
+			)
 			print(pmm, compress = "v")
 		},
 		crayon = TRUE,
