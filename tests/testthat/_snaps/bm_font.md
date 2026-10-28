@@ -42,28 +42,28 @@
       Bitmap class: bm_bitmap 
       Total characters: 919 
       Unicode block coverage (n / named chars in block):
-        Basic Latin                   95/ 95
-        Latin-1 Supplement            96/ 96
-        Latin Extended-A             128/128
-        Latin Extended-B               6/208
-        IPA Extensions                 1/ 96
-        Spacing Modifier Letters       9/ 80
-        Greek and Coptic              76/135
-        Cyrillic                      96/256
-        Hebrew                        27/ 88
-        Latin Extended Additional     22/256
-        General Punctuation           28/111
-        Superscripts and Subscripts    1/ 42
-        Currency Symbols               2/ 33
-        Letterlike Symbols             4/ 80
-        Number Forms                   4/ 60
-        Arrows                         6/112
-        Mathematical Operators       138/256
-        Miscellaneous Technical        7/256
-        Control Pictures               7/ 42
-        Box Drawing                  128/128
-        Block Elements                22/ 32
-        Geometric Shapes               3/ 96
-        Miscellaneous Symbols         11/256
-        Specials                       1/  5
+        Basic Latin                   95/<total>
+        Latin-1 Supplement            96/<total>
+        Latin Extended-A             128/<total>
+        Latin Extended-B               6/<total>
+        IPA Extensions                 1/<total>
+        Spacing Modifier Letters       9/<total>
+        Greek and Coptic              76/<total>
+        Cyrillic                      96/<total>
+        Hebrew                        27/<total>
+        Latin Extended Additional     22/<total>
+        General Punctuation           28/<total>
+        Superscripts and Subscripts    1/<total>
+        Currency Symbols               2/<total>
+        Letterlike Symbols             4/<total>
+        Number Forms                   4/<total>
+        Arrows                         6/<total>
+        Mathematical Operators       138/<total>
+        Miscellaneous Technical        7/<total>
+        Control Pictures               7/<total>
+        Box Drawing                  128/<total>
+        Block Elements                22/<total>
+        Geometric Shapes               3/<total>
+        Miscellaneous Symbols         11/<total>
+        Specials                       1/<total>
 
