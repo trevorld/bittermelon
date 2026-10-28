@@ -1,3 +1,11 @@
+bittermelon 2.4.0 (development)
+===============================
+
+New features
+------------
+
+* `bm_orientations()` returns the orientations (`"landscape"`, `"portrait"`, or `"square"`) of bitmap objects (#102).
+
 bittermelon 2.3.1
 =================
 
