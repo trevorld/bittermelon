@@ -1,3 +1,11 @@
+# `as_bm_pixmap.grob()` gives informative errors
+
+    Code
+      as_bm_pixmap(grid::circleGrob(), height = 1L)
+    Condition
+      Error in `as_bm_pixmap.grob()`:
+      ! height > 1L is not TRUE
+
 # `as_bm_pixmap.bitmap()`
 
     Code

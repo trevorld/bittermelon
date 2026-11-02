@@ -348,25 +348,7 @@ as_bm_bitmap.grob <- function(
 	threshold = 0.25
 ) {
 	stopifnot(width > 1L, height > 1L) # guarantee `m_bitmap` is a matrix
-	current_dev <- grDevices::dev.cur()
-	if (current_dev > 1L) {
-		on.exit(grDevices::dev.set(current_dev))
-	}
-
-	png_file <- tempfile(fileext = ".png")
-	on.exit(unlink(png_file))
-
-	if (is.null(png_device)) {
-		png_device <- default_png_device()
-	}
-
-	png_device(filename = png_file, height = height, width = width)
-	pushViewport(viewport(gp = gpar(lwd = 0, col = "black", fill = "black")))
-	grid.draw(x)
-	popViewport()
-	grDevices::dev.off()
-
-	a <- png::readPNG(png_file, native = FALSE)
+	a <- grob_to_array(x, width = width, height = height, png_device = png_device)
 	as_bm_bitmap.array(a, threshold = threshold)
 }
 
@@ -375,6 +357,32 @@ as_bm_bitmap.grob <- function(
 `as_bm_bitmap.lofi-matrix` <- function(x, ...) {
 	bm <- as_bm_bitmap.matrix(unclass(x))
 	bm_flip(bm)
+}
+
+# Render grob `x` to a `width` by `height` PNG and read it back as a numeric array
+grob_to_array <- function(x, width, height, png_device = NULL) {
+	png_file <- tempfile(fileext = ".png")
+	on.exit(unlink(png_file), add = TRUE)
+
+	if (is.null(png_device)) {
+		png_device <- default_png_device()
+	}
+
+	current_dev <- grDevices::dev.cur()
+	open_png <- function() {
+		png_device(filename = png_file, height = height, width = width)
+		if (grDevices::dev.cur() == current_dev) {
+			stop("`png_device()` did not open a new graphics device.", call. = FALSE)
+		}
+	}
+
+	with_temp_dev(open_png, {
+		pushViewport(viewport(gp = gpar(lwd = 0, col = "black", fill = "black")))
+		grid.draw(x)
+		popViewport()
+	})
+
+	png::readPNG(png_file, native = FALSE)
 }
 
 default_png_device <- function() {
