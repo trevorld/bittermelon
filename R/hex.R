@@ -30,7 +30,7 @@
 read_hex <- function(con, ucp = NULL) {
 	stopifnot(is.null(ucp) || all(is_ucp(ucp)))
 	if (inherits(con, "connection")) {
-		on.exit(close(con))
+		on.exit(close(con), add = TRUE)
 	}
 
 	contents <- readLines(con)
@@ -63,7 +63,7 @@ read_hex <- function(con, ucp = NULL) {
 #' @export
 write_hex <- function(font, con = stdout()) {
 	if (inherits(con, "connection")) {
-		on.exit(close(con))
+		on.exit(close(con), add = TRUE)
 	}
 
 	validate_bm_font(font)

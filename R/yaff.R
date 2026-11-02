@@ -34,7 +34,7 @@
 read_yaff <- function(con, ..., fg = "#000000FF") {
 	chkDots(...)
 	if (inherits(con, "connection")) {
-		on.exit(close(con))
+		on.exit(close(con), add = TRUE)
 	}
 
 	contents <- readLines(con)
@@ -294,7 +294,7 @@ as_bm_pixmap_yaff <- function(glyph, levels, fg = "#000000FF") {
 #' @export
 write_yaff <- function(font, con = stdout()) {
 	if (inherits(con, "connection")) {
-		on.exit(close(con))
+		on.exit(close(con), add = TRUE)
 	}
 
 	validate_bm_font(font)

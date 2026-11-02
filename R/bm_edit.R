@@ -24,7 +24,7 @@
 #' @export
 bm_edit <- function(bitmap, editor = getOption("editor")) {
 	file <- tempfile(fileext = ".yaff")
-	on.exit(unlink(file))
+	on.exit(unlink(file), add = TRUE)
 
 	bitmap <- bm_clamp(bitmap)
 	s <- format(bitmap, px = c(".", "@"))

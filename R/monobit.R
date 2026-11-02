@@ -50,7 +50,7 @@ read_monobit <- function(
 	}
 
 	tfile <- tempfile(fileext = ".yaff.gz")
-	on.exit(unlink(tfile))
+	on.exit(unlink(tfile), add = TRUE)
 
 	system2(monobit, c(file, tfile), stdout = stdout, stderr = stderr)
 	read_yaff(tfile, ...)
@@ -73,7 +73,7 @@ write_monobit <- function(
 	}
 
 	tfile <- tempfile(fileext = ".yaff.gz")
-	on.exit(unlink(tfile))
+	on.exit(unlink(tfile), add = TRUE)
 
 	write_yaff(font, gzfile(tfile))
 	system2(monobit, c(tfile, file), stdout = stdout, stderr = stderr)

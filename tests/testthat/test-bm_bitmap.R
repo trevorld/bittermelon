@@ -82,6 +82,31 @@ test_that("as_bm_bitmap()", {
 	unlink(f)
 })
 
+test_that("`grob` methods restore the graphics device", {
+	skip_if_not(capabilities("png"))
+	skip_if_not_installed("withr")
+	devs <- local_null_pdfs()
+	as_bm_bitmap(grid::circleGrob())
+	expect_devs(devs)
+	as_bm_pixmap(grid::circleGrob())
+	expect_devs(devs)
+
+	local_mocked_bindings(grid.draw = function(x) stop("boom"))
+	try(as_bm_bitmap(grid::circleGrob()), silent = TRUE)
+	expect_devs(devs)
+	# NB. `expect_snapshot()` itself changes the current device
+	expect_snapshot(as_bm_bitmap(grid::circleGrob()), error = TRUE)
+})
+
+test_that("`as_bm_bitmap.grob()` gives informative errors", {
+	skip_if_not(capabilities("png"))
+	expect_snapshot(as_bm_bitmap(grid::circleGrob(), width = 1L), error = TRUE)
+	expect_snapshot(
+		as_bm_bitmap(grid::circleGrob(), png_device = function(...) NULL),
+		error = TRUE
+	)
+})
+
 test_that("`as_bm_bitmap.array()` matches the `bm_pixmap` path", {
 	skip_if_not_installed("withr")
 	a <- withr::with_seed(42L, array(stats::runif(20L * 10L * 4L), dim = c(20L, 10L, 4L)))

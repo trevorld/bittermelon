@@ -48,6 +48,11 @@ test_that("`as_bm_pixmap()`", {
 	expect_equal(dim(pm), c(16L, 16L))
 })
 
+test_that("`as_bm_pixmap.grob()` gives informative errors", {
+	skip_if_not(capabilities("png"))
+	expect_snapshot(as_bm_pixmap(grid::circleGrob(), height = 1L), error = TRUE)
+})
+
 test_that("`as_bm_pixmap.array()` matches the `raster` path", {
 	skip_if_not_installed("withr")
 	a <- withr::with_seed(42L, array(stats::runif(20L * 10L * 4L), dim = c(20L, 10L, 4L)))

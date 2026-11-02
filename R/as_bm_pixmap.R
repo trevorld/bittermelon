@@ -195,25 +195,7 @@ as_bm_pixmap.glyph_bitmap <- function(x, ..., col = getOption("bittermelon.col",
 #' @export
 as_bm_pixmap.grob <- function(x, ..., width = 16L, height = 16L, png_device = NULL) {
 	stopifnot(width > 1L, height > 1L) # guarantee `m_bitmap` is a matrix
-	current_dev <- grDevices::dev.cur()
-	if (current_dev > 1L) {
-		on.exit(grDevices::dev.set(current_dev))
-	}
-
-	png_file <- tempfile(fileext = ".png")
-	on.exit(unlink(png_file))
-
-	if (is.null(png_device)) {
-		png_device <- default_png_device()
-	}
-
-	png_device(filename = png_file, height = height, width = width)
-	pushViewport(viewport(gp = gpar(lwd = 0, col = "black", fill = "black")))
-	grid.draw(x)
-	popViewport()
-	grDevices::dev.off()
-
-	a <- png::readPNG(png_file, native = FALSE)
+	a <- grob_to_array(x, width = width, height = height, png_device = png_device)
 	as_bm_pixmap.array(a)
 }
 
